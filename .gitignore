@@ -12,6 +12,12 @@ CMakeCache.txt
 cmake_install.cmake
 Makefile
 
+# IDE files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
 # Compiled Object files
 *.slo
 *.lo
