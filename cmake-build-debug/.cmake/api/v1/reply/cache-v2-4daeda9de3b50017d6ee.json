@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/paul/CLionProjects/OrderBook/cmake-build-debug"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/paul/CLionProjects/OrderBook/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -539,7 +539,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/paul/CLionProjects/OrderBook"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book"
 		},
 		{
 			"name" : "CMAKE_INSTALL_NAME_TOOL",
@@ -1127,7 +1127,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/paul/CLionProjects/OrderBook/cmake-build-debug"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
 		},
 		{
 			"name" : "OrderBook_IS_TOP_LEVEL",
@@ -1151,7 +1151,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/paul/CLionProjects/OrderBook"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book"
 		}
 	],
 	"kind" : "cache",

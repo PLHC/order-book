@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/paul/CLionProjects/OrderBook/cmake-build-debug",
-		"source" : "/Users/paul/CLionProjects/OrderBook"
+		"build" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug",
+		"source" : "/Users/paul/CLionProjects/OrderBook/order-book"
 	},
 	"version" : 
 	{
