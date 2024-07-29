@@ -5,7 +5,7 @@
 int main() {
     Market M{};
     M.createNewOrderBook("Gold");
-    Bot B{100ms, &M};
+    Bot B{1ms, &M};
     B.generateInteractionsWithMarket();
     return 0;
 }

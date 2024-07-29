@@ -16,8 +16,10 @@ class Order {
 private:
     uint32_t userID_;
     uint32_t boID_;
-    int32_t price_;
-    uint32_t volume_;
+    double price_;
+    double volume_;
+    int32_t priceInCents_;
+    uint32_t volumeInHundredths_;
     std::string productID_;
     orderDirection buyOrSell_;
     orderType boType_;
@@ -27,9 +29,9 @@ private:
 public:
     explicit Order(orderDirection buyOrSell);
     explicit Order(uint32_t userID,
-                   uint32_t boID,
-                   int32_t price,
-                   uint32_t volume,
+                   uint64_t boID,
+                   double price,
+                   double volume,
                    std::string product_ID,
                    orderDirection buyOrSell,
                    orderType boType);
@@ -38,15 +40,20 @@ public:
     Order& operator=(const Order&& other) = delete;
 
     [[nodiscard]] inline uint32_t getterUserID() const {return userID_;};
-    [[nodiscard]] inline uint32_t getterBoID() const {return boID_;};
-    [[nodiscard]] inline int32_t getterPrice() const {return price_;};
-    [[nodiscard]] inline uint32_t getterVolume() const {return volume_;};
+    [[nodiscard]] inline uint64_t getterBoID() const {return boID_;};
+    [[nodiscard]] inline double getterPrice() const {return price_;};
+    [[nodiscard]] inline double getterVolume() const {return volume_;};
+    [[nodiscard]] inline int32_t getterPriceInCents() const {return priceInCents_;};
+    [[nodiscard]] inline uint32_t getterVolumeInHundredth() const {return volumeInHundredths_;};
     [[nodiscard]] inline orderDirection getterOrderDirection() const {return buyOrSell_;};
     [[nodiscard]] inline orderType getterOrderType() const {return boType_;};
     [[nodiscard]] inline Order* getterPrevBO() const {return prev_bo_;};
     [[nodiscard]] inline Order* getterNextBO() const {return next_bo_;};
 
-    void inline updateVolume(uint32_t newVolume) {volume_=newVolume;};
+    void inline updateVolume(double newVolume) {
+        volumeInHundredths_ = static_cast<int>(newVolume * 100);
+        volume_ = volumeInHundredths_/100.0;
+    };
     void inline updatePrevBO(Order* newBO) {prev_bo_=newBO;};
     void inline updateNextBO(Order* newBO) {next_bo_=newBO;};
     bool inline checkIfOnlyVolumeUpdatedAndDown(Order* newOrder){

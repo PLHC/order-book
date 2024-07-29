@@ -12,7 +12,7 @@
 class Market {
 private:
     std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
-    uint32_t lastID;
+    uint64_t lastID;
 
 public:
     Market();
@@ -27,10 +27,10 @@ public:
     }
     void deleteOrderBook(const std::string& product_ID);
     void deleteOrder(const std::string& product,
-                     uint32_t boID);
+                     uint64_t boID);
     void insertOrder(int32_t userID,
-                     int32_t price,
-                     uint32_t volume,
+                     double price,
+                     double volume,
                      const std::string& product_ID,
                      orderDirection buyOrSell,
                      orderType boType);
@@ -40,7 +40,7 @@ public:
                      const std::string& product_ID,
                      orderDirection buyOrSell,
                      orderType boType,
-                     uint32_t updatedOrderID);
+                     uint64_t updatedOrderID);
     inline OrderBook* getterOrderBookPointer(const std::string& productID) {return ProductToOrderBookMap[productID];};
 };
 

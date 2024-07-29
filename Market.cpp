@@ -15,15 +15,15 @@ Market::~Market(){
 }
 
 void Market::deleteOrder(const std::string &product,
-                         uint32_t boID) {
+                         uint64_t boID) {
     //check if product and order exist first or throw error
     auto orderBookPointer = ProductToOrderBookMap[product];
     orderBookPointer->deletion(orderBookPointer->getterPointerToOrderFromID(boID));
 }
 
 void Market::insertOrder(int32_t userID,
-                         int32_t price,
-                         uint32_t volume,
+                         double price,
+                         double volume,
                          const std::string& product_ID,
                          orderDirection buyOrSell,
                          orderType boType) {
@@ -39,7 +39,7 @@ void Market::updateOrder(int32_t userID,
                          const std::string &product_ID,
                          orderDirection buyOrSell,
                          orderType boType,
-                         uint32_t updatedOrderID) {
+                         uint64_t updatedOrderID) {
     //check if product and order exist first or throw error
     auto orderBookPointer = ProductToOrderBookMap[product_ID];
     auto updatedOrder = orderBookPointer->getterPointerToOrderFromID(updatedOrderID);

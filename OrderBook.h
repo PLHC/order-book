@@ -15,7 +15,7 @@ class OrderBook {
 private:
     OrderLinkedList bids_;
     OrderLinkedList offers_;
-    std::unordered_map<uint32_t, Order*> IDtoPointerMap;
+    std::unordered_map<uint64_t, Order*> IDtoPointerMap;
 
 public:
     OrderBook();
@@ -23,7 +23,7 @@ public:
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
 
-    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint32_t& boID) {return IDtoPointerMap[boID];};
+    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t& boID) {return IDtoPointerMap[boID];};
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* executingOrder);
