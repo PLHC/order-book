@@ -54,7 +54,8 @@
 				3,
 				5,
 				7,
-				9
+				9,
+				11
 			]
 		}
 	],
@@ -92,7 +93,8 @@
 				3,
 				5,
 				7,
-				9
+				9,
+				11
 			]
 		},
 		{
@@ -103,7 +105,8 @@
 				4,
 				6,
 				8,
-				10
+				10,
+				12
 			]
 		}
 	],
@@ -168,6 +171,17 @@
 		{
 			"backtrace" : 1,
 			"path" : "Bot.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "CustomerRequestQueue.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "CustomerRequestQueue.h",
 			"sourceGroupIndex" : 1
 		}
 	],

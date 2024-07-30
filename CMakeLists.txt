@@ -13,4 +13,6 @@ add_executable(OrderBook main.cpp
         Market.cpp
         Market.h
         Bot.cpp
-        Bot.h)
+        Bot.h
+        CustomerRequestQueue.cpp
+        CustomerRequestQueue.h)

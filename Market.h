@@ -8,6 +8,7 @@
 #include "Order.h"
 #include "OrderLinkedList.h"
 #include "OrderBook.h"
+#include "CustomerRequestQueue.h"
 
 class Market {
 private:

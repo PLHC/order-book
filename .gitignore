@@ -48,3 +48,6 @@ Makefile
 *.exe
 *.out
 *.app
+
+# Other files
+test.cpp
