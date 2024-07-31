@@ -14,35 +14,35 @@ OrderBook::OrderBook(CustomerRequestQueue * requestQueue):
         IDtoPointerMap(),
         requestQueue_(requestQueue){}
 
-void OrderBook::deleteOrder(const Request& node) {
-    //check if product and order exist first or throw error
-    deletion(getterPointerToOrderFromID(node.getterBoID()));
-}
-
-void OrderBook::insertOrder(const Request& node) {
-    //check if product exists first or throw error
-    auto newOrder = new Order(node.getterUserID(),
-                              node.getterBoID(),
-                              node.getterPrice(),
-                              node.getterVolume(),
-                              node.getterProductID(),
-                              node.getterOrderDirection(),
-                              node.getterOrderType());
-    insertion(newOrder);
-}
-
-void OrderBook::updateOrder(const Request& node) {
-    //check if product and order exist first or throw error
-    auto updatedOrder = getterPointerToOrderFromID(node.getterUpdatedOrderID());
-    auto newOrder = new Order(node.getterUserID(),
-                              node.getterBoID(),
-                              node.getterPrice(),
-                              node.getterVolume(),
-                              node.getterProductID(),
-                              node.getterOrderDirection(),
-                              node.getterOrderType());
-    update(updatedOrder, newOrder);
-}
+//void OrderBook::deleteOrder(const Request& node) {
+//    //check if product and order exist first or throw error
+//    deletion(getterPointerToOrderFromID(node.getterBoID()));
+//}
+//
+//void OrderBook::insertOrder(const Request& node) {
+//    //check if product exists first or throw error
+//    auto newOrder = new Order(node.getterUserID(),
+//                              node.getterBoID(),
+//                              node.getterPrice(),
+//                              node.getterVolume(),
+//                              node.getterProductID(),
+//                              node.getterOrderDirection(),
+//                              node.getterOrderType());
+//    insertion(newOrder);
+//}
+//
+//void OrderBook::updateOrder(const Request& node) {
+//    //check if product and order exist first or throw error
+//    auto updatedOrder = getterPointerToOrderFromID(node.getterUpdatedOrderID());
+//    auto newOrder = new Order(node.getterUserID(),
+//                              node.getterBoID(),
+//                              node.getterPrice(),
+//                              node.getterVolume(),
+//                              node.getterProductID(),
+//                              node.getterOrderDirection(),
+//                              node.getterOrderType());
+//    update(updatedOrder, newOrder);
+//}
 
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());
@@ -203,6 +203,7 @@ void OrderBook::displayOrderBook() {
             auto item = Q->requestQueue_.front();
             switch(item.getterNodeType()){
                 case insertionCR:
+//                    check if possible
                     insertion(new Order(item.getterUserID(),
                                         item.getterBoID(),
                                         item.getterPrice(),
@@ -212,10 +213,12 @@ void OrderBook::displayOrderBook() {
                                         item.getterOrderType()));
                     break;
                 case deletionCR:
-                    deletion(IDtoPointerMap[item.getterBoID()]);
+                    //check if existing
+                    deletion(getterPointerToOrderFromID(item.getterBoID()));
                     break;
                 case updateCR:
-                    update(IDtoPointerMap[item.getterUpdatedOrderID()],
+                    // check if existing
+                    update(getterPointerToOrderFromID(item.getterBoID()),
                             new Order(item.getterUserID(),
                                      item.getterBoID(),
                                      item.getterPrice(),
@@ -224,7 +227,7 @@ void OrderBook::displayOrderBook() {
                                      item.getterOrderDirection(),
                                      item.getterOrderType()));
                     break;
-                    //default add issue
+                    //default throw error
             }
             Q->requestQueue_.pop();
         }

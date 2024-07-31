@@ -25,6 +25,9 @@ private:
     void update(Order* updatedOrder,
                 Order* newOrder);
     void deletion(Order* deletedOrder);
+//    void insertOrder(const Request& node);
+//    void deleteOrder(const Request& node);
+//    void updateOrder(const Request& node);
 
 public:
     explicit OrderBook(CustomerRequestQueue* requestQueue);
@@ -33,11 +36,7 @@ public:
     OrderBook& operator=(const OrderBook&& other) = delete;
 
     [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
-    void insertOrder(const Request& node);
-    void deleteOrder(const Request& node);
-    void updateOrder(const Request& node);
     void displayOrderBook();
-
     [[noreturn]] void listenToRequests(CustomerRequestQueue* Q);
 };
 
