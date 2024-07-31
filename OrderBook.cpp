@@ -8,10 +8,41 @@
 #include <iomanip>
 #include <cstdlib>
 
-OrderBook::OrderBook():
+OrderBook::OrderBook(CustomerRequestQueue * requestQueue):
         bids_(buy),
         offers_(sell),
-        IDtoPointerMap(){}
+        IDtoPointerMap(),
+        requestQueue_(requestQueue){}
+
+void OrderBook::deleteOrder(DeleteRequestNode* node) {
+    //check if product and order exist first or throw error
+    deletion(getterPointerToOrderFromID(node->getterBoID()));
+}
+
+void OrderBook::insertOrder(InsertRequestNode* node) {
+    //check if product exists first or throw error
+    auto newOrder = new Order(node->getterUserID(),
+                              node->getterBoID(),
+                              node->getterPrice(),
+                              node->getterVolume(),
+                              node->getterProductID(),
+                              node->getterOrderDirection(),
+                              node->getterOrderType());
+    insertion(newOrder);
+}
+
+void OrderBook::updateOrder(UpdateRequestNode* node) {
+    //check if product and order exist first or throw error
+    auto updatedOrder = getterPointerToOrderFromID(node->getterUpdatedOrderID());
+    auto newOrder = new Order(node->getterUserID(),
+                              node->getterBoID(),
+                              node->getterPrice(),
+                              node->getterVolume(),
+                              node->getterProductID(),
+                              node->getterOrderDirection(),
+                              node->getterOrderType());
+    update(updatedOrder, newOrder);
+}
 
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());
@@ -162,4 +193,8 @@ void OrderBook::displayOrderBook() {
     oss<<std::endl;
     auto table = oss.str();
     std::cout<<table;
+}
+
+void OrderBook::startListeningToRequests() {
+
 }

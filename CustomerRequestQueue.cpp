@@ -5,6 +5,7 @@
 #include "CustomerRequestQueue.h"
 #include <utility>
 
+
 DummyRequestNode::DummyRequestNode():
     nextNode_(nullptr),
     prevNode_(nullptr),
@@ -12,7 +13,7 @@ DummyRequestNode::DummyRequestNode():
 
 BasicRequestNode::BasicRequestNode(int32_t userID,
                                    std::string product_ID,
-                                   int64_t boID):
+                                   uint64_t boID):
     userID_(userID),
     product_ID_(std::move(product_ID)),
     processed_(false),
@@ -22,7 +23,7 @@ BasicRequestNode::BasicRequestNode(int32_t userID,
 
 InsertRequestNode::InsertRequestNode(int32_t userId,
                                      std::string productId,
-                                     int64_t boId,
+                                     uint64_t boId,
                                      double price,
                                      double volume,
                                      orderDirection buyOrSell,
@@ -40,7 +41,7 @@ InsertRequestNode::InsertRequestNode(int32_t userId,
 
 DeleteRequestNode::DeleteRequestNode(int32_t userID,
                                      std::string product_ID,
-                                     int64_t boID) :
+                                     uint64_t boID) :
      BasicRequestNode(userID,
                       std::move(product_ID),
                       boID) {
@@ -49,7 +50,7 @@ DeleteRequestNode::DeleteRequestNode(int32_t userID,
 
 UpdateRequestNode::UpdateRequestNode(int32_t userId,
                                      const std::string& productId,
-                                     int64_t boId,
+                                     uint64_t boId,
                                      double price,
                                      double volume,
                                      orderDirection buyOrSell,
@@ -66,7 +67,9 @@ UpdateRequestNode::UpdateRequestNode(int32_t userId,
     setterNodeType(update);
 }
 
-CustomerRequestQueue::CustomerRequestQueue(){
+CustomerRequestQueue::CustomerRequestQueue():
+    queueMutex_(),
+    queueConditionVariable_(){
     dummyHead_ = new DummyRequestNode();
     tail_ = dummyHead_;
 }

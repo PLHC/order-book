@@ -6,19 +6,26 @@
 
 Market::Market():
         ProductToOrderBookMap(),
+        ProductToCustomerRequestQueueMap(),
         lastID(0) {} // replace last ID by an ID in database; needs a lock on it
 
 Market::~Market(){
     for(auto & [product, OrderBookPointer] : ProductToOrderBookMap){
         delete OrderBookPointer;
     }
+    for(auto & [product, QueuePointer] : ProductToCustomerRequestQueueMap){
+        delete QueuePointer;
+    }
 }
 
-void Market::deleteOrder(const std::string &product,
+void Market::deleteOrder(int32_t userID,
+                         const std::string &product_ID,
                          uint64_t boID) {
     //check if product and order exist first or throw error
-    auto orderBookPointer = ProductToOrderBookMap[product];
-    orderBookPointer->deletion(orderBookPointer->getterPointerToOrderFromID(boID));
+    auto node = new DeleteRequestNode(userID,
+                                     product_ID,
+                                     boID);
+    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
 }
 
 void Market::insertOrder(int32_t userID,
@@ -28,9 +35,14 @@ void Market::insertOrder(int32_t userID,
                          orderDirection buyOrSell,
                          orderType boType) {
     //check if product exists first or throw error
-    auto orderBookPointer = ProductToOrderBookMap[product_ID];
-    auto newOrder = new Order(userID, nextID(), price, volume, product_ID, buyOrSell, boType);
-    orderBookPointer->insertion(newOrder);
+    auto node = new InsertRequestNode(userID,
+                                      product_ID,
+                                      nextID(),
+                                      price,
+                                      volume,
+                                      buyOrSell,
+                                      boType);
+    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
 }
 
 void Market::updateOrder(int32_t userID,
@@ -41,10 +53,15 @@ void Market::updateOrder(int32_t userID,
                          orderType boType,
                          uint64_t updatedOrderID) {
     //check if product and order exist first or throw error
-    auto orderBookPointer = ProductToOrderBookMap[product_ID];
-    auto updatedOrder = orderBookPointer->getterPointerToOrderFromID(updatedOrderID);
-    auto newOrder = new Order(userID, nextID(), price, volume, product_ID, buyOrSell, boType);
-    orderBookPointer->update(updatedOrder, newOrder);
+    auto node = new UpdateRequestNode(userID,
+                                      product_ID,
+                                      nextID(),
+                                      price,
+                                      volume,
+                                      buyOrSell,
+                                      boType,
+                                      updatedOrderID);
+    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
 }
 
 void Market::deleteOrderBook(const std::string &product_ID) {
@@ -52,4 +69,6 @@ void Market::deleteOrderBook(const std::string &product_ID) {
     // check if orderbook existing or throw error
     delete ProductToOrderBookMap[product_ID];
     ProductToOrderBookMap.erase(product_ID);
+    delete ProductToCustomerRequestQueueMap[product_ID];
+    ProductToCustomerRequestQueueMap.erase(product_ID);
 }

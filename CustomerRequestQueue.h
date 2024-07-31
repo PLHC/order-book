@@ -8,7 +8,8 @@
 #include <cstdint>
 #include <utility>
 #include <string>
-#include "order.h"
+#include "Order.h"
+#include <mutex>
 
 enum customerRequestType {dummy, basic, deletion, insertion, update};
 
@@ -16,7 +17,6 @@ class DummyRequestNode{
     DummyRequestNode * nextNode_;
     DummyRequestNode * prevNode_;
     customerRequestType nodeType_;
-
 
 public:
     DummyRequestNode();
@@ -33,16 +33,16 @@ class BasicRequestNode : public DummyRequestNode{
     int32_t userID_;
     std::string product_ID_;
     bool processed_;
-    int64_t boID_;
+    uint64_t boID_;
 
 public:
     BasicRequestNode(int32_t userID,
                     std::string product_ID,
-                    int64_t boID);
+                    uint64_t boID);
 
     [[nodiscard]] inline int32_t getterUserID() const {return userID_;};
     [[nodiscard]] inline std::string getterProductID() const{return product_ID_;};
-    [[nodiscard]] inline int64_t getterBoID() const {return boID_;};
+    [[nodiscard]] inline uint64_t getterBoID() const {return boID_;};
     [[nodiscard]] inline bool getterProcessed() const {return processed_;};
     inline void setProcessToTrue() {processed_ = true;};
 
@@ -55,8 +55,13 @@ class InsertRequestNode: public BasicRequestNode{
     orderType boType_;
 
 public:
-    InsertRequestNode(int32_t userId, std::string productId, int64_t boId, double price,
-                      double volume, orderDirection buyOrSell, orderType boType);
+    InsertRequestNode(int32_t userId,
+                      std::string productId,
+                      uint64_t boId,
+                      double price,
+                      double volume,
+                      orderDirection buyOrSell,
+                      orderType boType);
 
     [[nodiscard]] inline double getterPrice() const {return price_;};
     [[nodiscard]] inline double getterVolume() const {return volume_;};
@@ -68,7 +73,7 @@ class DeleteRequestNode: public BasicRequestNode{
 public:
     DeleteRequestNode(int32_t userID,
                       std::string product_ID,
-                      int64_t boID);
+                      uint64_t boID);
 };
 
 class UpdateRequestNode: public InsertRequestNode{
@@ -76,7 +81,7 @@ class UpdateRequestNode: public InsertRequestNode{
 public:
     UpdateRequestNode(int32_t userId,
                       const std::string& productId,
-                      int64_t boId,
+                      uint64_t boId,
                       double price,
                       double volume,
                       orderDirection buyOrSell,
@@ -90,6 +95,8 @@ class CustomerRequestQueue {
     DummyRequestNode* tail_;
 
 public:
+    std::mutex queueMutex_;
+    std::condition_variable queueConditionVariable_;
     CustomerRequestQueue();
     ~CustomerRequestQueue();
 

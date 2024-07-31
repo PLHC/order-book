@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include "Order.h"
 #include "OrderLinkedList.h"
+#include "CustomerRequestQueue.h"
 
 enum orderExecution {fullExecution, partialExecution, noExecution};
 
@@ -16,22 +17,27 @@ private:
     OrderLinkedList bids_;
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> IDtoPointerMap;
+    CustomerRequestQueue* requestQueue_;
 
 public:
-    OrderBook();
+    explicit OrderBook(CustomerRequestQueue* requestQueue);
 
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
 
-    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t& boID) {return IDtoPointerMap[boID];};
+    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
 
     orderExecution checkExecution(Order* orderToBeChecked);
+    void insertOrder(InsertRequestNode* node);
+    void deleteOrder(DeleteRequestNode* node);
+    void updateOrder(UpdateRequestNode* node);
     void performExecution(Order* executingOrder);
     void insertion(Order* newOrder);
     void update(Order* updatedOrder,
                 Order* newOrder);
     void deletion(Order* deletedOrder);
     void displayOrderBook();
+    void startListeningToRequests();
 };
 
 
