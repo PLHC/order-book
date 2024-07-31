@@ -14,33 +14,33 @@ OrderBook::OrderBook(CustomerRequestQueue * requestQueue):
         IDtoPointerMap(),
         requestQueue_(requestQueue){}
 
-void OrderBook::deleteOrder(DeleteRequestNode* node) {
+void OrderBook::deleteOrder(const Request& node) {
     //check if product and order exist first or throw error
-    deletion(getterPointerToOrderFromID(node->getterBoID()));
+    deletion(getterPointerToOrderFromID(node.getterBoID()));
 }
 
-void OrderBook::insertOrder(InsertRequestNode* node) {
+void OrderBook::insertOrder(const Request& node) {
     //check if product exists first or throw error
-    auto newOrder = new Order(node->getterUserID(),
-                              node->getterBoID(),
-                              node->getterPrice(),
-                              node->getterVolume(),
-                              node->getterProductID(),
-                              node->getterOrderDirection(),
-                              node->getterOrderType());
+    auto newOrder = new Order(node.getterUserID(),
+                              node.getterBoID(),
+                              node.getterPrice(),
+                              node.getterVolume(),
+                              node.getterProductID(),
+                              node.getterOrderDirection(),
+                              node.getterOrderType());
     insertion(newOrder);
 }
 
-void OrderBook::updateOrder(UpdateRequestNode* node) {
+void OrderBook::updateOrder(const Request& node) {
     //check if product and order exist first or throw error
-    auto updatedOrder = getterPointerToOrderFromID(node->getterUpdatedOrderID());
-    auto newOrder = new Order(node->getterUserID(),
-                              node->getterBoID(),
-                              node->getterPrice(),
-                              node->getterVolume(),
-                              node->getterProductID(),
-                              node->getterOrderDirection(),
-                              node->getterOrderType());
+    auto updatedOrder = getterPointerToOrderFromID(node.getterUpdatedOrderID());
+    auto newOrder = new Order(node.getterUserID(),
+                              node.getterBoID(),
+                              node.getterPrice(),
+                              node.getterVolume(),
+                              node.getterProductID(),
+                              node.getterOrderDirection(),
+                              node.getterOrderType());
     update(updatedOrder, newOrder);
 }
 
@@ -195,6 +195,39 @@ void OrderBook::displayOrderBook() {
     std::cout<<table;
 }
 
-void OrderBook::startListeningToRequests() {
+[[noreturn]] void OrderBook::listenToRequests(CustomerRequestQueue* Q) {
+    std::unique_lock<std::mutex> lock(Q->queueMutex_);
+    while (true) {
+        Q->queueConditionVariable_.wait(lock, [&Q]{ return !Q->requestQueue_.empty();});
+        while (!Q->requestQueue_.empty()) {
+            auto item = Q->requestQueue_.front();
+            switch(item.getterNodeType()){
+                case insertionCR:
+                    insertion(new Order(item.getterUserID(),
+                                        item.getterBoID(),
+                                        item.getterPrice(),
+                                        item.getterVolume(),
+                                        item.getterProductID(),
+                                        item.getterOrderDirection(),
+                                        item.getterOrderType()));
+                    break;
+                case deletionCR:
+                    deletion(IDtoPointerMap[item.getterBoID()]);
+                    break;
+                case updateCR:
+                    update(IDtoPointerMap[item.getterUpdatedOrderID()],
+                            new Order(item.getterUserID(),
+                                     item.getterBoID(),
+                                     item.getterPrice(),
+                                     item.getterVolume(),
+                                     item.getterProductID(),
+                                     item.getterOrderDirection(),
+                                     item.getterOrderType()));
+                    break;
+                    //default add issue
+            }
+            Q->requestQueue_.pop();
+        }
+    }
 
 }

@@ -19,7 +19,7 @@ void Bot::generateInteractionsWithMarket() {
     int32_t i = 1'000;
     while(i--){
         std::this_thread::sleep_for(sleepTimerInMilliseconds_);
-        market_->insertOrder(1,
+        market_->addInsertOrderToQueue(1,
                              dist(gen),
                              dist(gen),
                              "Gold",

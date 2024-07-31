@@ -29,16 +29,16 @@ public:
         ProductToOrderBookMap[product_ID] = new OrderBook(ProductToCustomerRequestQueueMap[product_ID]);
     }
     void deleteOrderBook(const std::string& product_ID);
-    void deleteOrder(int32_t userID,
+    void addDeleteOrderToQueue(int32_t userID,
                      const std::string& product,
                      uint64_t boID);
-    void insertOrder(int32_t userID,
+    void addInsertOrderToQueue(int32_t userID,
                      double price,
                      double volume,
                      const std::string& product_ID,
                      orderDirection buyOrSell,
                      orderType boType);
-    void updateOrder(int32_t userID,
+    void addUpdateOrderToQueue(int32_t userID,
                      int32_t price,
                      uint32_t volume,
                      const std::string& product_ID,

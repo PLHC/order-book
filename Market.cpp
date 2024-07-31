@@ -3,6 +3,7 @@
 //
 
 #include "Market.h"
+#include "CustomerRequestQueue.h"
 
 Market::Market():
         ProductToOrderBookMap(),
@@ -18,34 +19,40 @@ Market::~Market(){
     }
 }
 
-void Market::deleteOrder(int32_t userID,
+void Market::addDeleteOrderToQueue(int32_t userID,
                          const std::string &product_ID,
                          uint64_t boID) {
     //check if product and order exist first or throw error
-    auto node = new DeleteRequestNode(userID,
-                                     product_ID,
-                                     boID);
-    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
+    auto Q = ProductToCustomerRequestQueueMap[product_ID];
+    std::unique_lock<std::mutex> lock(Q->queueMutex_);
+    Q->requestQueue_.emplace(deletionCR,
+                                  userID,
+                                  product_ID,
+                                  boID);
+    Q->queueConditionVariable_.notify_one();
 }
 
-void Market::insertOrder(int32_t userID,
+void Market::addInsertOrderToQueue(int32_t userID,
                          double price,
                          double volume,
                          const std::string& product_ID,
                          orderDirection buyOrSell,
                          orderType boType) {
     //check if product exists first or throw error
-    auto node = new InsertRequestNode(userID,
-                                      product_ID,
-                                      nextID(),
-                                      price,
-                                      volume,
-                                      buyOrSell,
-                                      boType);
-    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
+    auto Q = ProductToCustomerRequestQueueMap[product_ID];
+    std::unique_lock<std::mutex> lock(Q->queueMutex_);
+    Q->requestQueue_.emplace(insertionCR,
+                             userID,
+                             product_ID,
+                             nextID(),
+                             price,
+                             volume,
+                             buyOrSell,
+                             boType);
+    Q->queueConditionVariable_.notify_one();
 }
 
-void Market::updateOrder(int32_t userID,
+void Market::addUpdateOrderToQueue(int32_t userID,
                          int32_t price,
                          uint32_t volume,
                          const std::string &product_ID,
@@ -53,15 +60,18 @@ void Market::updateOrder(int32_t userID,
                          orderType boType,
                          uint64_t updatedOrderID) {
     //check if product and order exist first or throw error
-    auto node = new UpdateRequestNode(userID,
-                                      product_ID,
-                                      nextID(),
-                                      price,
-                                      volume,
-                                      buyOrSell,
-                                      boType,
-                                      updatedOrderID);
-    ProductToCustomerRequestQueueMap[product_ID]->insertNode(node);
+    auto Q = ProductToCustomerRequestQueueMap[product_ID];
+    std::unique_lock<std::mutex> lock(Q->queueMutex_);
+    Q->requestQueue_.emplace(updateCR,
+                             userID,
+                             product_ID,
+                             nextID(),
+                             price,
+                             volume,
+                             buyOrSell,
+                             boType,
+                             updatedOrderID);
+    Q->queueConditionVariable_.notify_one();
 }
 
 void Market::deleteOrderBook(const std::string &product_ID) {

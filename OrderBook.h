@@ -19,6 +19,13 @@ private:
     std::unordered_map<uint64_t, Order*> IDtoPointerMap;
     CustomerRequestQueue* requestQueue_;
 
+    orderExecution checkExecution(Order* orderToBeChecked);
+    void performExecution(Order* executingOrder);
+    void insertion(Order* newOrder);
+    void update(Order* updatedOrder,
+                Order* newOrder);
+    void deletion(Order* deletedOrder);
+
 public:
     explicit OrderBook(CustomerRequestQueue* requestQueue);
 
@@ -26,18 +33,12 @@ public:
     OrderBook& operator=(const OrderBook&& other) = delete;
 
     [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
-
-    orderExecution checkExecution(Order* orderToBeChecked);
-    void insertOrder(InsertRequestNode* node);
-    void deleteOrder(DeleteRequestNode* node);
-    void updateOrder(UpdateRequestNode* node);
-    void performExecution(Order* executingOrder);
-    void insertion(Order* newOrder);
-    void update(Order* updatedOrder,
-                Order* newOrder);
-    void deletion(Order* deletedOrder);
+    void insertOrder(const Request& node);
+    void deleteOrder(const Request& node);
+    void updateOrder(const Request& node);
     void displayOrderBook();
-    void startListeningToRequests();
+
+    [[noreturn]] void listenToRequests(CustomerRequestQueue* Q);
 };
 
 
