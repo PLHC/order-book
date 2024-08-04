@@ -9,6 +9,7 @@
 #include "Order.h"
 #include "OrderLinkedList.h"
 #include "CustomerRequestQueue.h"
+#include <atomic>
 
 enum orderExecution {fullExecution, partialExecution, noExecution};
 
@@ -18,6 +19,7 @@ private:
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> IDtoPointerMap;
     CustomerRequestQueue* requestQueue_;
+    std::atomic<bool> stopFlag;
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* executingOrder);
@@ -25,9 +27,6 @@ private:
     void update(Order* updatedOrder,
                 Order* newOrder);
     void deletion(Order* deletedOrder);
-//    void insertOrder(const Request& node);
-//    void deleteOrder(const Request& node);
-//    void updateOrder(const Request& node);
 
 public:
     explicit OrderBook(CustomerRequestQueue* requestQueue);
@@ -37,7 +36,8 @@ public:
 
     [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
     void displayOrderBook();
-    [[noreturn]] void listenToRequests(CustomerRequestQueue* Q);
+    void listenToRequests();
+    inline void setterStopFlagToTrue() {stopFlag.store(true);};
 };
 
 

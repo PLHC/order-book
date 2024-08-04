@@ -12,37 +12,10 @@ OrderBook::OrderBook(CustomerRequestQueue * requestQueue):
         bids_(buy),
         offers_(sell),
         IDtoPointerMap(),
-        requestQueue_(requestQueue){}
-
-//void OrderBook::deleteOrder(const Request& node) {
-//    //check if product and order exist first or throw error
-//    deletion(getterPointerToOrderFromID(node.getterBoID()));
-//}
-//
-//void OrderBook::insertOrder(const Request& node) {
-//    //check if product exists first or throw error
-//    auto newOrder = new Order(node.getterUserID(),
-//                              node.getterBoID(),
-//                              node.getterPrice(),
-//                              node.getterVolume(),
-//                              node.getterProductID(),
-//                              node.getterOrderDirection(),
-//                              node.getterOrderType());
-//    insertion(newOrder);
-//}
-//
-//void OrderBook::updateOrder(const Request& node) {
-//    //check if product and order exist first or throw error
-//    auto updatedOrder = getterPointerToOrderFromID(node.getterUpdatedOrderID());
-//    auto newOrder = new Order(node.getterUserID(),
-//                              node.getterBoID(),
-//                              node.getterPrice(),
-//                              node.getterVolume(),
-//                              node.getterProductID(),
-//                              node.getterOrderDirection(),
-//                              node.getterOrderType());
-//    update(updatedOrder, newOrder);
-//}
+        requestQueue_(requestQueue),
+        stopFlag(false){
+    std::cout<<"in OB constructor"<<std::endl;
+}
 
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());
@@ -62,7 +35,6 @@ orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
 }
 
 void OrderBook::deletion(Order* deletedOrder) {
-//    if(IDtoPointerMap.find(boID)==end(IDtoPointerMap)) throw std::invalid_argument("Order "+std::to_string(boID)+" non existing in this financial product");
     if(deletedOrder->getterNextBO()!= nullptr) {
         deletedOrder->getterNextBO()->updatePrevBO(deletedOrder->getterPrevBO());
     }
@@ -133,7 +105,6 @@ void OrderBook::performExecution(Order* executingOrder) {
         }
         orderToBeUpdated = nextOrder;
     }
-
     if(volumeInHundredths==0){
         //update database for executing order
         deletion(executingOrder);
@@ -195,15 +166,18 @@ void OrderBook::displayOrderBook() {
     std::cout<<table;
 }
 
-[[noreturn]] void OrderBook::listenToRequests(CustomerRequestQueue* Q) {
-    std::unique_lock<std::mutex> lock(Q->queueMutex_);
+void OrderBook::listenToRequests() {
     while (true) {
-        Q->queueConditionVariable_.wait(lock, [&Q]{ return !Q->requestQueue_.empty();});
-        while (!Q->requestQueue_.empty()) {
-            auto item = Q->requestQueue_.front();
+        std::unique_lock<std::mutex> lock(requestQueue_->queueMutex_);
+        requestQueue_->queueConditionVariable_.wait(lock,
+                                            [this](){return !requestQueue_->requestQueue_.empty() || stopFlag;});
+
+        while (!requestQueue_->requestQueue_.empty() && !stopFlag) {
+            std::cout<<"OB processing"<<std::endl;
+            auto item = requestQueue_->requestQueue_.front();
             switch(item.getterNodeType()){
                 case insertionCR:
-//                    check if possible
+//                    check if insertion possible
                     insertion(new Order(item.getterUserID(),
                                         item.getterBoID(),
                                         item.getterPrice(),
@@ -229,8 +203,9 @@ void OrderBook::displayOrderBook() {
                     break;
                     //default throw error
             }
-            Q->requestQueue_.pop();
+            requestQueue_->requestQueue_.pop();
         }
+        if(stopFlag) break;
     }
 
 }

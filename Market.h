@@ -9,11 +9,13 @@
 #include "OrderLinkedList.h"
 #include "OrderBook.h"
 #include "CustomerRequestQueue.h"
+#include <thread>
 
 class Market {
 private:
     std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
     std::unordered_map<std::string, CustomerRequestQueue*> ProductToCustomerRequestQueueMap;
+    std::unordered_map<std::string, std::thread> ProductToOrderBookThreadMap;
     uint64_t lastID;
 
 public:
@@ -24,10 +26,7 @@ public:
     Market& operator=(Market&&) = delete;
 
     inline uint64_t nextID(){return ++lastID;};
-    inline void createNewOrderBook(const std::string& product_ID) {
-        ProductToCustomerRequestQueueMap[product_ID] = new CustomerRequestQueue();
-        ProductToOrderBookMap[product_ID] = new OrderBook(ProductToCustomerRequestQueueMap[product_ID]);
-    }
+    void createNewOrderBook(const std::string& product_ID);
     void deleteOrderBook(const std::string& product_ID);
     void addDeleteOrderToQueue(int32_t userID,
                      const std::string& product,
