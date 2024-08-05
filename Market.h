@@ -8,13 +8,11 @@
 #include "Order.h"
 #include "OrderLinkedList.h"
 #include "OrderBook.h"
-#include "CustomerRequestQueue.h"
 #include <thread>
 
 class Market {
 private:
     std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
-    std::unordered_map<std::string, CustomerRequestQueue*> ProductToCustomerRequestQueueMap;
     std::unordered_map<std::string, std::thread> ProductToOrderBookThreadMap;
     uint64_t lastID;
 
@@ -44,10 +42,8 @@ public:
                      orderDirection buyOrSell,
                      orderType boType,
                      uint64_t updatedOrderID);
+    void addDisplayRequestToQueue(const std::string& product_ID);
     inline OrderBook* getterOrderBookPointer(const std::string& productID) {return ProductToOrderBookMap[productID];};
-    inline CustomerRequestQueue* getterCustomerRequestQueue(const std::string& productID) {
-        return ProductToCustomerRequestQueueMap[productID];
-    };
 };
 
 

@@ -9,7 +9,7 @@ Bot::Bot(std::chrono::milliseconds sleepTimerInMilliseconds, Market *M):
     market_(M){}
 
 void Bot::generateInteractionsWithMarket() {
-//    auto orderBook = market_->getterOrderBookPointer("Gold");
+    auto orderBook = market_->getterOrderBookPointer("Gold");
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<double> dist(1.0, 100.0);
@@ -26,7 +26,7 @@ void Bot::generateInteractionsWithMarket() {
                              static_cast<orderDirection>(distBuyOrSell(gen)),
                              static_cast<orderType>(distOrderType(gen)));
 
-//        orderBook->displayOrderBook();
+        market_->addDisplayRequestToQueue("Gold");
     }
 }
 

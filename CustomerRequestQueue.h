@@ -12,7 +12,7 @@
 #include <mutex>
 #include <queue>
 
-enum customerRequestType {deletionCR, insertionCR, updateCR};
+enum customerRequestType {deletionCR, insertionCR, updateCR, displayOrderBookCR};
 
 class Request{
 private:
@@ -27,6 +27,8 @@ private:
     uint64_t updatedOrderID_{};
 
 public:
+    // display_orderbook constructor
+    explicit Request(customerRequestType nodeType);
 
     // delete_node constructor
     Request(customerRequestType nodeType,
@@ -71,8 +73,11 @@ class CustomerRequestQueue {
 public:
     std::mutex queueMutex_;
     std::condition_variable queueConditionVariable_;
-    std::queue<Request> requestQueue_;
+    std::queue<Request> CRQueue_;
     CustomerRequestQueue();
+
+    CustomerRequestQueue(CustomerRequestQueue&& other) = delete;
+    CustomerRequestQueue& operator=(const CustomerRequestQueue&& other) = delete;
 };
 
 #endif //ORDERBOOK_CUSTOMERREQUESTQUEUE_H

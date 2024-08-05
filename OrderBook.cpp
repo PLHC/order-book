@@ -8,11 +8,11 @@
 #include <iomanip>
 #include <cstdlib>
 
-OrderBook::OrderBook(CustomerRequestQueue * requestQueue):
+OrderBook::OrderBook():
         bids_(buy),
         offers_(sell),
         IDtoPointerMap(),
-        requestQueue_(requestQueue),
+        requestQueue_(),
         stopFlag(false){
     std::cout<<"in OB constructor"<<std::endl;
 }
@@ -137,12 +137,14 @@ void OrderBook::update(Order* updatedOrder,
 void OrderBook::displayOrderBook() {
     auto bidNode = bids_.getterHead();
     auto offerNode = offers_.getterHead();
+
     std::cout << std::fixed << std::setprecision(2);
     std::ostringstream oss;
     system("clear");
     oss<<std::left<<std::setw(32)<<"Bids"<<"|"<<std::setw(30)<<"Offers"<<std::endl;
     oss<<std::left<<std::setw(10)<<"ID"<<"|"<<std::setw(10)<<"Vol"<<"|"<<std::setw(10)<<"Price";
     oss<<"|"<<std::setw(10)<<"Price"<<"|"<<std::setw(10)<<"Vol"<<"|"<<std::setw(10)<<"ID"<<std::endl;
+
     while(bidNode || offerNode){
         if(bidNode){
             oss<<std::left<<std::setw(10)<<bidNode->getterBoID()<<"|"<<std::setw(10)<<bidNode->getterVolume()<<
@@ -168,13 +170,12 @@ void OrderBook::displayOrderBook() {
 
 void OrderBook::listenToRequests() {
     while (true) {
-        std::unique_lock<std::mutex> lock(requestQueue_->queueMutex_);
-        requestQueue_->queueConditionVariable_.wait(lock,
-                                            [this](){return !requestQueue_->requestQueue_.empty() || stopFlag;});
-
-        while (!requestQueue_->requestQueue_.empty() && !stopFlag) {
+        std::unique_lock<std::mutex> lock(requestQueue_.queueMutex_);
+        requestQueue_.queueConditionVariable_.wait(lock,
+                                                    [this](){return !requestQueue_.CRQueue_.empty() || stopFlag;});
+        while (!requestQueue_.CRQueue_.empty() && !stopFlag) {
             std::cout<<"OB processing"<<std::endl;
-            auto item = requestQueue_->requestQueue_.front();
+            auto item = requestQueue_.CRQueue_.front();
             switch(item.getterNodeType()){
                 case insertionCR:
 //                    check if insertion possible
@@ -202,10 +203,12 @@ void OrderBook::listenToRequests() {
                                      item.getterOrderType()));
                     break;
                     //default throw error
+                case displayOrderBookCR:
+                    displayOrderBook();
+                    break;
             }
-            requestQueue_->requestQueue_.pop();
+            requestQueue_.CRQueue_.pop();
         }
         if(stopFlag) break;
     }
-
 }

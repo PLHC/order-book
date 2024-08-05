@@ -18,7 +18,6 @@ private:
     OrderLinkedList bids_;
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> IDtoPointerMap;
-    CustomerRequestQueue* requestQueue_;
     std::atomic<bool> stopFlag;
 
     orderExecution checkExecution(Order* orderToBeChecked);
@@ -27,15 +26,17 @@ private:
     void update(Order* updatedOrder,
                 Order* newOrder);
     void deletion(Order* deletedOrder);
+    void displayOrderBook();
 
 public:
-    explicit OrderBook(CustomerRequestQueue* requestQueue);
+    CustomerRequestQueue requestQueue_;
+    explicit OrderBook();
 
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
 
     [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
-    void displayOrderBook();
+
     void listenToRequests();
     inline void setterStopFlagToTrue() {stopFlag.store(true);};
 };

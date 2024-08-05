@@ -9,7 +9,19 @@
 CustomerRequestQueue::CustomerRequestQueue():
     queueMutex_(),
     queueConditionVariable_(),
-    requestQueue_(){}
+    CRQueue_(){}
+
+// display_orderbook constructor
+Request::Request(customerRequestType nodeType):
+        nodeType_(nodeType),
+        userID_(),
+        product_ID_(),
+        boID_(),
+        price_(),
+        volume_(),
+        buyOrSell_(),
+        boType_(),
+        updatedOrderID_(){}
 
 // delete_node constructor
 Request::Request(customerRequestType nodeType,
