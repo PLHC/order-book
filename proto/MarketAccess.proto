@@ -1,0 +1,64 @@
+syntax="proto3";
+
+package marketAccess;
+
+enum orderType {
+  FillOrKill = 0;
+  GoodTilCancelled = 1;
+}
+
+enum orderDirection {
+  buy = 0;
+  sell = 1;
+}
+
+service Communication {
+  rpc DisplayRequest(DisplayParameters) returns (OrderBookContent) {}
+
+  rpc DeleteRequest(DeletionParameters) returns (Confirmation){}
+
+  rpc InsertionRequest(InsertionParameters) returns (Confirmation){}
+
+  rpc UpdateRequest(UpdateParameters) returns (Confirmation){}
+}
+
+message DisplayParameters{
+  string product_ID = 1;
+}
+
+message OrderBookContent{
+  string orderBook = 1;
+}
+
+message DeletionParameters{
+  int32 userID = 1;
+  string product_ID = 2;
+  uint64 boID = 3;
+}
+
+message InsertionParameters{
+  int32 userID = 1;
+  string product_ID = 2;
+  uint64 boID = 3;
+  double price = 4;
+  double volume = 5;
+  orderDirection buyOrSell = 6;
+  orderType boType = 7;
+}
+
+message UpdateParameters{
+  int32 userID = 1;
+  string product_ID = 2;
+  uint64 boID = 3;
+  double price = 4;
+  double volume = 5;
+  orderDirection buyOrSell = 6;
+  orderType boType = 7;
+  int64 updatedOrderID = 8;
+}
+
+message Confirmation{
+  bool validation = 1;
+  optional uint64 boID = 2;
+  optional string comment = 3;
+}

@@ -32,7 +32,7 @@ Market::~Market(){
 void Market::createNewOrderBook(const std::string& product_ID) {
     auto pointerToOrderBook = new OrderBook();
     ProductToOrderBookMap[product_ID] = pointerToOrderBook;
-    ProductToOrderBookThreadMap[product_ID] = std::thread(&OrderBook::listenToRequests, pointerToOrderBook);
+    ProductToOrderBookThreadMap[product_ID] = std::thread(&OrderBook::processRequests, pointerToOrderBook);
 }
 
 void Market::deleteOrderBook(const std::string &product_ID) {
@@ -104,5 +104,10 @@ void Market::addDisplayRequestToQueue(const std::string &product_ID) {
     std::lock_guard<std::mutex> lock(Q->requestQueue_.queueMutex_);
     Q->requestQueue_.CRQueue_.emplace(displayOrderBookCR);
     Q->requestQueue_.queueConditionVariable_.notify_one();
+}
+
+void Market::listenToRequests() {
+
+
 }
 

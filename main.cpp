@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Market.h"
-#include "Bot.h"
+#include "market/Market.h"
+#include "market/Bot.h"
 
 #include <iostream>
 int main() {

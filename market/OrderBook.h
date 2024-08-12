@@ -37,7 +37,7 @@ public:
 
     [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
 
-    void listenToRequests();
+    void processRequests();
     inline void setterStopFlagToTrue() {stopFlag.store(true);};
 };
 

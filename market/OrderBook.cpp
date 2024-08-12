@@ -168,7 +168,7 @@ void OrderBook::displayOrderBook() {
     std::cout<<table;
 }
 
-void OrderBook::listenToRequests() {
+void OrderBook::processRequests() {
     while (true) {
         std::unique_lock<std::mutex> lock(requestQueue_.queueMutex_);
         requestQueue_.queueConditionVariable_.wait(lock,

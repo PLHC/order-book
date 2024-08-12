@@ -15,7 +15,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -30,7 +31,8 @@
 					"name" : "OrderBook",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "OrderBook::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OrderBook-Debug-08095ca2fbb1dc8174d9.json",
+					"jsonFile" : "target-OrderBook-Debug-1181c23e55f6c7c86cb1.json",
 					"name" : "OrderBook",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "myproto::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-myproto-Debug-5f320461702162ddbadc.json",
+					"name" : "myproto",
 					"projectIndex" : 0
 				}
 			]
