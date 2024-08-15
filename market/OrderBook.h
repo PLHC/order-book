@@ -26,7 +26,7 @@ private:
     void update(Order* updatedOrder,
                 Order* newOrder);
     void deletion(Order* deletedOrder);
-    void displayOrderBook();
+    std::string displayOrderBook();
 
 public:
     CustomerRequestQueue requestQueue_;

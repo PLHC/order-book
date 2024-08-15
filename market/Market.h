@@ -9,9 +9,8 @@
 #include "OrderLinkedList.h"
 #include "OrderBook.h"
 #include <thread>
-#include <grpcpp/grpcpp.h>
-#include "MarketAccess.grpc.pb.h"
-#include "MarketAccess.pb.h"
+#include "MarketServer.h"
+
 
 class Market {
 private:
@@ -47,8 +46,7 @@ public:
                      uint64_t updatedOrderID);
     void addDisplayRequestToQueue(const std::string& product_ID);
     inline OrderBook* getterOrderBookPointer(const std::string& productID) {return ProductToOrderBookMap[productID];};
-    void listenToRequests();
+    void RunMarketServer();
 };
-
 
 #endif //ORDERBOOK_MARKET_H

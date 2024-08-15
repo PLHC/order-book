@@ -960,6 +960,7 @@ class DisplayParameters final : public ::google::protobuf::Message
   // accessors -------------------------------------------------------
   enum : int {
     kProductIDFieldNumber = 1,
+    kRequestNumberFieldNumber = 2,
   };
   // string product_ID = 1;
   void clear_product_id() ;
@@ -977,13 +978,29 @@ class DisplayParameters final : public ::google::protobuf::Message
   std::string* _internal_mutable_product_id();
 
   public:
+  // string requestNumber = 2;
+  void clear_requestnumber() ;
+  const std::string& requestnumber() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_requestnumber(Arg_&& arg, Args_... args);
+  std::string* mutable_requestnumber();
+  PROTOBUF_NODISCARD std::string* release_requestnumber();
+  void set_allocated_requestnumber(std::string* value);
+
+  private:
+  const std::string& _internal_requestnumber() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_requestnumber(
+      const std::string& value);
+  std::string* _internal_mutable_requestnumber();
+
+  public:
   // @@protoc_insertion_point(class_scope:marketAccess.DisplayParameters)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
-      49, 2>
+      1, 2, 0,
+      62, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1004,6 +1021,7 @@ class DisplayParameters final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DisplayParameters& from_msg);
     ::google::protobuf::internal::ArenaStringPtr product_id_;
+    ::google::protobuf::internal::ArenaStringPtr requestnumber_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1480,6 +1498,56 @@ inline void DisplayParameters::set_allocated_product_id(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:marketAccess.DisplayParameters.product_ID)
+}
+
+// string requestNumber = 2;
+inline void DisplayParameters::clear_requestnumber() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.requestnumber_.ClearToEmpty();
+}
+inline const std::string& DisplayParameters::requestnumber() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:marketAccess.DisplayParameters.requestNumber)
+  return _internal_requestnumber();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DisplayParameters::set_requestnumber(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.requestnumber_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:marketAccess.DisplayParameters.requestNumber)
+}
+inline std::string* DisplayParameters::mutable_requestnumber() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_requestnumber();
+  // @@protoc_insertion_point(field_mutable:marketAccess.DisplayParameters.requestNumber)
+  return _s;
+}
+inline const std::string& DisplayParameters::_internal_requestnumber() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.requestnumber_.Get();
+}
+inline void DisplayParameters::_internal_set_requestnumber(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.requestnumber_.Set(value, GetArena());
+}
+inline std::string* DisplayParameters::_internal_mutable_requestnumber() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.requestnumber_.Mutable( GetArena());
+}
+inline std::string* DisplayParameters::release_requestnumber() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:marketAccess.DisplayParameters.requestNumber)
+  return _impl_.requestnumber_.Release();
+}
+inline void DisplayParameters::set_allocated_requestnumber(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.requestnumber_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.requestnumber_.IsDefault()) {
+          _impl_.requestnumber_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.DisplayParameters.requestNumber)
 }
 
 // -------------------------------------------------------------------

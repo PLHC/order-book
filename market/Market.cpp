@@ -106,8 +106,16 @@ void Market::addDisplayRequestToQueue(const std::string &product_ID) {
     Q->requestQueue_.queueConditionVariable_.notify_one();
 }
 
-void Market::listenToRequests() {
+void Market::RunMarketServer() {
+    std::string server_address("localhost:50051");
+    CommunicationImplementation service;
+    grpc::ServerBuilder builder;
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+    builder.RegisterService(&service);
+    std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
+//    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-
+//    server->Shutdown();
+    server->Wait();
 }
 

@@ -134,7 +134,7 @@ void OrderBook::update(Order* updatedOrder,
     insertion(newOrder);
 }
 
-void OrderBook::displayOrderBook() {
+std::string OrderBook::displayOrderBook() {
     auto bidNode = bids_.getterHead();
     auto offerNode = offers_.getterHead();
 
@@ -164,8 +164,7 @@ void OrderBook::displayOrderBook() {
         }
     }
     oss<<std::endl;
-    auto table = oss.str();
-    std::cout<<table;
+    return oss.str();
 }
 
 void OrderBook::processRequests() {

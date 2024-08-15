@@ -33,9 +33,13 @@ file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
 add_executable(OrderBook
         main.cpp
         ${MARKET_FILES}
+        market/MarketServer.cpp
+        market/MarketServer.h
+        market/MarketClient.cpp
+        market/MarketClient.h
 )
 
-# Link executable with myproto, PRIVATE beacuse OrderBook is not linked afterwards
+# Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
 target_link_libraries(OrderBook
         PRIVATE
         myproto

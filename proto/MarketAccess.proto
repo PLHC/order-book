@@ -24,6 +24,7 @@ service Communication {
 
 message DisplayParameters{
   string product_ID = 1;
+  string requestNumber = 2;
 }
 
 message OrderBookContent{
