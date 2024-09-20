@@ -16,7 +16,9 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2,
+						3
 					]
 				}
 			],
@@ -32,7 +34,9 @@
 					"targetIndexes" : 
 					[
 						0,
-						1
+						1,
+						2,
+						3
 					]
 				}
 			],
@@ -40,9 +44,23 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "ClientAsync::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ClientAsync-Debug-97cfbc89e7762e4afaea.json",
+					"name" : "ClientAsync",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "OrderBook::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-OrderBook-Debug-5ebc1ef36e444b085412.json",
+					"jsonFile" : "target-OrderBook-Debug-46758e3a64493e6553c8.json",
 					"name" : "OrderBook",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "build_all::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-build_all-Debug-a536ca7639932ad21e22.json",
+					"name" : "build_all",
 					"projectIndex" : 0
 				},
 				{

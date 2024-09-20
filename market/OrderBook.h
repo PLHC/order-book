@@ -1,15 +1,17 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #ifndef ORDERBOOK_ORDERBOOK_H
 #define ORDERBOOK_ORDERBOOK_H
 
-#include <unordered_map>
+
 #include "Order.h"
 #include "OrderLinkedList.h"
-#include "CustomerRequestQueue.h"
+#include "CustomerRequestQueue/CustomerRequestQueue.h"
+
 #include <atomic>
+#include <unordered_map>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <cstdlib>
 
 enum orderExecution {fullExecution, partialExecution, noExecution};
 
@@ -30,7 +32,7 @@ private:
 
 public:
     CustomerRequestQueue requestQueue_;
-    explicit OrderBook();
+    OrderBook();
 
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;

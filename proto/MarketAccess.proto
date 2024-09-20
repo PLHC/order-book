@@ -23,39 +23,37 @@ service Communication {
 }
 
 message DisplayParameters{
-  string product_ID = 1;
-  string requestNumber = 2;
+  string requestNumber = 1;
 }
 
 message OrderBookContent{
-  string orderBook = 1;
+  bool validation = 1;
+  string orderbook = 2;
+  optional string comment = 3;
 }
 
 message DeletionParameters{
   int32 userID = 1;
-  string product_ID = 2;
-  uint64 boID = 3;
+  uint64 boID = 2;
 }
 
 message InsertionParameters{
   int32 userID = 1;
-  string product_ID = 2;
-  uint64 boID = 3;
-  double price = 4;
-  double volume = 5;
-  orderDirection buyOrSell = 6;
-  orderType boType = 7;
+  uint64 boID = 2;
+  double price = 3;
+  double volume = 4;
+  orderDirection buyOrSell = 5;
+  orderType boType = 6;
 }
 
 message UpdateParameters{
   int32 userID = 1;
-  string product_ID = 2;
-  uint64 boID = 3;
-  double price = 4;
-  double volume = 5;
-  orderDirection buyOrSell = 6;
-  orderType boType = 7;
-  int64 updatedOrderID = 8;
+  uint64 boID = 2;
+  double price = 3;
+  double volume = 4;
+  orderDirection buyOrSell = 5;
+  orderType boType = 6;
+  int64 updatedOrderID = 7;
 }
 
 message Confirmation{

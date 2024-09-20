@@ -272,32 +272,15 @@ class UpdateParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kProductIDFieldNumber = 2,
-    kBoIDFieldNumber = 3,
+    kBoIDFieldNumber = 2,
+    kPriceFieldNumber = 3,
     kUserIDFieldNumber = 1,
-    kBuyOrSellFieldNumber = 6,
-    kPriceFieldNumber = 4,
-    kVolumeFieldNumber = 5,
-    kUpdatedOrderIDFieldNumber = 8,
-    kBoTypeFieldNumber = 7,
+    kBuyOrSellFieldNumber = 5,
+    kVolumeFieldNumber = 4,
+    kUpdatedOrderIDFieldNumber = 7,
+    kBoTypeFieldNumber = 6,
   };
-  // string product_ID = 2;
-  void clear_product_id() ;
-  const std::string& product_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_product_id(Arg_&& arg, Args_... args);
-  std::string* mutable_product_id();
-  PROTOBUF_NODISCARD std::string* release_product_id();
-  void set_allocated_product_id(std::string* value);
-
-  private:
-  const std::string& _internal_product_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_product_id(
-      const std::string& value);
-  std::string* _internal_mutable_product_id();
-
-  public:
-  // uint64 boID = 3;
+  // uint64 boID = 2;
   void clear_boid() ;
   ::uint64_t boid() const;
   void set_boid(::uint64_t value);
@@ -305,6 +288,16 @@ class UpdateParameters final : public ::google::protobuf::Message
   private:
   ::uint64_t _internal_boid() const;
   void _internal_set_boid(::uint64_t value);
+
+  public:
+  // double price = 3;
+  void clear_price() ;
+  double price() const;
+  void set_price(double value);
+
+  private:
+  double _internal_price() const;
+  void _internal_set_price(double value);
 
   public:
   // int32 userID = 1;
@@ -317,7 +310,7 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_userid(::int32_t value);
 
   public:
-  // .marketAccess.orderDirection buyOrSell = 6;
+  // .marketAccess.orderDirection buyOrSell = 5;
   void clear_buyorsell() ;
   ::marketAccess::orderDirection buyorsell() const;
   void set_buyorsell(::marketAccess::orderDirection value);
@@ -327,17 +320,7 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_buyorsell(::marketAccess::orderDirection value);
 
   public:
-  // double price = 4;
-  void clear_price() ;
-  double price() const;
-  void set_price(double value);
-
-  private:
-  double _internal_price() const;
-  void _internal_set_price(double value);
-
-  public:
-  // double volume = 5;
+  // double volume = 4;
   void clear_volume() ;
   double volume() const;
   void set_volume(double value);
@@ -347,7 +330,7 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_volume(double value);
 
   public:
-  // int64 updatedOrderID = 8;
+  // int64 updatedOrderID = 7;
   void clear_updatedorderid() ;
   ::int64_t updatedorderid() const;
   void set_updatedorderid(::int64_t value);
@@ -357,7 +340,7 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_updatedorderid(::int64_t value);
 
   public:
-  // .marketAccess.orderType boType = 7;
+  // .marketAccess.orderType boType = 6;
   void clear_botype() ;
   ::marketAccess::orderType botype() const;
   void set_botype(::marketAccess::orderType value);
@@ -372,8 +355,8 @@ class UpdateParameters final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 8, 0,
-      56, 2>
+      3, 7, 0,
+      0, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -393,11 +376,10 @@ class UpdateParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const UpdateParameters& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr product_id_;
     ::uint64_t boid_;
+    double price_;
     ::int32_t userid_;
     int buyorsell_;
-    double price_;
     double volume_;
     ::int64_t updatedorderid_;
     int botype_;
@@ -533,9 +515,11 @@ class OrderBookContent final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kOrderBookFieldNumber = 1,
+    kOrderbookFieldNumber = 2,
+    kCommentFieldNumber = 3,
+    kValidationFieldNumber = 1,
   };
-  // string orderBook = 1;
+  // string orderbook = 2;
   void clear_orderbook() ;
   const std::string& orderbook() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -551,13 +535,40 @@ class OrderBookContent final : public ::google::protobuf::Message
   std::string* _internal_mutable_orderbook();
 
   public:
+  // optional string comment = 3;
+  bool has_comment() const;
+  void clear_comment() ;
+  const std::string& comment() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_comment(Arg_&& arg, Args_... args);
+  std::string* mutable_comment();
+  PROTOBUF_NODISCARD std::string* release_comment();
+  void set_allocated_comment(std::string* value);
+
+  private:
+  const std::string& _internal_comment() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_comment(
+      const std::string& value);
+  std::string* _internal_mutable_comment();
+
+  public:
+  // bool validation = 1;
+  void clear_validation() ;
+  bool validation() const;
+  void set_validation(bool value);
+
+  private:
+  bool _internal_validation() const;
+  void _internal_set_validation(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:marketAccess.OrderBookContent)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
-      47, 2>
+      2, 3, 0,
+      54, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -577,8 +588,11 @@ class OrderBookContent final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const OrderBookContent& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr orderbook_;
+    ::google::protobuf::internal::HasBits<1> _has_bits_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
+    ::google::protobuf::internal::ArenaStringPtr orderbook_;
+    ::google::protobuf::internal::ArenaStringPtr comment_;
+    bool validation_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
   union { Impl_ _impl_; };
@@ -710,31 +724,14 @@ class InsertionParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kProductIDFieldNumber = 2,
-    kBoIDFieldNumber = 3,
+    kBoIDFieldNumber = 2,
+    kPriceFieldNumber = 3,
     kUserIDFieldNumber = 1,
-    kBuyOrSellFieldNumber = 6,
-    kPriceFieldNumber = 4,
-    kVolumeFieldNumber = 5,
-    kBoTypeFieldNumber = 7,
+    kBuyOrSellFieldNumber = 5,
+    kVolumeFieldNumber = 4,
+    kBoTypeFieldNumber = 6,
   };
-  // string product_ID = 2;
-  void clear_product_id() ;
-  const std::string& product_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_product_id(Arg_&& arg, Args_... args);
-  std::string* mutable_product_id();
-  PROTOBUF_NODISCARD std::string* release_product_id();
-  void set_allocated_product_id(std::string* value);
-
-  private:
-  const std::string& _internal_product_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_product_id(
-      const std::string& value);
-  std::string* _internal_mutable_product_id();
-
-  public:
-  // uint64 boID = 3;
+  // uint64 boID = 2;
   void clear_boid() ;
   ::uint64_t boid() const;
   void set_boid(::uint64_t value);
@@ -742,6 +739,16 @@ class InsertionParameters final : public ::google::protobuf::Message
   private:
   ::uint64_t _internal_boid() const;
   void _internal_set_boid(::uint64_t value);
+
+  public:
+  // double price = 3;
+  void clear_price() ;
+  double price() const;
+  void set_price(double value);
+
+  private:
+  double _internal_price() const;
+  void _internal_set_price(double value);
 
   public:
   // int32 userID = 1;
@@ -754,7 +761,7 @@ class InsertionParameters final : public ::google::protobuf::Message
   void _internal_set_userid(::int32_t value);
 
   public:
-  // .marketAccess.orderDirection buyOrSell = 6;
+  // .marketAccess.orderDirection buyOrSell = 5;
   void clear_buyorsell() ;
   ::marketAccess::orderDirection buyorsell() const;
   void set_buyorsell(::marketAccess::orderDirection value);
@@ -764,17 +771,7 @@ class InsertionParameters final : public ::google::protobuf::Message
   void _internal_set_buyorsell(::marketAccess::orderDirection value);
 
   public:
-  // double price = 4;
-  void clear_price() ;
-  double price() const;
-  void set_price(double value);
-
-  private:
-  double _internal_price() const;
-  void _internal_set_price(double value);
-
-  public:
-  // double volume = 5;
+  // double volume = 4;
   void clear_volume() ;
   double volume() const;
   void set_volume(double value);
@@ -784,7 +781,7 @@ class InsertionParameters final : public ::google::protobuf::Message
   void _internal_set_volume(double value);
 
   public:
-  // .marketAccess.orderType boType = 7;
+  // .marketAccess.orderType boType = 6;
   void clear_botype() ;
   ::marketAccess::orderType botype() const;
   void set_botype(::marketAccess::orderType value);
@@ -799,8 +796,8 @@ class InsertionParameters final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      3, 7, 0,
-      51, 2>
+      3, 6, 0,
+      0, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -820,11 +817,10 @@ class InsertionParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const InsertionParameters& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr product_id_;
     ::uint64_t boid_;
+    double price_;
     ::int32_t userid_;
     int buyorsell_;
-    double price_;
     double volume_;
     int botype_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -959,26 +955,9 @@ class DisplayParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kProductIDFieldNumber = 1,
-    kRequestNumberFieldNumber = 2,
+    kRequestNumberFieldNumber = 1,
   };
-  // string product_ID = 1;
-  void clear_product_id() ;
-  const std::string& product_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_product_id(Arg_&& arg, Args_... args);
-  std::string* mutable_product_id();
-  PROTOBUF_NODISCARD std::string* release_product_id();
-  void set_allocated_product_id(std::string* value);
-
-  private:
-  const std::string& _internal_product_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_product_id(
-      const std::string& value);
-  std::string* _internal_mutable_product_id();
-
-  public:
-  // string requestNumber = 2;
+  // string requestNumber = 1;
   void clear_requestnumber() ;
   const std::string& requestnumber() const;
   template <typename Arg_ = const std::string&, typename... Args_>
@@ -999,8 +978,8 @@ class DisplayParameters final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 0,
-      62, 2>
+      0, 1, 0,
+      52, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1020,7 +999,6 @@ class DisplayParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DisplayParameters& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr product_id_;
     ::google::protobuf::internal::ArenaStringPtr requestnumber_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -1154,27 +1132,10 @@ class DeletionParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
-    kProductIDFieldNumber = 2,
-    kBoIDFieldNumber = 3,
+    kBoIDFieldNumber = 2,
     kUserIDFieldNumber = 1,
   };
-  // string product_ID = 2;
-  void clear_product_id() ;
-  const std::string& product_id() const;
-  template <typename Arg_ = const std::string&, typename... Args_>
-  void set_product_id(Arg_&& arg, Args_... args);
-  std::string* mutable_product_id();
-  PROTOBUF_NODISCARD std::string* release_product_id();
-  void set_allocated_product_id(std::string* value);
-
-  private:
-  const std::string& _internal_product_id() const;
-  inline PROTOBUF_ALWAYS_INLINE void _internal_set_product_id(
-      const std::string& value);
-  std::string* _internal_mutable_product_id();
-
-  public:
-  // uint64 boID = 3;
+  // uint64 boID = 2;
   void clear_boid() ;
   ::uint64_t boid() const;
   void set_boid(::uint64_t value);
@@ -1199,8 +1160,8 @@ class DeletionParameters final : public ::google::protobuf::Message
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      2, 3, 0,
-      50, 2>
+      1, 2, 0,
+      0, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1220,7 +1181,6 @@ class DeletionParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DeletionParameters& from_msg);
-    ::google::protobuf::internal::ArenaStringPtr product_id_;
     ::uint64_t boid_;
     ::int32_t userid_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1450,57 +1410,7 @@ class Confirmation final : public ::google::protobuf::Message
 
 // DisplayParameters
 
-// string product_ID = 1;
-inline void DisplayParameters::clear_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.ClearToEmpty();
-}
-inline const std::string& DisplayParameters::product_id() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketAccess.DisplayParameters.product_ID)
-  return _internal_product_id();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void DisplayParameters::set_product_id(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:marketAccess.DisplayParameters.product_ID)
-}
-inline std::string* DisplayParameters::mutable_product_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_product_id();
-  // @@protoc_insertion_point(field_mutable:marketAccess.DisplayParameters.product_ID)
-  return _s;
-}
-inline const std::string& DisplayParameters::_internal_product_id() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.product_id_.Get();
-}
-inline void DisplayParameters::_internal_set_product_id(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(value, GetArena());
-}
-inline std::string* DisplayParameters::_internal_mutable_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.product_id_.Mutable( GetArena());
-}
-inline std::string* DisplayParameters::release_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:marketAccess.DisplayParameters.product_ID)
-  return _impl_.product_id_.Release();
-}
-inline void DisplayParameters::set_allocated_product_id(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.product_id_.IsDefault()) {
-          _impl_.product_id_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:marketAccess.DisplayParameters.product_ID)
-}
-
-// string requestNumber = 2;
+// string requestNumber = 1;
 inline void DisplayParameters::clear_requestnumber() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.requestnumber_.ClearToEmpty();
@@ -1554,14 +1464,36 @@ inline void DisplayParameters::set_allocated_requestnumber(std::string* value) {
 
 // OrderBookContent
 
-// string orderBook = 1;
+// bool validation = 1;
+inline void OrderBookContent::clear_validation() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.validation_ = false;
+}
+inline bool OrderBookContent::validation() const {
+  // @@protoc_insertion_point(field_get:marketAccess.OrderBookContent.validation)
+  return _internal_validation();
+}
+inline void OrderBookContent::set_validation(bool value) {
+  _internal_set_validation(value);
+  // @@protoc_insertion_point(field_set:marketAccess.OrderBookContent.validation)
+}
+inline bool OrderBookContent::_internal_validation() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.validation_;
+}
+inline void OrderBookContent::_internal_set_validation(bool value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.validation_ = value;
+}
+
+// string orderbook = 2;
 inline void OrderBookContent::clear_orderbook() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.orderbook_.ClearToEmpty();
 }
 inline const std::string& OrderBookContent::orderbook() const
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketAccess.OrderBookContent.orderBook)
+  // @@protoc_insertion_point(field_get:marketAccess.OrderBookContent.orderbook)
   return _internal_orderbook();
 }
 template <typename Arg_, typename... Args_>
@@ -1569,11 +1501,11 @@ inline PROTOBUF_ALWAYS_INLINE void OrderBookContent::set_orderbook(Arg_&& arg,
                                                      Args_... args) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.orderbook_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:marketAccess.OrderBookContent.orderBook)
+  // @@protoc_insertion_point(field_set:marketAccess.OrderBookContent.orderbook)
 }
 inline std::string* OrderBookContent::mutable_orderbook() ABSL_ATTRIBUTE_LIFETIME_BOUND {
   std::string* _s = _internal_mutable_orderbook();
-  // @@protoc_insertion_point(field_mutable:marketAccess.OrderBookContent.orderBook)
+  // @@protoc_insertion_point(field_mutable:marketAccess.OrderBookContent.orderbook)
   return _s;
 }
 inline const std::string& OrderBookContent::_internal_orderbook() const {
@@ -1590,7 +1522,7 @@ inline std::string* OrderBookContent::_internal_mutable_orderbook() {
 }
 inline std::string* OrderBookContent::release_orderbook() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:marketAccess.OrderBookContent.orderBook)
+  // @@protoc_insertion_point(field_release:marketAccess.OrderBookContent.orderbook)
   return _impl_.orderbook_.Release();
 }
 inline void OrderBookContent::set_allocated_orderbook(std::string* value) {
@@ -1601,7 +1533,78 @@ inline void OrderBookContent::set_allocated_orderbook(std::string* value) {
           _impl_.orderbook_.Set("", GetArena());
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:marketAccess.OrderBookContent.orderBook)
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.OrderBookContent.orderbook)
+}
+
+// optional string comment = 3;
+inline bool OrderBookContent::has_comment() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void OrderBookContent::clear_comment() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.comment_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& OrderBookContent::comment() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_get:marketAccess.OrderBookContent.comment)
+  return _internal_comment();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void OrderBookContent::set_comment(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.comment_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
+  // @@protoc_insertion_point(field_set:marketAccess.OrderBookContent.comment)
+}
+inline std::string* OrderBookContent::mutable_comment() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_comment();
+  // @@protoc_insertion_point(field_mutable:marketAccess.OrderBookContent.comment)
+  return _s;
+}
+inline const std::string& OrderBookContent::_internal_comment() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.comment_.Get();
+}
+inline void OrderBookContent::_internal_set_comment(const std::string& value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.comment_.Set(value, GetArena());
+}
+inline std::string* OrderBookContent::_internal_mutable_comment() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.comment_.Mutable( GetArena());
+}
+inline std::string* OrderBookContent::release_comment() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:marketAccess.OrderBookContent.comment)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.comment_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.comment_.Set("", GetArena());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void OrderBookContent::set_allocated_comment(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.comment_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.comment_.IsDefault()) {
+          _impl_.comment_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.OrderBookContent.comment)
 }
 
 // -------------------------------------------------------------------
@@ -1630,57 +1633,7 @@ inline void DeletionParameters::_internal_set_userid(::int32_t value) {
   _impl_.userid_ = value;
 }
 
-// string product_ID = 2;
-inline void DeletionParameters::clear_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.ClearToEmpty();
-}
-inline const std::string& DeletionParameters::product_id() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketAccess.DeletionParameters.product_ID)
-  return _internal_product_id();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void DeletionParameters::set_product_id(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:marketAccess.DeletionParameters.product_ID)
-}
-inline std::string* DeletionParameters::mutable_product_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_product_id();
-  // @@protoc_insertion_point(field_mutable:marketAccess.DeletionParameters.product_ID)
-  return _s;
-}
-inline const std::string& DeletionParameters::_internal_product_id() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.product_id_.Get();
-}
-inline void DeletionParameters::_internal_set_product_id(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(value, GetArena());
-}
-inline std::string* DeletionParameters::_internal_mutable_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.product_id_.Mutable( GetArena());
-}
-inline std::string* DeletionParameters::release_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:marketAccess.DeletionParameters.product_ID)
-  return _impl_.product_id_.Release();
-}
-inline void DeletionParameters::set_allocated_product_id(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.product_id_.IsDefault()) {
-          _impl_.product_id_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:marketAccess.DeletionParameters.product_ID)
-}
-
-// uint64 boID = 3;
+// uint64 boID = 2;
 inline void DeletionParameters::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = ::uint64_t{0u};
@@ -1728,57 +1681,7 @@ inline void InsertionParameters::_internal_set_userid(::int32_t value) {
   _impl_.userid_ = value;
 }
 
-// string product_ID = 2;
-inline void InsertionParameters::clear_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.ClearToEmpty();
-}
-inline const std::string& InsertionParameters::product_id() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketAccess.InsertionParameters.product_ID)
-  return _internal_product_id();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void InsertionParameters::set_product_id(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:marketAccess.InsertionParameters.product_ID)
-}
-inline std::string* InsertionParameters::mutable_product_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_product_id();
-  // @@protoc_insertion_point(field_mutable:marketAccess.InsertionParameters.product_ID)
-  return _s;
-}
-inline const std::string& InsertionParameters::_internal_product_id() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.product_id_.Get();
-}
-inline void InsertionParameters::_internal_set_product_id(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(value, GetArena());
-}
-inline std::string* InsertionParameters::_internal_mutable_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.product_id_.Mutable( GetArena());
-}
-inline std::string* InsertionParameters::release_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:marketAccess.InsertionParameters.product_ID)
-  return _impl_.product_id_.Release();
-}
-inline void InsertionParameters::set_allocated_product_id(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.product_id_.IsDefault()) {
-          _impl_.product_id_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:marketAccess.InsertionParameters.product_ID)
-}
-
-// uint64 boID = 3;
+// uint64 boID = 2;
 inline void InsertionParameters::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = ::uint64_t{0u};
@@ -1800,7 +1703,7 @@ inline void InsertionParameters::_internal_set_boid(::uint64_t value) {
   _impl_.boid_ = value;
 }
 
-// double price = 4;
+// double price = 3;
 inline void InsertionParameters::clear_price() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.price_ = 0;
@@ -1822,7 +1725,7 @@ inline void InsertionParameters::_internal_set_price(double value) {
   _impl_.price_ = value;
 }
 
-// double volume = 5;
+// double volume = 4;
 inline void InsertionParameters::clear_volume() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.volume_ = 0;
@@ -1844,7 +1747,7 @@ inline void InsertionParameters::_internal_set_volume(double value) {
   _impl_.volume_ = value;
 }
 
-// .marketAccess.orderDirection buyOrSell = 6;
+// .marketAccess.orderDirection buyOrSell = 5;
 inline void InsertionParameters::clear_buyorsell() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.buyorsell_ = 0;
@@ -1866,7 +1769,7 @@ inline void InsertionParameters::_internal_set_buyorsell(::marketAccess::orderDi
   _impl_.buyorsell_ = value;
 }
 
-// .marketAccess.orderType boType = 7;
+// .marketAccess.orderType boType = 6;
 inline void InsertionParameters::clear_botype() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.botype_ = 0;
@@ -1914,57 +1817,7 @@ inline void UpdateParameters::_internal_set_userid(::int32_t value) {
   _impl_.userid_ = value;
 }
 
-// string product_ID = 2;
-inline void UpdateParameters::clear_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.ClearToEmpty();
-}
-inline const std::string& UpdateParameters::product_id() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:marketAccess.UpdateParameters.product_ID)
-  return _internal_product_id();
-}
-template <typename Arg_, typename... Args_>
-inline PROTOBUF_ALWAYS_INLINE void UpdateParameters::set_product_id(Arg_&& arg,
-                                                     Args_... args) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
-  // @@protoc_insertion_point(field_set:marketAccess.UpdateParameters.product_ID)
-}
-inline std::string* UpdateParameters::mutable_product_id() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  std::string* _s = _internal_mutable_product_id();
-  // @@protoc_insertion_point(field_mutable:marketAccess.UpdateParameters.product_ID)
-  return _s;
-}
-inline const std::string& UpdateParameters::_internal_product_id() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.product_id_.Get();
-}
-inline void UpdateParameters::_internal_set_product_id(const std::string& value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.Set(value, GetArena());
-}
-inline std::string* UpdateParameters::_internal_mutable_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  return _impl_.product_id_.Mutable( GetArena());
-}
-inline std::string* UpdateParameters::release_product_id() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:marketAccess.UpdateParameters.product_ID)
-  return _impl_.product_id_.Release();
-}
-inline void UpdateParameters::set_allocated_product_id(std::string* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.product_id_.SetAllocated(value, GetArena());
-  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
-        if (_impl_.product_id_.IsDefault()) {
-          _impl_.product_id_.Set("", GetArena());
-        }
-  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:marketAccess.UpdateParameters.product_ID)
-}
-
-// uint64 boID = 3;
+// uint64 boID = 2;
 inline void UpdateParameters::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = ::uint64_t{0u};
@@ -1986,7 +1839,7 @@ inline void UpdateParameters::_internal_set_boid(::uint64_t value) {
   _impl_.boid_ = value;
 }
 
-// double price = 4;
+// double price = 3;
 inline void UpdateParameters::clear_price() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.price_ = 0;
@@ -2008,7 +1861,7 @@ inline void UpdateParameters::_internal_set_price(double value) {
   _impl_.price_ = value;
 }
 
-// double volume = 5;
+// double volume = 4;
 inline void UpdateParameters::clear_volume() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.volume_ = 0;
@@ -2030,7 +1883,7 @@ inline void UpdateParameters::_internal_set_volume(double value) {
   _impl_.volume_ = value;
 }
 
-// .marketAccess.orderDirection buyOrSell = 6;
+// .marketAccess.orderDirection buyOrSell = 5;
 inline void UpdateParameters::clear_buyorsell() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.buyorsell_ = 0;
@@ -2052,7 +1905,7 @@ inline void UpdateParameters::_internal_set_buyorsell(::marketAccess::orderDirec
   _impl_.buyorsell_ = value;
 }
 
-// .marketAccess.orderType boType = 7;
+// .marketAccess.orderType boType = 6;
 inline void UpdateParameters::clear_botype() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.botype_ = 0;
@@ -2074,7 +1927,7 @@ inline void UpdateParameters::_internal_set_botype(::marketAccess::orderType val
   _impl_.botype_ = value;
 }
 
-// int64 updatedOrderID = 8;
+// int64 updatedOrderID = 7;
 inline void UpdateParameters::clear_updatedorderid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.updatedorderid_ = ::int64_t{0};

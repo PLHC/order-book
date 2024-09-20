@@ -1,19 +1,11 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #include "OrderBook.h"
-#include <iostream>
-#include <sstream>
-#include <iomanip>
-#include <cstdlib>
 
 OrderBook::OrderBook():
         bids_(buy),
         offers_(sell),
         IDtoPointerMap(),
-        requestQueue_(),
-        stopFlag(false){
+        stopFlag(false),
+        requestQueue_(){
     std::cout<<"in OB constructor"<<std::endl;
 }
 
@@ -167,47 +159,53 @@ std::string OrderBook::displayOrderBook() {
     return oss.str();
 }
 
-void OrderBook::processRequests() {
-    while (true) {
-        std::unique_lock<std::mutex> lock(requestQueue_.queueMutex_);
-        requestQueue_.queueConditionVariable_.wait(lock,
-                                                    [this](){return !requestQueue_.CRQueue_.empty() || stopFlag;});
-        while (!requestQueue_.CRQueue_.empty() && !stopFlag) {
-            std::cout<<"OB processing"<<std::endl;
-            auto item = requestQueue_.CRQueue_.front();
-            switch(item.getterNodeType()){
-                case insertionCR:
-//                    check if insertion possible
-                    insertion(new Order(item.getterUserID(),
-                                        item.getterBoID(),
-                                        item.getterPrice(),
-                                        item.getterVolume(),
-                                        item.getterProductID(),
-                                        item.getterOrderDirection(),
-                                        item.getterOrderType()));
-                    break;
-                case deletionCR:
-                    //check if existing
-                    deletion(getterPointerToOrderFromID(item.getterBoID()));
-                    break;
-                case updateCR:
-                    // check if existing
-                    update(getterPointerToOrderFromID(item.getterBoID()),
-                            new Order(item.getterUserID(),
-                                     item.getterBoID(),
-                                     item.getterPrice(),
-                                     item.getterVolume(),
-                                     item.getterProductID(),
-                                     item.getterOrderDirection(),
-                                     item.getterOrderType()));
-                    break;
-                    //default throw error
-                case displayOrderBookCR:
-                    displayOrderBook();
-                    break;
-            }
-            requestQueue_.CRQueue_.pop();
-        }
-        if(stopFlag) break;
+void OrderBook::processRequests(){
+    while(!stopFlag){
+        requestQueue_.runNextRequest();
     }
 }
+
+//void OrderBook::processRequests() {
+//    while (true) {
+//        std::unique_lock<std::mutex> lock(requestQueue_.queueMutex_);
+//        requestQueue_.queueConditionVariable_.wait(lock,
+//                                                    [this](){return !requestQueue_.CRQueue_.empty() || stopFlag;});
+//        while (!requestQueue_.CRQueue_.empty() && !stopFlag) {
+//            std::cout<<"OB processing"<<std::endl;
+//            auto item = requestQueue_.CRQueue_.front();
+//            switch(item.getterNodeType()){
+//                case insertionCR:
+////                    check if insertion possible
+//                    insertion(new Order(item.getterUserID(),
+//                                        item.getterBoID(),
+//                                        item.getterPrice(),
+//                                        item.getterVolume(),
+//                                        item.getterProductID(),
+//                                        item.getterOrderDirection(),
+//                                        item.getterOrderType()));
+//                    break;
+//                case deletionCR:
+//                    //check if existing
+//                    deletion(getterPointerToOrderFromID(item.getterBoID()));
+//                    break;
+//                case updateCR:
+//                    // check if existing
+//                    update(getterPointerToOrderFromID(item.getterBoID()),
+//                            new Order(item.getterUserID(),
+//                                     item.getterBoID(),
+//                                     item.getterPrice(),
+//                                     item.getterVolume(),
+//                                     item.getterProductID(),
+//                                     item.getterOrderDirection(),
+//                                     item.getterOrderType()));
+//                    break;
+//                    //default throw error
+//                case displayOrderBookCR:
+//                    displayOrderBook();
+//                    break;
+//            }
+//            requestQueue_.CRQueue_.pop();
+//        }
+//        if(stopFlag) break;
+//    }
+//}

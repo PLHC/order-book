@@ -29,18 +29,35 @@ protobuf_generate(TARGET myproto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .g
 # Automatically include all .cpp and .h files from the market directory
 file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
 
+# Automatically include all .cpp and .h files from the market directory
+file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
+
+# service definition files
+file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/*")
+
+# server files
+file(GLOB SERVER_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Server/*")
+
 # Add executable and link libraries
 add_executable(OrderBook
         main.cpp
         ${MARKET_FILES}
-        market/MarketServer.cpp
-        market/MarketServer.h
-        market/MarketClient.cpp
-        market/MarketClient.h
+        ${CRQUEUE_FILES}
+        ${SERVICE_FILES}
+        ${SERVER_FILES}
 )
 
 # Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
 target_link_libraries(OrderBook
-        PRIVATE
+        PUBLIC
         myproto
+)
+
+# Add the clientasync target
+add_executable(ClientAsync "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/ClientAsync.cpp")
+target_link_libraries(ClientAsync myproto)
+
+
+add_custom_target(build_all
+        DEPENDS OrderBook ClientAsync
 )

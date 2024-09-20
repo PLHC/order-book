@@ -1,7 +1,3 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #ifndef ORDERBOOK_MARKET_H
 #define ORDERBOOK_MARKET_H
 
@@ -9,16 +5,17 @@
 #include "OrderLinkedList.h"
 #include "OrderBook.h"
 #include <thread>
-#include "MarketServer.h"
-
+#include "proto/MarketAccess.grpc.pb.h"
+#include "proto/MarketAccess.pb.h"
 
 class Market {
 private:
-    std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
     std::unordered_map<std::string, std::thread> ProductToOrderBookThreadMap;
     uint64_t lastID;
 
 public:
+    std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
+
     Market();
     ~Market();
 
@@ -28,25 +25,8 @@ public:
     inline uint64_t nextID(){return ++lastID;};
     void createNewOrderBook(const std::string& product_ID);
     void deleteOrderBook(const std::string& product_ID);
-    void addDeleteOrderToQueue(int32_t userID,
-                     const std::string& product,
-                     uint64_t boID);
-    void addInsertOrderToQueue(int32_t userID,
-                     double price,
-                     double volume,
-                     const std::string& product_ID,
-                     orderDirection buyOrSell,
-                     orderType boType);
-    void addUpdateOrderToQueue(int32_t userID,
-                     int32_t price,
-                     uint32_t volume,
-                     const std::string& product_ID,
-                     orderDirection buyOrSell,
-                     orderType boType,
-                     uint64_t updatedOrderID);
-    void addDisplayRequestToQueue(const std::string& product_ID);
+
     inline OrderBook* getterOrderBookPointer(const std::string& productID) {return ProductToOrderBookMap[productID];};
-    void RunMarketServer();
 };
 
 #endif //ORDERBOOK_MARKET_H
