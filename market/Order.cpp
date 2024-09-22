@@ -1,7 +1,3 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #include "Order.h"
 
 Order::Order(orderDirection buyOrSell):

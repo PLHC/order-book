@@ -1,7 +1,3 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #ifndef ORDERBOOK_ORDER_H
 #define ORDERBOOK_ORDER_H
 
@@ -27,14 +23,14 @@ private:
     Order *next_bo_;
 
 public:
-    explicit Order(orderDirection buyOrSell);
-    explicit Order(uint32_t userID,
-                   uint64_t boID,
-                   double price,
-                   double volume,
-                   std::string product_ID,
-                   orderDirection buyOrSell,
-                   orderType boType);
+     explicit Order(orderDirection buyOrSell);
+     Order(uint32_t userID,
+           uint64_t boID,
+           double price,
+           double volume,
+           std::string product_ID,
+           orderDirection buyOrSell,
+           orderType boType);
 
     Order(Order&& other) = delete;
     Order& operator=(const Order&& other) = delete;

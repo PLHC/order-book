@@ -5,7 +5,8 @@
 
 int main(int argc, char* argv[]) {
     std::cout<<"in main"<<std::endl;
-    Market M{};
+    GeneratorID genID (0);
+    Market M(&genID);
     for(int i=1; i<argc; ++i){
         M.createNewOrderBook(argv[i]);
     }

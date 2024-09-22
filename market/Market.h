@@ -1,28 +1,27 @@
 #ifndef ORDERBOOK_MARKET_H
 #define ORDERBOOK_MARKET_H
 
-#include "Order.h"
-#include "OrderLinkedList.h"
 #include "OrderBook.h"
-#include <thread>
+
 #include "proto/MarketAccess.grpc.pb.h"
 #include "proto/MarketAccess.pb.h"
+
+#include <thread>
 
 class Market {
 private:
     std::unordered_map<std::string, std::thread> ProductToOrderBookThreadMap;
-    uint64_t lastID;
+    GeneratorID * genID_;
 
 public:
     std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
 
-    Market();
+    explicit Market(GeneratorID * genID);
     ~Market();
 
     Market(Market&& other) = delete;
     Market& operator=(Market&&) = delete;
 
-    inline uint64_t nextID(){return ++lastID;};
     void createNewOrderBook(const std::string& product_ID);
     void deleteOrderBook(const std::string& product_ID);
 

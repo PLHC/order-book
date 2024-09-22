@@ -15,6 +15,12 @@ void MyServiceImpl::HandleRpcs() {
     new CallDataDeleteRequest(
             &marketAccess::Communication::AsyncService::RequestDeleteRequest,
             this, main_cq_, orderBookMap_, orderBookVector_);
+    new CallDataInsertionRequest(
+            &marketAccess::Communication::AsyncService::RequestInsertionRequest,
+            this, main_cq_, orderBookMap_, orderBookVector_);
+    new CallDataUpdateRequest(
+            &marketAccess::Communication::AsyncService::RequestUpdateRequest,
+            this, main_cq_, orderBookMap_, orderBookVector_);
 
     void *tag;
     bool ok;
@@ -24,12 +30,14 @@ void MyServiceImpl::HandleRpcs() {
     }
 }
 
-// Templated class to handle various request/response types
+// Templated class to handle various request/response_ types
 template<typename RequestParametersType, typename ResponseParametersType>
-MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::CallData(RequestRpcMethod request_method, marketAccess::Communication::AsyncService *service,
-                                                                                 grpc::ServerCompletionQueue *cq,
-                                                                                 std::unordered_map<std::string, OrderBook*> *orderBookMap,
-                                                                                 std::unordered_map<std::string, std::vector<std::string>> *orderBookVector)
+MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::CallData(
+        RequestRpcMethod request_method,
+        marketAccess::Communication::AsyncService *service,
+        grpc::ServerCompletionQueue *cq,
+        std::unordered_map<std::string, OrderBook*> *orderBookMap,
+        std::unordered_map<std::string, std::vector<std::string>> *orderBookVector)
         : service_(service), cq_(cq), orderBookMap_(orderBookMap),
           orderBookVector_(orderBookVector),
           responder_(&ctx_), status_(CREATE), request_method_(request_method) {
@@ -41,54 +49,102 @@ void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::Pro
 
     if (status_ == CREATE) {
         status_ = PROCESS;
-        (service_->*request_method_)(&ctx_, &request_, &responder_, cq_, cq_, this); // Register for the request
+        (service_->*request_method_)(&ctx_, &request_, &responder_, cq_, cq_, this); // Register to receive next request
 
     } else if (status_ == PROCESS) {
+        generateNewCallData();
         // Inspect metadata to decide on dispatch, corrupted separations of metadata requires resizing based on size
         auto product = ctx_.client_metadata().find("product_id");
-        std::string OBname = ( product != end( ctx_.client_metadata() ) ) ?
-                             std::string( product->second.data() ).substr( 0, product->second.length() ) : "";
+        std::string orderBookName = (product != end(ctx_.client_metadata() ) ) ?
+                                    std::string( product->second.data() ).substr( 0, product->second.length() ) :
+                                    "";
 
-        if ( (*orderBookMap_).count(OBname) ) {
-            generateNewCallData();
-            HandleValidRequest();
-
+        if (!orderBookName.empty() && (*orderBookMap_).count(orderBookName) ) {
+//            std::cout<<"Processing proper request"<<std::endl;
+            insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
-            generateNewCallData();
-            HandleProductError();
+//            std::cout<<"Processing error"<<std::endl;
+            handleProductError();
         }
+        responder_.Finish(response_, grpc::Status::OK, this);
         status_ = FINISH;
 
     } else if (status_ == FINISH) {
-        delete this;  // Cleanup after finishing
+        GPR_ASSERT(status_ == FINISH);
+        delete this;
     }
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::HandleProductError() {
-//    response_.set_orderBook("Product is not available for trading");
-    responder_.Finish(response_, grpc::Status::OK, this);
+void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::insertNodeInCRQAndHandleRequest(
+        std::string &OBname) {
+    auto orderBook = (*orderBookMap_)[OBname];
+    requestNodeInCRQ = orderBook->requestQueue_.insertNode();
+    std::unique_lock<std::mutex> statusLock(requestNodeInCRQ->statusMutex_);
+    requestNodeInCRQ->statusConditionVariable_.wait(statusLock, [this](){
+        return requestNodeInCRQ->status_==PROCESSING_ALLOWED;});
+
+    handleValidRequest(orderBook);
+
+    requestNodeInCRQ->status_=PROCESSING_COMPLETED;
+    statusLock.unlock();
+    requestNodeInCRQ->statusConditionVariable_.notify_all();
 }
 
-// Display request
-void MyServiceImpl::CallDataDisplayRequest::HandleValidRequest() {
-    std::cout << "Processing the Display Request" << std::endl;
-    response_.set_orderbook(("Display Request has been handled"));
-    response_.set_validation(true);
-    responder_.Finish(response_, grpc::Status::OK, this);
-}
-
-void MyServiceImpl::CallDataDisplayRequest::generateNewCallData() {
-    response_.set_orderbook(("unknown order book"));
+// Handle Product error
+template<typename RequestParametersType, typename ResponseParametersType>
+void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::handleProductError() {
+    response_.set_comment("Product is not available for trading");
     response_.set_validation(false);
+}
+
+// Handle valid requests
+void MyServiceImpl::CallDataDisplayRequest::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Display Request" << std::endl;
+    response_.set_orderbook(orderBook->displayOrderBook());
+    response_.set_comment(("Display Request has been handled"));
+    response_.set_validation(true);
+}
+
+void MyServiceImpl::CallDataDeleteRequest::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Delete Request" << std::endl;
+    orderBook->deletion(orderBook->getterPointerToOrderFromID(request_.boid()));
+    response_.set_validation(true);
+}
+
+void MyServiceImpl::CallDataInsertionRequest::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Insertion Request" << std::endl;
+    auto newGeneratedID = orderBook->genID_->nextID();
+    orderBook->insertion(new Order(request_.userid(),
+                                            newGeneratedID,
+                                            request_.price(),
+                                            request_.volume(),
+                                            orderBook->getterProductID(),
+                                            static_cast<orderDirection>(request_.buyorsell()),
+                                            static_cast<orderType>( request_.botype() ) ) );
+    response_.set_validation(true);
+    response_.set_boid(newGeneratedID);
+}
+
+void MyServiceImpl::CallDataUpdateRequest::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Update Request" << std::endl;
+    auto newGeneratedID = orderBook->genID_->nextID();
+    orderBook->update(orderBook->getterPointerToOrderFromID(request_.boid()),
+                            new Order(request_.userid(),
+                                      newGeneratedID,
+                                      request_.price(),
+                                      request_.volume(),
+                                      orderBook->getterProductID(),
+                                      static_cast<orderDirection>(request_.buyorsell()),
+                                      static_cast<orderType>( request_.botype() ) ) );
+    response_.set_validation(true);
+    response_.set_boid(newGeneratedID);
+}
+
+// Generate new request handlers
+void MyServiceImpl::CallDataDisplayRequest::generateNewCallData() {
     new CallDataDisplayRequest(request_method_, service_, cq_,
                                orderBookMap_, orderBookVector_);
-}
-
-// Delete request
-void MyServiceImpl::CallDataDeleteRequest::HandleValidRequest() {
-    std::cout << "Processing the Delete Request" << std::endl;
-    responder_.Finish(response_, grpc::Status::OK, this);
 }
 
 void MyServiceImpl::CallDataDeleteRequest::generateNewCallData() {
@@ -96,21 +152,9 @@ void MyServiceImpl::CallDataDeleteRequest::generateNewCallData() {
                               orderBookMap_, orderBookVector_);
 }
 
-// Insertion request
-void MyServiceImpl::CallDataInsertionRequest::HandleValidRequest() {
-    std::cout << "Processing the Insertion Request" << std::endl;
-    responder_.Finish(response_, grpc::Status::OK, this);
-}
-
 void MyServiceImpl::CallDataInsertionRequest::generateNewCallData() {
     new CallDataInsertionRequest(request_method_, service_, cq_,
                                  orderBookMap_, orderBookVector_);
-}
-
-// Update request
-void MyServiceImpl::CallDataUpdateRequest::HandleValidRequest() {
-    std::cout << "Processing the Update Request" << std::endl;
-    responder_.Finish(response_, grpc::Status::OK, this);
 }
 
 void MyServiceImpl::CallDataUpdateRequest::generateNewCallData() {

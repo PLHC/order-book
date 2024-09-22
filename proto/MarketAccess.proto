@@ -2,6 +2,8 @@ syntax="proto3";
 
 package marketAccess;
 
+// the enum definitions need to match the order in the enums of Order.h
+
 enum orderType {
   FillOrKill = 0;
   GoodTilCancelled = 1;
@@ -28,7 +30,7 @@ message DisplayParameters{
 
 message OrderBookContent{
   bool validation = 1;
-  string orderbook = 2;
+  optional string orderbook = 2;
   optional string comment = 3;
 }
 
@@ -39,11 +41,10 @@ message DeletionParameters{
 
 message InsertionParameters{
   int32 userID = 1;
-  uint64 boID = 2;
-  double price = 3;
-  double volume = 4;
-  orderDirection buyOrSell = 5;
-  orderType boType = 6;
+  double price = 2;
+  double volume = 3;
+  orderDirection buyOrSell = 4;
+  orderType boType = 5;
 }
 
 message UpdateParameters{

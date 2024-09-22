@@ -1,4 +1,5 @@
 #include "CustomerRequestQueue.h"
+#include <iostream>
 
 CustomerRequestQueue::CustomerRequestQueue():
     dummyTail_(std::make_shared<RequestNode>()),
@@ -27,9 +28,9 @@ RequestNode* CustomerRequestQueue::insertNode() {
     newNodePtr->prev_ = dummyTail_;
 
     //prevMutex of dummyTail is not used like for other nodes,
-    //so used as the only right to insert a node in the queue
+    //it is used as the only right to insert a node in the queue
     std::unique_lock<std::mutex> insertionLock(dummyTail_->prevMutex_);
-    dummyTail_->prevConditionVariable_.wait(insertionLock);
+    dummyTail_->prevConditionVariable_.wait(insertionLock, [](){return true;});
 
     // once allowed to process, first inserting the node by linking it
     newNodePtr->next_ = dummyTail_->next_;
@@ -43,31 +44,35 @@ RequestNode* CustomerRequestQueue::insertNode() {
     newNodePtr->next_->prevConditionVariable_.notify_all();
 
     //releasing lock granting insertion rights
-    insertionLock.release();
+    insertionLock.unlock();
     dummyTail_->prevConditionVariable_.notify_all();
 
     return newNodePtr.get();
 }
 
 void CustomerRequestQueue::runNextRequest(){
-    auto processingNode = dummyHead_->prev_;
+    std::cout<<"running next request"<<std::endl;
+
     // get access to next node to process
     std::unique_lock<std::mutex> prevNodeLock(dummyHead_->prevMutex_);
-    dummyHead_->prevConditionVariable_.wait(prevNodeLock);
+    dummyHead_->prevConditionVariable_.wait(prevNodeLock,[](){return true;});
+    auto processingNode = dummyHead_->prev_;
 
-    // once access granted, update the status and notify the thread to process with the request
+    // once access granted, update the status_ and notify the gRPC thread to process the request
     std::unique_lock<std::mutex> statusLock(processingNode->statusMutex_);
-    processingNode->statusConditionVariable_.wait(statusLock);
+    processingNode->statusConditionVariable_.wait(statusLock, [](){return true;});
     processingNode->status_ = PROCESSING_ALLOWED;
-    statusLock.release();
+    statusLock.unlock();
     processingNode->statusConditionVariable_.notify_all();
 
-    // reacquire the lock once processed terminated and
+    // reacquire the lock once processed terminated on order book and
     // take care of deleting the next node and defining the current one as the new dummyHead
+    statusLock.lock();
     processingNode->statusConditionVariable_.wait(statusLock, [&processingNode](){
         return processingNode->status_==PROCESSING_COMPLETED;
     });
+    statusLock.unlock();
+    prevNodeLock.unlock();// should i include a notify all?
     dummyHead_ = processingNode;
-    prevNodeLock.release();
-    processingNode->next_ = nullptr;
+    dummyHead_->next_ = nullptr; // delete previous head
 }

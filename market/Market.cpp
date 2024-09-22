@@ -2,10 +2,10 @@
 #include <iostream>
 
 
-Market::Market():
+Market::Market(GeneratorID * genID):
+        genID_(genID),
         ProductToOrderBookMap(),
-        ProductToOrderBookThreadMap(),
-        lastID(0)// replace last ID by an ID in database; needs a lock on it
+        ProductToOrderBookThreadMap()
     {
     std::cout<<"in market constructor"<<std::endl;
 }
@@ -27,7 +27,7 @@ Market::~Market(){
 
 
 void Market::createNewOrderBook(const std::string& product_ID) {
-    auto pointerToOrderBook = new OrderBook();
+    auto pointerToOrderBook = new OrderBook(product_ID, genID_);
     ProductToOrderBookMap[product_ID] = pointerToOrderBook;
     ProductToOrderBookThreadMap[product_ID] = std::thread(&OrderBook::processRequests, pointerToOrderBook);
 
@@ -39,68 +39,3 @@ void Market::deleteOrderBook(const std::string &product_ID) {
     delete ProductToOrderBookMap[product_ID];
     ProductToOrderBookMap.erase(product_ID);
 }
-
-//void Market::addDeleteOrderToQueue(int32_t userID,
-//                         const std::string &product_ID,
-//                         uint64_t boID) {
-//    //check if product and order exist first or throw error
-//    auto Q = ProductToOrderBookMap[product_ID];
-//    std::lock_guard<std::mutex> lock(Q->requestQueue_.queueMutex_);
-//    Q->requestQueue_.CRQueue_.emplace(deletionCR,
-//                                  userID,
-//                                  product_ID,
-//                                  boID);
-//    Q->requestQueue_.queueConditionVariable_.notify_one();
-//}
-//
-//void Market::addInsertOrderToQueue(int32_t userID,
-//                         double price,
-//                         double volume,
-//                         const std::string& product_ID,
-//                         orderDirection buyOrSell,
-//                         orderType boType) {
-//    //check if product exists first or throw error
-//    std::cout<<"market inserts"<<std::endl;
-//    auto Q = ProductToOrderBookMap[product_ID];
-//    std::lock_guard<std::mutex> lock(Q->requestQueue_.queueMutex_);
-//    Q->requestQueue_.CRQueue_.emplace(insertionCR,
-//                             userID,
-//                             product_ID,
-//                             nextID(),
-//                             price,
-//                             volume,
-//                             buyOrSell,
-//                             boType);
-//    Q->requestQueue_.queueConditionVariable_.notify_one();
-//}
-//
-//void Market::addUpdateOrderToQueue(int32_t userID,
-//                         int32_t price,
-//                         uint32_t volume,
-//                         const std::string &product_ID,
-//                         orderDirection buyOrSell,
-//                         orderType boType,
-//                         uint64_t updatedOrderID) {
-//    //check if product and order exist first or throw error
-//    auto Q = ProductToOrderBookMap[product_ID];
-//    std::lock_guard<std::mutex> lock(Q->requestQueue_.queueMutex_);
-//    Q->requestQueue_.CRQueue_.emplace(updateCR,
-//                             userID,
-//                             product_ID,
-//                             nextID(),
-//                             price,
-//                             volume,
-//                             buyOrSell,
-//                             boType,
-//                             updatedOrderID);
-//    Q->requestQueue_.queueConditionVariable_.notify_one();
-//}
-//
-//void Market::addDisplayRequestToQueue(const std::string &product_ID) {
-//    //check if orderbook exists and is open
-//    auto Q = ProductToOrderBookMap[product_ID];
-//    std::lock_guard<std::mutex> lock(Q->requestQueue_.queueMutex_);
-//    Q->requestQueue_.CRQueue_.emplace(displayOrderBookCR);
-//    Q->requestQueue_.queueConditionVariable_.notify_one();
-//}
-

@@ -1,7 +1,3 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #include "OrderLinkedList.h"
 
 OrderLinkedList::OrderLinkedList(orderDirection bidsOrOffers){

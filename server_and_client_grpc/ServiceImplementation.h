@@ -11,6 +11,7 @@
 #include <iostream>
 
 
+
 // MyServiceImpl class derived from the generated AsyncService class
 class MyServiceImpl final : public marketAccess::Communication::AsyncService {
     grpc::ServerCompletionQueue *main_cq_;
@@ -32,14 +33,15 @@ public:
         virtual void Proceed() = 0;
     };
 
-    // Templated class to handle specific request/response types
+    // Templated class to handle specific request/response_ types
     template<typename RequestParametersType, typename ResponseParametersType>
     class CallData : public CallDataBase {
     public:
-        using RequestRpcMethod = void (marketAccess::Communication::AsyncService::*)(grpc::ServerContext *, RequestParametersType *,
-                                                                                     grpc::ServerAsyncResponseWriter<ResponseParametersType> *,
-                                                                                     grpc::CompletionQueue *,
-                                                                                     grpc::ServerCompletionQueue *, void *);
+        using RequestRpcMethod = void (marketAccess::Communication::AsyncService::*)(
+                grpc::ServerContext *, RequestParametersType *,
+                grpc::ServerAsyncResponseWriter<ResponseParametersType> *,
+                grpc::CompletionQueue *,
+                grpc::ServerCompletionQueue *, void *);
 
         CallData(RequestRpcMethod request_method, marketAccess::Communication::AsyncService *service,
                  grpc::ServerCompletionQueue *cq,
@@ -49,14 +51,16 @@ public:
         void Proceed() override;
 
     protected:
-        virtual void HandleValidRequest() = 0;
+        virtual void handleValidRequest(OrderBook* orderBook) = 0;
         virtual void generateNewCallData() = 0;
-        void HandleProductError();
+        void handleProductError();
+        void insertNodeInCRQAndHandleRequest(std::string & OBname);
 
         marketAccess::Communication::AsyncService *service_;
         grpc::ServerCompletionQueue *cq_;
         std::unordered_map<std::string, OrderBook*> *orderBookMap_;
         std::unordered_map<std::string, std::vector<std::string>> *orderBookVector_;
+        RequestNode *requestNodeInCRQ;
 
         grpc::ServerContext ctx_;
         RequestParametersType request_;
@@ -73,28 +77,28 @@ public:
     class CallDataDisplayRequest : public CallData<marketAccess::DisplayParameters, marketAccess::OrderBookContent>{
         using CallData<marketAccess::DisplayParameters, marketAccess::OrderBookContent>::CallData;
     protected:
-        void HandleValidRequest() override;
+        void handleValidRequest(OrderBook* orderBook) override;
         void generateNewCallData() override;
     };
 
     class CallDataDeleteRequest : public CallData<marketAccess::DeletionParameters, marketAccess::Confirmation>{
         using CallData<marketAccess::DeletionParameters, marketAccess::Confirmation>::CallData;
     protected:
-        void HandleValidRequest() override;
+        void handleValidRequest(OrderBook* orderBook) override;
         void generateNewCallData() override;
     };
 
     class CallDataInsertionRequest : public CallData<marketAccess::InsertionParameters, marketAccess::Confirmation>{
         using CallData<marketAccess::InsertionParameters, marketAccess::Confirmation>::CallData;
     protected:
-        void HandleValidRequest() override;
+        void handleValidRequest(OrderBook* orderBook) override;
         void generateNewCallData() override;
     };
 
     class CallDataUpdateRequest : public CallData<marketAccess::UpdateParameters, marketAccess::Confirmation>{
         using CallData<marketAccess::UpdateParameters, marketAccess::Confirmation>::CallData;
     protected:
-        void HandleValidRequest() override;
+        void handleValidRequest(OrderBook* orderBook) override;
         void generateNewCallData() override;
     };
 };

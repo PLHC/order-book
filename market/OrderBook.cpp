@@ -1,6 +1,8 @@
 #include "OrderBook.h"
 
-OrderBook::OrderBook():
+OrderBook::OrderBook(std::string productID, GeneratorID * genID):
+        productID_(std::move(productID)),
+        genID_(genID),
         bids_(buy),
         offers_(sell),
         IDtoPointerMap(),
@@ -164,48 +166,3 @@ void OrderBook::processRequests(){
         requestQueue_.runNextRequest();
     }
 }
-
-//void OrderBook::processRequests() {
-//    while (true) {
-//        std::unique_lock<std::mutex> lock(requestQueue_.queueMutex_);
-//        requestQueue_.queueConditionVariable_.wait(lock,
-//                                                    [this](){return !requestQueue_.CRQueue_.empty() || stopFlag;});
-//        while (!requestQueue_.CRQueue_.empty() && !stopFlag) {
-//            std::cout<<"OB processing"<<std::endl;
-//            auto item = requestQueue_.CRQueue_.front();
-//            switch(item.getterNodeType()){
-//                case insertionCR:
-////                    check if insertion possible
-//                    insertion(new Order(item.getterUserID(),
-//                                        item.getterBoID(),
-//                                        item.getterPrice(),
-//                                        item.getterVolume(),
-//                                        item.getterProductID(),
-//                                        item.getterOrderDirection(),
-//                                        item.getterOrderType()));
-//                    break;
-//                case deletionCR:
-//                    //check if existing
-//                    deletion(getterPointerToOrderFromID(item.getterBoID()));
-//                    break;
-//                case updateCR:
-//                    // check if existing
-//                    update(getterPointerToOrderFromID(item.getterBoID()),
-//                            new Order(item.getterUserID(),
-//                                     item.getterBoID(),
-//                                     item.getterPrice(),
-//                                     item.getterVolume(),
-//                                     item.getterProductID(),
-//                                     item.getterOrderDirection(),
-//                                     item.getterOrderType()));
-//                    break;
-//                    //default throw error
-//                case displayOrderBookCR:
-//                    displayOrderBook();
-//                    break;
-//            }
-//            requestQueue_.CRQueue_.pop();
-//        }
-//        if(stopFlag) break;
-//    }
-//}

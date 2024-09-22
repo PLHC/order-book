@@ -1,7 +1,3 @@
-//
-// Created by Paul  on 04/07/2024.
-//
-
 #ifndef ORDERBOOK_ORDERLINKEDLIST_H
 #define ORDERBOOK_ORDERLINKEDLIST_H
 

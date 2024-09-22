@@ -5,26 +5,49 @@
 #include <grpcpp/alarm.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 #include "proto/MarketAccess.grpc.pb.h"
+#include "../../market/Order.h"
+
 #include <thread>
 #include <mutex>
+#include <string>
 
 class Client {
 public:
     // Constructor accepting a gRPC channel
-    Client(std::shared_ptr<grpc::Channel> channel);
+    explicit Client(const std::shared_ptr<grpc::Channel>& channel);
 
     // Destructor to handle proper shutdown of resources
     ~Client();
 
     // Method to handle async communication with the HandleTypeB RPC
-    void HandleDisplayRequestAsync(std::string&& message, std::string&& orderBookName);
+    std::string HandleDisplayRequestAsync(std::string&& message,
+                                   std::string&& orderBookName);
+    std::pair<bool, u_int64_t> HandleInsertionRequestAsync(std::string&& orderBookName,
+                                                           int userID,
+                                                           double price,
+                                                           double volume,
+                                                           orderDirection buyOrSell,
+                                                           orderType boType);
 
 private:
     // Internal structure to store data for each RPC call
-    struct RpcData {
-        grpc::ClientContext* context;
-        marketAccess::OrderBookContent* response;
-        grpc::Status* status;
+    class RpcDataBase{
+    public:
+        virtual ~RpcDataBase() = default;
+        virtual void process() = 0;
+    };
+
+    template<typename RequestResponseType>
+    class RpcData : public RpcDataBase{
+        grpc::ClientContext* context_;
+        RequestResponseType* response_;
+        grpc::Status* status_;
+
+    public:
+        RpcData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s);
+        ~RpcData() override;
+
+        void process() override;
     };
 
     // Method to process the completion queue for finished RPC calls
