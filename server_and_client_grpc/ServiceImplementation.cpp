@@ -101,6 +101,7 @@ void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::han
 // Handle valid requests
 void MyServiceImpl::CallDataDisplayRequest::handleValidRequest(OrderBook* orderBook) {
     std::cout << "Processing the Display Request" << std::endl;
+    response_.set_info(std::to_string(request_.info()));
     response_.set_orderbook(orderBook->displayOrderBook());
     response_.set_comment(("Display Request has been handled"));
     response_.set_validation(true);
@@ -109,6 +110,7 @@ void MyServiceImpl::CallDataDisplayRequest::handleValidRequest(OrderBook* orderB
 void MyServiceImpl::CallDataDeleteRequest::handleValidRequest(OrderBook* orderBook) {
     std::cout << "Processing the Delete Request" << std::endl;
     orderBook->deletion(orderBook->getterPointerToOrderFromID(request_.boid()));
+    response_.set_info(std::to_string(request_.info()));
     response_.set_validation(true);
 }
 
@@ -122,6 +124,7 @@ void MyServiceImpl::CallDataInsertionRequest::handleValidRequest(OrderBook* orde
                                             orderBook->getterProductID(),
                                             static_cast<orderDirection>(request_.buyorsell()),
                                             static_cast<orderType>( request_.botype() ) ) );
+    response_.set_info(std::to_string(request_.info()));
     response_.set_validation(true);
     response_.set_boid(newGeneratedID);
 }
@@ -137,6 +140,7 @@ void MyServiceImpl::CallDataUpdateRequest::handleValidRequest(OrderBook* orderBo
                                       orderBook->getterProductID(),
                                       static_cast<orderDirection>(request_.buyorsell()),
                                       static_cast<orderType>( request_.botype() ) ) );
+    response_.set_info(std::to_string(request_.info()));
     response_.set_validation(true);
     response_.set_boid(newGeneratedID);
 }

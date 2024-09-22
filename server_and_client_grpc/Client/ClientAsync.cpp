@@ -8,7 +8,12 @@ using marketAccess::Communication;
 using marketAccess::OrderBookContent;
 
 Client::Client(const std::shared_ptr<Channel>& channel)
-        : stub_(Communication::NewStub(channel)), is_shutting_down_(false) {
+        : stub_(Communication::NewStub(channel)),
+        clientInternalId_(0),
+        generatorLock_(),
+        conditionVariableGeneratorLock_(),
+        internalIdToRequestTypeMap_(),
+        is_shutting_down_(false) {
     // Start a separate thread to process the CompletionQueue
     cq_thread_ = std::thread([this]() { this->AsyncCompleteRpc(); });
 }
@@ -25,10 +30,12 @@ Client::~Client() {
 template<typename RequestResponseType>
 Client::RpcData<RequestResponseType>::RpcData(grpc::ClientContext* c,
                                               RequestResponseType* r,
-                                              grpc::Status* s):
+                                              grpc::Status* s,
+                                              Client& client):
         context_(c),
         response_(r),
-        status_(s){}
+        status_(s),
+        clientEnclosure_(client){}
 
 template<typename RequestResponseType>
 Client::RpcData<RequestResponseType>::~RpcData(){
@@ -44,7 +51,6 @@ void Client::AsyncCompleteRpc() {
         // Block until the next result is available in the completion queue
         while (cq_.Next(&tag, &ok)) {
             auto* rpcData = static_cast<RpcDataBase*>(tag);
-
             if (ok) {
                rpcData->process();
             } else {
@@ -55,11 +61,16 @@ void Client::AsyncCompleteRpc() {
     }
 }
 
-std::string Client::HandleDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
-    marketAccess::DisplayParameters request;
-    request.set_requestnumber(message);
+void Client::HandleDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
+    // record internal ID to track results
+    auto internalId = nextInternalID();
+    internalIdToRequestTypeMap_[internalId] = "Display";
 
-    // Create a new context_
+    // create request
+    marketAccess::DisplayParameters request;
+    request.set_info(internalId);
+
+    // Create a new context
     auto context = new grpc::ClientContext();
     context->AddMetadata("product_id", orderBookName);
 
@@ -69,19 +80,23 @@ std::string Client::HandleDisplayRequestAsync(std::string&& message, std::string
 
     std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::OrderBookContent>> rpc(
             stub_->AsyncDisplayRequest(context, request, &cq_));
-    
-    // Request the async call to finish
-    rpc->Finish(response, status, (void*)new RpcData{context, response, status});
-    return response->orderbook();
+        // Request the async call to finish
+    rpc->Finish(response, status, (void*)new RpcData{context, response, status, *this});
 }
 
-std::pair<bool, u_int64_t> Client::HandleInsertionRequestAsync(std::string&& orderBookName,
+void Client::HandleInsertionRequestAsync(std::string&& orderBookName,
                                          int userID,
                                          double price,
                                          double volume,
                                          orderDirection buyOrSell,
                                          orderType boType) {
+    // record internal ID to track results
+    auto internalId = nextInternalID();
+    internalIdToRequestTypeMap_[internalId] = "Insertion";
+
+    //Create request
     marketAccess::InsertionParameters request;
+    request.set_info(internalId);
     request.set_userid(userID);
     request.set_price(price);
     request.set_volume(volume);
@@ -99,53 +114,80 @@ std::pair<bool, u_int64_t> Client::HandleInsertionRequestAsync(std::string&& ord
     std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::Confirmation>> rpc(
             stub_->AsyncInsertionRequest(context, request, &cq_));
     // Request the async call to finish
-    rpc->Finish(response, status, (void*)new RpcData{context, response, status});
-
-    if(response->has_boid())
-        return {response->validation(), response->boid()};
-    else
-        return {response->validation(), 0};
+    rpc->Finish(response, status, (void*)new RpcData{context, response, status, *this});
 }
+
+
 
 template<typename RequestResponseType>
 void Client::RpcData<RequestResponseType>::process(){
     if (status_->ok()) {
         std::cout << "Response from Type B: " << response_->comment() << std::endl;
+        auto requestID = stoi(response_->info());
+        auto requestType = clientEnclosure_.internalIdToRequestTypeMap_.find(requestID);
+        if( requestType == end( clientEnclosure_.internalIdToRequestTypeMap_ ) ){
+            std::cout<<"Response received for non registered request: "<<requestID;
+            return;
+        }
+        if((*requestType).second == "Display"){
+            handleResponse();
+        }
+        clientEnclosure_.internalIdToRequestTypeMap_.erase(requestID);
     } else {
         std::cerr << "RPC failed: " << status_->error_message() << std::endl;
+        // problem: does not delete from internalIdToRequestTypeMap_
     }
 
 }
 
+template<>
+void Client::RpcData<marketAccess::Confirmation>::handleResponse() {
+    if (response_->has_boid()) {
+        std::cout << response_->validation() << " new BO ID: " << response_->boid();
+    }else {
+        std::cout << "Insertion/Update/Deletion request failed" << std::endl;
+    }
+}
 
+template<>
+void Client::RpcData<marketAccess::OrderBookContent>::handleResponse() {
+    if (response_->validation()) {
+        std::cout << "Orderbook: " << std::endl << response_->orderbook();
+    }else {
+        std::cout << "Display request failed" << std::endl;
+    }
+}
+
+u_int64_t Client::nextInternalID() {
+    std::unique_lock<std::mutex> genLock (generatorLock_);
+    conditionVariableGeneratorLock_.wait(genLock, [](){ return true;});
+
+    auto newID = ++clientInternalId_;
+
+    genLock.unlock();
+    conditionVariableGeneratorLock_.notify_all();
+
+    return newID;
+}
 
 int main(int argc, char** argv) {
     // argv:
     // 1: client number
     // 2: orderbook 1
     // 3: orderbook 2
-    Client client1(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials()));
+    Client client1(grpc::CreateChannel("localhost:50051",
+                                                grpc::InsecureChannelCredentials()));
 
     int i = 1;
     while (i < 4) {
-//        std::cout << argv[1] << " sending " << std::to_string(i) << " to " << argv[3] << std::endl;
-        auto insertion = client1.HandleInsertionRequestAsync(argv[2], std::stoi(argv[1]), 20, 1, buy, GoodTilCancelled);
-        std::cout<<std::endl<<insertion.first<<" "<<insertion.second<<std::endl;
-
-//        std::cout << argv[1] << " sending " << std::to_string(i) << " to " << argv[2] << std::endl;
-        std::cout<<client1.HandleDisplayRequestAsync(std::to_string(i), argv[2])<<std::endl;
+        client1.HandleInsertionRequestAsync(argv[2], std::stoi(argv[1]),
+                                            20, 1, buy, GoodTilCancelled);
+        client1.HandleDisplayRequestAsync(std::to_string(i), argv[2]);
         i++;
-
     }
 
-//    i = 1;
-//    while (i < 4) {
-//        std::cout << argv[1] << " sending " << std::to_string(i) << " to " << argv[3] << std::endl;
-//        client1.HandleDisplayRequestAsync(std::to_string(i++), argv[3]);
-//    }
 
     // Give the client some time to complete all RPCs before shutdown
     std::this_thread::sleep_for(std::chrono::seconds(1));
-
     return 0;
 }

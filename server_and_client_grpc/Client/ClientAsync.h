@@ -20,9 +20,9 @@ public:
     ~Client();
 
     // Method to handle async communication with the HandleTypeB RPC
-    std::string HandleDisplayRequestAsync(std::string&& message,
+    void HandleDisplayRequestAsync(std::string&& message,
                                    std::string&& orderBookName);
-    std::pair<bool, u_int64_t> HandleInsertionRequestAsync(std::string&& orderBookName,
+    void HandleInsertionRequestAsync(std::string&& orderBookName,
                                                            int userID,
                                                            double price,
                                                            double volume,
@@ -42,14 +42,24 @@ private:
         grpc::ClientContext* context_;
         RequestResponseType* response_;
         grpc::Status* status_;
+        Client& clientEnclosure_;
 
     public:
-        RpcData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s);
+        RpcData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s, Client& client);
         ~RpcData() override;
 
         void process() override;
+        void handleResponse();
     };
 
+    [[nodiscard]] u_int64_t nextInternalID();
+
+    // Client internal request ID
+    std::mutex generatorLock_;
+    std::condition_variable conditionVariableGeneratorLock_;
+    std::uint64_t clientInternalId_;
+    // map of currently executing orders and their corresponding content (type of request)
+    std::unordered_map<std::uint64_t, std::string> internalIdToRequestTypeMap_;
     // Method to process the completion queue for finished RPC calls
     void AsyncCompleteRpc();
     // Stub for the Communication
