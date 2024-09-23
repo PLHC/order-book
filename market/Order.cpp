@@ -1,6 +1,6 @@
 #include "Order.h"
 
-Order::Order(orderDirection buyOrSell):
+OrderBase::OrderBase(orderDirection buyOrSell):
         userID_(),
         boID_(),
         price_(),
@@ -9,9 +9,30 @@ Order::Order(orderDirection buyOrSell):
         volumeInHundredths_(),
         productID_(),
         buyOrSell_(buyOrSell),
-        boType_(),
-        prevBO_(nullptr),
-        nextBO_(nullptr) {}
+        boType_(){}
+
+OrderBase::OrderBase(uint32_t userID,
+             uint64_t boID,
+             double price,
+             double volume,
+             std::string productID,
+             orderDirection buyOrSell,
+             orderType boType)
+             : userID_(userID),
+               boID_(boID),
+               productID_(std::move(productID)),
+               buyOrSell_(buyOrSell),
+               boType_(boType){
+    priceInCents_ = static_cast<int>(price * 100);
+    price_ = priceInCents_/100.0;
+    volumeInHundredths_ = static_cast<int>(volume * 100);
+    volume_ = volumeInHundredths_/100.0;
+}
+
+Order::Order(orderDirection buyOrSell)
+        : OrderBase(buyOrSell),
+          prevBO_(nullptr),
+          nextBO_(nullptr) {}
 
 Order::Order(uint32_t userID,
              uint64_t boID,
@@ -19,16 +40,18 @@ Order::Order(uint32_t userID,
              double volume,
              std::string productID,
              orderDirection buyOrSell,
-             orderType boType):
-        userID_(userID),
-        boID_(boID),
-        productID_(std::move(productID)),
-        buyOrSell_(buyOrSell),
-        boType_(boType),
-        prevBO_(nullptr),
-        nextBO_(nullptr) {
-    priceInCents_ = static_cast<int>(price * 100);
-    price_ = priceInCents_/100.0;
-    volumeInHundredths_ = static_cast<int>(volume * 100);
-    volume_ = volumeInHundredths_/100.0;
-}
+             orderType boType)
+        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
+          prevBO_(nullptr),
+          nextBO_(nullptr) {}
+
+OrderClient::OrderClient(uint32_t userID,
+                         uint64_t boID,
+                         double price,
+                         double volume,
+                         std::string productID,
+                         orderDirection buyOrSell,
+                         orderType boType,
+                         std::string internalID)
+        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
+          internalID_(std::move(internalID)){}

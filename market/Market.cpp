@@ -6,12 +6,9 @@ Market::Market(GeneratorId * genID):
         genId_(genID),
         productToOrderBookMap_(),
         productToOrderBookThreadMap_()
-    {
-    std::cout<<"in market constructor"<<std::endl;
-}
+    {}
 
 Market::~Market(){
-    std::cout<<"in market destructor"<<std::endl;
     for(const auto & [product, orderBookPointer] : productToOrderBookMap_){
         orderBookPointer->setterStopFlagToTrue();
     }

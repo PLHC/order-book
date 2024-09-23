@@ -1,9 +1,9 @@
-#ifndef ORDERBOOK_SERVICEIMPLEMENTATION_H
-#define ORDERBOOK_SERVICEIMPLEMENTATION_H
+#ifndef ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H
+#define ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H
 
 #include <grpcpp/grpcpp.h>
 #include "proto/MarketAccess.grpc.pb.h"
-#include "../market/Market.h"
+#include "../../market/Market.h"
 #include <thread>
 #include <unordered_map>
 #include <vector>
@@ -29,7 +29,7 @@ public:
         virtual void proceed() = 0;
     };
 
-    // Templated class to handle specific request/responseParameters_ types
+    // Templated class to handle specific request/response types
     template<typename RequestParametersType, typename ResponseParametersType>
     class RequestHandler : public RequestHandlerBase {
     public:
@@ -72,26 +72,26 @@ public:
         void generateNewRequestHandler() override;
     };
 
-    class DeleteRequestHandler : public RequestHandler<marketAccess::DeletionParameters, marketAccess::Confirmation>{
-        using RequestHandler<marketAccess::DeletionParameters, marketAccess::Confirmation>::RequestHandler;
+    class DeleteRequestHandler : public RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConfirmation>{
+        using RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConfirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
         void generateNewRequestHandler() override;
     };
 
-    class InsertionRequestHandler : public RequestHandler<marketAccess::InsertionParameters, marketAccess::Confirmation>{
-        using RequestHandler<marketAccess::InsertionParameters, marketAccess::Confirmation>::RequestHandler;
+    class InsertionRequestHandler : public RequestHandler<marketAccess::InsertionParameters, marketAccess::InsertionConfirmation>{
+        using RequestHandler<marketAccess::InsertionParameters, marketAccess::InsertionConfirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
         void generateNewRequestHandler() override;
     };
 
-    class UpdateRequestHandler : public RequestHandler<marketAccess::UpdateParameters, marketAccess::Confirmation>{
-        using RequestHandler<marketAccess::UpdateParameters, marketAccess::Confirmation>::RequestHandler;
+    class UpdateRequestHandler : public RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>{
+        using RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
         void generateNewRequestHandler() override;
     };
 };
 
-#endif //ORDERBOOK_SERVICEIMPLEMENTATION_H
+#endif //ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H

@@ -1,5 +1,5 @@
-#ifndef ORDERBOOK_CLIENTASYNC_H
-#define ORDERBOOK_CLIENTASYNC_H
+#ifndef ORDERBOOK_CLIENTASYNCIMPLEMENTATION_H
+#define ORDERBOOK_CLIENTASYNCIMPLEMENTATION_H
 
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/alarm.h>
@@ -28,6 +28,16 @@ public:
                                        double volume,
                                        orderDirection buyOrSell,
                                        orderType boType);
+    void generateUpdateRequestAsync(std::string&& orderBookName,
+                                    int userID,
+                                    uint64_t updatedBO,
+                                    double price,
+                                    double volume,
+                                    orderDirection buyOrSell,
+                                    orderType boType);
+    void generateDeleteRequestAsync(std::string&& orderBookName,
+                                    int userID,
+                                    uint64_t deletedID);
 
 private:
     // Internal structure to store data for each RPC call
@@ -39,15 +49,18 @@ private:
     };
 
     //
-    template<typename RequestResponseType>
+    template<typename ResponseParametersType>
     class RequestData : public RequestDataBase{
         grpc::ClientContext* context_;
-        RequestResponseType* response_;
+        ResponseParametersType* responseParams_;
         grpc::Status* status_;
         Client& clientEnclosure_;
 
     public:
-        RequestData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s, Client& client);
+        RequestData(grpc::ClientContext* ctx,
+                    ResponseParametersType* responseParams,
+                    grpc::Status* status,
+                    Client& client);
         ~RequestData() override;
 
         void process() override;
@@ -74,4 +87,4 @@ private:
     bool is_shutting_down_;
 };
 
-#endif //ORDERBOOK_CLIENTASYNC_H
+#endif //ORDERBOOK_CLIENTASYNCIMPLEMENTATION_H

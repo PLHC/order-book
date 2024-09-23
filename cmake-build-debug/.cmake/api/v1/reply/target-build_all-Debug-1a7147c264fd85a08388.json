@@ -18,7 +18,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 61,
+				"line" : 72,
 				"parent" : 0
 			}
 		]
@@ -26,10 +26,10 @@
 	"dependencies" : 
 	[
 		{
-			"id" : "OrderBook::@6890427a1f51a3e7e1df"
+			"id" : "trading_platform::@6890427a1f51a3e7e1df"
 		},
 		{
-			"id" : "ClientAsync::@6890427a1f51a3e7e1df"
+			"id" : "random_order_generator_client::@6890427a1f51a3e7e1df"
 		}
 	],
 	"id" : "build_all::@6890427a1f51a3e7e1df",

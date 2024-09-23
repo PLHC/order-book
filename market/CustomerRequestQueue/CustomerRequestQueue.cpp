@@ -51,8 +51,6 @@ RequestNode* CustomerRequestQueue::insertNode() {
 }
 
 void CustomerRequestQueue::runNextRequest(){
-    std::cout<<"running next request"<<std::endl;
-
     // get access to next node to process
     std::unique_lock<std::mutex> prevNodeLock(dummyHead_->prevMutex_);
     dummyHead_->prevConditionVariable_.wait(prevNodeLock,[](){return true;});
@@ -72,7 +70,7 @@ void CustomerRequestQueue::runNextRequest(){
         return processingNode->status_==PROCESSING_COMPLETED;
     });
     statusLock.unlock();
-    prevNodeLock.unlock();// should i include a notify all?
+    prevNodeLock.unlock();// should I include a notify_all?
     dummyHead_ = processingNode;
     dummyHead_->next_ = nullptr; // delete previous head
 }

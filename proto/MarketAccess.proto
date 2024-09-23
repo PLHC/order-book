@@ -4,6 +4,9 @@ package marketAccess;
 
 // the enum definitions need to match the order in the enums of Order.h
 
+// info parameter in the request is copied back without modification or added content in info parameter in the response,
+// this enables the client to map its request internally
+
 enum orderType {
   FILL_OR_KILL = 0;
   GOOD_TIL_CANCELLED = 1;
@@ -16,12 +19,9 @@ enum orderDirection {
 
 service Communication {
   rpc Display(DisplayParameters) returns (OrderBookContent) {}
-
-  rpc Delete(DeletionParameters) returns (Confirmation){}
-
-  rpc Insertion(InsertionParameters) returns (Confirmation){}
-
-  rpc Update(UpdateParameters) returns (Confirmation){}
+  rpc Delete(DeletionParameters) returns (DeletionConfirmation){}
+  rpc Insertion(InsertionParameters) returns (InsertionConfirmation){}
+  rpc Update(UpdateParameters) returns (UpdateConfirmation){}
 }
 
 message DisplayParameters{
@@ -37,33 +37,46 @@ message OrderBookContent{
 
 message DeletionParameters{
   uint64 info = 1;
-  int32 userID = 2;
-  uint64 boID = 3;
+  int32 userid = 2;
+  uint64 boid = 3;
+}
+
+message DeletionConfirmation{
+  string info = 1;
+  bool validation = 2;
+  optional uint64 boid = 3;
+  optional string comment = 4;
 }
 
 message InsertionParameters{
   uint64 info = 1;
-  int32 userID = 2;
+  int32 userid = 2;
   double price = 3;
   double volume = 4;
   orderDirection buyOrSell = 5;
   orderType boType = 6;
 }
 
+message InsertionConfirmation{
+  string info = 1;
+  bool validation = 2;
+  optional uint64 boid = 3;
+  optional string comment = 4;
+}
+
 message UpdateParameters{
   uint64 info = 1;
-  int32 userID = 2;
-  uint64 boID = 3;
+  int32 userid = 2;
+  uint64 boid = 3;
   double price = 4;
   double volume = 5;
   orderDirection buyOrSell = 6;
   orderType boType = 7;
-  int64 updatedOrderID = 8;
 }
 
-message Confirmation{
+message UpdateConfirmation{
   string info = 1;
   bool validation = 2;
-  optional uint64 boID = 3;
+  optional uint64 boid = 3;
   optional string comment = 4;
 }

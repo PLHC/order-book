@@ -7,9 +7,7 @@ OrderBook::OrderBook(std::string productID, GeneratorId * genID):
         offers_(SELL),
         idToPointerMap_(),
         stopFlag_(false),
-        requestQueue_(){
-    std::cout<<"in OB constructor"<<std::endl;
-}
+        requestQueue_(){}
 
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());
@@ -109,8 +107,7 @@ void OrderBook::performExecution(Order* executingOrder) {
     }
 }
 
-void OrderBook::update(Order* updatedOrder,
-                       Order* newOrder){
+void OrderBook::update(Order* updatedOrder, Order* newOrder){
     if(updatedOrder->checkIfOnlyVolumeUpdatedAndDown(newOrder)){
         newOrder->updateNextBO(updatedOrder->getterNextBO());
         newOrder->updatePrevBO(updatedOrder->getterPrevBO());

@@ -1,4 +1,4 @@
-#include "Server.h"
+#include "RunningServer.h"
 
 void RunServer(Market *market, const std::string& serverAddress) {
     grpc::ServerBuilder builder;

@@ -33,7 +33,6 @@ inline constexpr UpdateParameters::Impl_::Impl_(
         userid_{0},
         buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         volume_{0},
-        updatedorderid_{::int64_t{0}},
         botype_{static_cast< ::marketAccess::orderType >(0)},
         _cached_size_{0} {}
 
@@ -50,6 +49,32 @@ struct UpdateParametersDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateParametersDefaultTypeInternal _UpdateParameters_default_instance_;
+
+inline constexpr UpdateConfirmation::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        info_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        comment_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        boid_{::uint64_t{0u}},
+        validation_{false} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR UpdateConfirmation::UpdateConfirmation(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct UpdateConfirmationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UpdateConfirmationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UpdateConfirmationDefaultTypeInternal() {}
+  union {
+    UpdateConfirmation _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UpdateConfirmationDefaultTypeInternal _UpdateConfirmation_default_instance_;
 
 inline constexpr OrderBookContent::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -103,6 +128,32 @@ struct InsertionParametersDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InsertionParametersDefaultTypeInternal _InsertionParameters_default_instance_;
 
+inline constexpr InsertionConfirmation::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : _cached_size_{0},
+        info_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        comment_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        boid_{::uint64_t{0u}},
+        validation_{false} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR InsertionConfirmation::InsertionConfirmation(::_pbi::ConstantInitialized)
+    : _impl_(::_pbi::ConstantInitialized()) {}
+struct InsertionConfirmationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR InsertionConfirmationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~InsertionConfirmationDefaultTypeInternal() {}
+  union {
+    InsertionConfirmation _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 InsertionConfirmationDefaultTypeInternal _InsertionConfirmation_default_instance_;
+
 inline constexpr DisplayParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : info_{::uint64_t{0u}},
@@ -143,7 +194,7 @@ struct DeletionParametersDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeletionParametersDefaultTypeInternal _DeletionParameters_default_instance_;
 
-inline constexpr Confirmation::Impl_::Impl_(
+inline constexpr DeletionConfirmation::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
         info_(
@@ -156,18 +207,18 @@ inline constexpr Confirmation::Impl_::Impl_(
         validation_{false} {}
 
 template <typename>
-PROTOBUF_CONSTEXPR Confirmation::Confirmation(::_pbi::ConstantInitialized)
+PROTOBUF_CONSTEXPR DeletionConfirmation::DeletionConfirmation(::_pbi::ConstantInitialized)
     : _impl_(::_pbi::ConstantInitialized()) {}
-struct ConfirmationDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR ConfirmationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~ConfirmationDefaultTypeInternal() {}
+struct DeletionConfirmationDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR DeletionConfirmationDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~DeletionConfirmationDefaultTypeInternal() {}
   union {
-    Confirmation _instance;
+    DeletionConfirmation _instance;
   };
 };
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 ConfirmationDefaultTypeInternal _Confirmation_default_instance_;
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 DeletionConfirmationDefaultTypeInternal _DeletionConfirmation_default_instance_;
 }  // namespace marketAccess
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_proto_2fMarketAccess_2eproto[2];
 static constexpr const ::_pb::ServiceDescriptor**
@@ -211,6 +262,22 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionParameters, _impl_.info_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionParameters, _impl_.userid_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionParameters, _impl_.boid_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _impl_.info_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _impl_.validation_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _impl_.boid_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DeletionConfirmation, _impl_.comment_),
+        ~0u,
+        ~0u,
+        1,
+        0,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionParameters, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -225,6 +292,22 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionParameters, _impl_.volume_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionParameters, _impl_.buyorsell_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionParameters, _impl_.botype_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_.info_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_.validation_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_.boid_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_.comment_),
+        ~0u,
+        ~0u,
+        1,
+        0,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -240,19 +323,18 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _impl_.volume_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _impl_.buyorsell_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _impl_.botype_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _impl_.updatedorderid_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _impl_._has_bits_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _internal_metadata_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_._has_bits_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
         ~0u,  // no _weak_field_map_
         ~0u,  // no _inlined_string_donated_
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _impl_.info_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _impl_.validation_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _impl_.boid_),
-        PROTOBUF_FIELD_OFFSET(::marketAccess::Confirmation, _impl_.comment_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_.info_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_.validation_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_.boid_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_.comment_),
         ~0u,
         ~0u,
         1,
@@ -264,17 +346,21 @@ static const ::_pbi::MigrationSchema
         {0, -1, -1, sizeof(::marketAccess::DisplayParameters)},
         {9, 21, -1, sizeof(::marketAccess::OrderBookContent)},
         {25, -1, -1, sizeof(::marketAccess::DeletionParameters)},
-        {36, -1, -1, sizeof(::marketAccess::InsertionParameters)},
-        {50, -1, -1, sizeof(::marketAccess::UpdateParameters)},
-        {66, 78, -1, sizeof(::marketAccess::Confirmation)},
+        {36, 48, -1, sizeof(::marketAccess::DeletionConfirmation)},
+        {52, -1, -1, sizeof(::marketAccess::InsertionParameters)},
+        {66, 78, -1, sizeof(::marketAccess::InsertionConfirmation)},
+        {82, -1, -1, sizeof(::marketAccess::UpdateParameters)},
+        {97, 109, -1, sizeof(::marketAccess::UpdateConfirmation)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::marketAccess::_DisplayParameters_default_instance_._instance,
     &::marketAccess::_OrderBookContent_default_instance_._instance,
     &::marketAccess::_DeletionParameters_default_instance_._instance,
+    &::marketAccess::_DeletionConfirmation_default_instance_._instance,
     &::marketAccess::_InsertionParameters_default_instance_._instance,
+    &::marketAccess::_InsertionConfirmation_default_instance_._instance,
     &::marketAccess::_UpdateParameters_default_instance_._instance,
-    &::marketAccess::_Confirmation_default_instance_._instance,
+    &::marketAccess::_UpdateConfirmation_default_instance_._instance,
 };
 const char descriptor_table_protodef_proto_2fMarketAccess_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
@@ -284,42 +370,48 @@ const char descriptor_table_protodef_proto_2fMarketAccess_2eproto[] ABSL_ATTRIBU
     "ion\030\002 \001(\010\022\026\n\torderbook\030\003 \001(\tH\000\210\001\001\022\024\n\007com"
     "ment\030\004 \001(\tH\001\210\001\001B\014\n\n_orderbookB\n\n\010_commen"
     "t\"@\n\022DeletionParameters\022\014\n\004info\030\001 \001(\004\022\016\n"
-    "\006userID\030\002 \001(\005\022\014\n\004boID\030\003 \001(\004\"\254\001\n\023Insertio"
-    "nParameters\022\014\n\004info\030\001 \001(\004\022\016\n\006userID\030\002 \001("
+    "\006userid\030\002 \001(\005\022\014\n\004boid\030\003 \001(\004\"v\n\024DeletionC"
+    "onfirmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030"
+    "\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001\022\024\n\007comment\030\004 \001("
+    "\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comment\"\254\001\n\023Insertio"
+    "nParameters\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001("
     "\005\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\001\022/\n\tbuyO"
     "rSell\030\005 \001(\0162\034.marketAccess.orderDirectio"
     "n\022\'\n\006boType\030\006 \001(\0162\027.marketAccess.orderTy"
-    "pe\"\317\001\n\020UpdateParameters\022\014\n\004info\030\001 \001(\004\022\016\n"
-    "\006userID\030\002 \001(\005\022\014\n\004boID\030\003 \001(\004\022\r\n\005price\030\004 \001"
-    "(\001\022\016\n\006volume\030\005 \001(\001\022/\n\tbuyOrSell\030\006 \001(\0162\034."
-    "marketAccess.orderDirection\022\'\n\006boType\030\007 "
-    "\001(\0162\027.marketAccess.orderType\022\026\n\016updatedO"
-    "rderID\030\010 \001(\003\"n\n\014Confirmation\022\014\n\004info\030\001 \001"
-    "(\t\022\022\n\nvalidation\030\002 \001(\010\022\021\n\004boID\030\003 \001(\004H\000\210\001"
-    "\001\022\024\n\007comment\030\004 \001(\tH\001\210\001\001B\007\n\005_boIDB\n\n\010_com"
-    "ment*5\n\torderType\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022G"
-    "OOD_TIL_CANCELLED\020\001*#\n\016orderDirection\022\007\n"
-    "\003BUY\020\000\022\010\n\004SELL\020\0012\275\002\n\rCommunication\022L\n\007Di"
-    "splay\022\037.marketAccess.DisplayParameters\032\036"
-    ".marketAccess.OrderBookContent\"\000\022H\n\006Dele"
-    "te\022 .marketAccess.DeletionParameters\032\032.m"
-    "arketAccess.Confirmation\"\000\022L\n\tInsertion\022"
-    "!.marketAccess.InsertionParameters\032\032.mar"
-    "ketAccess.Confirmation\"\000\022F\n\006Update\022\036.mar"
-    "ketAccess.UpdateParameters\032\032.marketAcces"
-    "s.Confirmation\"\000b\006proto3"
+    "pe\"w\n\025InsertionConfirmation\022\014\n\004info\030\001 \001("
+    "\t\022\022\n\nvalidation\030\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001"
+    "\022\024\n\007comment\030\004 \001(\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comm"
+    "ent\"\267\001\n\020UpdateParameters\022\014\n\004info\030\001 \001(\004\022\016"
+    "\n\006userid\030\002 \001(\005\022\014\n\004boid\030\003 \001(\004\022\r\n\005price\030\004 "
+    "\001(\001\022\016\n\006volume\030\005 \001(\001\022/\n\tbuyOrSell\030\006 \001(\0162\034"
+    ".marketAccess.orderDirection\022\'\n\006boType\030\007"
+    " \001(\0162\027.marketAccess.orderType\"t\n\022UpdateC"
+    "onfirmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030"
+    "\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001\022\024\n\007comment\030\004 \001("
+    "\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comment*5\n\torderType"
+    "\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022GOOD_TIL_CANCELLED"
+    "\020\001*#\n\016orderDirection\022\007\n\003BUY\020\000\022\010\n\004SELL\020\0012"
+    "\324\002\n\rCommunication\022L\n\007Display\022\037.marketAcc"
+    "ess.DisplayParameters\032\036.marketAccess.Ord"
+    "erBookContent\"\000\022P\n\006Delete\022 .marketAccess"
+    ".DeletionParameters\032\".marketAccess.Delet"
+    "ionConfirmation\"\000\022U\n\tInsertion\022!.marketA"
+    "ccess.InsertionParameters\032#.marketAccess"
+    ".InsertionConfirmation\"\000\022L\n\006Update\022\036.mar"
+    "ketAccess.UpdateParameters\032 .marketAcces"
+    "s.UpdateConfirmation\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_proto_2fMarketAccess_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2fMarketAccess_2eproto = {
     false,
     false,
-    1184,
+    1430,
     descriptor_table_protodef_proto_2fMarketAccess_2eproto,
     "proto/MarketAccess.proto",
     &descriptor_table_proto_2fMarketAccess_2eproto_once,
     nullptr,
     0,
-    6,
+    8,
     schemas,
     file_default_instances,
     TableStruct_proto_2fMarketAccess_2eproto::offsets,
@@ -898,10 +990,10 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_)}},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(DeletionParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_)}},
-    // uint64 boID = 3;
+    // uint64 boid = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionParameters, _impl_.boid_), 63>(),
      {24, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.boid_)}},
   }}, {{
@@ -910,10 +1002,10 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // uint64 boID = 3;
+    // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
   }},
@@ -949,14 +1041,14 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::
         WriteInt32ToArrayWithField<2>(
             stream, this->_internal_userid(), target);
   }
 
-  // uint64 boID = 3;
+  // uint64 boid = 3;
   if (this->_internal_boid() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
@@ -987,13 +1079,13 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
         this->_internal_info());
   }
 
-  // uint64 boID = 3;
+  // uint64 boid = 3;
   if (this->_internal_boid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
         this->_internal_boid());
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_userid());
@@ -1043,6 +1135,310 @@ void DeletionParameters::InternalSwap(DeletionParameters* PROTOBUF_RESTRICT othe
 }
 
 ::google::protobuf::Metadata DeletionParameters::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class DeletionConfirmation::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<DeletionConfirmation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_._has_bits_);
+};
+
+DeletionConfirmation::DeletionConfirmation(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:marketAccess.DeletionConfirmation)
+}
+inline PROTOBUF_NDEBUG_INLINE DeletionConfirmation::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::marketAccess::DeletionConfirmation& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        info_(arena, from.info_),
+        comment_(arena, from.comment_) {}
+
+DeletionConfirmation::DeletionConfirmation(
+    ::google::protobuf::Arena* arena,
+    const DeletionConfirmation& from)
+    : ::google::protobuf::Message(arena) {
+  DeletionConfirmation* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, boid_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, boid_),
+           offsetof(Impl_, validation_) -
+               offsetof(Impl_, boid_) +
+               sizeof(Impl_::validation_));
+
+  // @@protoc_insertion_point(copy_constructor:marketAccess.DeletionConfirmation)
+}
+inline PROTOBUF_NDEBUG_INLINE DeletionConfirmation::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        info_(arena),
+        comment_(arena) {}
+
+inline void DeletionConfirmation::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, boid_),
+           0,
+           offsetof(Impl_, validation_) -
+               offsetof(Impl_, boid_) +
+               sizeof(Impl_::validation_));
+}
+DeletionConfirmation::~DeletionConfirmation() {
+  // @@protoc_insertion_point(destructor:marketAccess.DeletionConfirmation)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void DeletionConfirmation::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.info_.Destroy();
+  _impl_.comment_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+DeletionConfirmation::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_._cached_size_),
+              false,
+          },
+          &DeletionConfirmation::MergeImpl,
+          &DeletionConfirmation::kDescriptorMethods,
+          &descriptor_table_proto_2fMarketAccess_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 0, 53, 2> DeletionConfirmation::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_DeletionConfirmation_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::marketAccess::DeletionConfirmation>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // optional string comment = 4;
+    {::_pbi::TcParser::FastUS1,
+     {34, 0, 0, PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.comment_)}},
+    // string info = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.info_)}},
+    // bool validation = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(DeletionConfirmation, _impl_.validation_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.validation_)}},
+    // optional uint64 boid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionConfirmation, _impl_.boid_), 1>(),
+     {24, 1, 0, PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.boid_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string info = 1;
+    {PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.info_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bool validation = 2;
+    {PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.validation_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+    // optional uint64 boid = 3;
+    {PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // optional string comment = 4;
+    {PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\41\4\0\0\7\0\0\0"
+    "marketAccess.DeletionConfirmation"
+    "info"
+    "comment"
+  }},
+};
+
+PROTOBUF_NOINLINE void DeletionConfirmation::Clear() {
+// @@protoc_insertion_point(message_clear_start:marketAccess.DeletionConfirmation)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.info_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.comment_.ClearNonDefaultToEmpty();
+  }
+  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.validation_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* DeletionConfirmation::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:marketAccess.DeletionConfirmation)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string info = 1;
+  if (!this->_internal_info().empty()) {
+    const std::string& _s = this->_internal_info();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.DeletionConfirmation.info");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // bool validation = 2;
+  if (this->_internal_validation() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_validation(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 boid = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_boid(), target);
+  }
+
+  // optional string comment = 4;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_comment();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.DeletionConfirmation.comment");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:marketAccess.DeletionConfirmation)
+  return target;
+}
+
+::size_t DeletionConfirmation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:marketAccess.DeletionConfirmation)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string info = 1;
+  if (!this->_internal_info().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_info());
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string comment = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_comment());
+    }
+
+    // optional uint64 boid = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_boid());
+    }
+
+  }
+  // bool validation = 2;
+  if (this->_internal_validation() != 0) {
+    total_size += 2;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void DeletionConfirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<DeletionConfirmation*>(&to_msg);
+  auto& from = static_cast<const DeletionConfirmation&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:marketAccess.DeletionConfirmation)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_info().empty()) {
+    _this->_internal_set_info(from._internal_info());
+  }
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_comment(from._internal_comment());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.boid_ = from._impl_.boid_;
+    }
+  }
+  if (from._internal_validation() != 0) {
+    _this->_impl_.validation_ = from._impl_.validation_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void DeletionConfirmation::CopyFrom(const DeletionConfirmation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:marketAccess.DeletionConfirmation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void DeletionConfirmation::InternalSwap(DeletionConfirmation* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.info_, &other->_impl_.info_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comment_, &other->_impl_.comment_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.validation_)
+      + sizeof(DeletionConfirmation::_impl_.validation_)
+      - PROTOBUF_FIELD_OFFSET(DeletionConfirmation, _impl_.boid_)>(
+          reinterpret_cast<char*>(&_impl_.boid_),
+          reinterpret_cast<char*>(&other->_impl_.boid_));
+}
+
+::google::protobuf::Metadata DeletionConfirmation::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
@@ -1128,7 +1524,7 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_)}},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(InsertionParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_)}},
     // double price = 3;
@@ -1150,7 +1546,7 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
     // double price = 3;
@@ -1198,7 +1594,7 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::
         WriteInt32ToArrayWithField<2>(
@@ -1277,7 +1673,7 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
     total_size += 9;
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_userid());
@@ -1372,6 +1768,310 @@ void InsertionParameters::InternalSwap(InsertionParameters* PROTOBUF_RESTRICT ot
 }
 // ===================================================================
 
+class InsertionConfirmation::_Internal {
+ public:
+  using HasBits =
+      decltype(std::declval<InsertionConfirmation>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+      8 * PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_._has_bits_);
+};
+
+InsertionConfirmation::InsertionConfirmation(::google::protobuf::Arena* arena)
+    : ::google::protobuf::Message(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:marketAccess.InsertionConfirmation)
+}
+inline PROTOBUF_NDEBUG_INLINE InsertionConfirmation::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::marketAccess::InsertionConfirmation& from_msg)
+      : _has_bits_{from._has_bits_},
+        _cached_size_{0},
+        info_(arena, from.info_),
+        comment_(arena, from.comment_) {}
+
+InsertionConfirmation::InsertionConfirmation(
+    ::google::protobuf::Arena* arena,
+    const InsertionConfirmation& from)
+    : ::google::protobuf::Message(arena) {
+  InsertionConfirmation* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, boid_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, boid_),
+           offsetof(Impl_, validation_) -
+               offsetof(Impl_, boid_) +
+               sizeof(Impl_::validation_));
+
+  // @@protoc_insertion_point(copy_constructor:marketAccess.InsertionConfirmation)
+}
+inline PROTOBUF_NDEBUG_INLINE InsertionConfirmation::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0},
+        info_(arena),
+        comment_(arena) {}
+
+inline void InsertionConfirmation::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, boid_),
+           0,
+           offsetof(Impl_, validation_) -
+               offsetof(Impl_, boid_) +
+               sizeof(Impl_::validation_));
+}
+InsertionConfirmation::~InsertionConfirmation() {
+  // @@protoc_insertion_point(destructor:marketAccess.InsertionConfirmation)
+  _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  SharedDtor();
+}
+inline void InsertionConfirmation::SharedDtor() {
+  ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.info_.Destroy();
+  _impl_.comment_.Destroy();
+  _impl_.~Impl_();
+}
+
+const ::google::protobuf::MessageLite::ClassData*
+InsertionConfirmation::GetClassData() const {
+  PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
+      ClassDataFull _data_ = {
+          {
+              &_table_.header,
+              nullptr,  // OnDemandRegisterArenaDtor
+              nullptr,  // IsInitialized
+              PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_._cached_size_),
+              false,
+          },
+          &InsertionConfirmation::MergeImpl,
+          &InsertionConfirmation::kDescriptorMethods,
+          &descriptor_table_proto_2fMarketAccess_2eproto,
+          nullptr,  // tracker
+      };
+  ::google::protobuf::internal::PrefetchToLocalCache(&_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_data_.tc_table);
+  return _data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<2, 4, 0, 54, 2> InsertionConfirmation::_table_ = {
+  {
+    PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_._has_bits_),
+    0, // no _extensions_
+    4, 24,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967280,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    4,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    &_InsertionConfirmation_default_instance_._instance,
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::marketAccess::InsertionConfirmation>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // optional string comment = 4;
+    {::_pbi::TcParser::FastUS1,
+     {34, 0, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.comment_)}},
+    // string info = 1;
+    {::_pbi::TcParser::FastUS1,
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.info_)}},
+    // bool validation = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(InsertionConfirmation, _impl_.validation_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.validation_)}},
+    // optional uint64 boid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionConfirmation, _impl_.boid_), 1>(),
+     {24, 1, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // string info = 1;
+    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.info_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
+    // bool validation = 2;
+    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.validation_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+    // optional uint64 boid = 3;
+    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // optional string comment = 4;
+    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
+    (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
+  }},
+  // no aux_entries
+  {{
+    "\42\4\0\0\7\0\0\0"
+    "marketAccess.InsertionConfirmation"
+    "info"
+    "comment"
+  }},
+};
+
+PROTOBUF_NOINLINE void InsertionConfirmation::Clear() {
+// @@protoc_insertion_point(message_clear_start:marketAccess.InsertionConfirmation)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.info_.ClearToEmpty();
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.comment_.ClearNonDefaultToEmpty();
+  }
+  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.validation_ = false;
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+::uint8_t* InsertionConfirmation::_InternalSerialize(
+    ::uint8_t* target,
+    ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:marketAccess.InsertionConfirmation)
+  ::uint32_t cached_has_bits = 0;
+  (void)cached_has_bits;
+
+  // string info = 1;
+  if (!this->_internal_info().empty()) {
+    const std::string& _s = this->_internal_info();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.InsertionConfirmation.info");
+    target = stream->WriteStringMaybeAliased(1, _s, target);
+  }
+
+  // bool validation = 2;
+  if (this->_internal_validation() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        2, this->_internal_validation(), target);
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 boid = 3;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        3, this->_internal_boid(), target);
+  }
+
+  // optional string comment = 4;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_comment();
+    ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.InsertionConfirmation.comment");
+    target = stream->WriteStringMaybeAliased(4, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target =
+        ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+            _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:marketAccess.InsertionConfirmation)
+  return target;
+}
+
+::size_t InsertionConfirmation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:marketAccess.InsertionConfirmation)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  ::_pbi::Prefetch5LinesFrom7Lines(reinterpret_cast<const void*>(this));
+  // string info = 1;
+  if (!this->_internal_info().empty()) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_info());
+  }
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional string comment = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                      this->_internal_comment());
+    }
+
+    // optional uint64 boid = 3;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_boid());
+    }
+
+  }
+  // bool validation = 2;
+  if (this->_internal_validation() != 0) {
+    total_size += 2;
+  }
+
+  return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
+}
+
+
+void InsertionConfirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<InsertionConfirmation*>(&to_msg);
+  auto& from = static_cast<const InsertionConfirmation&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:marketAccess.InsertionConfirmation)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (!from._internal_info().empty()) {
+    _this->_internal_set_info(from._internal_info());
+  }
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_comment(from._internal_comment());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.boid_ = from._impl_.boid_;
+    }
+  }
+  if (from._internal_validation() != 0) {
+    _this->_impl_.validation_ = from._impl_.validation_;
+  }
+  _this->_impl_._has_bits_[0] |= cached_has_bits;
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void InsertionConfirmation::CopyFrom(const InsertionConfirmation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:marketAccess.InsertionConfirmation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void InsertionConfirmation::InternalSwap(InsertionConfirmation* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.info_, &other->_impl_.info_, arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comment_, &other->_impl_.comment_, arena);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.validation_)
+      + sizeof(InsertionConfirmation::_impl_.validation_)
+      - PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_)>(
+          reinterpret_cast<char*>(&_impl_.boid_),
+          reinterpret_cast<char*>(&other->_impl_.boid_));
+}
+
+::google::protobuf::Metadata InsertionConfirmation::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
 class UpdateParameters::_Internal {
  public:
 };
@@ -1431,15 +2131,15 @@ UpdateParameters::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
+const ::_pbi::TcParseTable<3, 7, 0, 0, 2> UpdateParameters::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    8, 56,  // max_field_number, fast_idx_mask
+    7, 56,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967040,  // skipmap
+    4294967168,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    8,  // num_field_entries
+    7,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     &_UpdateParameters_default_instance_._instance,
@@ -1449,16 +2149,14 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
     ::_pbi::TcParser::GetTable<::marketAccess::UpdateParameters>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
-    // int64 updatedOrderID = 8;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.updatedorderid_), 63>(),
-     {64, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.updatedorderid_)}},
+    {::_pbi::TcParser::MiniParse, {}},
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_)}},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(UpdateParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_)}},
-    // uint64 boID = 3;
+    // uint64 boid = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.boid_), 63>(),
      {24, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.boid_)}},
     // double price = 4;
@@ -1479,10 +2177,10 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userID = 2;
+    // int32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
-    // uint64 boID = 3;
+    // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
     // double price = 4;
@@ -1497,9 +2195,6 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
     // .marketAccess.orderType boType = 7;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.botype_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kOpenEnum)},
-    // int64 updatedOrderID = 8;
-    {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.updatedorderid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt64)},
   }},
   // no aux_entries
   {{
@@ -1533,14 +2228,14 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::
         WriteInt32ToArrayWithField<2>(
             stream, this->_internal_userid(), target);
   }
 
-  // uint64 boID = 3;
+  // uint64 boid = 3;
   if (this->_internal_boid() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
@@ -1585,13 +2280,6 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
         7, this->_internal_botype(), target);
   }
 
-  // int64 updatedOrderID = 8;
-  if (this->_internal_updatedorderid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt64ToArrayWithField<8>(
-            stream, this->_internal_updatedorderid(), target);
-  }
-
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target =
         ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -1616,7 +2304,7 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
         this->_internal_info());
   }
 
-  // uint64 boID = 3;
+  // uint64 boid = 3;
   if (this->_internal_boid() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
         this->_internal_boid());
@@ -1632,7 +2320,7 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
     total_size += 9;
   }
 
-  // int32 userID = 2;
+  // int32 userid = 2;
   if (this->_internal_userid() != 0) {
     total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
         this->_internal_userid());
@@ -1652,12 +2340,6 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
   memcpy(&raw_volume, &tmp_volume, sizeof(tmp_volume));
   if (raw_volume != 0) {
     total_size += 9;
-  }
-
-  // int64 updatedOrderID = 8;
-  if (this->_internal_updatedorderid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(
-        this->_internal_updatedorderid());
   }
 
   // .marketAccess.orderType boType = 7;
@@ -1706,9 +2388,6 @@ void UpdateParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, const 
   if (raw_volume != 0) {
     _this->_impl_.volume_ = from._impl_.volume_;
   }
-  if (from._internal_updatedorderid() != 0) {
-    _this->_impl_.updatedorderid_ = from._impl_.updatedorderid_;
-  }
   if (from._internal_botype() != 0) {
     _this->_impl_.botype_ = from._impl_.botype_;
   }
@@ -1739,32 +2418,32 @@ void UpdateParameters::InternalSwap(UpdateParameters* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class Confirmation::_Internal {
+class UpdateConfirmation::_Internal {
  public:
   using HasBits =
-      decltype(std::declval<Confirmation>()._impl_._has_bits_);
+      decltype(std::declval<UpdateConfirmation>()._impl_._has_bits_);
   static constexpr ::int32_t kHasBitsOffset =
-      8 * PROTOBUF_FIELD_OFFSET(Confirmation, _impl_._has_bits_);
+      8 * PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_._has_bits_);
 };
 
-Confirmation::Confirmation(::google::protobuf::Arena* arena)
+UpdateConfirmation::UpdateConfirmation(::google::protobuf::Arena* arena)
     : ::google::protobuf::Message(arena) {
   SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:marketAccess.Confirmation)
+  // @@protoc_insertion_point(arena_constructor:marketAccess.UpdateConfirmation)
 }
-inline PROTOBUF_NDEBUG_INLINE Confirmation::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateConfirmation::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::marketAccess::Confirmation& from_msg)
+    const Impl_& from, const ::marketAccess::UpdateConfirmation& from_msg)
       : _has_bits_{from._has_bits_},
         _cached_size_{0},
         info_(arena, from.info_),
         comment_(arena, from.comment_) {}
 
-Confirmation::Confirmation(
+UpdateConfirmation::UpdateConfirmation(
     ::google::protobuf::Arena* arena,
-    const Confirmation& from)
+    const UpdateConfirmation& from)
     : ::google::protobuf::Message(arena) {
-  Confirmation* const _this = this;
+  UpdateConfirmation* const _this = this;
   (void)_this;
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
@@ -1777,16 +2456,16 @@ Confirmation::Confirmation(
                offsetof(Impl_, boid_) +
                sizeof(Impl_::validation_));
 
-  // @@protoc_insertion_point(copy_constructor:marketAccess.Confirmation)
+  // @@protoc_insertion_point(copy_constructor:marketAccess.UpdateConfirmation)
 }
-inline PROTOBUF_NDEBUG_INLINE Confirmation::Impl_::Impl_(
+inline PROTOBUF_NDEBUG_INLINE UpdateConfirmation::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
       : _cached_size_{0},
         info_(arena),
         comment_(arena) {}
 
-inline void Confirmation::SharedCtor(::_pb::Arena* arena) {
+inline void UpdateConfirmation::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
   ::memset(reinterpret_cast<char *>(&_impl_) +
                offsetof(Impl_, boid_),
@@ -1795,12 +2474,12 @@ inline void Confirmation::SharedCtor(::_pb::Arena* arena) {
                offsetof(Impl_, boid_) +
                sizeof(Impl_::validation_));
 }
-Confirmation::~Confirmation() {
-  // @@protoc_insertion_point(destructor:marketAccess.Confirmation)
+UpdateConfirmation::~UpdateConfirmation() {
+  // @@protoc_insertion_point(destructor:marketAccess.UpdateConfirmation)
   _internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
   SharedDtor();
 }
-inline void Confirmation::SharedDtor() {
+inline void UpdateConfirmation::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
   _impl_.info_.Destroy();
   _impl_.comment_.Destroy();
@@ -1808,18 +2487,18 @@ inline void Confirmation::SharedDtor() {
 }
 
 const ::google::protobuf::MessageLite::ClassData*
-Confirmation::GetClassData() const {
+UpdateConfirmation::GetClassData() const {
   PROTOBUF_CONSTINIT static const ::google::protobuf::MessageLite::
       ClassDataFull _data_ = {
           {
               &_table_.header,
               nullptr,  // OnDemandRegisterArenaDtor
               nullptr,  // IsInitialized
-              PROTOBUF_FIELD_OFFSET(Confirmation, _impl_._cached_size_),
+              PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_._cached_size_),
               false,
           },
-          &Confirmation::MergeImpl,
-          &Confirmation::kDescriptorMethods,
+          &UpdateConfirmation::MergeImpl,
+          &UpdateConfirmation::kDescriptorMethods,
           &descriptor_table_proto_2fMarketAccess_2eproto,
           nullptr,  // tracker
       };
@@ -1828,9 +2507,9 @@ Confirmation::GetClassData() const {
   return _data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 4, 0, 45, 2> Confirmation::_table_ = {
+const ::_pbi::TcParseTable<2, 4, 0, 51, 2> UpdateConfirmation::_table_ = {
   {
-    PROTOBUF_FIELD_OFFSET(Confirmation, _impl_._has_bits_),
+    PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_._has_bits_),
     0, // no _extensions_
     4, 24,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
@@ -1839,52 +2518,52 @@ const ::_pbi::TcParseTable<2, 4, 0, 45, 2> Confirmation::_table_ = {
     4,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
-    &_Confirmation_default_instance_._instance,
+    &_UpdateConfirmation_default_instance_._instance,
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
     #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::marketAccess::Confirmation>(),  // to_prefetch
+    ::_pbi::TcParser::GetTable<::marketAccess::UpdateConfirmation>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
     // optional string comment = 4;
     {::_pbi::TcParser::FastUS1,
-     {34, 0, 0, PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.comment_)}},
+     {34, 0, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.comment_)}},
     // string info = 1;
     {::_pbi::TcParser::FastUS1,
-     {10, 63, 0, PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.info_)}},
+     {10, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.info_)}},
     // bool validation = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(Confirmation, _impl_.validation_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.validation_)}},
-    // optional uint64 boID = 3;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(Confirmation, _impl_.boid_), 1>(),
-     {24, 1, 0, PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.boid_)}},
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(UpdateConfirmation, _impl_.validation_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.validation_)}},
+    // optional uint64 boid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateConfirmation, _impl_.boid_), 1>(),
+     {24, 1, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_)}},
   }}, {{
     65535, 65535
   }}, {{
     // string info = 1;
-    {PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.info_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.info_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // bool validation = 2;
-    {PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.validation_), -1, 0,
+    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.validation_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-    // optional uint64 boID = 3;
-    {PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
+    // optional uint64 boid = 3;
+    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
     // optional string comment = 4;
-    {PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
+    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
   }},
   // no aux_entries
   {{
-    "\31\4\0\0\7\0\0\0"
-    "marketAccess.Confirmation"
+    "\37\4\0\0\7\0\0\0"
+    "marketAccess.UpdateConfirmation"
     "info"
     "comment"
   }},
 };
 
-PROTOBUF_NOINLINE void Confirmation::Clear() {
-// @@protoc_insertion_point(message_clear_start:marketAccess.Confirmation)
+PROTOBUF_NOINLINE void UpdateConfirmation::Clear() {
+// @@protoc_insertion_point(message_clear_start:marketAccess.UpdateConfirmation)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   ::uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
@@ -1901,10 +2580,10 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
-::uint8_t* Confirmation::_InternalSerialize(
+::uint8_t* UpdateConfirmation::_InternalSerialize(
     ::uint8_t* target,
     ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:marketAccess.Confirmation)
+  // @@protoc_insertion_point(serialize_to_array_start:marketAccess.UpdateConfirmation)
   ::uint32_t cached_has_bits = 0;
   (void)cached_has_bits;
 
@@ -1912,7 +2591,7 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
   if (!this->_internal_info().empty()) {
     const std::string& _s = this->_internal_info();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.Confirmation.info");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.UpdateConfirmation.info");
     target = stream->WriteStringMaybeAliased(1, _s, target);
   }
 
@@ -1924,7 +2603,7 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
   }
 
   cached_has_bits = _impl_._has_bits_[0];
-  // optional uint64 boID = 3;
+  // optional uint64 boid = 3;
   if (cached_has_bits & 0x00000002u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
@@ -1935,7 +2614,7 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
   if (cached_has_bits & 0x00000001u) {
     const std::string& _s = this->_internal_comment();
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
-        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.Confirmation.comment");
+        _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.UpdateConfirmation.comment");
     target = stream->WriteStringMaybeAliased(4, _s, target);
   }
 
@@ -1944,12 +2623,12 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
         ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
             _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:marketAccess.Confirmation)
+  // @@protoc_insertion_point(serialize_to_array_end:marketAccess.UpdateConfirmation)
   return target;
 }
 
-::size_t Confirmation::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:marketAccess.Confirmation)
+::size_t UpdateConfirmation::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:marketAccess.UpdateConfirmation)
   ::size_t total_size = 0;
 
   ::uint32_t cached_has_bits = 0;
@@ -1971,7 +2650,7 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
                                       this->_internal_comment());
     }
 
-    // optional uint64 boID = 3;
+    // optional uint64 boid = 3;
     if (cached_has_bits & 0x00000002u) {
       total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
           this->_internal_boid());
@@ -1987,10 +2666,10 @@ PROTOBUF_NOINLINE void Confirmation::Clear() {
 }
 
 
-void Confirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<Confirmation*>(&to_msg);
-  auto& from = static_cast<const Confirmation&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:marketAccess.Confirmation)
+void UpdateConfirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<UpdateConfirmation*>(&to_msg);
+  auto& from = static_cast<const UpdateConfirmation&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:marketAccess.UpdateConfirmation)
   ABSL_DCHECK_NE(&from, _this);
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -2014,15 +2693,15 @@ void Confirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::go
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void Confirmation::CopyFrom(const Confirmation& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:marketAccess.Confirmation)
+void UpdateConfirmation::CopyFrom(const UpdateConfirmation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:marketAccess.UpdateConfirmation)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
 
-void Confirmation::InternalSwap(Confirmation* PROTOBUF_RESTRICT other) {
+void UpdateConfirmation::InternalSwap(UpdateConfirmation* PROTOBUF_RESTRICT other) {
   using std::swap;
   auto* arena = GetArena();
   ABSL_DCHECK_EQ(arena, other->GetArena());
@@ -2031,14 +2710,14 @@ void Confirmation::InternalSwap(Confirmation* PROTOBUF_RESTRICT other) {
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.info_, &other->_impl_.info_, arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.comment_, &other->_impl_.comment_, arena);
   ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.validation_)
-      + sizeof(Confirmation::_impl_.validation_)
-      - PROTOBUF_FIELD_OFFSET(Confirmation, _impl_.boid_)>(
+      PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.validation_)
+      + sizeof(UpdateConfirmation::_impl_.validation_)
+      - PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_)>(
           reinterpret_cast<char*>(&_impl_.boid_),
           reinterpret_cast<char*>(&other->_impl_.boid_));
 }
 
-::google::protobuf::Metadata Confirmation::GetMetadata() const {
+::google::protobuf::Metadata UpdateConfirmation::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // @@protoc_insertion_point(namespace_scope)

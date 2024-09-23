@@ -64,69 +64,69 @@ void Communication::Stub::async::Display(::grpc::ClientContext* context, const :
   return result;
 }
 
-::grpc::Status Communication::Stub::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::Confirmation* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::DeletionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Delete_, context, request, response);
+::grpc::Status Communication::Stub::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::DeletionConfirmation* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::DeletionParameters, ::marketAccess::DeletionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Delete_, context, request, response);
 }
 
-void Communication::Stub::async::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::marketAccess::DeletionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Delete_, context, request, response, std::move(f));
+void Communication::Stub::async::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::DeletionConfirmation* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::marketAccess::DeletionParameters, ::marketAccess::DeletionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Delete_, context, request, response, std::move(f));
 }
 
-void Communication::Stub::async::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) {
+void Communication::Stub::async::Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::DeletionConfirmation* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Delete_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::PrepareAsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::Confirmation, ::marketAccess::DeletionParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Delete_, context, request);
+::grpc::ClientAsyncResponseReader< ::marketAccess::DeletionConfirmation>* Communication::Stub::PrepareAsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::DeletionConfirmation, ::marketAccess::DeletionParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Delete_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::AsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::marketAccess::DeletionConfirmation>* Communication::Stub::AsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncDeleteRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Communication::Stub::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::Confirmation* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::InsertionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Insertion_, context, request, response);
+::grpc::Status Communication::Stub::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::InsertionConfirmation* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::InsertionParameters, ::marketAccess::InsertionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Insertion_, context, request, response);
 }
 
-void Communication::Stub::async::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::marketAccess::InsertionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Insertion_, context, request, response, std::move(f));
+void Communication::Stub::async::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::InsertionConfirmation* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::marketAccess::InsertionParameters, ::marketAccess::InsertionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Insertion_, context, request, response, std::move(f));
 }
 
-void Communication::Stub::async::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) {
+void Communication::Stub::async::Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::InsertionConfirmation* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Insertion_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::PrepareAsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::Confirmation, ::marketAccess::InsertionParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Insertion_, context, request);
+::grpc::ClientAsyncResponseReader< ::marketAccess::InsertionConfirmation>* Communication::Stub::PrepareAsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::InsertionConfirmation, ::marketAccess::InsertionParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Insertion_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::AsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::marketAccess::InsertionConfirmation>* Communication::Stub::AsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncInsertionRaw(context, request, cq);
   result->StartCall();
   return result;
 }
 
-::grpc::Status Communication::Stub::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::Confirmation* response) {
-  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::UpdateParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Update_, context, request, response);
+::grpc::Status Communication::Stub::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::UpdateConfirmation* response) {
+  return ::grpc::internal::BlockingUnaryCall< ::marketAccess::UpdateParameters, ::marketAccess::UpdateConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_Update_, context, request, response);
 }
 
-void Communication::Stub::async::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)> f) {
-  ::grpc::internal::CallbackUnaryCall< ::marketAccess::UpdateParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Update_, context, request, response, std::move(f));
+void Communication::Stub::async::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::UpdateConfirmation* response, std::function<void(::grpc::Status)> f) {
+  ::grpc::internal::CallbackUnaryCall< ::marketAccess::UpdateParameters, ::marketAccess::UpdateConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Update_, context, request, response, std::move(f));
 }
 
-void Communication::Stub::async::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) {
+void Communication::Stub::async::Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::UpdateConfirmation* response, ::grpc::ClientUnaryReactor* reactor) {
   ::grpc::internal::ClientCallbackUnaryFactory::Create< ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(stub_->channel_.get(), stub_->rpcmethod_Update_, context, request, response, reactor);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::PrepareAsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
-  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::Confirmation, ::marketAccess::UpdateParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Update_, context, request);
+::grpc::ClientAsyncResponseReader< ::marketAccess::UpdateConfirmation>* Communication::Stub::PrepareAsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncResponseReaderHelper::Create< ::marketAccess::UpdateConfirmation, ::marketAccess::UpdateParameters, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), cq, rpcmethod_Update_, context, request);
 }
 
-::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* Communication::Stub::AsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+::grpc::ClientAsyncResponseReader< ::marketAccess::UpdateConfirmation>* Communication::Stub::AsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
   auto* result =
     this->PrepareAsyncUpdateRaw(context, request, cq);
   result->StartCall();
@@ -147,31 +147,31 @@ Communication::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Communication_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::DeletionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::DeletionParameters, ::marketAccess::DeletionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Communication::Service* service,
              ::grpc::ServerContext* ctx,
              const ::marketAccess::DeletionParameters* req,
-             ::marketAccess::Confirmation* resp) {
+             ::marketAccess::DeletionConfirmation* resp) {
                return service->Delete(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Communication_method_names[2],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::InsertionParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::InsertionParameters, ::marketAccess::InsertionConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Communication::Service* service,
              ::grpc::ServerContext* ctx,
              const ::marketAccess::InsertionParameters* req,
-             ::marketAccess::Confirmation* resp) {
+             ::marketAccess::InsertionConfirmation* resp) {
                return service->Insertion(ctx, req, resp);
              }, this)));
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       Communication_method_names[3],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
-      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::UpdateParameters, ::marketAccess::Confirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
+      new ::grpc::internal::RpcMethodHandler< Communication::Service, ::marketAccess::UpdateParameters, ::marketAccess::UpdateConfirmation, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](Communication::Service* service,
              ::grpc::ServerContext* ctx,
              const ::marketAccess::UpdateParameters* req,
-             ::marketAccess::Confirmation* resp) {
+             ::marketAccess::UpdateConfirmation* resp) {
                return service->Update(ctx, req, resp);
              }, this)));
 }
@@ -186,21 +186,21 @@ Communication::Service::~Service() {
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Communication::Service::Delete(::grpc::ServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response) {
+::grpc::Status Communication::Service::Delete(::grpc::ServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::DeletionConfirmation* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Communication::Service::Insertion(::grpc::ServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response) {
+::grpc::Status Communication::Service::Insertion(::grpc::ServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::InsertionConfirmation* response) {
   (void) context;
   (void) request;
   (void) response;
   return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
-::grpc::Status Communication::Service::Update(::grpc::ServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response) {
+::grpc::Status Communication::Service::Update(::grpc::ServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::UpdateConfirmation* response) {
   (void) context;
   (void) request;
   (void) response;

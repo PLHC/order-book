@@ -1,4 +1,4 @@
-#include "ServiceImplementation.h"
+#include "ServiceAsyncImplementation.h"
 
 
 RpcService::RpcService(grpc::ServerCompletionQueue *main_cq, Market *market)
@@ -71,8 +71,8 @@ void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::insertNodeInCRQAndHandleRequest(
-        std::string &orderBookName) {
+void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
+                        insertNodeInCRQAndHandleRequest(std::string &orderBookName) {
     auto orderBook = (*orderBookMap_)[orderBookName];
     requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
     std::unique_lock<std::mutex> statusLock(requestNodeInCRQ_->statusMutex_);
@@ -95,7 +95,6 @@ void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
 
 // Handle valid requests
 void RpcService::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Display RequestHandler" << std::endl;
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_orderbook(orderBook->displayOrderBook());
     responseParameters_.set_comment(("Display RequestHandler has been handled"));
@@ -103,14 +102,12 @@ void RpcService::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook)
 }
 
 void RpcService::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Delete RequestHandler" << std::endl;
     orderBook->deletion(orderBook->getterPointerToOrderFromID(requestParameters_.boid()));
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_validation(true);
 }
 
 void RpcService::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Insertion RequestHandler" << std::endl;
     auto newGeneratedId = orderBook->genId_->nextID();
     orderBook->insertion(new Order(requestParameters_.userid(),
                                    newGeneratedId,
@@ -125,7 +122,6 @@ void RpcService::InsertionRequestHandler::handleValidRequest(OrderBook* orderBoo
 }
 
 void RpcService::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Update RequestHandler" << std::endl;
     auto newGeneratedID = orderBook->genId_->nextID();
     orderBook->update(orderBook->getterPointerToOrderFromID(requestParameters_.boid()),
                             new Order(requestParameters_.userid(),

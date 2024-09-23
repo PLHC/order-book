@@ -33,13 +33,16 @@ file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
 file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
 
 # service definition files
-file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/*")
+file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Service/*")
 
 # server files
-file(GLOB SERVER_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Server/*")
+file(GLOB SERVER_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/running_server_function/*")
+
+# client  files
+file(GLOB CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/*")
 
 # Add executable and link libraries
-add_executable(OrderBook
+add_executable(trading_platform
         main.cpp
         ${MARKET_FILES}
         ${CRQUEUE_FILES}
@@ -48,16 +51,24 @@ add_executable(OrderBook
 )
 
 # Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
-target_link_libraries(OrderBook
+target_link_libraries(trading_platform
         PUBLIC
         myproto
 )
 
 # Add the clientasync target
-add_executable(ClientAsync "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/ClientAsync.cpp")
-target_link_libraries(ClientAsync myproto)
-
+add_executable(random_order_generator_client
+        randomOrderGeneratorClient.cpp
+            ${SERVICE_FILES}
+            ${MARKET_FILES}
+            ${CRQUEUE_FILES}
+            ${CLIENT_FILES}
+        RandomClient.cpp
+)
+target_link_libraries(random_order_generator_client
+        myproto
+)
 
 add_custom_target(build_all
-        DEPENDS OrderBook ClientAsync
+        DEPENDS trading_platform random_order_generator_client
 )
