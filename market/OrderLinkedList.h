@@ -5,8 +5,8 @@
 
 class OrderLinkedList {
 private:
-    Order* dummyHead_;
-    Order* tail_;
+    Order* dummyTail_;
+    Order* head_;
 
 public:
     explicit OrderLinkedList(orderDirection bidsOrOffers);
@@ -15,9 +15,9 @@ public:
     OrderLinkedList(OrderLinkedList&& other) = delete;
     OrderLinkedList& operator=(const OrderLinkedList&& other) = delete;
 
-    [[nodiscard]] inline Order* getterHead() const {return dummyHead_->getterNextBO();};
-    [[nodiscard]] inline Order* getterTail() const {return tail_;};
-    inline void updateTail(Order* newTail) {tail_=newTail;};
+    [[nodiscard]] inline Order* getterTail() const {return dummyTail_->getterNextBO();};
+    [[nodiscard]] inline Order* getterHead() const {return head_;};
+    inline void updateTail(Order* newHead) { head_=newHead;};
 };
 
 

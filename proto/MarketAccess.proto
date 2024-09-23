@@ -5,23 +5,23 @@ package marketAccess;
 // the enum definitions need to match the order in the enums of Order.h
 
 enum orderType {
-  FillOrKill = 0;
-  GoodTilCancelled = 1;
+  FILL_OR_KILL = 0;
+  GOOD_TIL_CANCELLED = 1;
 }
 
 enum orderDirection {
-  buy = 0;
-  sell = 1;
+  BUY = 0;
+  SELL = 1;
 }
 
 service Communication {
-  rpc DisplayRequest(DisplayParameters) returns (OrderBookContent) {}
+  rpc Display(DisplayParameters) returns (OrderBookContent) {}
 
-  rpc DeleteRequest(DeletionParameters) returns (Confirmation){}
+  rpc Delete(DeletionParameters) returns (Confirmation){}
 
-  rpc InsertionRequest(InsertionParameters) returns (Confirmation){}
+  rpc Insertion(InsertionParameters) returns (Confirmation){}
 
-  rpc UpdateRequest(UpdateParameters) returns (Confirmation){}
+  rpc Update(UpdateParameters) returns (Confirmation){}
 }
 
 message DisplayParameters{

@@ -35,101 +35,101 @@ class Communication final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::marketAccess::OrderBookContent* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>> AsyncDisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>>(AsyncDisplayRequestRaw(context, request, cq));
+    virtual ::grpc::Status Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::marketAccess::OrderBookContent* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>> AsyncDisplay(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>>(AsyncDisplayRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>> PrepareAsyncDisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>>(PrepareAsyncDisplayRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>> PrepareAsyncDisplay(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>>(PrepareAsyncDisplayRaw(context, request, cq));
     }
-    virtual ::grpc::Status DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::Confirmation* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncDeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncDeleteRequestRaw(context, request, cq));
+    virtual ::grpc::Status Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::Confirmation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncDelete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncDeleteRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncDeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncDeleteRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncDelete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncDeleteRaw(context, request, cq));
     }
-    virtual ::grpc::Status InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::Confirmation* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncInsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncInsertionRequestRaw(context, request, cq));
+    virtual ::grpc::Status Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::Confirmation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncInsertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncInsertionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncInsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncInsertionRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncInsertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncInsertionRaw(context, request, cq));
     }
-    virtual ::grpc::Status UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::Confirmation* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncUpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncUpdateRequestRaw(context, request, cq));
+    virtual ::grpc::Status Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::Confirmation* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> AsyncUpdate(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(AsyncUpdateRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncUpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncUpdateRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>> PrepareAsyncUpdate(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>>(PrepareAsyncUpdateRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
-      virtual void UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>* AsyncDisplayRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>* PrepareAsyncDisplayRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncDeleteRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncDeleteRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncInsertionRequestRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncInsertionRequestRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncUpdateRequestRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncUpdateRequestRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>* AsyncDisplayRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::OrderBookContent>* PrepareAsyncDisplayRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* AsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::marketAccess::Confirmation>* PrepareAsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::marketAccess::OrderBookContent* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>> AsyncDisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>>(AsyncDisplayRequestRaw(context, request, cq));
+    ::grpc::Status Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::marketAccess::OrderBookContent* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>> AsyncDisplay(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>>(AsyncDisplayRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>> PrepareAsyncDisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>>(PrepareAsyncDisplayRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>> PrepareAsyncDisplay(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>>(PrepareAsyncDisplayRaw(context, request, cq));
     }
-    ::grpc::Status DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::Confirmation* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncDeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncDeleteRequestRaw(context, request, cq));
+    ::grpc::Status Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::marketAccess::Confirmation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncDelete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncDeleteRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncDeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncDeleteRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncDelete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncDeleteRaw(context, request, cq));
     }
-    ::grpc::Status InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::Confirmation* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncInsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncInsertionRequestRaw(context, request, cq));
+    ::grpc::Status Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::marketAccess::Confirmation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncInsertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncInsertionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncInsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncInsertionRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncInsertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncInsertionRaw(context, request, cq));
     }
-    ::grpc::Status UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::Confirmation* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncUpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncUpdateRequestRaw(context, request, cq));
+    ::grpc::Status Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::marketAccess::Confirmation* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> AsyncUpdate(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(AsyncUpdateRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncUpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncUpdateRequestRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>> PrepareAsyncUpdate(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>>(PrepareAsyncUpdateRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, std::function<void(::grpc::Status)>) override;
-      void DisplayRequest(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
-      void DeleteRequest(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
-      void InsertionRequest(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
-      void UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
-      void UpdateRequest(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, std::function<void(::grpc::Status)>) override;
+      void Display(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
+      void Delete(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
+      void Insertion(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, std::function<void(::grpc::Status)>) override;
+      void Update(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -141,18 +141,18 @@ class Communication final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>* AsyncDisplayRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>* PrepareAsyncDisplayRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncDeleteRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncDeleteRequestRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncInsertionRequestRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncInsertionRequestRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncUpdateRequestRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncUpdateRequestRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) override;
-    const ::grpc::internal::RpcMethod rpcmethod_DisplayRequest_;
-    const ::grpc::internal::RpcMethod rpcmethod_DeleteRequest_;
-    const ::grpc::internal::RpcMethod rpcmethod_InsertionRequest_;
-    const ::grpc::internal::RpcMethod rpcmethod_UpdateRequest_;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>* AsyncDisplayRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::OrderBookContent>* PrepareAsyncDisplayRaw(::grpc::ClientContext* context, const ::marketAccess::DisplayParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncDeleteRaw(::grpc::ClientContext* context, const ::marketAccess::DeletionParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncInsertionRaw(::grpc::ClientContext* context, const ::marketAccess::InsertionParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* AsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::marketAccess::Confirmation>* PrepareAsyncUpdateRaw(::grpc::ClientContext* context, const ::marketAccess::UpdateParameters& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_Display_;
+    const ::grpc::internal::RpcMethod rpcmethod_Delete_;
+    const ::grpc::internal::RpcMethod rpcmethod_Insertion_;
+    const ::grpc::internal::RpcMethod rpcmethod_Update_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -160,549 +160,549 @@ class Communication final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status DisplayRequest(::grpc::ServerContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response);
-    virtual ::grpc::Status DeleteRequest(::grpc::ServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response);
-    virtual ::grpc::Status InsertionRequest(::grpc::ServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response);
-    virtual ::grpc::Status UpdateRequest(::grpc::ServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response);
+    virtual ::grpc::Status Display(::grpc::ServerContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response);
+    virtual ::grpc::Status Delete(::grpc::ServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response);
+    virtual ::grpc::Status Insertion(::grpc::ServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response);
+    virtual ::grpc::Status Update(::grpc::ServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response);
   };
   template <class BaseClass>
-  class WithAsyncMethod_DisplayRequest : public BaseClass {
+  class WithAsyncMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_DisplayRequest() {
+    WithAsyncMethod_Display() {
       ::grpc::Service::MarkMethodAsync(0);
     }
-    ~WithAsyncMethod_DisplayRequest() override {
+    ~WithAsyncMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDisplayRequest(::grpc::ServerContext* context, ::marketAccess::DisplayParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::OrderBookContent>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDisplay(::grpc::ServerContext* context, ::marketAccess::DisplayParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::OrderBookContent>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_DeleteRequest : public BaseClass {
+  class WithAsyncMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_DeleteRequest() {
+    WithAsyncMethod_Delete() {
       ::grpc::Service::MarkMethodAsync(1);
     }
-    ~WithAsyncMethod_DeleteRequest() override {
+    ~WithAsyncMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteRequest(::grpc::ServerContext* context, ::marketAccess::DeletionParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDelete(::grpc::ServerContext* context, ::marketAccess::DeletionParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_InsertionRequest : public BaseClass {
+  class WithAsyncMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_InsertionRequest() {
+    WithAsyncMethod_Insertion() {
       ::grpc::Service::MarkMethodAsync(2);
     }
-    ~WithAsyncMethod_InsertionRequest() override {
+    ~WithAsyncMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestInsertionRequest(::grpc::ServerContext* context, ::marketAccess::InsertionParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestInsertion(::grpc::ServerContext* context, ::marketAccess::InsertionParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithAsyncMethod_UpdateRequest : public BaseClass {
+  class WithAsyncMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithAsyncMethod_UpdateRequest() {
+    WithAsyncMethod_Update() {
       ::grpc::Service::MarkMethodAsync(3);
     }
-    ~WithAsyncMethod_UpdateRequest() override {
+    ~WithAsyncMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestUpdateRequest(::grpc::ServerContext* context, ::marketAccess::UpdateParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestUpdate(::grpc::ServerContext* context, ::marketAccess::UpdateParameters* request, ::grpc::ServerAsyncResponseWriter< ::marketAccess::Confirmation>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_DisplayRequest<WithAsyncMethod_DeleteRequest<WithAsyncMethod_InsertionRequest<WithAsyncMethod_UpdateRequest<Service > > > > AsyncService;
+  typedef WithAsyncMethod_Display<WithAsyncMethod_Delete<WithAsyncMethod_Insertion<WithAsyncMethod_Update<Service > > > > AsyncService;
   template <class BaseClass>
-  class WithCallbackMethod_DisplayRequest : public BaseClass {
+  class WithCallbackMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_DisplayRequest() {
+    WithCallbackMethod_Display() {
       ::grpc::Service::MarkMethodCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::marketAccess::DisplayParameters, ::marketAccess::OrderBookContent>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response) { return this->DisplayRequest(context, request, response); }));}
-    void SetMessageAllocatorFor_DisplayRequest(
+                   ::grpc::CallbackServerContext* context, const ::marketAccess::DisplayParameters* request, ::marketAccess::OrderBookContent* response) { return this->Display(context, request, response); }));}
+    void SetMessageAllocatorFor_Display(
         ::grpc::MessageAllocator< ::marketAccess::DisplayParameters, ::marketAccess::OrderBookContent>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::marketAccess::DisplayParameters, ::marketAccess::OrderBookContent>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_DisplayRequest() override {
+    ~WithCallbackMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DisplayRequest(
+    virtual ::grpc::ServerUnaryReactor* Display(
       ::grpc::CallbackServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_DeleteRequest : public BaseClass {
+  class WithCallbackMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_DeleteRequest() {
+    WithCallbackMethod_Delete() {
       ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::marketAccess::DeletionParameters, ::marketAccess::Confirmation>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response) { return this->DeleteRequest(context, request, response); }));}
-    void SetMessageAllocatorFor_DeleteRequest(
+                   ::grpc::CallbackServerContext* context, const ::marketAccess::DeletionParameters* request, ::marketAccess::Confirmation* response) { return this->Delete(context, request, response); }));}
+    void SetMessageAllocatorFor_Delete(
         ::grpc::MessageAllocator< ::marketAccess::DeletionParameters, ::marketAccess::Confirmation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::marketAccess::DeletionParameters, ::marketAccess::Confirmation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_DeleteRequest() override {
+    ~WithCallbackMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DeleteRequest(
+    virtual ::grpc::ServerUnaryReactor* Delete(
       ::grpc::CallbackServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_InsertionRequest : public BaseClass {
+  class WithCallbackMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_InsertionRequest() {
+    WithCallbackMethod_Insertion() {
       ::grpc::Service::MarkMethodCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::marketAccess::InsertionParameters, ::marketAccess::Confirmation>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response) { return this->InsertionRequest(context, request, response); }));}
-    void SetMessageAllocatorFor_InsertionRequest(
+                   ::grpc::CallbackServerContext* context, const ::marketAccess::InsertionParameters* request, ::marketAccess::Confirmation* response) { return this->Insertion(context, request, response); }));}
+    void SetMessageAllocatorFor_Insertion(
         ::grpc::MessageAllocator< ::marketAccess::InsertionParameters, ::marketAccess::Confirmation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(2);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::marketAccess::InsertionParameters, ::marketAccess::Confirmation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_InsertionRequest() override {
+    ~WithCallbackMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* InsertionRequest(
+    virtual ::grpc::ServerUnaryReactor* Insertion(
       ::grpc::CallbackServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithCallbackMethod_UpdateRequest : public BaseClass {
+  class WithCallbackMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithCallbackMethod_UpdateRequest() {
+    WithCallbackMethod_Update() {
       ::grpc::Service::MarkMethodCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::marketAccess::UpdateParameters, ::marketAccess::Confirmation>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response) { return this->UpdateRequest(context, request, response); }));}
-    void SetMessageAllocatorFor_UpdateRequest(
+                   ::grpc::CallbackServerContext* context, const ::marketAccess::UpdateParameters* request, ::marketAccess::Confirmation* response) { return this->Update(context, request, response); }));}
+    void SetMessageAllocatorFor_Update(
         ::grpc::MessageAllocator< ::marketAccess::UpdateParameters, ::marketAccess::Confirmation>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(3);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::marketAccess::UpdateParameters, ::marketAccess::Confirmation>*>(handler)
               ->SetMessageAllocator(allocator);
     }
-    ~WithCallbackMethod_UpdateRequest() override {
+    ~WithCallbackMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* UpdateRequest(
+    virtual ::grpc::ServerUnaryReactor* Update(
       ::grpc::CallbackServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_DisplayRequest<WithCallbackMethod_DeleteRequest<WithCallbackMethod_InsertionRequest<WithCallbackMethod_UpdateRequest<Service > > > > CallbackService;
+  typedef WithCallbackMethod_Display<WithCallbackMethod_Delete<WithCallbackMethod_Insertion<WithCallbackMethod_Update<Service > > > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
-  class WithGenericMethod_DisplayRequest : public BaseClass {
+  class WithGenericMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_DisplayRequest() {
+    WithGenericMethod_Display() {
       ::grpc::Service::MarkMethodGeneric(0);
     }
-    ~WithGenericMethod_DisplayRequest() override {
+    ~WithGenericMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_DeleteRequest : public BaseClass {
+  class WithGenericMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_DeleteRequest() {
+    WithGenericMethod_Delete() {
       ::grpc::Service::MarkMethodGeneric(1);
     }
-    ~WithGenericMethod_DeleteRequest() override {
+    ~WithGenericMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_InsertionRequest : public BaseClass {
+  class WithGenericMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_InsertionRequest() {
+    WithGenericMethod_Insertion() {
       ::grpc::Service::MarkMethodGeneric(2);
     }
-    ~WithGenericMethod_InsertionRequest() override {
+    ~WithGenericMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithGenericMethod_UpdateRequest : public BaseClass {
+  class WithGenericMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithGenericMethod_UpdateRequest() {
+    WithGenericMethod_Update() {
       ::grpc::Service::MarkMethodGeneric(3);
     }
-    ~WithGenericMethod_UpdateRequest() override {
+    ~WithGenericMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
   };
   template <class BaseClass>
-  class WithRawMethod_DisplayRequest : public BaseClass {
+  class WithRawMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_DisplayRequest() {
+    WithRawMethod_Display() {
       ::grpc::Service::MarkMethodRaw(0);
     }
-    ~WithRawMethod_DisplayRequest() override {
+    ~WithRawMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDisplayRequest(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDisplay(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_DeleteRequest : public BaseClass {
+  class WithRawMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_DeleteRequest() {
+    WithRawMethod_Delete() {
       ::grpc::Service::MarkMethodRaw(1);
     }
-    ~WithRawMethod_DeleteRequest() override {
+    ~WithRawMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestDeleteRequest(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestDelete(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_InsertionRequest : public BaseClass {
+  class WithRawMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_InsertionRequest() {
+    WithRawMethod_Insertion() {
       ::grpc::Service::MarkMethodRaw(2);
     }
-    ~WithRawMethod_InsertionRequest() override {
+    ~WithRawMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestInsertionRequest(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestInsertion(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(2, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawMethod_UpdateRequest : public BaseClass {
+  class WithRawMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawMethod_UpdateRequest() {
+    WithRawMethod_Update() {
       ::grpc::Service::MarkMethodRaw(3);
     }
-    ~WithRawMethod_UpdateRequest() override {
+    ~WithRawMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestUpdateRequest(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestUpdate(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(3, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_DisplayRequest : public BaseClass {
+  class WithRawCallbackMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_DisplayRequest() {
+    WithRawCallbackMethod_Display() {
       ::grpc::Service::MarkMethodRawCallback(0,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DisplayRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Display(context, request, response); }));
     }
-    ~WithRawCallbackMethod_DisplayRequest() override {
+    ~WithRawCallbackMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DisplayRequest(
+    virtual ::grpc::ServerUnaryReactor* Display(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_DeleteRequest : public BaseClass {
+  class WithRawCallbackMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_DeleteRequest() {
+    WithRawCallbackMethod_Delete() {
       ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->DeleteRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Delete(context, request, response); }));
     }
-    ~WithRawCallbackMethod_DeleteRequest() override {
+    ~WithRawCallbackMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* DeleteRequest(
+    virtual ::grpc::ServerUnaryReactor* Delete(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_InsertionRequest : public BaseClass {
+  class WithRawCallbackMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_InsertionRequest() {
+    WithRawCallbackMethod_Insertion() {
       ::grpc::Service::MarkMethodRawCallback(2,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->InsertionRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Insertion(context, request, response); }));
     }
-    ~WithRawCallbackMethod_InsertionRequest() override {
+    ~WithRawCallbackMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* InsertionRequest(
+    virtual ::grpc::ServerUnaryReactor* Insertion(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithRawCallbackMethod_UpdateRequest : public BaseClass {
+  class WithRawCallbackMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithRawCallbackMethod_UpdateRequest() {
+    WithRawCallbackMethod_Update() {
       ::grpc::Service::MarkMethodRawCallback(3,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->UpdateRequest(context, request, response); }));
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->Update(context, request, response); }));
     }
-    ~WithRawCallbackMethod_UpdateRequest() override {
+    ~WithRawCallbackMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    virtual ::grpc::ServerUnaryReactor* UpdateRequest(
+    virtual ::grpc::ServerUnaryReactor* Update(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_DisplayRequest : public BaseClass {
+  class WithStreamedUnaryMethod_Display : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_DisplayRequest() {
+    WithStreamedUnaryMethod_Display() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
           ::marketAccess::DisplayParameters, ::marketAccess::OrderBookContent>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
                      ::marketAccess::DisplayParameters, ::marketAccess::OrderBookContent>* streamer) {
-                       return this->StreamedDisplayRequest(context,
+                       return this->StreamedDisplay(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_DisplayRequest() override {
+    ~WithStreamedUnaryMethod_Display() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DisplayRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
+    ::grpc::Status Display(::grpc::ServerContext* /*context*/, const ::marketAccess::DisplayParameters* /*request*/, ::marketAccess::OrderBookContent* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDisplayRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::DisplayParameters,::marketAccess::OrderBookContent>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDisplay(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::DisplayParameters,::marketAccess::OrderBookContent>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_DeleteRequest : public BaseClass {
+  class WithStreamedUnaryMethod_Delete : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_DeleteRequest() {
+    WithStreamedUnaryMethod_Delete() {
       ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
           ::marketAccess::DeletionParameters, ::marketAccess::Confirmation>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
                      ::marketAccess::DeletionParameters, ::marketAccess::Confirmation>* streamer) {
-                       return this->StreamedDeleteRequest(context,
+                       return this->StreamedDelete(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_DeleteRequest() override {
+    ~WithStreamedUnaryMethod_Delete() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status DeleteRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Delete(::grpc::ServerContext* /*context*/, const ::marketAccess::DeletionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedDeleteRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::DeletionParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedDelete(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::DeletionParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_InsertionRequest : public BaseClass {
+  class WithStreamedUnaryMethod_Insertion : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_InsertionRequest() {
+    WithStreamedUnaryMethod_Insertion() {
       ::grpc::Service::MarkMethodStreamed(2,
         new ::grpc::internal::StreamedUnaryHandler<
           ::marketAccess::InsertionParameters, ::marketAccess::Confirmation>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
                      ::marketAccess::InsertionParameters, ::marketAccess::Confirmation>* streamer) {
-                       return this->StreamedInsertionRequest(context,
+                       return this->StreamedInsertion(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_InsertionRequest() override {
+    ~WithStreamedUnaryMethod_Insertion() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status InsertionRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Insertion(::grpc::ServerContext* /*context*/, const ::marketAccess::InsertionParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedInsertionRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::InsertionParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedInsertion(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::InsertionParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
   };
   template <class BaseClass>
-  class WithStreamedUnaryMethod_UpdateRequest : public BaseClass {
+  class WithStreamedUnaryMethod_Update : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
-    WithStreamedUnaryMethod_UpdateRequest() {
+    WithStreamedUnaryMethod_Update() {
       ::grpc::Service::MarkMethodStreamed(3,
         new ::grpc::internal::StreamedUnaryHandler<
           ::marketAccess::UpdateParameters, ::marketAccess::Confirmation>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
                      ::marketAccess::UpdateParameters, ::marketAccess::Confirmation>* streamer) {
-                       return this->StreamedUpdateRequest(context,
+                       return this->StreamedUpdate(context,
                          streamer);
                   }));
     }
-    ~WithStreamedUnaryMethod_UpdateRequest() override {
+    ~WithStreamedUnaryMethod_Update() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status UpdateRequest(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
+    ::grpc::Status Update(::grpc::ServerContext* /*context*/, const ::marketAccess::UpdateParameters* /*request*/, ::marketAccess::Confirmation* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedUpdateRequest(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::UpdateParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedUpdate(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::marketAccess::UpdateParameters,::marketAccess::Confirmation>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_DisplayRequest<WithStreamedUnaryMethod_DeleteRequest<WithStreamedUnaryMethod_InsertionRequest<WithStreamedUnaryMethod_UpdateRequest<Service > > > > StreamedUnaryService;
+  typedef WithStreamedUnaryMethod_Display<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_Insertion<WithStreamedUnaryMethod_Update<Service > > > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_DisplayRequest<WithStreamedUnaryMethod_DeleteRequest<WithStreamedUnaryMethod_InsertionRequest<WithStreamedUnaryMethod_UpdateRequest<Service > > > > StreamedService;
+  typedef WithStreamedUnaryMethod_Display<WithStreamedUnaryMethod_Delete<WithStreamedUnaryMethod_Insertion<WithStreamedUnaryMethod_Update<Service > > > > StreamedService;
 };
 
 }  // namespace marketAccess

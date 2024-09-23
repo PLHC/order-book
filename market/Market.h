@@ -10,13 +10,13 @@
 
 class Market {
 private:
-    std::unordered_map<std::string, std::thread> ProductToOrderBookThreadMap;
-    GeneratorID * genID_;
+    std::unordered_map<std::string, std::thread> productToOrderBookThreadMap_;
+    GeneratorId * genId_;
 
 public:
-    std::unordered_map<std::string, OrderBook*> ProductToOrderBookMap;
+    std::unordered_map<std::string, OrderBook*> productToOrderBookMap_;
 
-    explicit Market(GeneratorID * genID);
+    explicit Market(GeneratorId * genID);
     ~Market();
 
     Market(Market&& other) = delete;
@@ -25,7 +25,7 @@ public:
     void createNewOrderBook(const std::string& product_ID);
     void deleteOrderBook(const std::string& product_ID);
 
-    inline OrderBook* getterOrderBookPointer(const std::string& productID) {return ProductToOrderBookMap[productID];};
+    inline OrderBook* getterOrderBookPointer(const std::string& productID) {return productToOrderBookMap_[productID];};
 };
 
 #endif //ORDERBOOK_MARKET_H

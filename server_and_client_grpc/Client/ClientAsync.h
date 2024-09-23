@@ -19,40 +19,44 @@ public:
     // Destructor to handle proper shutdown of resources
     ~Client();
 
-    // Method to handle async communication with the HandleTypeB RPC
-    void HandleDisplayRequestAsync(std::string&& message,
-                                   std::string&& orderBookName);
-    void HandleInsertionRequestAsync(std::string&& orderBookName,
-                                                           int userID,
-                                                           double price,
-                                                           double volume,
-                                                           orderDirection buyOrSell,
-                                                           orderType boType);
+    // Methods to generate async communication
+    void generateDisplayRequestAsync(std::string&& message,
+                                     std::string&& orderBookName);
+    void generateInsertionRequestAsync(std::string&& orderBookName,
+                                       int userID,
+                                       double price,
+                                       double volume,
+                                       orderDirection buyOrSell,
+                                       orderType boType);
 
 private:
     // Internal structure to store data for each RPC call
-    class RpcDataBase{
+    // Base class
+    class RequestDataBase{
     public:
-        virtual ~RpcDataBase() = default;
+        virtual ~RequestDataBase() = default;
         virtual void process() = 0;
     };
 
+    //
     template<typename RequestResponseType>
-    class RpcData : public RpcDataBase{
+    class RequestData : public RequestDataBase{
         grpc::ClientContext* context_;
         RequestResponseType* response_;
         grpc::Status* status_;
         Client& clientEnclosure_;
 
     public:
-        RpcData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s, Client& client);
-        ~RpcData() override;
+        RequestData(grpc::ClientContext* c, RequestResponseType* r, grpc::Status* s, Client& client);
+        ~RequestData() override;
 
         void process() override;
         void handleResponse();
     };
 
     [[nodiscard]] u_int64_t nextInternalID();
+    // Method to process the completion queue for finished RPC calls
+    void AsyncCompleteRpc();
 
     // Client internal request ID
     std::mutex generatorLock_;
@@ -60,8 +64,6 @@ private:
     std::uint64_t clientInternalId_;
     // map of currently executing orders and their corresponding content (type of request)
     std::unordered_map<std::uint64_t, std::string> internalIdToRequestTypeMap_;
-    // Method to process the completion queue for finished RPC calls
-    void AsyncCompleteRpc();
     // Stub for the Communication
     std::unique_ptr<marketAccess::Communication::Stub> stub_;
     // gRPC CompletionQueue to handle asynchronous operations

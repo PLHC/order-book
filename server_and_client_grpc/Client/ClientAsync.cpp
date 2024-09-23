@@ -28,17 +28,17 @@ Client::~Client() {
 }
 
 template<typename RequestResponseType>
-Client::RpcData<RequestResponseType>::RpcData(grpc::ClientContext* c,
-                                              RequestResponseType* r,
-                                              grpc::Status* s,
-                                              Client& client):
+Client::RequestData<RequestResponseType>::RequestData(grpc::ClientContext* c,
+                                                      RequestResponseType* r,
+                                                      grpc::Status* s,
+                                                      Client& client):
         context_(c),
         response_(r),
         status_(s),
         clientEnclosure_(client){}
 
 template<typename RequestResponseType>
-Client::RpcData<RequestResponseType>::~RpcData(){
+Client::RequestData<RequestResponseType>::~RequestData(){
     delete context_;
     delete response_;
     delete status_;
@@ -50,9 +50,9 @@ void Client::AsyncCompleteRpc() {
     while (!is_shutting_down_) {
         // Block until the next result is available in the completion queue
         while (cq_.Next(&tag, &ok)) {
-            auto* rpcData = static_cast<RpcDataBase*>(tag);
+            auto* rpcData = static_cast<RequestDataBase*>(tag);
             if (ok) {
-               rpcData->process();
+                rpcData->process();
             } else {
                 std::cerr << "RPC encountered an error!" << std::endl;
             }
@@ -61,7 +61,7 @@ void Client::AsyncCompleteRpc() {
     }
 }
 
-void Client::HandleDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
+void Client::generateDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
     // record internal ID to track results
     auto internalId = nextInternalID();
     internalIdToRequestTypeMap_[internalId] = "Display";
@@ -74,22 +74,22 @@ void Client::HandleDisplayRequestAsync(std::string&& message, std::string&& orde
     auto context = new grpc::ClientContext();
     context->AddMetadata("product_id", orderBookName);
 
-    // Create an async response_ reader
+    // Create an async responseParameters_ reader
     auto response = new marketAccess::OrderBookContent;
     auto status = new grpc::Status;
 
     std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::OrderBookContent>> rpc(
-            stub_->AsyncDisplayRequest(context, request, &cq_));
-        // Request the async call to finish
-    rpc->Finish(response, status, (void*)new RpcData{context, response, status, *this});
+            stub_->AsyncDisplay(context, request, &cq_));
+        // RequestHandler the async call to finish
+    rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
-void Client::HandleInsertionRequestAsync(std::string&& orderBookName,
-                                         int userID,
-                                         double price,
-                                         double volume,
-                                         orderDirection buyOrSell,
-                                         orderType boType) {
+void Client::generateInsertionRequestAsync(std::string&& orderBookName,
+                                           int userID,
+                                           double price,
+                                           double volume,
+                                           orderDirection buyOrSell,
+                                           orderType boType) {
     // record internal ID to track results
     auto internalId = nextInternalID();
     internalIdToRequestTypeMap_[internalId] = "Insertion";
@@ -107,20 +107,20 @@ void Client::HandleInsertionRequestAsync(std::string&& orderBookName,
     auto context = new grpc::ClientContext();
     context->AddMetadata("product_id", orderBookName);
 
-    // Create an async response_ reader
+    // Create an async responseParameters_ reader
     auto response = new marketAccess::Confirmation;
     auto status = new grpc::Status;
 
     std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::Confirmation>> rpc(
-            stub_->AsyncInsertionRequest(context, request, &cq_));
-    // Request the async call to finish
-    rpc->Finish(response, status, (void*)new RpcData{context, response, status, *this});
+            stub_->AsyncInsertion(context, request, &cq_));
+    // RequestHandler the async call to finish
+    rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
 
 
 template<typename RequestResponseType>
-void Client::RpcData<RequestResponseType>::process(){
+void Client::RequestData<RequestResponseType>::process(){
     if (status_->ok()) {
         std::cout << "Response from Type B: " << response_->comment() << std::endl;
         auto requestID = stoi(response_->info());
@@ -141,7 +141,7 @@ void Client::RpcData<RequestResponseType>::process(){
 }
 
 template<>
-void Client::RpcData<marketAccess::Confirmation>::handleResponse() {
+void Client::RequestData<marketAccess::Confirmation>::handleResponse() {
     if (response_->has_boid()) {
         std::cout << response_->validation() << " new BO ID: " << response_->boid();
     }else {
@@ -150,7 +150,7 @@ void Client::RpcData<marketAccess::Confirmation>::handleResponse() {
 }
 
 template<>
-void Client::RpcData<marketAccess::OrderBookContent>::handleResponse() {
+void Client::RequestData<marketAccess::OrderBookContent>::handleResponse() {
     if (response_->validation()) {
         std::cout << "Orderbook: " << std::endl << response_->orderbook();
     }else {
@@ -180,9 +180,9 @@ int main(int argc, char** argv) {
 
     int i = 1;
     while (i < 4) {
-        client1.HandleInsertionRequestAsync(argv[2], std::stoi(argv[1]),
-                                            20, 1, buy, GoodTilCancelled);
-        client1.HandleDisplayRequestAsync(std::to_string(i), argv[2]);
+        client1.generateInsertionRequestAsync(argv[2], std::stoi(argv[1]),
+                                              20, 1, BUY, GOOD_TIL_CANCELLED);
+        client1.generateDisplayRequestAsync(std::to_string(i), argv[2]);
         i++;
     }
 

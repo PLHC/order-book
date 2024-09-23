@@ -2,23 +2,23 @@
 #include <iostream>
 
 
-Market::Market(GeneratorID * genID):
-        genID_(genID),
-        ProductToOrderBookMap(),
-        ProductToOrderBookThreadMap()
+Market::Market(GeneratorId * genID):
+        genId_(genID),
+        productToOrderBookMap_(),
+        productToOrderBookThreadMap_()
     {
     std::cout<<"in market constructor"<<std::endl;
 }
 
 Market::~Market(){
     std::cout<<"in market destructor"<<std::endl;
-    for(const auto & [product, orderBookPointer] : ProductToOrderBookMap){
+    for(const auto & [product, orderBookPointer] : productToOrderBookMap_){
         orderBookPointer->setterStopFlagToTrue();
     }
-    for(auto & [product, orderBookThread]: ProductToOrderBookThreadMap){
+    for(auto & [product, orderBookThread]: productToOrderBookThreadMap_){
         if(orderBookThread.joinable()) orderBookThread.join();
     }
-    for(auto & [product, orderBookPointer] : ProductToOrderBookMap){
+    for(auto & [product, orderBookPointer] : productToOrderBookMap_){
         delete orderBookPointer;
     }
 
@@ -27,15 +27,15 @@ Market::~Market(){
 
 
 void Market::createNewOrderBook(const std::string& product_ID) {
-    auto pointerToOrderBook = new OrderBook(product_ID, genID_);
-    ProductToOrderBookMap[product_ID] = pointerToOrderBook;
-    ProductToOrderBookThreadMap[product_ID] = std::thread(&OrderBook::processRequests, pointerToOrderBook);
+    auto pointerToOrderBook = new OrderBook(product_ID, genId_);
+    productToOrderBookMap_[product_ID] = pointerToOrderBook;
+    productToOrderBookThreadMap_[product_ID] = std::thread(&OrderBook::processRequests, pointerToOrderBook);
 
 }
 
 void Market::deleteOrderBook(const std::string &product_ID) {
     // acquire lock for it first
     // check if orderbook existing or throw error
-    delete ProductToOrderBookMap[product_ID];
-    ProductToOrderBookMap.erase(product_ID);
+    delete productToOrderBookMap_[product_ID];
+    productToOrderBookMap_.erase(product_ID);
 }

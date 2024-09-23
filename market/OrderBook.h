@@ -5,7 +5,7 @@
 #include "Order.h"
 #include "OrderLinkedList.h"
 #include "CustomerRequestQueue/CustomerRequestQueue.h"
-#include "GeneratorID.h"
+#include "GeneratorId.h"
 
 #include <atomic>
 #include <unordered_map>
@@ -14,25 +14,25 @@
 #include <iomanip>
 #include <cstdlib>
 
-enum orderExecution {fullExecution, partialExecution, noExecution};
+enum orderExecution { FULL_EXECUTION, PARTIAL_EXECUTION, NO_EXECUTION };
 
 class OrderBook {
 private:
-    std::string productID_;
+    std::string productId_;
     OrderLinkedList bids_;
     OrderLinkedList offers_;
-    std::unordered_map<uint64_t, Order*> IDtoPointerMap;
-    std::atomic<bool> stopFlag;
+    std::unordered_map<uint64_t, Order*> idToPointerMap_;
+    std::atomic<bool> stopFlag_;
 
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* executingOrder);
 
 public:
-    GeneratorID *genID_;
+    GeneratorId *genId_;
     CustomerRequestQueue requestQueue_;
 
-    OrderBook(std::string productID, GeneratorID * genID);
+    OrderBook(std::string productID, GeneratorId * genID);
 
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
@@ -42,10 +42,10 @@ public:
                 Order* newOrder);
     void deletion(Order* deletedOrder);
     std::string displayOrderBook();
-    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return IDtoPointerMap[boID];};
-    [[nodiscard]] inline std::string getterProductID() {return productID_;};
+    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return idToPointerMap_[boID];};
+    [[nodiscard]] inline std::string getterProductID() {return productId_;};
     void processRequests();
-    inline void setterStopFlagToTrue() {stopFlag.store(true);};
+    inline void setterStopFlagToTrue() {stopFlag_.store(true);};
 };
 
 

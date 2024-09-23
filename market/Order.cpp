@@ -10,23 +10,23 @@ Order::Order(orderDirection buyOrSell):
         productID_(),
         buyOrSell_(buyOrSell),
         boType_(),
-        prev_bo_(nullptr),
-        next_bo_(nullptr) {}
+        prevBO_(nullptr),
+        nextBO_(nullptr) {}
 
 Order::Order(uint32_t userID,
              uint64_t boID,
              double price,
              double volume,
-             std::string product_ID,
+             std::string productID,
              orderDirection buyOrSell,
              orderType boType):
         userID_(userID),
         boID_(boID),
-        productID_(std::move(product_ID)),
+        productID_(std::move(productID)),
         buyOrSell_(buyOrSell),
         boType_(boType),
-        prev_bo_(nullptr),
-        next_bo_(nullptr) {
+        prevBO_(nullptr),
+        nextBO_(nullptr) {
     priceInCents_ = static_cast<int>(price * 100);
     price_ = priceInCents_/100.0;
     volumeInHundredths_ = static_cast<int>(volume * 100);

@@ -1,72 +1,67 @@
 #include "ServiceImplementation.h"
 
 
-MyServiceImpl::MyServiceImpl(grpc::ServerCompletionQueue *main_cq, Market *market,
-                             std::unordered_map<std::string, std::vector<std::string>> *orderBookVector)
+RpcService::RpcService(grpc::ServerCompletionQueue *main_cq, Market *market)
         : main_cq_(main_cq),
-          orderBookVector_(orderBookVector),
-          orderBookMap_(&(market->ProductToOrderBookMap)) {}
+          orderBookMap_( &(market->productToOrderBookMap_) ) {}
 
-void MyServiceImpl::HandleRpcs() {
+void RpcService::handleRpcs() {
     // Start listening for all RPC types asynchronously
-    new CallDataDisplayRequest(
-            &marketAccess::Communication::AsyncService::RequestDisplayRequest,
-            this, main_cq_, orderBookMap_, orderBookVector_);
-    new CallDataDeleteRequest(
-            &marketAccess::Communication::AsyncService::RequestDeleteRequest,
-            this, main_cq_, orderBookMap_, orderBookVector_);
-    new CallDataInsertionRequest(
-            &marketAccess::Communication::AsyncService::RequestInsertionRequest,
-            this, main_cq_, orderBookMap_, orderBookVector_);
-    new CallDataUpdateRequest(
-            &marketAccess::Communication::AsyncService::RequestUpdateRequest,
-            this, main_cq_, orderBookMap_, orderBookVector_);
-
+    new DisplayRequestHandler(&marketAccess::Communication::AsyncService::RequestDisplay,
+                              this, main_cq_, orderBookMap_);
+    new DeleteRequestHandler(&marketAccess::Communication::AsyncService::RequestDelete,
+                             this, main_cq_, orderBookMap_);
+    new InsertionRequestHandler(&marketAccess::Communication::AsyncService::RequestInsertion,
+                                this, main_cq_, orderBookMap_);
+    new UpdateRequestHandler(&marketAccess::Communication::AsyncService::RequestUpdate,
+                             this, main_cq_, orderBookMap_);
     void *tag;
     bool ok;
     while (true) {
         GPR_ASSERT(main_cq_->Next(&tag, &ok));
-        static_cast<CallDataBase *>(tag)->Proceed();
+        static_cast<RequestHandlerBase *>(tag)->proceed();
     }
 }
 
-// Templated class to handle various request/response_ types
+// Templated class to handle various request types
 template<typename RequestParametersType, typename ResponseParametersType>
-MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::CallData(
-        RequestRpcMethod request_method,
+RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::RequestHandler(
+        RpcMethod rpcMethod,
         marketAccess::Communication::AsyncService *service,
         grpc::ServerCompletionQueue *cq,
-        std::unordered_map<std::string, OrderBook*> *orderBookMap,
-        std::unordered_map<std::string, std::vector<std::string>> *orderBookVector)
-        : service_(service), cq_(cq), orderBookMap_(orderBookMap),
-          orderBookVector_(orderBookVector),
-          responder_(&ctx_), status_(CREATE), request_method_(request_method) {
-    Proceed();
+        std::unordered_map<std::string, OrderBook*> *orderBookMap)
+        : service_(service),
+          cq_(cq),
+          orderBookMap_(orderBookMap),
+          responder_(&ctx_),
+          status_(CREATE),
+          rpcMethod_(rpcMethod),
+          requestNodeInCRQ_(){
+    proceed();
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::Proceed() {
+void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
 
     if (status_ == CREATE) {
         status_ = PROCESS;
-        (service_->*request_method_)(&ctx_, &request_, &responder_, cq_, cq_, this); // Register to receive next request
+        (service_->*rpcMethod_)(&ctx_, &requestParameters_, &responder_, cq_, cq_, this); // Register to receive next request
 
     } else if (status_ == PROCESS) {
-        generateNewCallData();
-        // Inspect metadata to decide on dispatch, corrupted separations of metadata requires resizing based on size
-        auto product = ctx_.client_metadata().find("product_id");
-        std::string orderBookName = (product != end(ctx_.client_metadata() ) ) ?
-                                    std::string( product->second.data() ).substr( 0, product->second.length() ) :
-                                    "";
+        generateNewRequestHandler();
+        // Inspect metadata to decide on dispatch,
+        // corrupted separations of metadata requires resizing based on size
+        auto productIter = ctx_.client_metadata().find("product_id");
+        std::string orderBookName = (productIter != end(ctx_.client_metadata() ) ) ?
+                        std::string(productIter->second.data() ).substr(0, productIter->second.length() ) :
+                        "";
 
         if (!orderBookName.empty() && (*orderBookMap_).count(orderBookName) ) {
-//            std::cout<<"Processing proper request"<<std::endl;
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
-//            std::cout<<"Processing error"<<std::endl;
             handleProductError();
         }
-        responder_.Finish(response_, grpc::Status::OK, this);
+        responder_.Finish(responseParameters_, grpc::Status::OK, this);
         status_ = FINISH;
 
     } else if (status_ == FINISH) {
@@ -76,93 +71,89 @@ void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::Pro
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::insertNodeInCRQAndHandleRequest(
-        std::string &OBname) {
-    auto orderBook = (*orderBookMap_)[OBname];
-    requestNodeInCRQ = orderBook->requestQueue_.insertNode();
-    std::unique_lock<std::mutex> statusLock(requestNodeInCRQ->statusMutex_);
-    requestNodeInCRQ->statusConditionVariable_.wait(statusLock, [this](){
-        return requestNodeInCRQ->status_==PROCESSING_ALLOWED;});
+void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::insertNodeInCRQAndHandleRequest(
+        std::string &orderBookName) {
+    auto orderBook = (*orderBookMap_)[orderBookName];
+    requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
+    std::unique_lock<std::mutex> statusLock(requestNodeInCRQ_->statusMutex_);
+    requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){
+        return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED;});
 
     handleValidRequest(orderBook);
 
-    requestNodeInCRQ->status_=PROCESSING_COMPLETED;
+    requestNodeInCRQ_->status_=PROCESSING_COMPLETED;
     statusLock.unlock();
-    requestNodeInCRQ->statusConditionVariable_.notify_all();
+    requestNodeInCRQ_->statusConditionVariable_.notify_all();
 }
 
 // Handle Product error
 template<typename RequestParametersType, typename ResponseParametersType>
-void MyServiceImpl::CallData<RequestParametersType, ResponseParametersType>::handleProductError() {
-    response_.set_comment("Product is not available for trading");
-    response_.set_validation(false);
+void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::handleProductError() {
+    responseParameters_.set_comment("Product is not available for trading");
+    responseParameters_.set_validation(false);
 }
 
 // Handle valid requests
-void MyServiceImpl::CallDataDisplayRequest::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Display Request" << std::endl;
-    response_.set_info(std::to_string(request_.info()));
-    response_.set_orderbook(orderBook->displayOrderBook());
-    response_.set_comment(("Display Request has been handled"));
-    response_.set_validation(true);
+void RpcService::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Display RequestHandler" << std::endl;
+    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_orderbook(orderBook->displayOrderBook());
+    responseParameters_.set_comment(("Display RequestHandler has been handled"));
+    responseParameters_.set_validation(true);
 }
 
-void MyServiceImpl::CallDataDeleteRequest::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Delete Request" << std::endl;
-    orderBook->deletion(orderBook->getterPointerToOrderFromID(request_.boid()));
-    response_.set_info(std::to_string(request_.info()));
-    response_.set_validation(true);
+void RpcService::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Delete RequestHandler" << std::endl;
+    orderBook->deletion(orderBook->getterPointerToOrderFromID(requestParameters_.boid()));
+    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_validation(true);
 }
 
-void MyServiceImpl::CallDataInsertionRequest::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Insertion Request" << std::endl;
-    auto newGeneratedID = orderBook->genID_->nextID();
-    orderBook->insertion(new Order(request_.userid(),
-                                            newGeneratedID,
-                                            request_.price(),
-                                            request_.volume(),
-                                            orderBook->getterProductID(),
-                                            static_cast<orderDirection>(request_.buyorsell()),
-                                            static_cast<orderType>( request_.botype() ) ) );
-    response_.set_info(std::to_string(request_.info()));
-    response_.set_validation(true);
-    response_.set_boid(newGeneratedID);
+void RpcService::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Insertion RequestHandler" << std::endl;
+    auto newGeneratedId = orderBook->genId_->nextID();
+    orderBook->insertion(new Order(requestParameters_.userid(),
+                                   newGeneratedId,
+                                   requestParameters_.price(),
+                                   requestParameters_.volume(),
+                                   orderBook->getterProductID(),
+                                   static_cast<orderDirection>(requestParameters_.buyorsell()),
+                                   static_cast<orderType>( requestParameters_.botype() ) ) );
+    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_validation(true);
+    responseParameters_.set_boid(newGeneratedId);
 }
 
-void MyServiceImpl::CallDataUpdateRequest::handleValidRequest(OrderBook* orderBook) {
-    std::cout << "Processing the Update Request" << std::endl;
-    auto newGeneratedID = orderBook->genID_->nextID();
-    orderBook->update(orderBook->getterPointerToOrderFromID(request_.boid()),
-                            new Order(request_.userid(),
+void RpcService::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
+    std::cout << "Processing the Update RequestHandler" << std::endl;
+    auto newGeneratedID = orderBook->genId_->nextID();
+    orderBook->update(orderBook->getterPointerToOrderFromID(requestParameters_.boid()),
+                            new Order(requestParameters_.userid(),
                                       newGeneratedID,
-                                      request_.price(),
-                                      request_.volume(),
+                                      requestParameters_.price(),
+                                      requestParameters_.volume(),
                                       orderBook->getterProductID(),
-                                      static_cast<orderDirection>(request_.buyorsell()),
-                                      static_cast<orderType>( request_.botype() ) ) );
-    response_.set_info(std::to_string(request_.info()));
-    response_.set_validation(true);
-    response_.set_boid(newGeneratedID);
+                                      static_cast<orderDirection>(requestParameters_.buyorsell()),
+                                      static_cast<orderType>( requestParameters_.botype() ) ) );
+    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_validation(true);
+    responseParameters_.set_boid(newGeneratedID);
 }
 
 // Generate new request handlers
-void MyServiceImpl::CallDataDisplayRequest::generateNewCallData() {
-    new CallDataDisplayRequest(request_method_, service_, cq_,
-                               orderBookMap_, orderBookVector_);
+void RpcService::DisplayRequestHandler::generateNewRequestHandler() {
+    new DisplayRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void MyServiceImpl::CallDataDeleteRequest::generateNewCallData() {
-    new CallDataDeleteRequest(request_method_, service_, cq_,
-                              orderBookMap_, orderBookVector_);
+void RpcService::DeleteRequestHandler::generateNewRequestHandler() {
+    new DeleteRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void MyServiceImpl::CallDataInsertionRequest::generateNewCallData() {
-    new CallDataInsertionRequest(request_method_, service_, cq_,
-                                 orderBookMap_, orderBookVector_);
+void RpcService::InsertionRequestHandler::generateNewRequestHandler() {
+    new InsertionRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void MyServiceImpl::CallDataUpdateRequest::generateNewCallData() {
-    new CallDataUpdateRequest(request_method_, service_, cq_,
-                              orderBookMap_, orderBookVector_);
+void RpcService::UpdateRequestHandler::generateNewRequestHandler() {
+    new UpdateRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 

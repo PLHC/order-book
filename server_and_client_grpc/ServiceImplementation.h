@@ -11,95 +11,86 @@
 #include <iostream>
 
 
-
-// MyServiceImpl class derived from the generated AsyncService class
-class MyServiceImpl final : public marketAccess::Communication::AsyncService {
+// RpcService class derived from the generated AsyncService class
+class RpcService final : public marketAccess::Communication::AsyncService {
     grpc::ServerCompletionQueue *main_cq_;
     std::unordered_map<std::string, OrderBook*> *orderBookMap_;
-    std::unordered_map<std::string, std::vector<std::string>> *orderBookVector_;
 public:
     // Constructor to initialize the server completion queue and mappings
-    explicit MyServiceImpl(grpc::ServerCompletionQueue *main_cq,
-                           Market *market,
-                           std::unordered_map<std::string, std::vector<std::string>> *orderBookVector);
+    RpcService(grpc::ServerCompletionQueue *main_cq, Market *market);
 
     // Method to handle incoming RPCs
-    void HandleRpcs();
+    void handleRpcs();
 
     // Base class to handle common RPC logic
-    class CallDataBase {
+    class RequestHandlerBase {
     public:
-        virtual ~CallDataBase() = default;
-        virtual void Proceed() = 0;
+        virtual ~RequestHandlerBase() = default;
+        virtual void proceed() = 0;
     };
 
-    // Templated class to handle specific request/response_ types
+    // Templated class to handle specific request/responseParameters_ types
     template<typename RequestParametersType, typename ResponseParametersType>
-    class CallData : public CallDataBase {
+    class RequestHandler : public RequestHandlerBase {
     public:
-        using RequestRpcMethod = void (marketAccess::Communication::AsyncService::*)(
+        using RpcMethod = void (marketAccess::Communication::AsyncService::*)(
                 grpc::ServerContext *, RequestParametersType *,
                 grpc::ServerAsyncResponseWriter<ResponseParametersType> *,
                 grpc::CompletionQueue *,
                 grpc::ServerCompletionQueue *, void *);
 
-        CallData(RequestRpcMethod request_method, marketAccess::Communication::AsyncService *service,
-                 grpc::ServerCompletionQueue *cq,
-                 std::unordered_map<std::string, OrderBook*> *orderBookMap,
-                 std::unordered_map<std::string, std::vector<std::string>> *orderBookVector);
+        RequestHandler(RpcMethod rpcMethod, marketAccess::Communication::AsyncService *service,
+                       grpc::ServerCompletionQueue *cq,
+                       std::unordered_map<std::string, OrderBook*> *orderBookMap);
 
-        void Proceed() override;
+        void proceed() override;
 
     protected:
         virtual void handleValidRequest(OrderBook* orderBook) = 0;
-        virtual void generateNewCallData() = 0;
+        virtual void generateNewRequestHandler() = 0;
         void handleProductError();
-        void insertNodeInCRQAndHandleRequest(std::string & OBname);
+        void insertNodeInCRQAndHandleRequest(std::string & orderBookName);
 
         marketAccess::Communication::AsyncService *service_;
         grpc::ServerCompletionQueue *cq_;
         std::unordered_map<std::string, OrderBook*> *orderBookMap_;
-        std::unordered_map<std::string, std::vector<std::string>> *orderBookVector_;
-        RequestNode *requestNodeInCRQ;
+        RequestNode *requestNodeInCRQ_;
 
+        enum RequestStatus { CREATE, PROCESS, FINISH };
+        RequestStatus status_;
+        RpcMethod rpcMethod_;
         grpc::ServerContext ctx_;
-        RequestParametersType request_;
-        ResponseParametersType response_;
+        RequestParametersType requestParameters_;
+        ResponseParametersType responseParameters_;
         grpc::ServerAsyncResponseWriter<ResponseParametersType> responder_;
-
-        enum CallStatus {
-            CREATE, PROCESS, FINISH
-        };
-        CallStatus status_;
-        RequestRpcMethod request_method_;
     };
 
-    class CallDataDisplayRequest : public CallData<marketAccess::DisplayParameters, marketAccess::OrderBookContent>{
-        using CallData<marketAccess::DisplayParameters, marketAccess::OrderBookContent>::CallData;
+    class DisplayRequestHandler : public RequestHandler<marketAccess::DisplayParameters, marketAccess::OrderBookContent>{
+        using RequestHandler<marketAccess::DisplayParameters, marketAccess::OrderBookContent>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
-        void generateNewCallData() override;
+        void generateNewRequestHandler() override;
     };
 
-    class CallDataDeleteRequest : public CallData<marketAccess::DeletionParameters, marketAccess::Confirmation>{
-        using CallData<marketAccess::DeletionParameters, marketAccess::Confirmation>::CallData;
+    class DeleteRequestHandler : public RequestHandler<marketAccess::DeletionParameters, marketAccess::Confirmation>{
+        using RequestHandler<marketAccess::DeletionParameters, marketAccess::Confirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
-        void generateNewCallData() override;
+        void generateNewRequestHandler() override;
     };
 
-    class CallDataInsertionRequest : public CallData<marketAccess::InsertionParameters, marketAccess::Confirmation>{
-        using CallData<marketAccess::InsertionParameters, marketAccess::Confirmation>::CallData;
+    class InsertionRequestHandler : public RequestHandler<marketAccess::InsertionParameters, marketAccess::Confirmation>{
+        using RequestHandler<marketAccess::InsertionParameters, marketAccess::Confirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
-        void generateNewCallData() override;
+        void generateNewRequestHandler() override;
     };
 
-    class CallDataUpdateRequest : public CallData<marketAccess::UpdateParameters, marketAccess::Confirmation>{
-        using CallData<marketAccess::UpdateParameters, marketAccess::Confirmation>::CallData;
+    class UpdateRequestHandler : public RequestHandler<marketAccess::UpdateParameters, marketAccess::Confirmation>{
+        using RequestHandler<marketAccess::UpdateParameters, marketAccess::Confirmation>::RequestHandler;
     protected:
         void handleValidRequest(OrderBook* orderBook) override;
-        void generateNewCallData() override;
+        void generateNewRequestHandler() override;
     };
 };
 

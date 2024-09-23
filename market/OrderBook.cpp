@@ -1,12 +1,12 @@
 #include "OrderBook.h"
 
-OrderBook::OrderBook(std::string productID, GeneratorID * genID):
-        productID_(std::move(productID)),
-        genID_(genID),
-        bids_(buy),
-        offers_(sell),
-        IDtoPointerMap(),
-        stopFlag(false),
+OrderBook::OrderBook(std::string productID, GeneratorId * genID):
+        productId_(std::move(productID)),
+        genId_(genID),
+        bids_(BUY),
+        offers_(SELL),
+        idToPointerMap_(),
+        stopFlag_(false),
         requestQueue_(){
     std::cout<<"in OB constructor"<<std::endl;
 }
@@ -14,18 +14,18 @@ OrderBook::OrderBook(std::string productID, GeneratorID * genID):
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());
     auto priceInCents = orderToBeChecked->getterPriceInCents();
-    auto& LinkedList = orderToBeChecked->getterOrderDirection()==buy? offers_ : bids_;
-    auto nextOrder = LinkedList.getterHead();
+    auto& LinkedList = orderToBeChecked->getterOrderDirection() == BUY ? offers_ : bids_;
+    auto nextOrder = LinkedList.getterTail();
 
     while(nextOrder && volumeInHundredths > 0 &&
-          (orderToBeChecked->getterOrderDirection() == buy ?
+          (orderToBeChecked->getterOrderDirection() == BUY ?
            nextOrder->getterPriceInCents() <= priceInCents : nextOrder->getterPriceInCents() >= priceInCents)){
         volumeInHundredths -= static_cast<int32_t>(nextOrder->getterVolumeInHundredth());
         nextOrder = nextOrder->getterNextBO();
     }
-    if(volumeInHundredths<=0) return fullExecution;
-    else if(volumeInHundredths<orderToBeChecked->getterVolumeInHundredth()) return partialExecution;
-    else return noExecution;
+    if(volumeInHundredths<=0) return FULL_EXECUTION;
+    else if(volumeInHundredths<orderToBeChecked->getterVolumeInHundredth()) return PARTIAL_EXECUTION;
+    else return NO_EXECUTION;
 }
 
 void OrderBook::deletion(Order* deletedOrder) {
@@ -33,9 +33,9 @@ void OrderBook::deletion(Order* deletedOrder) {
         deletedOrder->getterNextBO()->updatePrevBO(deletedOrder->getterPrevBO());
     }
     deletedOrder->getterPrevBO()->updateNextBO(deletedOrder->getterNextBO());
-    auto& LinkedList = deletedOrder->getterOrderDirection()==buy? bids_ : offers_;
-    if(LinkedList.getterTail()==deletedOrder) LinkedList.updateTail(deletedOrder->getterPrevBO());
-    IDtoPointerMap.erase(deletedOrder->getterBoID());
+    auto& LinkedList = deletedOrder->getterOrderDirection() == BUY ? bids_ : offers_;
+    if(LinkedList.getterHead() == deletedOrder) LinkedList.updateTail(deletedOrder->getterPrevBO());
+    idToPointerMap_.erase(deletedOrder->getterBoID());
     delete deletedOrder;
     // update database about deleted order
 }
@@ -43,23 +43,23 @@ void OrderBook::deletion(Order* deletedOrder) {
 void OrderBook::insertion(Order* newOrder){
     auto execution = checkExecution(newOrder);
 
-    if(newOrder->getterOrderType()==FillOrKill && execution!=fullExecution){
+    if(newOrder->getterOrderType() == FILL_OR_KILL && execution != FULL_EXECUTION){
         //record order as deleted and never filled in memory
         return;
     }
 
-    auto& LinkedList = newOrder->getterOrderDirection()==buy? bids_ : offers_;
-    auto nextBO = LinkedList.getterHead();
+    auto& LinkedList = newOrder->getterOrderDirection() == BUY ? bids_ : offers_;
+    auto nextBO = LinkedList.getterTail();
     auto priceInCents = newOrder->getterPriceInCents();
     while(nextBO &&
-          (newOrder->getterOrderDirection()==buy?
+          (newOrder->getterOrderDirection() == BUY ?
            priceInCents<=nextBO->getterPriceInCents() : priceInCents>=nextBO->getterPriceInCents())){
         nextBO = nextBO->getterNextBO();
     }
     if(nextBO==nullptr){
-        newOrder->updatePrevBO(LinkedList.getterTail());
-        LinkedList.getterTail()->updateNextBO(newOrder);
-        LinkedList.updateTail(LinkedList.getterTail()->getterNextBO());
+        newOrder->updatePrevBO(LinkedList.getterHead());
+        LinkedList.getterHead()->updateNextBO(newOrder);
+        LinkedList.updateTail(LinkedList.getterHead()->getterNextBO());
     }
     else{
         auto prevBO = nextBO->getterPrevBO();
@@ -68,20 +68,20 @@ void OrderBook::insertion(Order* newOrder){
         nextBO->updatePrevBO(newOrder);
         prevBO->updateNextBO(newOrder);
     }
-    IDtoPointerMap[newOrder->getterBoID()] = newOrder;
+    idToPointerMap_[newOrder->getterBoID()] = newOrder;
     //record order in memory
 
-    if(execution!=noExecution) performExecution(newOrder);
+    if(execution != NO_EXECUTION) performExecution(newOrder);
 }
 
 void OrderBook::performExecution(Order* executingOrder) {
-    auto& LinkedList = executingOrder->getterOrderDirection()==buy? offers_ : bids_;
-    auto orderToBeUpdated = LinkedList.getterHead();
+    auto& LinkedList = executingOrder->getterOrderDirection() == BUY ? offers_ : bids_;
+    auto orderToBeUpdated = LinkedList.getterTail();
     Order* nextOrder;
     auto volumeInHundredths = executingOrder->getterVolumeInHundredth();
     auto priceInCents = executingOrder->getterPriceInCents();
 
-    while(orderToBeUpdated && volumeInHundredths > 0 && (executingOrder->getterOrderDirection() == buy ?
+    while(orderToBeUpdated && volumeInHundredths > 0 && (executingOrder->getterOrderDirection() == BUY ?
                 orderToBeUpdated->getterPriceInCents() <= priceInCents :
                 orderToBeUpdated->getterPriceInCents() >= priceInCents)){
         nextOrder = orderToBeUpdated->getterNextBO();
@@ -116,8 +116,8 @@ void OrderBook::update(Order* updatedOrder,
         newOrder->updatePrevBO(updatedOrder->getterPrevBO());
         newOrder->getterNextBO()->updatePrevBO(newOrder);
         newOrder->getterPrevBO()->updateNextBO(newOrder);
-        IDtoPointerMap[newOrder->getterBoID()] = newOrder;
-        IDtoPointerMap.erase(updatedOrder->getterBoID());
+        idToPointerMap_[newOrder->getterBoID()] = newOrder;
+        idToPointerMap_.erase(updatedOrder->getterBoID());
         //update database with newOrder and update updatedOrder to say replaced by newOrder
         delete updatedOrder;
         return;
@@ -129,8 +129,8 @@ void OrderBook::update(Order* updatedOrder,
 }
 
 std::string OrderBook::displayOrderBook() {
-    auto bidNode = bids_.getterHead();
-    auto offerNode = offers_.getterHead();
+    auto bidNode = bids_.getterTail();
+    auto offerNode = offers_.getterTail();
 
     std::cout << std::fixed << std::setprecision(2);
     std::ostringstream oss;
@@ -162,7 +162,7 @@ std::string OrderBook::displayOrderBook() {
 }
 
 void OrderBook::processRequests(){
-    while(!stopFlag){
+    while(!stopFlag_){
         requestQueue_.runNextRequest();
     }
 }

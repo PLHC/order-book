@@ -5,8 +5,8 @@
 #include <utility>
 #include <string>
 
-enum orderType { FillOrKill, GoodTilCancelled, orderTypesCount };
-enum orderDirection { buy, sell };
+enum orderType { FILL_OR_KILL, GOOD_TIL_CANCELLED, ORDER_TYPES_COUNT };
+enum orderDirection { BUY, SELL };
 
 class Order {
 private:
@@ -19,8 +19,8 @@ private:
     std::string productID_;
     orderDirection buyOrSell_;
     orderType boType_;
-    Order *prev_bo_;
-    Order *next_bo_;
+    Order *prevBO_;
+    Order *nextBO_;
 
 public:
      explicit Order(orderDirection buyOrSell);
@@ -28,7 +28,7 @@ public:
            uint64_t boID,
            double price,
            double volume,
-           std::string product_ID,
+           std::string productID,
            orderDirection buyOrSell,
            orderType boType);
 
@@ -43,15 +43,15 @@ public:
     [[nodiscard]] inline uint32_t getterVolumeInHundredth() const {return volumeInHundredths_;};
     [[nodiscard]] inline orderDirection getterOrderDirection() const {return buyOrSell_;};
     [[nodiscard]] inline orderType getterOrderType() const {return boType_;};
-    [[nodiscard]] inline Order* getterPrevBO() const {return prev_bo_;};
-    [[nodiscard]] inline Order* getterNextBO() const {return next_bo_;};
+    [[nodiscard]] inline Order* getterPrevBO() const {return prevBO_;};
+    [[nodiscard]] inline Order* getterNextBO() const {return nextBO_;};
 
     void inline updateVolume(double newVolume) {
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
         volume_ = volumeInHundredths_/100.0;
     };
-    void inline updatePrevBO(Order* newBO) {prev_bo_=newBO;};
-    void inline updateNextBO(Order* newBO) {next_bo_=newBO;};
+    void inline updatePrevBO(Order* newBO) { prevBO_=newBO;};
+    void inline updateNextBO(Order* newBO) { nextBO_=newBO;};
     bool inline checkIfOnlyVolumeUpdatedAndDown(Order* newOrder){
         return userID_==newOrder->getterUserID() &&
                price_==newOrder->getterPrice() &&

@@ -21,7 +21,7 @@ CustomerRequestQueue::~CustomerRequestQueue() {
 }
 
 RequestNode* CustomerRequestQueue::insertNode() {
-    // check if it should react to stopFlag
+    // check if it should react to stopFlag_
 
     //Preparing new node before insertion
     auto newNodePtr = std::make_shared<RequestNode>();

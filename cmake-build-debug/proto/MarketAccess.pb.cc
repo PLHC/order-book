@@ -297,24 +297,23 @@ const char descriptor_table_protodef_proto_2fMarketAccess_2eproto[] ABSL_ATTRIBU
     "rderID\030\010 \001(\003\"n\n\014Confirmation\022\014\n\004info\030\001 \001"
     "(\t\022\022\n\nvalidation\030\002 \001(\010\022\021\n\004boID\030\003 \001(\004H\000\210\001"
     "\001\022\024\n\007comment\030\004 \001(\tH\001\210\001\001B\007\n\005_boIDB\n\n\010_com"
-    "ment*1\n\torderType\022\016\n\nFillOrKill\020\000\022\024\n\020Goo"
-    "dTilCancelled\020\001*#\n\016orderDirection\022\007\n\003buy"
-    "\020\000\022\010\n\004sell\020\0012\331\002\n\rCommunication\022S\n\016Displa"
-    "yRequest\022\037.marketAccess.DisplayParameter"
-    "s\032\036.marketAccess.OrderBookContent\"\000\022O\n\rD"
-    "eleteRequest\022 .marketAccess.DeletionPara"
-    "meters\032\032.marketAccess.Confirmation\"\000\022S\n\020"
-    "InsertionRequest\022!.marketAccess.Insertio"
-    "nParameters\032\032.marketAccess.Confirmation\""
-    "\000\022M\n\rUpdateRequest\022\036.marketAccess.Update"
-    "Parameters\032\032.marketAccess.Confirmation\"\000"
-    "b\006proto3"
+    "ment*5\n\torderType\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022G"
+    "OOD_TIL_CANCELLED\020\001*#\n\016orderDirection\022\007\n"
+    "\003BUY\020\000\022\010\n\004SELL\020\0012\275\002\n\rCommunication\022L\n\007Di"
+    "splay\022\037.marketAccess.DisplayParameters\032\036"
+    ".marketAccess.OrderBookContent\"\000\022H\n\006Dele"
+    "te\022 .marketAccess.DeletionParameters\032\032.m"
+    "arketAccess.Confirmation\"\000\022L\n\tInsertion\022"
+    "!.marketAccess.InsertionParameters\032\032.mar"
+    "ketAccess.Confirmation\"\000\022F\n\006Update\022\036.mar"
+    "ketAccess.UpdateParameters\032\032.marketAcces"
+    "s.Confirmation\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_proto_2fMarketAccess_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2fMarketAccess_2eproto = {
     false,
     false,
-    1208,
+    1184,
     descriptor_table_protodef_proto_2fMarketAccess_2eproto,
     "proto/MarketAccess.proto",
     &descriptor_table_proto_2fMarketAccess_2eproto_once,

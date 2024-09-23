@@ -77,8 +77,8 @@ namespace protobuf {
 
 namespace marketAccess {
 enum orderType : int {
-  FillOrKill = 0,
-  GoodTilCancelled = 1,
+  FILL_OR_KILL = 0,
+  GOOD_TIL_CANCELLED = 1,
   orderType_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   orderType_INT_MAX_SENTINEL_DO_NOT_USE_ =
@@ -110,8 +110,8 @@ inline bool orderType_Parse(absl::string_view name, orderType* value) {
       orderType_descriptor(), name, value);
 }
 enum orderDirection : int {
-  buy = 0,
-  sell = 1,
+  BUY = 0,
+  SELL = 1,
   orderDirection_INT_MIN_SENTINEL_DO_NOT_USE_ =
       std::numeric_limits<::int32_t>::min(),
   orderDirection_INT_MAX_SENTINEL_DO_NOT_USE_ =

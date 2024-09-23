@@ -8,12 +8,12 @@ void RunServer(Market *market, const std::string& serverAddress) {
 
     std::unordered_map<std::string, std::vector<std::string>> orderBookVector;
 
-    MyServiceImpl service(mainCompletionQueue, market, &orderBookVector);
+    RpcService service(mainCompletionQueue, market);
     builder.RegisterService(&service);
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
 
     std::thread main_thread([&]() {
-        service.HandleRpcs();
+        service.handleRpcs();
     });
 
     // Joining threads

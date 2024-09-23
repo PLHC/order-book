@@ -4,13 +4,13 @@
 #include <mutex>
 
 
-class GeneratorID{
+class GeneratorId{
     uint64_t lastID_;
     std::mutex mtx_;
     std::condition_variable cv_;
 
 public:
-    explicit GeneratorID(uint64_t lastUsedValue);
+    explicit GeneratorId(uint64_t lastUsedValue);
     uint64_t nextID();
 };
 #endif //ORDERBOOK_GENERATORID_H
