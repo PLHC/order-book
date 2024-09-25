@@ -43,6 +43,7 @@ public:
     [[nodiscard]] inline uint32_t getterVolumeInHundredth() const {return volumeInHundredths_;};
     [[nodiscard]] inline orderDirection getterOrderDirection() const {return buyOrSell_;};
     [[nodiscard]] inline orderType getterOrderType() const {return boType_;};
+    [[nodiscard]] inline std::string getterProductID() const {return productID_;};
 
     void inline updateVolume(double newVolume) {
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
@@ -89,13 +90,13 @@ class OrderClient : public OrderBase{
 
 public:
     OrderClient(uint32_t userID,
-        uint64_t boID,
-        double price,
-        double volume,
-        std::string productID,
-        orderDirection buyOrSell,
-        orderType boType,
-        std::string internalID);
+                uint64_t boID,
+                double price,
+                double volume,
+                std::string productID,
+                orderDirection buyOrSell,
+                orderType boType,
+                std::string internalID);
 
     ~OrderClient() override = default;
 
@@ -110,6 +111,7 @@ public:
     void inline updateBoType(orderType newBoType) {boType_ = newBoType;};
     void inline updateInternalID(std::string newInternalID) {internalID_ = std::move(newInternalID);};
     void inline updateQuantile(int newQuantile) {quantile_ = newQuantile;};
+
 };
 
 

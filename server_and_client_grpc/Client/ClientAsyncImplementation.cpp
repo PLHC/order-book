@@ -10,9 +10,12 @@ Client::Client(const std::shared_ptr<Channel>& channel)
           clientInternalId_(0),
           generatorLock_(),
           conditionVariableGeneratorLock_(),
-          internalIdToRequestTypeMap_(),
+          activeOrders(),
+          activeOrdersListLock_(),
+          conditionVariableActiveOrdersListLock_(),
           is_shutting_down_(false) {
     // Start a separate thread to process the CompletionQueue
+    activeOrders.insert(0); // 0 used for dispatch requests
     cq_thread_ = std::thread([this]() { this->AsyncCompleteRpc(); });
 }
 
@@ -27,32 +30,15 @@ Client::~Client() {
 
 u_int64_t Client::nextInternalID() {
     std::unique_lock<std::mutex> genLock (generatorLock_);
-    conditionVariableGeneratorLock_.wait(genLock, [](){ return true;});
+    conditionVariableGeneratorLock_.wait(genLock, [](){ return true; });
 
     auto newID = ++clientInternalId_;
+    activeOrders.insert(newID);
 
     genLock.unlock();
     conditionVariableGeneratorLock_.notify_all();
 
     return newID;
-}
-
-template<typename ResponseParametersType>
-Client::RequestData<ResponseParametersType>::RequestData(
-        grpc::ClientContext* ctx,
-        ResponseParametersType* responseParams,
-        grpc::Status* status,
-        Client& client)
-        : context_(ctx),
-          responseParams_(responseParams),
-          status_(status),
-          clientEnclosure_(client){}
-
-template<typename ResponseParametersType>
-Client::RequestData<ResponseParametersType>::~RequestData(){
-    delete context_;
-    delete responseParams_;
-    delete status_;
 }
 
 void Client::AsyncCompleteRpc() {
@@ -73,13 +59,9 @@ void Client::AsyncCompleteRpc() {
 }
 
 void Client::generateDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
-    // record internal ID to track results
-    auto internalID = nextInternalID();
-    internalIdToRequestTypeMap_[internalID] = "Display";
-
     // create request
     marketAccess::DisplayParameters request;
-    request.set_info(internalID);
+    request.set_info(0); // Dispatch requests are tagged with internalID 0
 
     // Create a new context
     auto context = new grpc::ClientContext();
@@ -91,19 +73,18 @@ void Client::generateDisplayRequestAsync(std::string&& message, std::string&& or
 
     std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::OrderBookContent>> rpc(
             stub_->AsyncDisplay(context, request, &cq_));
-        // RequestHandler the async call to finish
+    // RequestHandler the async call to finish
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
 void Client::generateInsertionRequestAsync(std::string&& orderBookName,
-                                           int userID,
+                                           uint32_t userID,
                                            double price,
                                            double volume,
                                            orderDirection buyOrSell,
                                            orderType boType) {
     // record internal ID to track results
     auto internalID = nextInternalID();
-    internalIdToRequestTypeMap_[internalID] = "Insertion";
 
     //Create request
     marketAccess::InsertionParameters request;
@@ -129,15 +110,14 @@ void Client::generateInsertionRequestAsync(std::string&& orderBookName,
 }
 
 void Client::generateUpdateRequestAsync(std::string&& orderBookName,
-                                           int userID,
-                                           uint64_t updatedBO,
-                                           double price,
-                                           double volume,
-                                           orderDirection buyOrSell,
-                                           orderType boType) {
+                                        uint32_t userID,
+                                        uint64_t updatedBO,
+                                        double price,
+                                        double volume,
+                                        orderDirection buyOrSell,
+                                        orderType boType) {
     // record internal ID to track results
     auto internalID = nextInternalID();
-    internalIdToRequestTypeMap_[internalID] = "Update";
 
     //Create request
     marketAccess::UpdateParameters request;
@@ -164,11 +144,10 @@ void Client::generateUpdateRequestAsync(std::string&& orderBookName,
 }
 
 void Client::generateDeleteRequestAsync(std::string&& orderBookName,
-                                           int userID,
-                                           uint64_t deletedID) {
+                                        uint32_t userID,
+                                        uint64_t deletedID) {
     // record internal ID to track results
     auto internalID = nextInternalID();
-    internalIdToRequestTypeMap_[internalID] = "Deletion";
 
     //Create request
     marketAccess::DeletionParameters request;
@@ -190,59 +169,90 @@ void Client::generateDeleteRequestAsync(std::string&& orderBookName,
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
+void Client::handleResponse(const marketAccess::OrderBookContent *responseParams) {
+    if (responseParams->validation()) {
+        std::cout << "Orderbook: " << std::endl << responseParams->orderbook() << std::endl;
+    }else {
+        std::cout << "Display request for Orderbook "<<responseParams->info()<<" failed" << std::endl;
+    }
+}
+
+void Client::handleResponse(const marketAccess::InsertionConfirmation *responseParams) {
+    if (responseParams->validation()) {
+        std::cout <<"Insertion request for order: "<<responseParams->info()<<" successful, new BO ID: " <<
+                        responseParams->boid() << std::endl;
+    }else {
+        std::cout << "Insertion request for order: "<<responseParams->info()<<" failed" << std::endl;
+    }
+}
+
+void Client::handleResponse(const marketAccess::UpdateConfirmation *responseParams) {
+    if (responseParams->validation()) {
+        std::cout <<"Update request for order: "<<responseParams->info()<<" successful, new BO ID: " <<
+                        responseParams->boid() << std::endl;
+    }else {
+        std::cout << "Update request for order: "<<responseParams->info()<<" failed" << std::endl;
+    }
+}
+
+void Client::handleResponse(const marketAccess::DeletionConfirmation *responseParams) {
+    if (responseParams->validation()) {
+        std::cout << "Deletion of order "<<responseParams->info()<<" successful" << std::endl;
+    }else {
+        std::cout << "Deletion of order "<<responseParams->info()<<" failed" << std::endl;
+    }
+}
+
+
+template<typename ResponseParametersType>
+Client::RequestData<ResponseParametersType>::RequestData(
+        grpc::ClientContext* ctx,
+        ResponseParametersType* responseParams,
+        grpc::Status* status,
+        Client& client)
+        : context_(ctx),
+          responseParams_(responseParams),
+          status_(status),
+          clientEnclosure_(client){}
+
+template<typename ResponseParametersType>
+Client::RequestData<ResponseParametersType>::~RequestData(){
+    delete context_;
+    delete responseParams_;
+    delete status_;
+}
+
 template<typename ResponseParametersType>
 void Client::RequestData<ResponseParametersType>::process(){
     if (status_->ok()) {
-        std::cout << "Response from Type B: " << responseParams_->comment() << std::endl;
         auto requestID = stoi(responseParams_->info());
-        auto requestType = clientEnclosure_.internalIdToRequestTypeMap_.find(requestID);
-        if( requestType == end( clientEnclosure_.internalIdToRequestTypeMap_ ) ){
+
+        std::unique_lock<std::mutex> listLock(clientEnclosure_.activeOrdersListLock_);
+        clientEnclosure_.conditionVariableActiveOrdersListLock_.wait(listLock, [](){return true;});
+
+        auto isIdAnActiveOrder = clientEnclosure_.activeOrders.count(requestID);
+
+        listLock.unlock();
+        clientEnclosure_.conditionVariableGeneratorLock_.notify_all();
+
+        if( !isIdAnActiveOrder ){
             std::cout<<"Response received for non registered request: "<<requestID;
             return;
         }
-        if((*requestType).second == "Display"){
-            handleResponse();
+
+        dispatchResponse();
+        if(requestID!=0) {
+            std::unique_lock<std::mutex> genLock (clientEnclosure_.generatorLock_);
+            clientEnclosure_.conditionVariableGeneratorLock_.wait(genLock, [](){ return true; });
+
+            clientEnclosure_.activeOrders.erase(requestID);
+
+            genLock.unlock();
+            clientEnclosure_.conditionVariableGeneratorLock_.notify_all();
         }
-        clientEnclosure_.internalIdToRequestTypeMap_.erase(requestID);
     } else {
         std::cerr << "RPC failed: " << status_->error_message() << std::endl;
-        // problem: does not delete from internalIdToRequestTypeMap_
+        // problem: does not delete from activeOrders
     }
 
-}
-
-template<>
-void Client::RequestData<marketAccess::InsertionConfirmation>::handleResponse() {
-    if (responseParams_->has_boid()) {
-        std::cout << responseParams_->validation() << " new BO ID: " << responseParams_->boid();
-    }else {
-        std::cout << "Insertion request failed" << std::endl;
-    }
-}
-
-template<>
-void Client::RequestData<marketAccess::DeletionConfirmation>::handleResponse() {
-    if (responseParams_->has_boid()) {
-        std::cout << responseParams_->validation() << " new BO ID: " << responseParams_->boid();
-    }else {
-        std::cout << "Deletion request failed" << std::endl;
-    }
-}
-
-template<>
-void Client::RequestData<marketAccess::UpdateConfirmation>::handleResponse() {
-    if (responseParams_->has_boid()) {
-        std::cout << responseParams_->validation() << " new BO ID: " << responseParams_->boid();
-    }else {
-        std::cout << "Update request failed" << std::endl;
-    }
-}
-
-template<>
-void Client::RequestData<marketAccess::OrderBookContent>::handleResponse() {
-    if (responseParams_->validation()) {
-        std::cout << "Orderbook: " << std::endl << responseParams_->orderbook();
-    }else {
-        std::cout << "Display request failed" << std::endl;
-    }
 }
