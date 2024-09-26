@@ -1,11 +1,11 @@
-#include "ServiceAsyncImplementation.h"
+#include "ServiceAsync.h"
 
 
-RpcService::RpcService(grpc::ServerCompletionQueue *main_cq, Market *market)
+RpcServiceAsync::RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market)
         : main_cq_(main_cq),
           orderBookMap_( &(market->productToOrderBookMap_) ) {}
 
-void RpcService::handleRpcs() {
+void RpcServiceAsync::handleRpcs() {
     // Start listening for all RPC types asynchronously
     new DisplayRequestHandler(&marketAccess::Communication::AsyncService::RequestDisplay,
                               this, main_cq_, orderBookMap_);
@@ -25,7 +25,7 @@ void RpcService::handleRpcs() {
 
 // Templated class to handle various request types
 template<typename RequestParametersType, typename ResponseParametersType>
-RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::RequestHandler(
+RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::RequestHandler(
         RpcMethod rpcMethod,
         marketAccess::Communication::AsyncService *service,
         grpc::ServerCompletionQueue *cq,
@@ -41,7 +41,7 @@ RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::Reque
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
+void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
 
     if (status_ == CREATE) {
         status_ = PROCESS;
@@ -55,7 +55,7 @@ void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
         std::string orderBookName = (productIter != end(ctx_.client_metadata() ) ) ?
                         std::string(productIter->second.data() ).substr(0, productIter->second.length() ) :
                         "";
-
+        std::cout<<orderBookName<<std::endl;
         if (!orderBookName.empty() && (*orderBookMap_).count(orderBookName) ) {
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
@@ -71,7 +71,7 @@ void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
 }
 
 template<typename RequestParametersType, typename ResponseParametersType>
-void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
+void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::
                         insertNodeInCRQAndHandleRequest(std::string &orderBookName) {
     auto orderBook = (*orderBookMap_)[orderBookName];
     requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
@@ -88,26 +88,26 @@ void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::
 
 // Handle Product error
 template<typename RequestParametersType, typename ResponseParametersType>
-void RpcService::RequestHandler<RequestParametersType, ResponseParametersType>::handleProductError() {
+void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::handleProductError() {
     responseParameters_.set_comment("Product is not available for trading");
     responseParameters_.set_validation(false);
 }
 
 // Handle valid requests
-void RpcService::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
+void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_orderbook(orderBook->displayOrderBook());
-    responseParameters_.set_comment(("Display RequestHandler has been handled"));
+    responseParameters_.set_comment(("Display Request has been handled"));
     responseParameters_.set_validation(true);
 }
 
-void RpcService::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
+void RpcServiceAsync::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
     orderBook->deletion(orderBook->getterPointerToOrderFromID(requestParameters_.boid()));
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_validation(true);
 }
 
-void RpcService::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
+void RpcServiceAsync::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
     auto newGeneratedId = orderBook->genId_->nextID();
     orderBook->insertion(new Order(requestParameters_.userid(),
                                    newGeneratedId,
@@ -121,7 +121,7 @@ void RpcService::InsertionRequestHandler::handleValidRequest(OrderBook* orderBoo
     responseParameters_.set_boid(newGeneratedId);
 }
 
-void RpcService::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
+void RpcServiceAsync::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
     auto newGeneratedID = orderBook->genId_->nextID();
     orderBook->update(orderBook->getterPointerToOrderFromID(requestParameters_.boid()),
                             new Order(requestParameters_.userid(),
@@ -137,19 +137,19 @@ void RpcService::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) 
 }
 
 // Generate new request handlers
-void RpcService::DisplayRequestHandler::generateNewRequestHandler() {
+void RpcServiceAsync::DisplayRequestHandler::generateNewRequestHandler() {
     new DisplayRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void RpcService::DeleteRequestHandler::generateNewRequestHandler() {
+void RpcServiceAsync::DeleteRequestHandler::generateNewRequestHandler() {
     new DeleteRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void RpcService::InsertionRequestHandler::generateNewRequestHandler() {
+void RpcServiceAsync::InsertionRequestHandler::generateNewRequestHandler() {
     new InsertionRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 
-void RpcService::UpdateRequestHandler::generateNewRequestHandler() {
+void RpcServiceAsync::UpdateRequestHandler::generateNewRequestHandler() {
     new UpdateRequestHandler(rpcMethod_, service_, cq_, orderBookMap_);
 }
 

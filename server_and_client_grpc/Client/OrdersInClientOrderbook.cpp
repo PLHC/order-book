@@ -1,4 +1,4 @@
-#include "ClientOrdersInOrderbook.h"
+#include "OrdersInClientOrderbook.h"
 
 bool OrdersInOrderbooks::ProductOrders::insertOrder(std::unique_ptr<OrderClient> orderToInsert) {
     if(orderToInsert->getterOrderDirection() == BUY) {
@@ -56,21 +56,19 @@ OrdersInOrderbooks::OrdersInOrderbooks()
       distributionForRandomSelection(0, 10000){}
 
 OrdersInOrderbooks::~OrdersInOrderbooks() {
-    while(!productToOrdersMap_.empty()){
-        for(const auto & [internalID, ptr]: productToOrdersMap_){
-            delete ptr; // delete ProductOrders object before this hashmap is destructed
-        }
+    for(const auto & [internalID, ptr]: productToOrdersMap_){
+        delete ptr; // delete ProductOrders object before this hashmap is destructed
     }
+    productToOrdersMap_.clear();
 }
 
-bool OrdersInOrderbooks::insertOrder(std::unique_ptr<OrderClient> & orderToInsert) {
+bool OrdersInOrderbooks::insertOrderInLocalMonitoring(std::unique_ptr<OrderClient> & orderToInsert) {
     bool success = false;
 
     std::unique_lock<std::mutex> mapsLock (productToOrdersMapLock_);
     productToOrdersMapLockConditionVariable_.wait(mapsLock, [](){return true;});
-
     auto productIter = productToOrdersMap_.find(orderToInsert->getterProductID());
-    if(productIter == end(productToOrdersMap_)) {
+    if(productIter != end(productToOrdersMap_)) {
         productIter->second->insertOrder(std::move(orderToInsert));
         success = true;
     }
@@ -80,7 +78,7 @@ bool OrdersInOrderbooks::insertOrder(std::unique_ptr<OrderClient> & orderToInser
     return success;
 }
 
-bool OrdersInOrderbooks::deleteOrder(const std::string & internalID, const std::string & product) {
+bool OrdersInOrderbooks::deleteOrderInLocalMonitoring(const std::string & internalID, const std::string & product) {
     bool success = false;
 
     std::unique_lock<std::mutex> mapsLock (productToOrdersMapLock_);
@@ -97,7 +95,7 @@ bool OrdersInOrderbooks::deleteOrder(const std::string & internalID, const std::
     return success;
 }
 
-bool OrdersInOrderbooks::updateOrder(std::unique_ptr<OrderClient> & orderToInsert) {
+bool OrdersInOrderbooks::updateOrderInLocalMonitoring(std::unique_ptr<OrderClient> & orderToInsert) {
     bool success = false;
 
     std::unique_lock<std::mutex> mapsLock (productToOrdersMapLock_);

@@ -52,6 +52,19 @@ OrderClient::OrderClient(uint32_t userID,
                          std::string productID,
                          orderDirection buyOrSell,
                          orderType boType,
-                         std::string internalID)
+                         std::string internalID,
+                         std::string requestID)
         : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
-          internalID_(std::move(internalID)){}
+          internalID_(std::move(internalID)),
+          requestID_(std::move(requestID)){}
+
+OrderClient::OrderClient(uint32_t userID,
+                         uint64_t boID,
+                         double price,
+                         double volume,
+                         std::string productID,
+                         orderDirection buyOrSell,
+                         orderType boType)
+        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
+          internalID_(),
+          requestID_(){}

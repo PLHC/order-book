@@ -30,7 +30,7 @@ inline constexpr UpdateParameters::Impl_::Impl_(
       : info_{::uint64_t{0u}},
         boid_{::uint64_t{0u}},
         price_{0},
-        userid_{0},
+        userid_{0u},
         buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         volume_{0},
         botype_{static_cast< ::marketAccess::orderType >(0)},
@@ -108,7 +108,7 @@ inline constexpr InsertionParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : info_{::uint64_t{0u}},
         price_{0},
-        userid_{0},
+        userid_{0u},
         buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         volume_{0},
         botype_{static_cast< ::marketAccess::orderType >(0)},
@@ -177,7 +177,7 @@ inline constexpr DeletionParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : info_{::uint64_t{0u}},
         boid_{::uint64_t{0u}},
-        userid_{0},
+        userid_{0u},
         _cached_size_{0} {}
 
 template <typename>
@@ -306,7 +306,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::marketAccess::InsertionConfirmation, _impl_.comment_),
         ~0u,
         ~0u,
-        1,
+        ~0u,
         0,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateParameters, _internal_metadata_),
@@ -337,7 +337,7 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::marketAccess::UpdateConfirmation, _impl_.comment_),
         ~0u,
         ~0u,
-        1,
+        ~0u,
         0,
 };
 
@@ -370,42 +370,42 @@ const char descriptor_table_protodef_proto_2fMarketAccess_2eproto[] ABSL_ATTRIBU
     "ion\030\002 \001(\010\022\026\n\torderbook\030\003 \001(\tH\000\210\001\001\022\024\n\007com"
     "ment\030\004 \001(\tH\001\210\001\001B\014\n\n_orderbookB\n\n\010_commen"
     "t\"@\n\022DeletionParameters\022\014\n\004info\030\001 \001(\004\022\016\n"
-    "\006userid\030\002 \001(\005\022\014\n\004boid\030\003 \001(\004\"v\n\024DeletionC"
+    "\006userid\030\002 \001(\r\022\014\n\004boid\030\003 \001(\004\"v\n\024DeletionC"
     "onfirmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030"
     "\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001\022\024\n\007comment\030\004 \001("
     "\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comment\"\254\001\n\023Insertio"
     "nParameters\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001("
-    "\005\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\001\022/\n\tbuyO"
+    "\r\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\001\022/\n\tbuyO"
     "rSell\030\005 \001(\0162\034.marketAccess.orderDirectio"
     "n\022\'\n\006boType\030\006 \001(\0162\027.marketAccess.orderTy"
-    "pe\"w\n\025InsertionConfirmation\022\014\n\004info\030\001 \001("
-    "\t\022\022\n\nvalidation\030\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001"
-    "\022\024\n\007comment\030\004 \001(\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comm"
-    "ent\"\267\001\n\020UpdateParameters\022\014\n\004info\030\001 \001(\004\022\016"
-    "\n\006userid\030\002 \001(\005\022\014\n\004boid\030\003 \001(\004\022\r\n\005price\030\004 "
-    "\001(\001\022\016\n\006volume\030\005 \001(\001\022/\n\tbuyOrSell\030\006 \001(\0162\034"
-    ".marketAccess.orderDirection\022\'\n\006boType\030\007"
-    " \001(\0162\027.marketAccess.orderType\"t\n\022UpdateC"
-    "onfirmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030"
-    "\002 \001(\010\022\021\n\004boid\030\003 \001(\004H\000\210\001\001\022\024\n\007comment\030\004 \001("
-    "\tH\001\210\001\001B\007\n\005_boidB\n\n\010_comment*5\n\torderType"
-    "\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022GOOD_TIL_CANCELLED"
-    "\020\001*#\n\016orderDirection\022\007\n\003BUY\020\000\022\010\n\004SELL\020\0012"
-    "\324\002\n\rCommunication\022L\n\007Display\022\037.marketAcc"
-    "ess.DisplayParameters\032\036.marketAccess.Ord"
-    "erBookContent\"\000\022P\n\006Delete\022 .marketAccess"
-    ".DeletionParameters\032\".marketAccess.Delet"
-    "ionConfirmation\"\000\022U\n\tInsertion\022!.marketA"
-    "ccess.InsertionParameters\032#.marketAccess"
-    ".InsertionConfirmation\"\000\022L\n\006Update\022\036.mar"
-    "ketAccess.UpdateParameters\032 .marketAcces"
-    "s.UpdateConfirmation\"\000b\006proto3"
+    "pe\"i\n\025InsertionConfirmation\022\014\n\004info\030\001 \001("
+    "\t\022\022\n\nvalidation\030\002 \001(\010\022\014\n\004boid\030\003 \001(\004\022\024\n\007c"
+    "omment\030\004 \001(\tH\000\210\001\001B\n\n\010_comment\"\267\001\n\020Update"
+    "Parameters\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001(\r"
+    "\022\014\n\004boid\030\003 \001(\004\022\r\n\005price\030\004 \001(\001\022\016\n\006volume\030"
+    "\005 \001(\001\022/\n\tbuyOrSell\030\006 \001(\0162\034.marketAccess."
+    "orderDirection\022\'\n\006boType\030\007 \001(\0162\027.marketA"
+    "ccess.orderType\"f\n\022UpdateConfirmation\022\014\n"
+    "\004info\030\001 \001(\t\022\022\n\nvalidation\030\002 \001(\010\022\014\n\004boid\030"
+    "\003 \001(\004\022\024\n\007comment\030\004 \001(\tH\000\210\001\001B\n\n\010_comment*"
+    "5\n\torderType\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022GOOD_T"
+    "IL_CANCELLED\020\001*#\n\016orderDirection\022\007\n\003BUY\020"
+    "\000\022\010\n\004SELL\020\0012\324\002\n\rCommunication\022L\n\007Display"
+    "\022\037.marketAccess.DisplayParameters\032\036.mark"
+    "etAccess.OrderBookContent\"\000\022P\n\006Delete\022 ."
+    "marketAccess.DeletionParameters\032\".market"
+    "Access.DeletionConfirmation\"\000\022U\n\tInserti"
+    "on\022!.marketAccess.InsertionParameters\032#."
+    "marketAccess.InsertionConfirmation\"\000\022L\n\006"
+    "Update\022\036.marketAccess.UpdateParameters\032 "
+    ".marketAccess.UpdateConfirmation\"\000b\006prot"
+    "o3"
 };
 static ::absl::once_flag descriptor_table_proto_2fMarketAccess_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2fMarketAccess_2eproto = {
     false,
     false,
-    1430,
+    1402,
     descriptor_table_protodef_proto_2fMarketAccess_2eproto,
     "proto/MarketAccess.proto",
     &descriptor_table_proto_2fMarketAccess_2eproto_once,
@@ -990,7 +990,7 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_)}},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(DeletionParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_)}},
     // uint64 boid = 3;
@@ -1002,9 +1002,9 @@ const ::_pbi::TcParseTable<2, 3, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
     // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
@@ -1041,11 +1041,11 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<2>(
-            stream, this->_internal_userid(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_userid(), target);
   }
 
   // uint64 boid = 3;
@@ -1085,9 +1085,9 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
         this->_internal_boid());
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_userid());
   }
 
@@ -1524,7 +1524,7 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_)}},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(InsertionParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_)}},
     // double price = 3;
@@ -1546,9 +1546,9 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
     // double price = 3;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.price_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
@@ -1594,11 +1594,11 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<2>(
-            stream, this->_internal_userid(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_userid(), target);
   }
 
   // double price = 3;
@@ -1673,9 +1673,9 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
     total_size += 9;
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_userid());
   }
 
@@ -1884,9 +1884,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 54, 2> InsertionConfirmation::_table_ = {
     // bool validation = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(InsertionConfirmation, _impl_.validation_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.validation_)}},
-    // optional uint64 boid = 3;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionConfirmation, _impl_.boid_), 1>(),
-     {24, 1, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_)}},
+    // uint64 boid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionConfirmation, _impl_.boid_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -1896,9 +1896,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 54, 2> InsertionConfirmation::_table_ = {
     // bool validation = 2;
     {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.validation_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-    // optional uint64 boid = 3;
-    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // uint64 boid = 3;
+    {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.boid_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
     // optional string comment = 4;
     {PROTOBUF_FIELD_OFFSET(InsertionConfirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
@@ -1924,8 +1924,9 @@ PROTOBUF_NOINLINE void InsertionConfirmation::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.comment_.ClearNonDefaultToEmpty();
   }
-  _impl_.boid_ = ::uint64_t{0u};
-  _impl_.validation_ = false;
+  ::memset(&_impl_.boid_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.validation_) -
+      reinterpret_cast<char*>(&_impl_.boid_)) + sizeof(_impl_.validation_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
@@ -1952,14 +1953,14 @@ PROTOBUF_NOINLINE void InsertionConfirmation::Clear() {
         2, this->_internal_validation(), target);
   }
 
-  cached_has_bits = _impl_._has_bits_[0];
-  // optional uint64 boid = 3;
-  if (cached_has_bits & 0x00000002u) {
+  // uint64 boid = 3;
+  if (this->_internal_boid() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
         3, this->_internal_boid(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string comment = 4;
   if (cached_has_bits & 0x00000001u) {
     const std::string& _s = this->_internal_comment();
@@ -1992,21 +1993,19 @@ PROTOBUF_NOINLINE void InsertionConfirmation::Clear() {
                                     this->_internal_info());
   }
 
+  // optional string comment = 4;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional string comment = 4;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                      this->_internal_comment());
-    }
-
-    // optional uint64 boid = 3;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
-          this->_internal_boid());
-    }
-
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_comment());
   }
+
+  // uint64 boid = 3;
+  if (this->_internal_boid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_boid());
+  }
+
   // bool validation = 2;
   if (this->_internal_validation() != 0) {
     total_size += 2;
@@ -2028,13 +2027,11 @@ void InsertionConfirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, c
     _this->_internal_set_info(from._internal_info());
   }
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_comment(from._internal_comment());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.boid_ = from._impl_.boid_;
-    }
+  if (cached_has_bits & 0x00000001u) {
+    _this->_internal_set_comment(from._internal_comment());
+  }
+  if (from._internal_boid() != 0) {
+    _this->_impl_.boid_ = from._impl_.boid_;
   }
   if (from._internal_validation() != 0) {
     _this->_impl_.validation_ = from._impl_.validation_;
@@ -2153,7 +2150,7 @@ const ::_pbi::TcParseTable<3, 7, 0, 0, 2> UpdateParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_)}},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(UpdateParameters, _impl_.userid_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_)}},
     // uint64 boid = 3;
@@ -2177,9 +2174,9 @@ const ::_pbi::TcParseTable<3, 7, 0, 0, 2> UpdateParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // int32 userid = 2;
+    // uint32 userid = 2;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
     // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
@@ -2228,11 +2225,11 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
         1, this->_internal_info(), target);
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::
-        WriteInt32ToArrayWithField<2>(
-            stream, this->_internal_userid(), target);
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+        2, this->_internal_userid(), target);
   }
 
   // uint64 boid = 3;
@@ -2320,9 +2317,9 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
     total_size += 9;
   }
 
-  // int32 userid = 2;
+  // uint32 userid = 2;
   if (this->_internal_userid() != 0) {
-    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(
+    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
         this->_internal_userid());
   }
 
@@ -2534,9 +2531,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 51, 2> UpdateConfirmation::_table_ = {
     // bool validation = 2;
     {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(UpdateConfirmation, _impl_.validation_), 63>(),
      {16, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.validation_)}},
-    // optional uint64 boid = 3;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateConfirmation, _impl_.boid_), 1>(),
-     {24, 1, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_)}},
+    // uint64 boid = 3;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateConfirmation, _impl_.boid_), 63>(),
+     {24, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_)}},
   }}, {{
     65535, 65535
   }}, {{
@@ -2546,9 +2543,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 51, 2> UpdateConfirmation::_table_ = {
     // bool validation = 2;
     {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.validation_), -1, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kBool)},
-    // optional uint64 boid = 3;
-    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_), _Internal::kHasBitsOffset + 1, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kUInt64)},
+    // uint64 boid = 3;
+    {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.boid_), -1, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
     // optional string comment = 4;
     {PROTOBUF_FIELD_OFFSET(UpdateConfirmation, _impl_.comment_), _Internal::kHasBitsOffset + 0, 0,
     (0 | ::_fl::kFcOptional | ::_fl::kUtf8String | ::_fl::kRepAString)},
@@ -2574,8 +2571,9 @@ PROTOBUF_NOINLINE void UpdateConfirmation::Clear() {
   if (cached_has_bits & 0x00000001u) {
     _impl_.comment_.ClearNonDefaultToEmpty();
   }
-  _impl_.boid_ = ::uint64_t{0u};
-  _impl_.validation_ = false;
+  ::memset(&_impl_.boid_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.validation_) -
+      reinterpret_cast<char*>(&_impl_.boid_)) + sizeof(_impl_.validation_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
@@ -2602,14 +2600,14 @@ PROTOBUF_NOINLINE void UpdateConfirmation::Clear() {
         2, this->_internal_validation(), target);
   }
 
-  cached_has_bits = _impl_._has_bits_[0];
-  // optional uint64 boid = 3;
-  if (cached_has_bits & 0x00000002u) {
+  // uint64 boid = 3;
+  if (this->_internal_boid() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
         3, this->_internal_boid(), target);
   }
 
+  cached_has_bits = _impl_._has_bits_[0];
   // optional string comment = 4;
   if (cached_has_bits & 0x00000001u) {
     const std::string& _s = this->_internal_comment();
@@ -2642,21 +2640,19 @@ PROTOBUF_NOINLINE void UpdateConfirmation::Clear() {
                                     this->_internal_info());
   }
 
+  // optional string comment = 4;
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    // optional string comment = 4;
-    if (cached_has_bits & 0x00000001u) {
-      total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
-                                      this->_internal_comment());
-    }
-
-    // optional uint64 boid = 3;
-    if (cached_has_bits & 0x00000002u) {
-      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
-          this->_internal_boid());
-    }
-
+  if (cached_has_bits & 0x00000001u) {
+    total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                    this->_internal_comment());
   }
+
+  // uint64 boid = 3;
+  if (this->_internal_boid() != 0) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_boid());
+  }
+
   // bool validation = 2;
   if (this->_internal_validation() != 0) {
     total_size += 2;
@@ -2678,13 +2674,11 @@ void UpdateConfirmation::MergeImpl(::google::protobuf::MessageLite& to_msg, cons
     _this->_internal_set_info(from._internal_info());
   }
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      _this->_internal_set_comment(from._internal_comment());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _this->_impl_.boid_ = from._impl_.boid_;
-    }
+  if (cached_has_bits & 0x00000001u) {
+    _this->_internal_set_comment(from._internal_comment());
+  }
+  if (from._internal_boid() != 0) {
+    _this->_impl_.boid_ = from._impl_.boid_;
   }
   if (from._internal_validation() != 0) {
     _this->_impl_.validation_ = from._impl_.validation_;

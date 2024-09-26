@@ -1,5 +1,7 @@
-#ifndef ORDERBOOK_CLIENTORDERSINORDERBOOK_H
-#define ORDERBOOK_CLIENTORDERSINORDERBOOK_H
+#ifndef ORDERBOOK_ORDERSINCLIENTORDERBOOK_H
+#define ORDERBOOK_ORDERSINCLIENTORDERBOOK_H
+
+#include <iostream>
 
 #include "../../market/Order.h"
 #include <unordered_map>
@@ -27,19 +29,19 @@ class OrdersInOrderbooks{
     std::condition_variable productToOrdersMapLockConditionVariable_;
     std::unordered_map<std::string, ProductOrders*> productToOrdersMap_;
     std::random_device rd;
-    std::mt19937 gen;
     std::uniform_real_distribution<int> distributionForRandomSelection;
 //    std::uniform_real_distribution<int> distributionForRandomDeletion;
 //    enum insertOrDelete {INSERT, DELETE};
-
+protected:
+    std::mt19937 gen;
 
 public:
     OrdersInOrderbooks();
     ~OrdersInOrderbooks();
 
-    bool insertOrder(std::unique_ptr<OrderClient> & orderToInsert);
-    bool deleteOrder(const std::string & internalID, const std::string & product);
-    bool updateOrder(std::unique_ptr<OrderClient> & orderToInsert);
+    bool insertOrderInLocalMonitoring(std::unique_ptr<OrderClient> & orderToInsert);
+    bool deleteOrderInLocalMonitoring(const std::string & internalID, const std::string & product);
+    bool updateOrderInLocalMonitoring(std::unique_ptr<OrderClient> & orderToInsert);
     void addTradedProduct(const std::string & product);
     void removeTradedProduct(const std::string & product);
     std::vector<std::string> extractListOfTradedProducts();
@@ -50,4 +52,4 @@ public:
 //    return a specific Order
 };
 
-#endif //ORDERBOOK_CLIENTORDERSINORDERBOOK_H
+#endif //ORDERBOOK_ORDERSINCLIENTORDERBOOK_H

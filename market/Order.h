@@ -86,7 +86,7 @@ public:
 
 class OrderClient : public OrderBase{
     std::string internalID_;
-    int quantile_;
+    std::string requestID_;
 
 public:
     OrderClient(uint32_t userID,
@@ -96,11 +96,21 @@ public:
                 std::string productID,
                 orderDirection buyOrSell,
                 orderType boType,
-                std::string internalID);
+                std::string internalID,
+                std::string requestID);
+
+    OrderClient(uint32_t userID,
+                uint64_t boID,
+                double price,
+                double volume,
+                std::string productID,
+                orderDirection buyOrSell,
+                orderType boType);
 
     ~OrderClient() override = default;
 
     [[nodiscard]] inline std::string getterInternalID() const {return internalID_;};
+    [[nodiscard]] inline std::string getterRequestID() const {return requestID_;};
 
     void inline updatePrice(double newPrice) {
         priceInCents_ = static_cast<int>(newPrice * 100);
@@ -109,10 +119,8 @@ public:
     void inline updateBoID(uint64_t newBoID) {boID_ = newBoID;};
     void inline updateBuyOrSell(orderDirection newBuyOrSell) {buyOrSell_ = newBuyOrSell;};
     void inline updateBoType(orderType newBoType) {boType_ = newBoType;};
-    void inline updateInternalID(std::string newInternalID) {internalID_ = std::move(newInternalID);};
-    void inline updateQuantile(int newQuantile) {quantile_ = newQuantile;};
-
+    void inline updateInternalID(std::string newInternalID) { internalID_ = std::move(newInternalID);};
+    void inline updateRequestID(std::string newRequestID) { requestID_ = std::move(newRequestID);};
 };
-
 
 #endif //ORDERBOOK_ORDER_H

@@ -8,7 +8,7 @@ void RunServer(Market *market, const std::string& serverAddress) {
 
     std::unordered_map<std::string, std::vector<std::string>> orderBookVector;
 
-    RpcService service(mainCompletionQueue, market);
+    RpcServiceAsync service(mainCompletionQueue, market);
     builder.RegisterService(&service);
     std::unique_ptr<grpc::Server> server(builder.BuildAndStart());
 

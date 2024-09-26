@@ -63,7 +63,6 @@ add_executable(random_order_generator_client
             ${MARKET_FILES}
             ${CRQUEUE_FILES}
             ${CLIENT_FILES}
-        RandomClient.cpp
 )
 target_link_libraries(random_order_generator_client
         myproto

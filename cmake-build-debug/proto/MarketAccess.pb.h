@@ -316,14 +316,14 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_price(double value);
 
   public:
-  // int32 userid = 2;
+  // uint32 userid = 2;
   void clear_userid() ;
-  ::int32_t userid() const;
-  void set_userid(::int32_t value);
+  ::uint32_t userid() const;
+  void set_userid(::uint32_t value);
 
   private:
-  ::int32_t _internal_userid() const;
-  void _internal_set_userid(::int32_t value);
+  ::uint32_t _internal_userid() const;
+  void _internal_set_userid(::uint32_t value);
 
   public:
   // .marketAccess.orderDirection buyOrSell = 6;
@@ -385,7 +385,7 @@ class UpdateParameters final : public ::google::protobuf::Message
     ::uint64_t info_;
     ::uint64_t boid_;
     double price_;
-    ::int32_t userid_;
+    ::uint32_t userid_;
     int buyorsell_;
     double volume_;
     int botype_;
@@ -559,8 +559,7 @@ class UpdateConfirmation final : public ::google::protobuf::Message
   std::string* _internal_mutable_comment();
 
   public:
-  // optional uint64 boid = 3;
-  bool has_boid() const;
+  // uint64 boid = 3;
   void clear_boid() ;
   ::uint64_t boid() const;
   void set_boid(::uint64_t value);
@@ -998,14 +997,14 @@ class InsertionParameters final : public ::google::protobuf::Message
   void _internal_set_price(double value);
 
   public:
-  // int32 userid = 2;
+  // uint32 userid = 2;
   void clear_userid() ;
-  ::int32_t userid() const;
-  void set_userid(::int32_t value);
+  ::uint32_t userid() const;
+  void set_userid(::uint32_t value);
 
   private:
-  ::int32_t _internal_userid() const;
-  void _internal_set_userid(::int32_t value);
+  ::uint32_t _internal_userid() const;
+  void _internal_set_userid(::uint32_t value);
 
   public:
   // .marketAccess.orderDirection buyOrSell = 5;
@@ -1066,7 +1065,7 @@ class InsertionParameters final : public ::google::protobuf::Message
                           const InsertionParameters& from_msg);
     ::uint64_t info_;
     double price_;
-    ::int32_t userid_;
+    ::uint32_t userid_;
     int buyorsell_;
     double volume_;
     int botype_;
@@ -1240,8 +1239,7 @@ class InsertionConfirmation final : public ::google::protobuf::Message
   std::string* _internal_mutable_comment();
 
   public:
-  // optional uint64 boid = 3;
-  bool has_boid() const;
+  // uint64 boid = 3;
   void clear_boid() ;
   ::uint64_t boid() const;
   void set_boid(::uint64_t value);
@@ -1619,14 +1617,14 @@ class DeletionParameters final : public ::google::protobuf::Message
   void _internal_set_boid(::uint64_t value);
 
   public:
-  // int32 userid = 2;
+  // uint32 userid = 2;
   void clear_userid() ;
-  ::int32_t userid() const;
-  void set_userid(::int32_t value);
+  ::uint32_t userid() const;
+  void set_userid(::uint32_t value);
 
   private:
-  ::int32_t _internal_userid() const;
-  void _internal_set_userid(::int32_t value);
+  ::uint32_t _internal_userid() const;
+  void _internal_set_userid(::uint32_t value);
 
   public:
   // @@protoc_insertion_point(class_scope:marketAccess.DeletionParameters)
@@ -1657,7 +1655,7 @@ class DeletionParameters final : public ::google::protobuf::Message
                           const DeletionParameters& from_msg);
     ::uint64_t info_;
     ::uint64_t boid_;
-    ::int32_t userid_;
+    ::uint32_t userid_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -2169,24 +2167,24 @@ inline void DeletionParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// int32 userid = 2;
+// uint32 userid = 2;
 inline void DeletionParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0;
+  _impl_.userid_ = 0u;
 }
-inline ::int32_t DeletionParameters::userid() const {
+inline ::uint32_t DeletionParameters::userid() const {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionParameters.userid)
   return _internal_userid();
 }
-inline void DeletionParameters::set_userid(::int32_t value) {
+inline void DeletionParameters::set_userid(::uint32_t value) {
   _internal_set_userid(value);
   // @@protoc_insertion_point(field_set:marketAccess.DeletionParameters.userid)
 }
-inline ::int32_t DeletionParameters::_internal_userid() const {
+inline ::uint32_t DeletionParameters::_internal_userid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.userid_;
 }
-inline void DeletionParameters::_internal_set_userid(::int32_t value) {
+inline void DeletionParameters::_internal_set_userid(::uint32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.userid_ = value;
 }
@@ -2414,24 +2412,24 @@ inline void InsertionParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// int32 userid = 2;
+// uint32 userid = 2;
 inline void InsertionParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0;
+  _impl_.userid_ = 0u;
 }
-inline ::int32_t InsertionParameters::userid() const {
+inline ::uint32_t InsertionParameters::userid() const {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionParameters.userid)
   return _internal_userid();
 }
-inline void InsertionParameters::set_userid(::int32_t value) {
+inline void InsertionParameters::set_userid(::uint32_t value) {
   _internal_set_userid(value);
   // @@protoc_insertion_point(field_set:marketAccess.InsertionParameters.userid)
 }
-inline ::int32_t InsertionParameters::_internal_userid() const {
+inline ::uint32_t InsertionParameters::_internal_userid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.userid_;
 }
-inline void InsertionParameters::_internal_set_userid(::int32_t value) {
+inline void InsertionParameters::_internal_set_userid(::uint32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.userid_ = value;
 }
@@ -2600,15 +2598,10 @@ inline void InsertionConfirmation::_internal_set_validation(bool value) {
   _impl_.validation_ = value;
 }
 
-// optional uint64 boid = 3;
-inline bool InsertionConfirmation::has_boid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
+// uint64 boid = 3;
 inline void InsertionConfirmation::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::uint64_t InsertionConfirmation::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionConfirmation.boid)
@@ -2616,7 +2609,6 @@ inline ::uint64_t InsertionConfirmation::boid() const {
 }
 inline void InsertionConfirmation::set_boid(::uint64_t value) {
   _internal_set_boid(value);
-  _impl_._has_bits_[0] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:marketAccess.InsertionConfirmation.boid)
 }
 inline ::uint64_t InsertionConfirmation::_internal_boid() const {
@@ -2725,24 +2717,24 @@ inline void UpdateParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// int32 userid = 2;
+// uint32 userid = 2;
 inline void UpdateParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0;
+  _impl_.userid_ = 0u;
 }
-inline ::int32_t UpdateParameters::userid() const {
+inline ::uint32_t UpdateParameters::userid() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateParameters.userid)
   return _internal_userid();
 }
-inline void UpdateParameters::set_userid(::int32_t value) {
+inline void UpdateParameters::set_userid(::uint32_t value) {
   _internal_set_userid(value);
   // @@protoc_insertion_point(field_set:marketAccess.UpdateParameters.userid)
 }
-inline ::int32_t UpdateParameters::_internal_userid() const {
+inline ::uint32_t UpdateParameters::_internal_userid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.userid_;
 }
-inline void UpdateParameters::_internal_set_userid(::int32_t value) {
+inline void UpdateParameters::_internal_set_userid(::uint32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.userid_ = value;
 }
@@ -2933,15 +2925,10 @@ inline void UpdateConfirmation::_internal_set_validation(bool value) {
   _impl_.validation_ = value;
 }
 
-// optional uint64 boid = 3;
-inline bool UpdateConfirmation::has_boid() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
+// uint64 boid = 3;
 inline void UpdateConfirmation::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = ::uint64_t{0u};
-  _impl_._has_bits_[0] &= ~0x00000002u;
 }
 inline ::uint64_t UpdateConfirmation::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateConfirmation.boid)
@@ -2949,7 +2936,6 @@ inline ::uint64_t UpdateConfirmation::boid() const {
 }
 inline void UpdateConfirmation::set_boid(::uint64_t value) {
   _internal_set_boid(value);
-  _impl_._has_bits_[0] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:marketAccess.UpdateConfirmation.boid)
 }
 inline ::uint64_t UpdateConfirmation::_internal_boid() const {
