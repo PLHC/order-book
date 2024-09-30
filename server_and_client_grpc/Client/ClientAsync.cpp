@@ -29,7 +29,6 @@ u_int64_t ClientAsync::nextInternalID() {
     conditionVariableGeneratorLock_.wait(genLock, [](){ return true; });
 
     auto newID = ++clientInternalId_;
-    std::cout<<"internal ID: "<<newID<<std::endl;
 
     genLock.unlock();
     conditionVariableGeneratorLock_.notify_all();
@@ -73,33 +72,6 @@ void ClientAsync::generateDisplayRequestAsync(std::string&& message, std::string
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
-void ClientAsync::generateInsertionRequestAsync(OrderClient *order) {
-    // record internal ID to track results
-    order->updateInternalID(std::to_string( nextInternalID() ) );
-
-    //Create request
-    marketAccess::InsertionParameters request;
-    request.set_info(std::stoi( order->getterRequestID() ) );
-    request.set_userid(order->getterUserID());
-    request.set_price(order->getterPrice());
-    request.set_volume(order->getterVolume());
-    request.set_buyorsell(static_cast<marketAccess::orderDirection>(order->getterOrderDirection()));
-    request.set_botype(static_cast<marketAccess::orderType>(order->getterOrderType()));
-
-    // Create a new context_
-    auto context = new grpc::ClientContext();
-    context->AddMetadata("product_id", order->getterProductID());
-
-    // Create an async responseParameters_ reader
-    auto response = new marketAccess::InsertionConfirmation;
-    auto status = new grpc::Status;
-
-    std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::InsertionConfirmation>> rpc(
-            stub_->AsyncInsertion(context, request, &cq_));
-    // RequestHandler the async call to finish
-    rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
-}
-
 void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
                                                 uint32_t userID,
                                                 double price,
@@ -128,34 +100,6 @@ void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
             stub_->AsyncInsertion(context, request, &cq_));
     // RequestHandler the async call to finish
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
-}
-
-void ClientAsync::generateUpdateRequestAsync(OrderClient *order){
-    // record internal ID to track results
-    auto internalID = nextInternalID();
-
-    //Create request
-    marketAccess::UpdateParameters request;
-    request.set_info(internalID);
-    request.set_userid(order->getterUserID());
-    request.set_price(order->getterPrice());
-    request.set_volume(order->getterVolume());
-    request.set_buyorsell(static_cast<marketAccess::orderDirection>(order->getterOrderDirection()));
-    request.set_botype(static_cast<marketAccess::orderType>(order->getterOrderType()));
-    request.set_boid(order->getterBoID());
-
-    // Create a new context_
-    auto context = new grpc::ClientContext();
-    context->AddMetadata("product_id", order->getterProductID());
-
-    // Create an async responseParameters_ reader
-    auto response = new marketAccess::UpdateConfirmation;
-    auto status = new grpc::Status;
-
-    std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::UpdateConfirmation>> rpc(
-            stub_->AsyncUpdate(context, request, &cq_));
-    // RequestHandler the async call to finish
-    rpc->Finish(response, status, (void*)new RequestData{context,  response, status, *this});
 }
 
 void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
@@ -190,30 +134,6 @@ void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
             stub_->AsyncUpdate(context, request, &cq_));
     // RequestHandler the async call to finish
     rpc->Finish(response, status, (void*)new RequestData{context,  response, status, *this});
-}
-
-void ClientAsync::generateDeleteRequestAsync(OrderClient *order) {
-    // record internal ID to track results
-    auto internalID = nextInternalID();
-
-    //Create request
-    marketAccess::DeletionParameters request;
-    request.set_info(internalID);
-    request.set_userid(order->getterUserID());
-    request.set_boid(order->getterBoID());
-
-    // Create a new context_
-    auto context = new grpc::ClientContext();
-    context->AddMetadata("product_id", order->getterProductID());
-
-    // Create an async responseParameters_ reader
-    auto response = new marketAccess::DeletionConfirmation;
-    auto status = new grpc::Status;
-
-    std::unique_ptr<grpc::ClientAsyncResponseReader<marketAccess::DeletionConfirmation>> rpc(
-            stub_->AsyncDelete(context, request, &cq_));
-    // RequestHandler the async call to finish
-    rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
 void ClientAsync::generateDeleteRequestAsync(std::string&& orderBookName,

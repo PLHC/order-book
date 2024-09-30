@@ -41,6 +41,9 @@ file(GLOB SERVER_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/running_serve
 # client  files
 file(GLOB CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/*")
 
+# random client files
+file(GLOB RANDOM_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/RandomizerClient/*")
+
 # Add executable and link libraries
 add_executable(trading_platform
         main.cpp
@@ -59,10 +62,11 @@ target_link_libraries(trading_platform
 # Add the clientasync target
 add_executable(random_order_generator_client
         randomOrderGeneratorClient.cpp
-            ${SERVICE_FILES}
-            ${MARKET_FILES}
-            ${CRQUEUE_FILES}
-            ${CLIENT_FILES}
+        ${SERVICE_FILES}
+        ${MARKET_FILES}
+        ${CRQUEUE_FILES}
+        ${CLIENT_FILES}
+        ${RANDOM_CLIENT_FILES}
 )
 target_link_libraries(random_order_generator_client
         myproto

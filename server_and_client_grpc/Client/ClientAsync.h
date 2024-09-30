@@ -17,14 +17,16 @@ class ClientAsync {
     std::mutex generatorLock_;
     std::condition_variable conditionVariableGeneratorLock_;
     std::uint64_t clientInternalId_;
-    // Stub for the Communication
-    std::unique_ptr<marketAccess::Communication::Stub> stub_;
-    // gRPC CompletionQueue to handle asynchronous operations
-    grpc::CompletionQueue cq_;
     // Thread for processing the completion queue
     std::thread cq_thread_;
     // Flag to indicate if the client is shutting down
     bool is_shutting_down_;
+
+protected:
+    // Stub for the Communication
+    std::unique_ptr<marketAccess::Communication::Stub> stub_;
+    // gRPC CompletionQueue to handle asynchronous operations
+    grpc::CompletionQueue cq_;
 
 public:
     // Constructor accepting a gRPC channel
@@ -37,7 +39,6 @@ public:
     void generateDisplayRequestAsync(std::string&& message,
                                      std::string&& orderBookName);
 
-    void generateInsertionRequestAsync(OrderClient * order);
     void generateInsertionRequestAsync(std::string&& orderBookName,
                                        uint32_t userID,
                                        double price,
@@ -45,7 +46,6 @@ public:
                                        orderDirection buyOrSell,
                                        orderType boType);
 
-    void generateUpdateRequestAsync(OrderClient * order);
     void generateUpdateRequestAsync(std::string&& orderBookName,
                                     uint32_t userID,
                                     uint64_t updatedBO,
@@ -54,7 +54,6 @@ public:
                                     orderDirection buyOrSell,
                                     orderType boType);
 
-    void generateDeleteRequestAsync(OrderClient * order);
     void generateDeleteRequestAsync(std::string&& orderBookName,
                                     uint32_t userID,
                                     uint64_t deletedID);

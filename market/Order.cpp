@@ -9,7 +9,8 @@ OrderBase::OrderBase(orderDirection buyOrSell):
         volumeInHundredths_(),
         productID_(),
         buyOrSell_(buyOrSell),
-        boType_(){}
+        boType_(),
+        version_(1){}
 
 OrderBase::OrderBase(uint32_t userID,
              uint64_t boID,
@@ -22,7 +23,8 @@ OrderBase::OrderBase(uint32_t userID,
                boID_(boID),
                productID_(std::move(productID)),
                buyOrSell_(buyOrSell),
-               boType_(boType){
+               boType_(boType),
+               version_(1){
     priceInCents_ = static_cast<int>(price * 100);
     price_ = priceInCents_/100.0;
     volumeInHundredths_ = static_cast<int>(volume * 100);
@@ -44,27 +46,3 @@ Order::Order(uint32_t userID,
         : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
           prevBO_(nullptr),
           nextBO_(nullptr) {}
-
-OrderClient::OrderClient(uint32_t userID,
-                         uint64_t boID,
-                         double price,
-                         double volume,
-                         std::string productID,
-                         orderDirection buyOrSell,
-                         orderType boType,
-                         std::string internalID,
-                         std::string requestID)
-        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
-          internalID_(std::move(internalID)),
-          requestID_(std::move(requestID)){}
-
-OrderClient::OrderClient(uint32_t userID,
-                         uint64_t boID,
-                         double price,
-                         double volume,
-                         std::string productID,
-                         orderDirection buyOrSell,
-                         orderType boType)
-        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
-          internalID_(),
-          requestID_(){}

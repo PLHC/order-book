@@ -23,6 +23,7 @@ private:
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
     std::atomic<bool> stopFlag_;
+    uint64_t logicalClock_;
 
 
     orderExecution checkExecution(Order* orderToBeChecked);

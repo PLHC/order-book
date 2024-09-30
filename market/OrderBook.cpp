@@ -7,7 +7,8 @@ OrderBook::OrderBook(std::string productID, GeneratorId * genID):
         offers_(SELL),
         idToPointerMap_(),
         stopFlag_(false),
-        requestQueue_(){}
+        requestQueue_(),
+        logicalClock_(1){}
 
 orderExecution OrderBook::checkExecution(Order* orderToBeChecked){
     auto volumeInHundredths = static_cast<int32_t>(orderToBeChecked->getterVolumeInHundredth());

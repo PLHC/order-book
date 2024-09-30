@@ -55,7 +55,6 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         std::string orderBookName = (productIter != end(ctx_.client_metadata() ) ) ?
                         std::string(productIter->second.data() ).substr(0, productIter->second.length() ) :
                         "";
-        std::cout<<orderBookName<<std::endl;
         if (!orderBookName.empty() && (*orderBookMap_).count(orderBookName) ) {
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
@@ -89,6 +88,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 // Handle Product error
 template<typename RequestParametersType, typename ResponseParametersType>
 void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::handleProductError() {
+    responseParameters_.set_info( std::to_string( requestParameters_.info() ) );
     responseParameters_.set_comment("Product is not available for trading");
     responseParameters_.set_validation(false);
 }
@@ -97,7 +97,6 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_orderbook(orderBook->displayOrderBook());
-    responseParameters_.set_comment(("Display Request has been handled"));
     responseParameters_.set_validation(true);
 }
 
