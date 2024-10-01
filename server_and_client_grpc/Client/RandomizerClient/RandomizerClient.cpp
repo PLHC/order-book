@@ -213,65 +213,48 @@ void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *
 //    conditionVariableRequestIdToOrderClientMapMtx_.notify_all();
 //}
 
-void RandomizerClient::deleteRandomOrders() {
-    for(const auto & product : extractListOfTradedProducts()){
-        //check if more than zero orders
-        auto nbOrders = getterNbOrders(product);
-        if(!nbOrders.first || (!nbOrders.second.first && !nbOrders.second.second) ) continue;
+void RandomizerClient::deleteRandomOrders(const std::string & product) {
+    auto randomOrder = getterRandomOrder(product);
+    if(!randomOrder) return;
 
-        // pick a random order
-        std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
-        monitoringMapLockConditionVariable_.wait(mapsLock, [](){return true;});
-
-        auto randomOrder = getterRandomOrder(product);
-        if(!randomOrder.first) continue;
-
-        generateDeleteRequestAsync(moveResult.second);
-    }
+    generateDeleteRequestAsync(randomOrder);
 }
 
-void RandomizerClient::updateRandomOrders() {
-    for(const auto & product : extractListOfTradedProducts()){
-        // check if 0 orders available
-        auto nbOrders = getterNbOrders(product);
-        if(!nbOrders.first || (!nbOrders.second.first && !nbOrders.second.second) ) continue;
+void RandomizerClient::updateRandomOrders(const std::string & product) {
+    auto orderPtr = getterRandomOrder(product);
+    if(!orderPtr) return;
 
-        std::bernoulli_distribution distribution(0.5);
+    std::bernoulli_distribution distribution(0.5);
 
-        auto randomOrder = getterRandomOrder(product);
-        if(!randomOrder.first) continue;
+    double newPrice = orderPtr->getterPrice();
+    double newVolume = orderPtr->getterVolume();
 
-        auto moveResult = moveOrderFromProductOrdersToRequestMap(randomOrder.second.first, product);
-        if(!moveResult.first) continue;
-        moveResult.second->updatePrevVolume();
-        moveResult.second->updatePrevPrice();
-        auto isPriceUpdated = distribution(mtGen_);
-        if ( isPriceUpdated ) { // 50% chance to update price
-            auto fcast = priceForecastInCents_/100.0;
-            std::uniform_real_distribution<double> distributionPrices;
-            if(direction==BUY) {
-                distributionPrices = std::uniform_real_distribution<double>(fcast - spread_ , fcast + 1);
-            }else {
-                distributionPrices = std::uniform_real_distribution<double>(fcast - 1, fcast + spread_);
-            }
-            moveResult.second->updatePrice(distributionPrices(mtGen_));
+    auto isPriceUpdated = distribution(mtGen_);
+    if ( isPriceUpdated ) { // 50% chance to update price
+        auto fcast = priceForecastInCents_/100.0;
+        std::uniform_real_distribution<double> distributionPrices;
+        if(orderPtr->getterOrderDirection()==BUY) {
+            distributionPrices = std::uniform_real_distribution<double>(fcast - spread_ , fcast + 1);
+        }else {
+            distributionPrices = std::uniform_real_distribution<double>(fcast - 1, fcast + spread_);
         }
-        // volume updated if price not updated and otherwise 50% chance to update volume
-        if( !isPriceUpdated || distribution(mtGen_) ) {
-            std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
-            moveResult.second->updateVolume(distributionVolumes(mtGen_));
-        }
-        generateUpdateRequestAsync(moveResult.second);
+        newPrice = distributionPrices(mtGen_);
     }
+    // volume updated if price not updated and otherwise 50% chance to update volume
+    if( !isPriceUpdated || distribution(mtGen_) ) {
+        std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
+        newVolume = distributionVolumes(mtGen_);
+    }
+    generateUpdateRequestAsync(orderPtr, newPrice, newVolume);
 }
 
 void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
     for(const auto & product: extractListOfTradedProducts()){
-        auto counter = getterNbOrders(product);
-        if(!counter.first) continue;
-        if(counter.second.first + counter.second.second < 1.8 * (expectedNbOfOrdersOnEachSide_ - 1)){
+        auto counter = getterBuyAndSellNbOrders(product);
+        if(counter.first == -1) continue;
+        if(counter.first + counter.second < 1.8 * (expectedNbOfOrdersOnEachSide_)){
             // insert if less than 90% of expected nb of orders
-            auto direction = (counter.second.first < counter.second.second)? BUY : SELL;
+            auto direction = (counter.first < counter.second)? BUY : SELL;
             auto orderPtr = generateRandomOrder(direction, product);
             generateInsertionRequestAsync(orderPtr);
             continue;
@@ -279,9 +262,9 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
 
         std::bernoulli_distribution distribution(0.02); // 2% delete / 98% update
         if(distribution(mtGen_)){
-            deleteRandomOrders();
+            deleteRandomOrders(product);
         }else{
-            updateRandomOrders();
+            updateRandomOrders(product);
         }
     }
 }
@@ -298,11 +281,37 @@ std::shared_ptr<OrderClient> RandomizerClient::generateRandomOrder(const orderDi
         distributionPrices = std::uniform_real_distribution<double>(fcast - 1, fcast + spread_);
     }
 
-    return std::shared_ptr<OrderClient>(userID_,
+    return std::make_shared<OrderClient>(userID_,
                                         0,
                                         distributionPrices(mtGen_),
                                         distributionVolumes(mtGen_),
                                         std::move(product),
                                         direction,
                                         GOOD_TIL_CANCELLED);
+}
+
+std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::string &product) {
+    auto distribution = std::uniform_int_distribution<uint32_t> (0, 10000);
+    auto randomOrderNumber = distribution(mtGen_);
+    std::shared_ptr<OrderClient> selectedOrder;
+
+    auto orderbook = getterSharedPointerToOrderbook(product);
+
+    if(!orderbook) return nullptr;
+
+    std::unique_lock<std::mutex> orderbookLock(orderbook->internalIdToOrderMapMtx_);
+    orderbook->internalIdToOrderMapConditionVariable_.wait(orderbookLock, [](){ return true;});
+
+    randomOrderNumber %= orderbook->getterNbBuyOrders() + orderbook->getterNbSellOrders();
+
+    for(const auto & [ID, orderPtr] : orderbook->internalIdToOrderMap_){
+        if(!randomOrderNumber--){
+            selectedOrder = orderPtr;
+        }
+    }
+
+    orderbookLock.unlock();
+    orderbook->internalIdToOrderMapConditionVariable_.notify_all();
+
+    return selectedOrder;
 }

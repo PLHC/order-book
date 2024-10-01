@@ -32,13 +32,14 @@ private:
     void generateDeleteRequestAsync(std::shared_ptr<OrderClient> & order); ////
 
     void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override; ////
-    void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override;
-    void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override;
+    void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override; ////
+    void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override; ////
 
-//    void deleteRandomOrders();
-//    void updateRandomOrders();
+    void deleteRandomOrders(const std::string & product);
+    void updateRandomOrders(const std::string & product);
 
-    std::shared_ptr<OrderClient> generateRandomOrder(const orderDirection direction, std::string product);
+    std::shared_ptr<OrderClient> generateRandomOrder(const orderDirection direction, std::string product); ////
+    std::shared_ptr<OrderClient> getterRandomOrder(const std::string &product);
 };
 
 #endif //ORDERBOOK_RANDOMIZERCLIENT_H

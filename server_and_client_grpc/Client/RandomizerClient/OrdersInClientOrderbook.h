@@ -32,10 +32,12 @@ protected:
                          const double price,
                          const double volume,
                          const uint32_t version);
+
         [[nodiscard]] inline uint32_t getterNbBuyOrders() const {return nbBuyOrders_;}; ////
         [[nodiscard]] inline uint32_t getterNbSellOrders() const {return nbSellOrders_;}; ////
+
         [[nodiscard]] inline bool getterActiveOrNot() const {return active_;}; ////
-        inline void deactivateOrderbook(){ active_ = false;}; ////
+        inline void deactivateOrderbook(){active_ = false;}; ////
         inline void activateOrderbook(){active_ = true;}; ////
     };
 
@@ -57,12 +59,13 @@ public:
                                       const double volume,
                                       const uint32_t version,
                                       const std::string & product);
+
     void addTradedProductOrderbook(const std::string & product); ////
     void removeTradedProductOrderbook(const std::string & product); ////
+
     [[nodiscard]] std::vector<std::string> extractListOfTradedProducts(); ////
-    [[nodiscard]] inline std::shared_ptr<OrdersInOrderbook> getterSharedPointerToOrderbook(const std::string &product); ////
-    [[nodiscard]] inline uint32_t getterNbOrders(const std::string & product); ////
-//    [[nodiscard]] std::pair<bool, std::pair<std::string, uint64_t> > getterRandomOrder(const std::string & product);
+    [[nodiscard]] std::shared_ptr<OrdersInOrderbook> getterSharedPointerToOrderbook(const std::string &product); ////
+    [[nodiscard]] std::pair<int64_t, int64_t> getterBuyAndSellNbOrders(const std::string & product); ////
 };
 
 #endif //ORDERBOOK_ORDERSINCLIENTORDERBOOK_H

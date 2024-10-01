@@ -8,7 +8,7 @@ class OrderClient : public OrderBase{
     std::string internalID_;
 
 public:
-    explicit OrderClient(uint32_t userID,
+    OrderClient(uint32_t userID,
                          uint64_t boID,
                          double price,
                          double volume,
@@ -17,7 +17,7 @@ public:
                          orderType boType,
                          std::string internalID);
 
-    explicit OrderClient(uint32_t userID,
+    OrderClient(uint32_t userID,
                          uint64_t boID,
                          double price,
                          double volume,

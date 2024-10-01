@@ -48,7 +48,7 @@ public:
     [[nodiscard]] inline uint32_t getterVersion() const {return version_;};
 
     inline uint32_t incrementVersion() {return ++version_;};
-    inline uint32_t updateVersion(const uint32_t newVersion) {version_ = newVersion;};
+    inline void updateVersion(const uint32_t newVersion) {version_ = newVersion;};
     inline void updateVolume(double newVolume) {
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
         volume_ = volumeInHundredths_/100.0;
