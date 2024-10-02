@@ -1,6 +1,7 @@
 #ifndef ORDERBOOK_ORDER_H
 #define ORDERBOOK_ORDER_H
 
+#include <iostream>
 #include <cstdint>
 #include <utility>
 #include <string>
@@ -23,6 +24,7 @@ protected:
 
 public:
     explicit OrderBase(orderDirection buyOrSell);
+
     OrderBase(uint32_t userID,
             uint64_t boID,
             double price,
@@ -30,6 +32,15 @@ public:
             std::string productID,
             orderDirection buyOrSell,
             orderType boType);
+
+    OrderBase(uint32_t userID,
+              uint64_t boID,
+              double price,
+              double volume,
+              std::string productID,
+              orderDirection buyOrSell,
+              orderType boType,
+              uint32_t version);
 
     virtual ~OrderBase() = default ;
 
@@ -47,8 +58,10 @@ public:
     [[nodiscard]] inline std::string getterProductID() const {return productID_;};
     [[nodiscard]] inline uint32_t getterVersion() const {return version_;};
 
-    inline uint32_t incrementVersion() {return ++version_;};
+    inline bool checkIfItHasAnOlderVersionThan(OrderBase* other) const {return other->getterVersion() >= version_;};
+    inline uint32_t incrementAndReturnVersion() {return ++version_;};
     inline void updateVersion(const uint32_t newVersion) {version_ = newVersion;};
+
     inline void updateVolume(double newVolume) {
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
         volume_ = volumeInHundredths_/100.0;
@@ -61,6 +74,7 @@ class Order : public OrderBase{
 
 public:
      explicit Order(orderDirection buyOrSell);
+
      Order(uint32_t userID,
            uint64_t boID,
            double price,
@@ -68,6 +82,17 @@ public:
            std::string productID,
            orderDirection buyOrSell,
            orderType boType);
+
+    Order(uint32_t userID,
+          uint64_t boID,
+          double price,
+          double volume,
+          std::string productID,
+          orderDirection buyOrSell,
+          orderType boType,
+          uint32_t version);
+
+    explicit Order(Order* other);
 
     ~Order() override = default ;
 

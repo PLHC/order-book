@@ -16,12 +16,15 @@ int main(int argc, char** argv) {
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    randomClient.generateDisplayRequestAsync("abc", argv[2]);
+//    randomClient.generateDisplayRequestAsync("abc", argv[2]);
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
 
-    for(int i=20; i>0; i--) {
+    for(int i=250; i>0; i--) {
+//        randomClient.generateDisplayRequestAsync("abc", argv[2]);
         randomClient.randomlyInsertOrUpdateOrDelete();
+        std::this_thread::sleep_for(std::chrono::milliseconds(2));
+//        randomClient.generateDisplayRequestAsync("abc", argv[2]);
     }
 
 

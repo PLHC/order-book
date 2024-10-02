@@ -23,11 +23,9 @@ private:
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
     std::atomic<bool> stopFlag_;
-    uint64_t logicalClock_;
-
 
     orderExecution checkExecution(Order* orderToBeChecked);
-    void performExecution(Order* executingOrder);
+    void performExecution(Order* & executingOrder);
 
 public:
     GeneratorId *genId_;
@@ -38,12 +36,12 @@ public:
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
 
-    void insertion(Order* newOrder);
-    void update(Order* updatedOrder,
-                Order* newOrder);
+    bool insertion(Order* &newOrder);
+    bool update(Order* updatedOrder,
+                Order* &newOrder);
     void deletion(Order* deletedOrder);
     std::string displayOrderBook();
-    [[nodiscard]] inline Order* getterPointerToOrderFromID(uint64_t boID) {return idToPointerMap_[boID];};
+    [[nodiscard]] Order* getterPointerToOrderFromID(uint64_t boID);
     [[nodiscard]] inline std::string getterProductID() {return productId_;};
     void processRequests();
     inline void setterStopFlagToTrue() {stopFlag_.store(true);};

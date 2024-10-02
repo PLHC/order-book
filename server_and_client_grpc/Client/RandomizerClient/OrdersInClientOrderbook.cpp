@@ -17,6 +17,7 @@ OrdersMonitoring::~OrdersMonitoring(){
 bool OrdersMonitoring::insertOrderInLocalMonitoring(std::shared_ptr<OrderClient> & orderToInsert) {
     auto orderbookPtr = getterSharedPointerToOrderbook(orderToInsert->getterProductID());
     if(!orderbookPtr) {
+        std::cout<<"insertOrderInLocalMonitoring cannot find OB: "<<orderToInsert->getterProductID()<<std::endl;
         return false;
     }
     return orderbookPtr->insertOrder(orderToInsert);
@@ -130,6 +131,7 @@ std::shared_ptr<OrdersMonitoring::OrdersInOrderbook> OrdersMonitoring::getterSha
 
     auto orderbookIter = productToOrdersMap_.find(product);
     if(orderbookIter==end(productToOrdersMap_)){
+        std::cout<<"did not find the OB: "<<product<<std::endl;
         return nullptr;
     }
     auto ptr = orderbookIter->second;
@@ -151,15 +153,17 @@ void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string &interna
     }
 
     if(!volume){
+//        std::cout<<"deleting "<<boID<<std::endl;
         deleteOrder(internalID);
         return;
     }
 
     std::unique_lock<std::mutex> orderbookLock(internalIdToOrderMapMtx_);
     internalIdToOrderMapConditionVariable_.wait(orderbookLock, [](){return true;});
-
     auto orderIter = internalIdToOrderMap_.find(internalID);
-    if(orderIter != end(internalIdToOrderMap_) && orderIter->second->getterVersion()<version) { // check if order exists
+    // check if order exists and if version is older than new one
+    if(orderIter != end(internalIdToOrderMap_) && orderIter->second->getterVersion()<version) {
+//        std::cout<<"updating "<<boID<<std::endl;
         orderIter->second->updatePrice(price);
         orderIter->second->updateVolume(volume);
         orderIter->second->updateBoID(boID);

@@ -172,23 +172,19 @@ void RandomizerClient::handleResponse(const marketAccess::UpdateConfirmation *re
         return;
     }
 
-    // delete or update order
-    if(responseParams->volume() == 0){ // if order has been traded or does not exist anymore
-        orderbook->deleteOrder(responseParams->info());
-    }else { // validated or not, the values needs to be updated to latest
-        orderbook->updateOrder(responseParams->info(),
-                               responseParams->boid(),
-                               responseParams->price(),
-                               responseParams->volume(),
-                               responseParams->version());
-    } // What happens if they fail?
+    // update order (delete if volume=0 is tested in UpdateOrder
+    orderbook->updateOrder(responseParams->info(),
+                           responseParams->boid(),
+                           responseParams->price(),
+                           responseParams->volume(),
+                           responseParams->version());
+    // What happens if they fail?
 }
 
 void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *responseParams) {
     if(!responseParams->validation()){
         return;
     }
-
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
     if(!orderbook){
@@ -253,6 +249,7 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
         auto counter = getterBuyAndSellNbOrders(product);
         if(counter.first == -1) continue;
         if(counter.first + counter.second < 1.8 * (expectedNbOfOrdersOnEachSide_)){
+            std::cout<<"inserting"<<std::endl;
             // insert if less than 90% of expected nb of orders
             auto direction = (counter.first < counter.second)? BUY : SELL;
             auto orderPtr = generateRandomOrder(direction, product);
@@ -262,8 +259,10 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
 
         std::bernoulli_distribution distribution(0.02); // 2% delete / 98% update
         if(distribution(mtGen_)){
+            std::cout<<"deleting"<<std::endl;
             deleteRandomOrders(product);
         }else{
+            std::cout<<"updating"<<std::endl;
             updateRandomOrders(product);
         }
     }

@@ -58,6 +58,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         if (!orderBookName.empty() && (*orderBookMap_).count(orderBookName) ) {
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
+            std::cout<<"product name is empty"<<std::endl;
             handleProductError();
         }
         responder_.Finish(responseParameters_, grpc::Status::OK, this);
@@ -78,6 +79,8 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
     requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){
         return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED;});
 
+
+//    std::cout << "before handelValidRequest orderbook is "<< orderBookName << std::endl;
     handleValidRequest(orderBook);
 
     requestNodeInCRQ_->status_=PROCESSING_COMPLETED;
@@ -101,38 +104,74 @@ void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* order
 }
 
 void RpcServiceAsync::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    orderBook->deletion(orderBook->getterPointerToOrderFromID(requestParameters_.boid()));
+
+    auto orderPtr = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
+    if(orderPtr) { // in case already deleted by a trade, no need to delete
+        orderBook->deletion(orderPtr);
+    }
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_validation(true);
+    responseParameters_.set_product(orderBook->getterProductID());
 }
 
 void RpcServiceAsync::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
     auto newGeneratedId = orderBook->genId_->nextID();
-    orderBook->insertion(new Order(requestParameters_.userid(),
-                                   newGeneratedId,
-                                   requestParameters_.price(),
-                                   requestParameters_.volume(),
-                                   orderBook->getterProductID(),
-                                   static_cast<orderDirection>(requestParameters_.buyorsell()),
-                                   static_cast<orderType>( requestParameters_.botype() ) ) );
+    auto newOrder = new Order(requestParameters_.userid(),
+                              newGeneratedId,
+                              requestParameters_.price(),
+                              requestParameters_.volume(),
+                              orderBook->getterProductID(),
+                              static_cast<orderDirection>(requestParameters_.buyorsell()),
+                              static_cast<orderType>( requestParameters_.botype() ) );
+
+    responseParameters_.set_validation(orderBook->insertion(newOrder));
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
-    responseParameters_.set_validation(true);
     responseParameters_.set_boid(newGeneratedId);
+    responseParameters_.set_price(newOrder->getterPrice());
+    responseParameters_.set_volume(newOrder->getterVolume());
+    responseParameters_.set_version(newOrder->getterVersion());
+    responseParameters_.set_product(newOrder->getterProductID());
+
+    if(!responseParameters_.validation() || newOrder->getterVolume()==0){
+        delete newOrder;
+    }
 }
 
 void RpcServiceAsync::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
-    auto newGeneratedID = orderBook->genId_->nextID();
-    orderBook->update(orderBook->getterPointerToOrderFromID(requestParameters_.boid()),
-                            new Order(requestParameters_.userid(),
-                                      newGeneratedID,
-                                      requestParameters_.price(),
-                                      requestParameters_.volume(),
-                                      orderBook->getterProductID(),
-                                      static_cast<orderDirection>(requestParameters_.buyorsell()),
-                                      static_cast<orderType>( requestParameters_.botype() ) ) );
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
-    responseParameters_.set_validation(true);
-    responseParameters_.set_boid(newGeneratedID);
+    responseParameters_.set_product(orderBook->getterProductID());
+
+    auto newGeneratedID = orderBook->genId_->nextID();
+    auto newOrder = new Order(requestParameters_.userid(),
+                              newGeneratedID,
+                              requestParameters_.price(),
+                              requestParameters_.volume(),
+                              orderBook->getterProductID(),
+                              static_cast<orderDirection>(requestParameters_.buyorsell()),
+                              static_cast<orderType>( requestParameters_.botype() ),
+                              requestParameters_.version());
+
+    auto updatedOrder = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
+    responseParameters_.set_validation(updatedOrder && orderBook->update(updatedOrder, newOrder));
+
+    if(responseParameters_.validation()) {
+        responseParameters_.set_boid(newOrder->getterBoID());
+        responseParameters_.set_version(newOrder->getterVersion());
+        responseParameters_.set_volume(newOrder->getterVolume());
+        responseParameters_.set_price(newOrder->getterPrice());
+    }else if(updatedOrder){ // case: update has older version than current one
+        responseParameters_.set_boid(updatedOrder->getterBoID());
+        responseParameters_.set_version(updatedOrder->getterVersion());
+        responseParameters_.set_volume(updatedOrder->getterVolume());
+        responseParameters_.set_price(updatedOrder->getterPrice());
+        delete newOrder;
+    }else{ // case: updated Order has been deleted already by a trade
+        responseParameters_.set_boid(newOrder->getterBoID());
+        responseParameters_.set_version(newOrder->getterVersion());
+        responseParameters_.set_volume(0);
+        responseParameters_.set_price(newOrder->getterPrice());
+        delete newOrder;
+    }
 }
 
 // Generate new request handlers

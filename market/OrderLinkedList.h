@@ -17,7 +17,7 @@ public:
 
     [[nodiscard]] inline Order* getterTail() const {return dummyTail_->getterNextBO();};
     [[nodiscard]] inline Order* getterHead() const {return head_;};
-    inline void updateTail(Order* newHead) { head_=newHead;};
+    inline void updateHead(Order* newHead) {head_ = newHead;};
 };
 
 
