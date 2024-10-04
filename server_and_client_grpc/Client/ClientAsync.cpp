@@ -171,7 +171,6 @@ void ClientAsync::handleResponse(const marketAccess::OrderBookContent* responseP
 }
 
 
-
 template<typename ResponseParametersType>
 ClientAsync::RequestData<ResponseParametersType>::RequestData(
         grpc::ClientContext* ctx,

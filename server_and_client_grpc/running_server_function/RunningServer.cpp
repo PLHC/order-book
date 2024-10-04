@@ -20,7 +20,12 @@ void RunServer(Market *market, const std::string& serverAddress) {
     if (main_thread.joinable()) {
         main_thread.join();
     }
+    std::cout<<"out of joining thread in runserver"<<std::endl;
+//    std::this_thread::sleep_for(std::chrono::seconds(10));
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(10000));
+    mainCompletionQueue->Shutdown();
+    server->Shutdown();
+
+    std::cout<<"server is shutdown"<<std::endl;
 
 }

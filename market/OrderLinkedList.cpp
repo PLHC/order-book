@@ -6,10 +6,12 @@ OrderLinkedList::OrderLinkedList(orderDirection bidsOrOffers){
 }
 
 OrderLinkedList::~OrderLinkedList(){
+    std::cout<<"OrderLinkedList destructor begins"<<std::endl;
     auto next_to_be_deleted = dummyTail_;
     while(next_to_be_deleted){
         dummyTail_ = next_to_be_deleted->getterNextBO();
         delete next_to_be_deleted;
         next_to_be_deleted = dummyTail_;
     }
+    std::cout<<"OrderLinkedList destructor ends"<<std::endl;
 }

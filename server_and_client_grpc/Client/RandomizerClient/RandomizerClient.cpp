@@ -197,18 +197,6 @@ void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *
 
 
 
-
-//void RandomizerClient::insertOrder(std::unique_ptr<OrderClient> &orderPtr) {
-//    generateInsertionRequestAsync(orderPtr.get());
-//
-//    std::unique_lock<std::mutex> mapLock (requestIdToOrderClientMapMtx_);
-//    conditionVariableRequestIdToOrderClientMapMtx_.wait(mapLock, [](){return true;});
-//    requestIdToOrderClientMap_[orderPtr->getterRequestID()] = std::move(orderPtr);
-//
-//    mapLock.unlock();
-//    conditionVariableRequestIdToOrderClientMapMtx_.notify_all();
-//}
-
 void RandomizerClient::deleteRandomOrders(const std::string & product) {
     auto randomOrder = getterRandomOrder(product);
     if(!randomOrder) return;
@@ -249,7 +237,7 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
         auto counter = getterBuyAndSellNbOrders(product);
         if(counter.first == -1) continue;
         if(counter.first + counter.second < 1.8 * (expectedNbOfOrdersOnEachSide_)){
-            std::cout<<"inserting"<<std::endl;
+//            std::cout<<"inserting"<<std::endl;
             // insert if less than 90% of expected nb of orders
             auto direction = (counter.first < counter.second)? BUY : SELL;
             auto orderPtr = generateRandomOrder(direction, product);
@@ -259,10 +247,10 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
 
         std::bernoulli_distribution distribution(0.02); // 2% delete / 98% update
         if(distribution(mtGen_)){
-            std::cout<<"deleting"<<std::endl;
+//            std::cout<<"deleting"<<std::endl;
             deleteRandomOrders(product);
         }else{
-            std::cout<<"updating"<<std::endl;
+//            std::cout<<"updating"<<std::endl;
             updateRandomOrders(product);
         }
     }

@@ -15,6 +15,7 @@ private:
 
 public:
     std::unordered_map<std::string, OrderBook*> productToOrderBookMap_;
+    std::atomic<bool> stopFlag_;
 
     explicit Market(GeneratorId * genID);
     ~Market();
@@ -26,6 +27,7 @@ public:
     void deleteOrderBook(const std::string& product_ID);
 
     inline OrderBook* getterOrderBookPointer(const std::string& productID) {return productToOrderBookMap_[productID];};
+    void setterStopFlagToTrue();
 };
 
 #endif //ORDERBOOK_MARKET_H

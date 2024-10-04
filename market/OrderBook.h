@@ -13,6 +13,7 @@
 #include <sstream>
 #include <iomanip>
 #include <cstdlib>
+#include <thread>
 
 enum orderExecution { FULL_EXECUTION, PARTIAL_EXECUTION, NO_EXECUTION };
 
@@ -23,6 +24,7 @@ private:
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
     std::atomic<bool> stopFlag_;
+    std::thread processingThread_;
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* & executingOrder);
@@ -32,6 +34,7 @@ public:
     CustomerRequestQueue requestQueue_;
 
     OrderBook(std::string productID, GeneratorId * genID);
+    ~OrderBook();
 
     OrderBook(OrderBook&& other) = delete;
     OrderBook& operator=(const OrderBook&& other) = delete;
@@ -44,7 +47,10 @@ public:
     [[nodiscard]] Order* getterPointerToOrderFromID(uint64_t boID);
     [[nodiscard]] inline std::string getterProductID() {return productId_;};
     void processRequests();
-    inline void setterStopFlagToTrue() {stopFlag_.store(true);};
+    inline void setterStopFlagToTrue() {
+        stopFlag_.store(true);
+        std::cout<<"flag of OB "<<productId_<<" is set to True"<<std::endl;
+    };
 };
 
 
