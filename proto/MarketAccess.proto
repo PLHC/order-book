@@ -32,7 +32,8 @@ message OrderBookContent{
   string info = 1;
   bool validation = 2;
   optional string orderbook = 3;
-  optional string comment = 4;
+  optional string product = 4;
+  optional string comment = 5;
 }
 
 message DeletionParameters{

@@ -6,7 +6,7 @@
 
 
 class RandomizerClient : public ClientAsync, public OrdersMonitoring{
-    int priceForecastInCents_;
+    std::unordered_map<std::string, int> priceForecastsInCents_;
     uint32_t spread_;
     uint32_t userID_;
     uint32_t expectedNbOfOrdersOnEachSide_;
@@ -16,8 +16,8 @@ public:
                               const uint32_t userID,
                               const uint32_t expectedNbOfOrders,
                               const uint32_t spread,
-                              const int priceForecast,
-                              const std::string& tradedProduct);
+                              const std::vector<int> &priceForecasts,
+                              const std::vector<std::string>& tradedProducts);
 
 
     void randomlyInsertOrUpdateOrDelete();

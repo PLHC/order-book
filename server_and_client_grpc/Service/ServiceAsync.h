@@ -19,7 +19,6 @@ class RpcServiceAsync final : public marketAccess::Communication::AsyncService {
 public:
     // Constructor to initialize the server completion queue and mappings
     RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market);
-    ~RpcServiceAsync() override {std::cout<<"in service destructor"<<std::endl;};
 
     // Method to handle incoming RPCs
     void handleRpcs();

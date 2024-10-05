@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "trading_platform"
+			"path" : "random_order_generator_client"
 		}
 	],
 	"backtrace" : 1,
@@ -37,13 +37,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 48,
+				"line" : 62,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 57,
+				"line" : 70,
 				"parent" : 0
 			},
 			{
@@ -117,7 +117,7 @@
 			{
 				"command" : 3,
 				"file" : 6,
-				"line" : 24,
+				"line" : 25,
 				"parent" : 15
 			},
 			{
@@ -139,44 +139,14 @@
 			{
 				"command" : 2,
 				"file" : 5,
-				"line" : 124,
+				"line" : 151,
 				"parent" : 17
 			},
 			{
 				"command" : 2,
-				"file" : 1,
-				"line" : 842,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 851,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 923,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 1040,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 1031,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 1121,
-				"parent" : 9
+				"file" : 5,
+				"line" : 133,
+				"parent" : 17
 			},
 			{
 				"command" : 4,
@@ -186,33 +156,33 @@
 			},
 			{
 				"file" : 9,
-				"parent" : 27
+				"parent" : 22
 			},
 			{
 				"command" : 4,
 				"file" : 9,
 				"line" : 18,
-				"parent" : 28
+				"parent" : 23
 			},
 			{
 				"file" : 8,
-				"parent" : 29
+				"parent" : 24
 			},
 			{
 				"command" : 3,
 				"file" : 8,
 				"line" : 23,
-				"parent" : 30
+				"parent" : 25
 			},
 			{
 				"file" : 7,
-				"parent" : 31
+				"parent" : 26
 			},
 			{
 				"command" : 2,
 				"file" : 7,
 				"line" : 61,
-				"parent" : 32
+				"parent" : 27
 			},
 			{
 				"command" : 2,
@@ -224,12 +194,6 @@
 				"command" : 2,
 				"file" : 1,
 				"line" : 338,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 797,
 				"parent" : 9
 			},
 			{
@@ -312,8 +276,68 @@
 			},
 			{
 				"command" : 2,
+				"file" : 5,
+				"line" : 70,
+				"parent" : 17
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 842,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
 				"file" : 1,
 				"line" : 1490,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 851,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 923,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1563,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1787,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 797,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1040,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1031,
+				"parent" : 9
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 1760,
 				"parent" : 9
 			},
 			{
@@ -367,25 +391,7 @@
 			{
 				"command" : 2,
 				"file" : 1,
-				"line" : 1787,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 5,
-				"line" : 70,
-				"parent" : 17
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 1760,
-				"parent" : 9
-			},
-			{
-				"command" : 2,
-				"file" : 1,
-				"line" : 1563,
+				"line" : 1121,
 				"parent" : 9
 			},
 			{
@@ -458,7 +464,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
+				1,
 				4,
 				6,
 				8,
@@ -466,7 +472,10 @@
 				12,
 				14,
 				16,
-				18
+				18,
+				22,
+				24,
+				26
 			]
 		}
 	],
@@ -477,7 +486,7 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "trading_platform::@6890427a1f51a3e7e1df",
+	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -501,12 +510,12 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "/opt/homebrew/lib/libgrpc++.1.62.2.dylib",
+				"fragment" : "/opt/homebrew/lib/libgrpc++.1.66.2.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "/opt/homebrew/lib/libprotobuf.27.3.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libprotobuf.28.2.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -526,7 +535,7 @@
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "/opt/homebrew/lib/libgrpc.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libgrpc.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -536,107 +545,47 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/lib/libupb_json_lib.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libupb_json_lib.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/lib/libupb_textformat_lib.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libupb_textformat_lib.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 19,
-				"fragment" : "/opt/homebrew/lib/libupb_message_lib.39.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 20,
-				"fragment" : "/opt/homebrew/lib/libupb_base_lib.39.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 20,
-				"fragment" : "/opt/homebrew/lib/libupb_mem_lib.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libupb_mini_descriptor_lib.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 19,
-				"fragment" : "/opt/homebrew/lib/libutf8_range_lib.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libupb_wire_lib.43.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 20,
+				"fragment" : "/opt/homebrew/lib/libutf8_range_lib.43.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 20,
+				"fragment" : "/opt/homebrew/lib/libupb_message_lib.43.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 21,
+				"fragment" : "/opt/homebrew/lib/libupb_base_lib.43.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 21,
+				"fragment" : "/opt/homebrew/lib/libupb_mem_lib.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 18,
 				"fragment" : "/opt/homebrew/lib/libre2.11.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 21,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_check_op.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 21,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_conditions.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 21,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_message.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 22,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_nullguard.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_examine_stack.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_format.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_proto.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_log_sink_set.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_globals.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 24,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_globals.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_sink.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 23,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_entry.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 25,
-				"fragment" : "/opt/homebrew/lib/libabsl_vlog_config_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 26,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_fnmatch.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -646,76 +595,61 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/lib/libcares.2.18.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libcares.2.18.1.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 33,
+				"backtrace" : 28,
 				"fragment" : "-lresolv",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/lib/libgpr.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libgpr.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 34,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 34,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_reflection.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 35,
+				"backtrace" : 30,
 				"fragment" : "/opt/homebrew/lib/libabsl_raw_hash_set.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_hash.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 36,
-				"fragment" : "/opt/homebrew/lib/libabsl_city.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 36,
-				"fragment" : "/opt/homebrew/lib/libabsl_low_level_hash.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 37,
+				"backtrace" : 31,
 				"fragment" : "/opt/homebrew/lib/libabsl_hashtablez_sampler.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 34,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_config.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 38,
+				"backtrace" : 32,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_program_name.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 39,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_private_handle_accessor.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 34,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_commandlineflag.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 34,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_commandlineflag_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -725,47 +659,47 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 41,
+				"backtrace" : 35,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_seed_sequences.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 41,
+				"backtrace" : 35,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_pool_urbg.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 42,
+				"backtrace" : 36,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 43,
+				"backtrace" : 37,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_hwaes.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 44,
+				"backtrace" : 38,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_hwaes_impl.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 43,
+				"backtrace" : 37,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_slow.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 43,
+				"backtrace" : 37,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_platform.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 45,
+				"backtrace" : 39,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_seed_material.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 42,
+				"backtrace" : 36,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_seed_gen_exception.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -780,193 +714,53 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_info.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_cord_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_functions.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 47,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_exponential_biased.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 42,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_handle.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_cord_state.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc32c.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 49,
+				"backtrace" : 43,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 49,
+				"backtrace" : 43,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_cpu_detect.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 50,
-				"fragment" : "/opt/homebrew/lib/libabsl_strerror.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_synchronization.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 10,
-				"fragment" : "/opt/homebrew/lib/libabsl_stacktrace.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 50,
-				"fragment" : "/opt/homebrew/lib/libabsl_symbolize.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 51,
-				"fragment" : "/opt/homebrew/lib/libabsl_debugging_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 52,
-				"fragment" : "/opt/homebrew/lib/libabsl_demangle_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 53,
-				"fragment" : "/opt/homebrew/lib/libabsl_demangle_rust.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 54,
-				"fragment" : "/opt/homebrew/lib/libabsl_decode_rust_punycode.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 55,
-				"fragment" : "/opt/homebrew/lib/libabsl_utf8_for_code_point.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 56,
-				"fragment" : "/opt/homebrew/lib/libabsl_graphcycles_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 56,
-				"fragment" : "/opt/homebrew/lib/libabsl_kernel_timeout_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 56,
-				"fragment" : "/opt/homebrew/lib/libabsl_malloc_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_time.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 57,
-				"fragment" : "/opt/homebrew/lib/libabsl_civil_time.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 57,
-				"fragment" : "/opt/homebrew/lib/libabsl_time_zone.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 58,
-				"fragment" : "-Wl,-framework,CoreFoundation",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 59,
-				"fragment" : "/opt/homebrew/lib/libabsl_bad_variant_access.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 60,
+				"backtrace" : 44,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_marshalling.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 61,
-				"fragment" : "/opt/homebrew/lib/libabsl_bad_optional_access.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 62,
-				"fragment" : "/opt/homebrew/lib/libabsl_str_format_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_strings.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 63,
-				"fragment" : "/opt/homebrew/lib/libabsl_strings_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 63,
-				"fragment" : "/opt/homebrew/lib/libabsl_string_view.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_base.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 64,
-				"fragment" : "/opt/homebrew/lib/libabsl_spinlock_wait.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 65,
-				"fragment" : "/opt/homebrew/lib/libabsl_throw_delegate.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 64,
-				"fragment" : "/opt/homebrew/lib/libabsl_raw_logging_internal.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "/opt/homebrew/lib/libabsl_log_severity.2407.0.0.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 36,
-				"fragment" : "/opt/homebrew/lib/libabsl_int128.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -981,12 +775,237 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/lib/libaddress_sorting.39.0.0.dylib",
+				"fragment" : "/opt/homebrew/lib/libaddress_sorting.43.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 18,
 				"fragment" : "-framework CoreFoundation",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 45,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_check_op.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 45,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_conditions.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 45,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_message.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 46,
+				"fragment" : "/opt/homebrew/lib/libabsl_strerror.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 47,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_nullguard.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_examine_stack.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_format.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 49,
+				"fragment" : "/opt/homebrew/lib/libabsl_str_format_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_proto.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_log_sink_set.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_globals.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_hash.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 50,
+				"fragment" : "/opt/homebrew/lib/libabsl_bad_variant_access.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 51,
+				"fragment" : "/opt/homebrew/lib/libabsl_city.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 51,
+				"fragment" : "/opt/homebrew/lib/libabsl_low_level_hash.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 52,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_globals.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_sink.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 48,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_entry.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 53,
+				"fragment" : "/opt/homebrew/lib/libabsl_vlog_config_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 54,
+				"fragment" : "/opt/homebrew/lib/libabsl_bad_optional_access.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_synchronization.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "/opt/homebrew/lib/libabsl_stacktrace.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 46,
+				"fragment" : "/opt/homebrew/lib/libabsl_symbolize.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 55,
+				"fragment" : "/opt/homebrew/lib/libabsl_debugging_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 56,
+				"fragment" : "/opt/homebrew/lib/libabsl_demangle_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 57,
+				"fragment" : "/opt/homebrew/lib/libabsl_demangle_rust.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 58,
+				"fragment" : "/opt/homebrew/lib/libabsl_decode_rust_punycode.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 59,
+				"fragment" : "/opt/homebrew/lib/libabsl_utf8_for_code_point.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 60,
+				"fragment" : "/opt/homebrew/lib/libabsl_graphcycles_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 60,
+				"fragment" : "/opt/homebrew/lib/libabsl_kernel_timeout_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_time.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 61,
+				"fragment" : "/opt/homebrew/lib/libabsl_civil_time.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 61,
+				"fragment" : "/opt/homebrew/lib/libabsl_time_zone.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 62,
+				"fragment" : "-Wl,-framework,CoreFoundation",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 60,
+				"fragment" : "/opt/homebrew/lib/libabsl_malloc_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 63,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_fnmatch.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_strings.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 51,
+				"fragment" : "/opt/homebrew/lib/libabsl_int128.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 64,
+				"fragment" : "/opt/homebrew/lib/libabsl_strings_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 64,
+				"fragment" : "/opt/homebrew/lib/libabsl_string_view.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_base.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 65,
+				"fragment" : "/opt/homebrew/lib/libabsl_spinlock_wait.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "/opt/homebrew/lib/libabsl_throw_delegate.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 65,
+				"fragment" : "/opt/homebrew/lib/libabsl_raw_logging_internal.2407.0.0.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "/opt/homebrew/lib/libabsl_log_severity.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -997,8 +1016,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "trading_platform",
-	"nameOnDisk" : "trading_platform",
+	"name" : "random_order_generator_client",
+	"nameOnDisk" : "random_order_generator_client",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1011,7 +1030,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
+				1,
 				4,
 				6,
 				8,
@@ -1019,21 +1038,17 @@
 				12,
 				14,
 				16,
-				18
-			]
-		},
-		{
-			"name" : "",
-			"sourceIndexes" : 
-			[
-				1
+				18,
+				22,
+				24,
+				26
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				3,
+				2,
 				5,
 				7,
 				9,
@@ -1041,7 +1056,19 @@
 				13,
 				15,
 				17,
-				19
+				19,
+				23,
+				25,
+				27
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				3,
+				20,
+				21
 			]
 		}
 	],
@@ -1050,90 +1077,8 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.cpp",
+			"path" : "randomOrderGeneratorClient.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/GeneratorId.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/GeneratorId.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/Market.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/Market.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/Order.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/Order.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/OrderBook.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/OrderBook.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/OrderLinkedList.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/OrderLinkedList.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/CustomerRequestQueue/RequestNode.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue/RequestNode.h",
-			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1144,18 +1089,143 @@
 		{
 			"backtrace" : 1,
 			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/running_server_function/RunningServer.cpp",
+			"path" : "market/GeneratorId.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/running_server_function/RunningServer.h",
+			"path" : "market/GeneratorId.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/Market.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/Market.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/Order.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/Order.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/OrderBook.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/OrderBook.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/OrderLinkedList.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/OrderLinkedList.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/CustomerRequestQueue/RequestNode.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue/RequestNode.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/ClientAsync.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/ClientAsync.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/DisplayClient",
 			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

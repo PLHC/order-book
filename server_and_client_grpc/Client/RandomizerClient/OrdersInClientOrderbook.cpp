@@ -9,9 +9,11 @@ OrdersMonitoring::OrdersMonitoring()
           mtGen_(rd_()){}
 
 OrdersMonitoring::~OrdersMonitoring(){
+    std::cout<<"in OrdersMonitoring destructor"<<std::endl;
     for(const auto & [product, orderbookPtr] : productToOrdersMap_){
         orderbookPtr->deactivateOrderbook();
     }
+    std::cout<<"in OrdersMonitoring destructor, done"<<std::endl;
 }
 
 bool OrdersMonitoring::insertOrderInLocalMonitoring(std::shared_ptr<OrderClient> & orderToInsert) {
@@ -153,7 +155,6 @@ void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string &interna
     }
 
     if(!volume){
-//        std::cout<<"deleting "<<boID<<std::endl;
         deleteOrder(internalID);
         return;
     }

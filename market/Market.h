@@ -10,7 +10,6 @@
 
 class Market {
 private:
-    std::unordered_map<std::string, std::thread> productToOrderBookThreadMap_;
     GeneratorId * genId_;
 
 public:

@@ -58,6 +58,8 @@ public:
                                     uint32_t userID,
                                     uint64_t deletedID);
 
+//    [[nodiscard]] inline bool getterIsShuttingDown(){return is_shutting_down_;};
+
 protected:
     // Internal structure to store data for each RPC call
     // Base class

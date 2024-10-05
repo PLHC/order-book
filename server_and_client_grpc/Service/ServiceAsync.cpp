@@ -21,7 +21,6 @@ void RpcServiceAsync::handleRpcs() {
     while (main_cq_->Next(&tag, &ok)) {
         static_cast<RequestHandlerBase *>(tag)->proceed();
     }
-    std::cout<<"out of handle rpcs"<<std::endl;
 }
 
 // Templated class to handle various request types
@@ -72,7 +71,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         status_ = FINISH;
 
     } else if (status_ == FINISH) {
-        GPR_ASSERT(status_ == FINISH);
+//        GPR_ASSERT(status_ == FINISH);
         delete this;
     }
 }
@@ -98,20 +97,16 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 // Handle Product error
 template<typename RequestParametersType, typename ResponseParametersType>
 void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::handleProductError() {
-    std::cout<<"in handle Product Error"<<std::endl;
-    std::cout<<requestParameters_.info()<<std::endl;
-
     responseParameters_.set_info( std::to_string( requestParameters_.info() ) );
     responseParameters_.set_comment("Product is not available for trading");
     responseParameters_.set_validation(false);
-
-    std::cout<<"after"<<std::endl;
 }
 
 // Handle valid requests
 void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_orderbook(orderBook->displayOrderBook());
+    responseParameters_.set_product(orderBook->getterProductID());
     responseParameters_.set_validation(true);
 }
 

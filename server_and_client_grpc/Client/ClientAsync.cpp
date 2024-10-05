@@ -16,7 +16,7 @@ ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
 }
 
 ClientAsync::~ClientAsync() {
-    // Shutdown the completion queue and wait for the thread to finish
+    std::this_thread::sleep_for(std::chrono::seconds(1)); // waits for last answers from server
     is_shutting_down_ = true;
     cq_.Shutdown();
     if (cq_thread_.joinable()) {

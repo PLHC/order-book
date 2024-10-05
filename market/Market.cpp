@@ -5,7 +5,6 @@
 Market::Market(GeneratorId * genID):
         genId_(genID),
         productToOrderBookMap_(),
-        productToOrderBookThreadMap_(),
         stopFlag_(false){}
 
 Market::~Market(){
@@ -30,12 +29,8 @@ void Market::deleteOrderBook(const std::string &product_ID) {
     delete productToOrderBookMap_[product_ID];
     productToOrderBookMap_.erase(product_ID);
 
-    //missing shutting down its thread
 }
 
 void Market::setterStopFlagToTrue() {
     stopFlag_.store(true);
-//    for(const auto & [product, orderbookPtr]: productToOrderBookMap_){
-//        orderbookPtr->setterStopFlagToTrue();
-//    }
 }

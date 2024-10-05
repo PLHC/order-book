@@ -4,28 +4,30 @@ RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel
                                    const uint32_t userID,
                                    const uint32_t expectedNbOfOrders,
                                    const uint32_t spread,
-                                   const int priceForecast,
-                                   const std::string& tradedProduct)
+                                   const std::vector<int>& priceForecasts,
+                                   const std::vector<std::string>& tradedProducts)
         : ClientAsync(channel),
           OrdersMonitoring(),
           userID_(userID),
-          priceForecastInCents_(priceForecast * 100),
           spread_(spread),
           expectedNbOfOrdersOnEachSide_(expectedNbOfOrders){
-    addTradedProductOrderbook(tradedProduct);
+    for(int i = 0; i<priceForecasts.size(); ++i) {
+        addTradedProductOrderbook(tradedProducts[i]);
+        priceForecastsInCents_[tradedProducts[i]] = priceForecasts[i] * 100;
+    }
     insertOrdersAtConstruction(expectedNbOfOrdersOnEachSide_, spread_);
 }
 
 void RandomizerClient::insertOrdersAtConstruction(uint32_t nbOfOrders, uint32_t initialSpread){
     initialSpread = std::max(1u, initialSpread); // minimum initial spread is set to 2
     auto tradedProductsList = extractListOfTradedProducts();
-    auto fcast = priceForecastInCents_/100.0;
     std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
-    std::uniform_real_distribution<double> distributionBuyPrices(fcast - spread_ , fcast - 1);
-    std::uniform_real_distribution<double> distributionSellPrices(fcast + 1, fcast + spread_);
 
     while(nbOfOrders--){
         for(const auto & tradedProduct : tradedProductsList){
+            auto fcast = priceForecastsInCents_[tradedProduct]/100.0;
+            std::uniform_real_distribution<double> distributionBuyPrices(fcast - initialSpread , fcast - 1);
+            std::uniform_real_distribution<double> distributionSellPrices(fcast + 1, fcast + initialSpread);
             auto buyOrder = std::make_shared<OrderClient>(userID_,
                                                           0,
                                                           distributionBuyPrices(mtGen_),
@@ -46,10 +48,6 @@ void RandomizerClient::insertOrdersAtConstruction(uint32_t nbOfOrders, uint32_t 
         }
     }
 }
-
-
-
-
 
 void RandomizerClient::generateInsertionRequestAsync(std::shared_ptr<OrderClient> & order) {
     auto internalID = nextInternalID();
@@ -215,7 +213,7 @@ void RandomizerClient::updateRandomOrders(const std::string & product) {
 
     auto isPriceUpdated = distribution(mtGen_);
     if ( isPriceUpdated ) { // 50% chance to update price
-        auto fcast = priceForecastInCents_/100.0;
+        auto fcast = priceForecastsInCents_[product]/100.0;
         std::uniform_real_distribution<double> distributionPrices;
         if(orderPtr->getterOrderDirection()==BUY) {
             distributionPrices = std::uniform_real_distribution<double>(fcast - spread_ , fcast + 1);
@@ -237,7 +235,6 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
         auto counter = getterBuyAndSellNbOrders(product);
         if(counter.first == -1) continue;
         if(counter.first + counter.second < 1.8 * (expectedNbOfOrdersOnEachSide_)){
-//            std::cout<<"inserting"<<std::endl;
             // insert if less than 90% of expected nb of orders
             auto direction = (counter.first < counter.second)? BUY : SELL;
             auto orderPtr = generateRandomOrder(direction, product);
@@ -247,10 +244,8 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
 
         std::bernoulli_distribution distribution(0.02); // 2% delete / 98% update
         if(distribution(mtGen_)){
-//            std::cout<<"deleting"<<std::endl;
             deleteRandomOrders(product);
         }else{
-//            std::cout<<"updating"<<std::endl;
             updateRandomOrders(product);
         }
     }
@@ -261,7 +256,7 @@ std::shared_ptr<OrderClient> RandomizerClient::generateRandomOrder(const orderDi
     std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
 
     std::uniform_real_distribution<double> distributionPrices;
-    auto fcast = priceForecastInCents_/100.0;
+    auto fcast = priceForecastsInCents_[product]/100.0;
     if(direction==BUY) {
         distributionPrices = std::uniform_real_distribution<double>(fcast - spread_ , fcast + 1);
     }else {

@@ -194,11 +194,9 @@ std::string OrderBook::displayOrderBook() {
 }
 
 void OrderBook::processRequests(){
-    std::cout<<"thread of "<<productId_<<" is starting"<<std::endl;
     while(!stopFlag_){
         requestQueue_.runNextRequest();
     }
-    std::cout<<"thread of OB "<<productId_<<" is finished"<<std::endl;
 }
 
 Order *OrderBook::getterPointerToOrderFromID(uint64_t boID)  {
