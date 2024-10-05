@@ -9,7 +9,6 @@ public:
     std::unique_lock<std::mutex> prevLock_;
 
     CustomerRequestQueue();
-    ~CustomerRequestQueue();
 
     CustomerRequestQueue(CustomerRequestQueue&& other) = delete;
     CustomerRequestQueue& operator=(const CustomerRequestQueue&& other) = delete;

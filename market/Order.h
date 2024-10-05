@@ -1,6 +1,7 @@
 #ifndef ORDERBOOK_ORDER_H
 #define ORDERBOOK_ORDER_H
 
+#include <iostream>
 #include <cstdint>
 #include <utility>
 #include <string>
@@ -19,9 +20,11 @@ protected:
     std::string productID_;
     orderDirection buyOrSell_;
     orderType boType_;
+    uint32_t version_;
 
 public:
     explicit OrderBase(orderDirection buyOrSell);
+
     OrderBase(uint32_t userID,
             uint64_t boID,
             double price,
@@ -29,6 +32,15 @@ public:
             std::string productID,
             orderDirection buyOrSell,
             orderType boType);
+
+    OrderBase(uint32_t userID,
+              uint64_t boID,
+              double price,
+              double volume,
+              std::string productID,
+              orderDirection buyOrSell,
+              orderType boType,
+              uint32_t version);
 
     virtual ~OrderBase() = default ;
 
@@ -43,8 +55,14 @@ public:
     [[nodiscard]] inline uint32_t getterVolumeInHundredth() const {return volumeInHundredths_;};
     [[nodiscard]] inline orderDirection getterOrderDirection() const {return buyOrSell_;};
     [[nodiscard]] inline orderType getterOrderType() const {return boType_;};
+    [[nodiscard]] inline std::string getterProductID() const {return productID_;};
+    [[nodiscard]] inline uint32_t getterVersion() const {return version_;};
 
-    void inline updateVolume(double newVolume) {
+    inline bool checkIfItHasAnOlderVersionThan(OrderBase* other) const {return other->getterVersion() >= version_;};
+    inline uint32_t incrementAndReturnVersion() {return ++version_;};
+    inline void updateVersion(const uint32_t newVersion) {version_ = newVersion;};
+
+    inline void updateVolume(double newVolume) {
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
         volume_ = volumeInHundredths_/100.0;
     };
@@ -56,6 +74,7 @@ class Order : public OrderBase{
 
 public:
      explicit Order(orderDirection buyOrSell);
+
      Order(uint32_t userID,
            uint64_t boID,
            double price,
@@ -63,6 +82,17 @@ public:
            std::string productID,
            orderDirection buyOrSell,
            orderType boType);
+
+    Order(uint32_t userID,
+          uint64_t boID,
+          double price,
+          double volume,
+          std::string productID,
+          orderDirection buyOrSell,
+          orderType boType,
+          uint32_t version);
+
+    explicit Order(Order* other);
 
     ~Order() override = default ;
 
@@ -82,35 +112,5 @@ public:
                boType_==newOrder->getterOrderType();
     }
 };
-
-class OrderClient : public OrderBase{
-    std::string internalID_;
-    int quantile_;
-
-public:
-    OrderClient(uint32_t userID,
-        uint64_t boID,
-        double price,
-        double volume,
-        std::string productID,
-        orderDirection buyOrSell,
-        orderType boType,
-        std::string internalID);
-
-    ~OrderClient() override = default;
-
-    [[nodiscard]] inline std::string getterInternalID() const {return internalID_;};
-
-    void inline updatePrice(double newPrice) {
-        priceInCents_ = static_cast<int>(newPrice * 100);
-        price_ = priceInCents_/100.0;
-    };
-    void inline updateBoID(uint64_t newBoID) {boID_ = newBoID;};
-    void inline updateBuyOrSell(orderDirection newBuyOrSell) {buyOrSell_ = newBuyOrSell;};
-    void inline updateBoType(orderType newBoType) {boType_ = newBoType;};
-    void inline updateInternalID(std::string newInternalID) {internalID_ = std::move(newInternalID);};
-    void inline updateQuantile(int newQuantile) {quantile_ = newQuantile;};
-};
-
 
 #endif //ORDERBOOK_ORDER_H

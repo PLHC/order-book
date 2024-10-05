@@ -1,5 +1,5 @@
-#ifndef ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H
-#define ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H
+#ifndef ORDERBOOK_SERVICEASYNC_H
+#define ORDERBOOK_SERVICEASYNC_H
 
 #include <grpcpp/grpcpp.h>
 #include "proto/MarketAccess.grpc.pb.h"
@@ -11,19 +11,21 @@
 #include <iostream>
 
 
-// RpcService class derived from the generated AsyncService class
-class RpcService final : public marketAccess::Communication::AsyncService {
+// RpcServiceAsync class derived from the generated AsyncService class
+class RpcServiceAsync final : public marketAccess::Communication::AsyncService {
     grpc::ServerCompletionQueue *main_cq_;
     std::unordered_map<std::string, OrderBook*> *orderBookMap_;
+    std::atomic<bool> *stopFlag_;
 public:
     // Constructor to initialize the server completion queue and mappings
-    RpcService(grpc::ServerCompletionQueue *main_cq, Market *market);
+    RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market);
 
     // Method to handle incoming RPCs
     void handleRpcs();
 
     // Base class to handle common RPC logic
     class RequestHandlerBase {
+
     public:
         virtual ~RequestHandlerBase() = default;
         virtual void proceed() = 0;
@@ -34,14 +36,18 @@ public:
     class RequestHandler : public RequestHandlerBase {
     public:
         using RpcMethod = void (marketAccess::Communication::AsyncService::*)(
-                grpc::ServerContext *, RequestParametersType *,
+                grpc::ServerContext *,
+                RequestParametersType *,
                 grpc::ServerAsyncResponseWriter<ResponseParametersType> *,
                 grpc::CompletionQueue *,
-                grpc::ServerCompletionQueue *, void *);
+                grpc::ServerCompletionQueue *,
+                void *);
 
-        RequestHandler(RpcMethod rpcMethod, marketAccess::Communication::AsyncService *service,
+        RequestHandler(RpcMethod rpcMethod,
+                       marketAccess::Communication::AsyncService *service,
                        grpc::ServerCompletionQueue *cq,
-                       std::unordered_map<std::string, OrderBook*> *orderBookMap);
+                       std::unordered_map<std::string, OrderBook*> *orderBookMap,
+                       std::atomic<bool> *stopFlag);
 
         void proceed() override;
 
@@ -55,6 +61,7 @@ public:
         grpc::ServerCompletionQueue *cq_;
         std::unordered_map<std::string, OrderBook*> *orderBookMap_;
         RequestNode *requestNodeInCRQ_;
+        std::atomic<bool> *stopFlag_;
 
         enum RequestStatus { CREATE, PROCESS, FINISH };
         RequestStatus status_;
@@ -94,4 +101,4 @@ public:
     };
 };
 
-#endif //ORDERBOOK_SERVICEASYNCIMPLEMENTATION_H
+#endif //ORDERBOOK_SERVICEASYNC_H

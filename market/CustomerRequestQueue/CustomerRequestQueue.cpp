@@ -10,16 +10,6 @@ CustomerRequestQueue::CustomerRequestQueue():
     dummyHead_->prev_ = dummyTail_;
 }
 
-CustomerRequestQueue::~CustomerRequestQueue() {
-    // ignoring lock as no more node should be inserted at that point
-    dummyHead_ = dummyHead_->prev_;
-    while(dummyHead_ != dummyTail_){
-        dummyHead_->status_ = CANCELLED;
-        dummyHead_->statusConditionVariable_.notify_all();
-        dummyHead_ = dummyHead_->prev_;
-    }
-}
-
 RequestNode* CustomerRequestQueue::insertNode() {
     // check if it should react to stopFlag_
 
@@ -51,23 +41,38 @@ RequestNode* CustomerRequestQueue::insertNode() {
 }
 
 void CustomerRequestQueue::runNextRequest(){
+
     // get access to next node to process
     std::unique_lock<std::mutex> prevNodeLock(dummyHead_->prevMutex_);
     dummyHead_->prevConditionVariable_.wait(prevNodeLock,[](){return true;});
     auto processingNode = dummyHead_->prev_;
 
+    if(processingNode->status_ == CANCELLED){ // stop processing requests and acquiring new locks
+        prevNodeLock.unlock();
+
+        return;
+    }
+
     // once access granted, update the status_ and notify the gRPC thread to process the request
     std::unique_lock<std::mutex> statusLock(processingNode->statusMutex_);
     processingNode->statusConditionVariable_.wait(statusLock, [](){return true;});
-    processingNode->status_ = PROCESSING_ALLOWED;
+
+    if(processingNode->status_ != CANCELLED){
+        processingNode->status_ = PROCESSING_ALLOWED;
+    }
     statusLock.unlock();
     processingNode->statusConditionVariable_.notify_all();
+
+    if(processingNode->status_ == CANCELLED){ // stop processing requests and acquiring new locks
+        prevNodeLock.unlock();
+        return;
+    }
 
     // reacquire the lock once processed terminated on order book and
     // take care of deleting the next node and defining the current one as the new dummyHead
     statusLock.lock();
     processingNode->statusConditionVariable_.wait(statusLock, [&processingNode](){
-        return processingNode->status_==PROCESSING_COMPLETED;
+        return processingNode->status_ == PROCESSING_COMPLETED || processingNode->status_ == CANCELLED;
     });
     statusLock.unlock();
     prevNodeLock.unlock();// should I include a notify_all?

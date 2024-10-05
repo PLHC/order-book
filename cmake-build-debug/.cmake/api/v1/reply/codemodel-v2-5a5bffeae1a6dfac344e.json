@@ -18,7 +18,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -36,7 +37,8 @@
 						0,
 						1,
 						2,
-						3
+						3,
+						4
 					]
 				}
 			],
@@ -45,8 +47,15 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "build_all::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-build_all-Debug-1a7147c264fd85a08388.json",
+					"jsonFile" : "target-build_all-Debug-77d54a4452f6c56a8c2e.json",
 					"name" : "build_all",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "display_client::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-display_client-Debug-8c0a8803168ce3d2ae43.json",
+					"name" : "display_client",
 					"projectIndex" : 0
 				},
 				{
@@ -59,14 +68,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-random_order_generator_client-Debug-82055b0c1ce470b3f46f.json",
+					"jsonFile" : "target-random_order_generator_client-Debug-301f1823a38666685007.json",
 					"name" : "random_order_generator_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "trading_platform::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-trading_platform-Debug-f72588b5984b8568e396.json",
+					"jsonFile" : "target-trading_platform-Debug-b4409db52e898fe5d837.json",
 					"name" : "trading_platform",
 					"projectIndex" : 0
 				}
