@@ -3,6 +3,8 @@ project(OrderBook)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(OpenSSL REQUIRED HINTS /opt/homebrew/opt/openssl@3)
+include_directories(${OPENSSL_INCLUDE_DIR})
 find_package(protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
@@ -16,6 +18,8 @@ target_link_libraries(myproto
         protobuf::libprotobuf
         gRPC::grpc
         gRPC::grpc++
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )
 target_include_directories(myproto PUBLIC
         ${CMAKE_CURRENT_BINARY_DIR}

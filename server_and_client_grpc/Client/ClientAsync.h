@@ -1,6 +1,7 @@
 #ifndef ORDERBOOK_CLIENTASYNC_H
 #define ORDERBOOK_CLIENTASYNC_H
 
+#include <boost/asio.hpp>
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/alarm.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
@@ -20,6 +21,10 @@ class ClientAsync {
     std::thread cq_thread_;
     // Flag to indicate if the client is shutting down
     std::atomic<bool> is_shutting_down_;
+
+    boost::asio::io_context io_context_;
+    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard_;
+    std::vector<std::thread> threadPool_;
 
 protected:
     // Stub for the Communication

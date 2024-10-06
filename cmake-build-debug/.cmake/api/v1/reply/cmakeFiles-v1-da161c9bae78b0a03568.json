@@ -148,6 +148,14 @@
 		},
 		{
 			"isExternal" : true,
+			"path" : "/opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "/opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfig.cmake"
+		},
+		{
+			"isExternal" : true,
 			"path" : "/opt/homebrew/lib/cmake/protobuf/protobuf-config-version.cmake"
 		},
 		{
@@ -298,36 +306,6 @@
 		{
 			"isExternal" : true,
 			"path" : "/opt/homebrew/lib/cmake/protobuf/protobuf-generate.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindOpenSSL.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPkgConfig.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake"
-		},
-		{
-			"isCMake" : true,
-			"isExternal" : true,
-			"path" : "/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake"
 		},
 		{
 			"isExternal" : true,

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "trading_platform"
+			"path" : "random_order_generator_client"
 		}
 	],
 	"backtrace" : 1,
@@ -14,7 +14,8 @@
 			"target_link_libraries",
 			"set_target_properties",
 			"include",
-			"find_package"
+			"find_package",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -37,25 +38,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 48,
+				"line" : 66,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 56,
+				"line" : 74,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 14,
+				"line" : 16,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 6,
+				"line" : 8,
 				"parent" : 0
 			},
 			{
@@ -107,7 +108,7 @@
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 7,
+				"line" : 9,
 				"parent" : 0
 			},
 			{
@@ -411,6 +412,12 @@
 				"file" : 1,
 				"line" : 284,
 				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 0
 			}
 		]
 	},
@@ -441,14 +448,14 @@
 					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 67,
 					"isSystem" : true,
-					"path" : "/opt/homebrew/include"
+					"path" : "/opt/homebrew/opt/openssl@3/include"
 				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "/opt/homebrew/Cellar/openssl@3/3.3.1/include"
+					"path" : "/opt/homebrew/include"
 				}
 			],
 			"language" : "CXX",
@@ -464,14 +471,18 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
+				1,
 				4,
 				6,
 				8,
 				10,
 				12,
 				14,
-				16
+				16,
+				18,
+				22,
+				24,
+				26
 			]
 		}
 	],
@@ -482,7 +493,7 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "trading_platform::@6890427a1f51a3e7e1df",
+	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -761,16 +772,6 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libssl.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 18,
 				"fragment" : "/opt/homebrew/lib/libaddress_sorting.43.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -1008,12 +1009,22 @@
 				"backtrace" : 18,
 				"fragment" : "-lm",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/homebrew/opt/openssl@3/lib/libssl.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/homebrew/opt/openssl@3/lib/libcrypto.dylib",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "trading_platform",
-	"nameOnDisk" : "trading_platform",
+	"name" : "random_order_generator_client",
+	"nameOnDisk" : "random_order_generator_client",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1026,35 +1037,45 @@
 			"sourceIndexes" : 
 			[
 				0,
-				2,
+				1,
 				4,
 				6,
 				8,
 				10,
 				12,
 				14,
-				16
-			]
-		},
-		{
-			"name" : "",
-			"sourceIndexes" : 
-			[
-				1
+				16,
+				18,
+				22,
+				24,
+				26
 			]
 		},
 		{
 			"name" : "Header Files",
 			"sourceIndexes" : 
 			[
-				3,
+				2,
 				5,
 				7,
 				9,
 				11,
 				13,
 				15,
-				17
+				17,
+				19,
+				23,
+				25,
+				27
+			]
+		},
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				3,
+				20,
+				21
 			]
 		}
 	],
@@ -1063,90 +1084,8 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "main.cpp",
+			"path" : "random_order_generator_client.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/GeneratorId.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/GeneratorId.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/Market.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/Market.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/Order.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/Order.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/OrderBook.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/OrderBook.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/OrderLinkedList.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/OrderLinkedList.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "market/CustomerRequestQueue/RequestNode.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "market/CustomerRequestQueue/RequestNode.h",
-			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1157,7 +1096,143 @@
 		{
 			"backtrace" : 1,
 			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue",
 			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/GeneratorId.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/GeneratorId.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/Market.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/Market.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/Order.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/Order.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/OrderBook.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/OrderBook.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/OrderLinkedList.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/OrderLinkedList.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "market/CustomerRequestQueue/RequestNode.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "market/CustomerRequestQueue/RequestNode.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/ClientAsync.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/ClientAsync.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/DisplayClient",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient",
+			"sourceGroupIndex" : 2
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
+			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

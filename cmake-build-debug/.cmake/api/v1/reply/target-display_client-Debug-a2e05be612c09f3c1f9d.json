@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "random_order_generator_client"
+			"path" : "display_client"
 		}
 	],
 	"backtrace" : 1,
@@ -14,7 +14,8 @@
 			"target_link_libraries",
 			"set_target_properties",
 			"include",
-			"find_package"
+			"find_package",
+			"include_directories"
 		],
 		"files" : 
 		[
@@ -37,25 +38,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 62,
+				"line" : 79,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 70,
+				"line" : 87,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 14,
+				"line" : 16,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 6,
+				"line" : 8,
 				"parent" : 0
 			},
 			{
@@ -107,7 +108,7 @@
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 7,
+				"line" : 9,
 				"parent" : 0
 			},
 			{
@@ -411,6 +412,12 @@
 				"file" : 1,
 				"line" : 284,
 				"parent" : 9
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 7,
+				"parent" : 0
 			}
 		]
 	},
@@ -441,14 +448,14 @@
 					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
 				},
 				{
-					"backtrace" : 2,
+					"backtrace" : 67,
 					"isSystem" : true,
-					"path" : "/opt/homebrew/include"
+					"path" : "/opt/homebrew/opt/openssl@3/include"
 				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "/opt/homebrew/Cellar/openssl@3/3.3.1/include"
+					"path" : "/opt/homebrew/include"
 				}
 			],
 			"language" : "CXX",
@@ -473,9 +480,7 @@
 				14,
 				16,
 				18,
-				22,
-				24,
-				26
+				22
 			]
 		}
 	],
@@ -486,7 +491,7 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
+	"id" : "display_client::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -765,16 +770,6 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libssl.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 18,
-				"fragment" : "/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.dylib",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 18,
 				"fragment" : "/opt/homebrew/lib/libaddress_sorting.43.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -1012,12 +1007,22 @@
 				"backtrace" : 18,
 				"fragment" : "-lm",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/homebrew/opt/openssl@3/lib/libssl.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "/opt/homebrew/opt/openssl@3/lib/libcrypto.dylib",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "random_order_generator_client",
-	"nameOnDisk" : "random_order_generator_client",
+	"name" : "display_client",
+	"nameOnDisk" : "display_client",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1039,9 +1044,7 @@
 				14,
 				16,
 				18,
-				22,
-				24,
-				26
+				22
 			]
 		},
 		{
@@ -1057,9 +1060,7 @@
 				15,
 				17,
 				19,
-				23,
-				25,
-				27
+				23
 			]
 		},
 		{
@@ -1077,7 +1078,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "random_order_generator_client.cpp",
+			"path" : "display_client.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1197,34 +1198,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp",
+			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrderClient.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
+			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.h",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -8,8 +8,17 @@ using grpc::Status;
 ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
         : stub_(marketAccess::Communication::NewStub(channel)),
           clientInternalId_(0),
-          internalIdLock_() {
+          internalIdLock_(),
+          io_context_(),
+          work_guard_(io_context_.get_executor()),
+          threadPool_(){
     is_shutting_down_.store(false);
+
+    // Create a threadpool for processing the responses asynchronously
+    for (int i = 0; i < 10; ++i) {
+        threadPool_.emplace_back([this]() {io_context_.run();});
+    }
+
     // Start a separate thread to process the CompletionQueue
     cq_thread_ = std::thread([this]() { this->AsyncCompleteRpc(); });
 }
@@ -17,9 +26,16 @@ ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
 ClientAsync::~ClientAsync() {
     std::this_thread::sleep_for(std::chrono::seconds(1)); // waits for last answers from server
     is_shutting_down_.store(true);
+    io_context_.stop();
     cq_.Shutdown();
     if (cq_thread_.joinable()) {
         cq_thread_.join();
+    }
+
+    for (auto& thread : threadPool_) {
+        if(thread.joinable()) {
+            thread.join();
+        }
     }
 }
 
@@ -44,11 +60,13 @@ void ClientAsync::AsyncCompleteRpc() {
         while (cq_.Next(&tag, &ok)) {
             auto* rpcData = static_cast<RequestDataBase*>(tag);
             if (ok) {
-                rpcData->process();
+                io_context_.post([rpcData]() {
+                    rpcData->process();
+                    delete rpcData;
+                });
             } else {
                 throw std::logic_error("RPC error");
             }
-            delete rpcData;
         }
     }
 }

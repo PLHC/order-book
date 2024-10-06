@@ -1139,7 +1139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.dylib][/opt/homebrew/Cellar/openssl@3/3.3.1/include][c ][v3.3.1()]"
+			"value" : "[/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libcrypto.dylib][/opt/homebrew/Cellar/openssl@3/3.3.1/include][c ][v()]"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
@@ -1224,6 +1224,18 @@
 			],
 			"type" : "FILEPATH",
 			"value" : "/opt/homebrew/Cellar/openssl@3/3.3.1/lib/libssl.dylib"
+		},
+		{
+			"name" : "OpenSSL_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for OpenSSL."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL"
 		},
 		{
 			"name" : "OrderBook_BINARY_DIR",
