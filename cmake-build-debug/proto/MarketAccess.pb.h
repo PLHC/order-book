@@ -295,15 +295,31 @@ class UpdateParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
+    kUseridFieldNumber = 2,
     kInfoFieldNumber = 1,
     kBoidFieldNumber = 3,
     kPriceFieldNumber = 4,
-    kUseridFieldNumber = 2,
-    kBuyOrSellFieldNumber = 6,
     kVolumeFieldNumber = 5,
+    kBuyOrSellFieldNumber = 6,
     kBoTypeFieldNumber = 7,
     kVersionFieldNumber = 8,
   };
+  // string userid = 2;
+  void clear_userid() ;
+  const std::string& userid() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_userid(Arg_&& arg, Args_... args);
+  std::string* mutable_userid();
+  PROTOBUF_NODISCARD std::string* release_userid();
+  void set_allocated_userid(std::string* value);
+
+  private:
+  const std::string& _internal_userid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userid(
+      const std::string& value);
+  std::string* _internal_mutable_userid();
+
+  public:
   // uint64 info = 1;
   void clear_info() ;
   ::uint64_t info() const;
@@ -334,14 +350,14 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_price(double value);
 
   public:
-  // uint32 userid = 2;
-  void clear_userid() ;
-  ::uint32_t userid() const;
-  void set_userid(::uint32_t value);
+  // double volume = 5;
+  void clear_volume() ;
+  double volume() const;
+  void set_volume(double value);
 
   private:
-  ::uint32_t _internal_userid() const;
-  void _internal_set_userid(::uint32_t value);
+  double _internal_volume() const;
+  void _internal_set_volume(double value);
 
   public:
   // .marketAccess.orderDirection buyOrSell = 6;
@@ -352,16 +368,6 @@ class UpdateParameters final : public ::google::protobuf::Message
   private:
   ::marketAccess::orderDirection _internal_buyorsell() const;
   void _internal_set_buyorsell(::marketAccess::orderDirection value);
-
-  public:
-  // double volume = 5;
-  void clear_volume() ;
-  double volume() const;
-  void set_volume(double value);
-
-  private:
-  double _internal_volume() const;
-  void _internal_set_volume(double value);
 
   public:
   // .marketAccess.orderType boType = 7;
@@ -390,7 +396,7 @@ class UpdateParameters final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       3, 8, 0,
-      0, 2>
+      52, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -410,12 +416,12 @@ class UpdateParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const UpdateParameters& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr userid_;
     ::uint64_t info_;
     ::uint64_t boid_;
     double price_;
-    ::uint32_t userid_;
-    int buyorsell_;
     double volume_;
+    int buyorsell_;
     int botype_;
     ::uint32_t version_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
@@ -1123,13 +1129,29 @@ class InsertionParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
+    kUseridFieldNumber = 2,
     kInfoFieldNumber = 1,
     kPriceFieldNumber = 3,
-    kUseridFieldNumber = 2,
-    kBuyOrSellFieldNumber = 5,
     kVolumeFieldNumber = 4,
+    kBuyOrSellFieldNumber = 5,
     kBoTypeFieldNumber = 6,
   };
+  // string userid = 2;
+  void clear_userid() ;
+  const std::string& userid() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_userid(Arg_&& arg, Args_... args);
+  std::string* mutable_userid();
+  PROTOBUF_NODISCARD std::string* release_userid();
+  void set_allocated_userid(std::string* value);
+
+  private:
+  const std::string& _internal_userid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userid(
+      const std::string& value);
+  std::string* _internal_mutable_userid();
+
+  public:
   // uint64 info = 1;
   void clear_info() ;
   ::uint64_t info() const;
@@ -1150,14 +1172,14 @@ class InsertionParameters final : public ::google::protobuf::Message
   void _internal_set_price(double value);
 
   public:
-  // uint32 userid = 2;
-  void clear_userid() ;
-  ::uint32_t userid() const;
-  void set_userid(::uint32_t value);
+  // double volume = 4;
+  void clear_volume() ;
+  double volume() const;
+  void set_volume(double value);
 
   private:
-  ::uint32_t _internal_userid() const;
-  void _internal_set_userid(::uint32_t value);
+  double _internal_volume() const;
+  void _internal_set_volume(double value);
 
   public:
   // .marketAccess.orderDirection buyOrSell = 5;
@@ -1168,16 +1190,6 @@ class InsertionParameters final : public ::google::protobuf::Message
   private:
   ::marketAccess::orderDirection _internal_buyorsell() const;
   void _internal_set_buyorsell(::marketAccess::orderDirection value);
-
-  public:
-  // double volume = 4;
-  void clear_volume() ;
-  double volume() const;
-  void set_volume(double value);
-
-  private:
-  double _internal_volume() const;
-  void _internal_set_volume(double value);
 
   public:
   // .marketAccess.orderType boType = 6;
@@ -1196,7 +1208,7 @@ class InsertionParameters final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       3, 6, 0,
-      0, 2>
+      47, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1216,11 +1228,11 @@ class InsertionParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const InsertionParameters& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr userid_;
     ::uint64_t info_;
     double price_;
-    ::uint32_t userid_;
-    int buyorsell_;
     double volume_;
+    int buyorsell_;
     int botype_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -1664,6 +1676,7 @@ class DisplayParameters final : public ::google::protobuf::Message
   // accessors -------------------------------------------------------
   enum : int {
     kInfoFieldNumber = 1,
+    kNboforderstodisplayFieldNumber = 2,
   };
   // uint64 info = 1;
   void clear_info() ;
@@ -1675,12 +1688,22 @@ class DisplayParameters final : public ::google::protobuf::Message
   void _internal_set_info(::uint64_t value);
 
   public:
+  // uint32 nboforderstodisplay = 2;
+  void clear_nboforderstodisplay() ;
+  ::uint32_t nboforderstodisplay() const;
+  void set_nboforderstodisplay(::uint32_t value);
+
+  private:
+  ::uint32_t _internal_nboforderstodisplay() const;
+  void _internal_set_nboforderstodisplay(::uint32_t value);
+
+  public:
   // @@protoc_insertion_point(class_scope:marketAccess.DisplayParameters)
  private:
   class _Internal;
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
-      0, 1, 0,
+      1, 2, 0,
       0, 2>
       _table_;
 
@@ -1702,6 +1725,7 @@ class DisplayParameters final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DisplayParameters& from_msg);
     ::uint64_t info_;
+    ::uint32_t nboforderstodisplay_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -1851,11 +1875,27 @@ class DeletionParameters final : public ::google::protobuf::Message
 
   // accessors -------------------------------------------------------
   enum : int {
+    kUseridFieldNumber = 2,
     kInfoFieldNumber = 1,
     kBoidFieldNumber = 3,
-    kUseridFieldNumber = 2,
     kVersionFieldNumber = 4,
   };
+  // string userid = 2;
+  void clear_userid() ;
+  const std::string& userid() const;
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_userid(Arg_&& arg, Args_... args);
+  std::string* mutable_userid();
+  PROTOBUF_NODISCARD std::string* release_userid();
+  void set_allocated_userid(std::string* value);
+
+  private:
+  const std::string& _internal_userid() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_userid(
+      const std::string& value);
+  std::string* _internal_mutable_userid();
+
+  public:
   // uint64 info = 1;
   void clear_info() ;
   ::uint64_t info() const;
@@ -1876,16 +1916,6 @@ class DeletionParameters final : public ::google::protobuf::Message
   void _internal_set_boid(::uint64_t value);
 
   public:
-  // uint32 userid = 2;
-  void clear_userid() ;
-  ::uint32_t userid() const;
-  void set_userid(::uint32_t value);
-
-  private:
-  ::uint32_t _internal_userid() const;
-  void _internal_set_userid(::uint32_t value);
-
-  public:
   // uint32 version = 4;
   void clear_version() ;
   ::uint32_t version() const;
@@ -1902,7 +1932,7 @@ class DeletionParameters final : public ::google::protobuf::Message
   friend class ::google::protobuf::internal::TcParser;
   static const ::google::protobuf::internal::TcParseTable<
       2, 4, 0,
-      0, 2>
+      46, 2>
       _table_;
 
   static constexpr const void* _raw_default_instance_ =
@@ -1922,9 +1952,9 @@ class DeletionParameters final : public ::google::protobuf::Message
     inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const DeletionParameters& from_msg);
+    ::google::protobuf::internal::ArenaStringPtr userid_;
     ::uint64_t info_;
     ::uint64_t boid_;
-    ::uint32_t userid_;
     ::uint32_t version_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -2267,6 +2297,28 @@ inline void DisplayParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
+// uint32 nboforderstodisplay = 2;
+inline void DisplayParameters::clear_nboforderstodisplay() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.nboforderstodisplay_ = 0u;
+}
+inline ::uint32_t DisplayParameters::nboforderstodisplay() const {
+  // @@protoc_insertion_point(field_get:marketAccess.DisplayParameters.nboforderstodisplay)
+  return _internal_nboforderstodisplay();
+}
+inline void DisplayParameters::set_nboforderstodisplay(::uint32_t value) {
+  _internal_set_nboforderstodisplay(value);
+  // @@protoc_insertion_point(field_set:marketAccess.DisplayParameters.nboforderstodisplay)
+}
+inline ::uint32_t DisplayParameters::_internal_nboforderstodisplay() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.nboforderstodisplay_;
+}
+inline void DisplayParameters::_internal_set_nboforderstodisplay(::uint32_t value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.nboforderstodisplay_ = value;
+}
+
 // -------------------------------------------------------------------
 
 // OrderBookContent
@@ -2582,26 +2634,54 @@ inline void DeletionParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// uint32 userid = 2;
+// string userid = 2;
 inline void DeletionParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0u;
+  _impl_.userid_.ClearToEmpty();
 }
-inline ::uint32_t DeletionParameters::userid() const {
+inline const std::string& DeletionParameters::userid() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionParameters.userid)
   return _internal_userid();
 }
-inline void DeletionParameters::set_userid(::uint32_t value) {
-  _internal_set_userid(value);
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void DeletionParameters::set_userid(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:marketAccess.DeletionParameters.userid)
 }
-inline ::uint32_t DeletionParameters::_internal_userid() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.userid_;
+inline std::string* DeletionParameters::mutable_userid() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_userid();
+  // @@protoc_insertion_point(field_mutable:marketAccess.DeletionParameters.userid)
+  return _s;
 }
-inline void DeletionParameters::_internal_set_userid(::uint32_t value) {
+inline const std::string& DeletionParameters::_internal_userid() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.userid_.Get();
+}
+inline void DeletionParameters::_internal_set_userid(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = value;
+  _impl_.userid_.Set(value, GetArena());
+}
+inline std::string* DeletionParameters::_internal_mutable_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.userid_.Mutable( GetArena());
+}
+inline std::string* DeletionParameters::release_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:marketAccess.DeletionParameters.userid)
+  return _impl_.userid_.Release();
+}
+inline void DeletionParameters::set_allocated_userid(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.userid_.IsDefault()) {
+          _impl_.userid_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.DeletionParameters.userid)
 }
 
 // uint64 boid = 3;
@@ -2983,26 +3063,54 @@ inline void InsertionParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// uint32 userid = 2;
+// string userid = 2;
 inline void InsertionParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0u;
+  _impl_.userid_.ClearToEmpty();
 }
-inline ::uint32_t InsertionParameters::userid() const {
+inline const std::string& InsertionParameters::userid() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionParameters.userid)
   return _internal_userid();
 }
-inline void InsertionParameters::set_userid(::uint32_t value) {
-  _internal_set_userid(value);
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void InsertionParameters::set_userid(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:marketAccess.InsertionParameters.userid)
 }
-inline ::uint32_t InsertionParameters::_internal_userid() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.userid_;
+inline std::string* InsertionParameters::mutable_userid() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_userid();
+  // @@protoc_insertion_point(field_mutable:marketAccess.InsertionParameters.userid)
+  return _s;
 }
-inline void InsertionParameters::_internal_set_userid(::uint32_t value) {
+inline const std::string& InsertionParameters::_internal_userid() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.userid_.Get();
+}
+inline void InsertionParameters::_internal_set_userid(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = value;
+  _impl_.userid_.Set(value, GetArena());
+}
+inline std::string* InsertionParameters::_internal_mutable_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.userid_.Mutable( GetArena());
+}
+inline std::string* InsertionParameters::release_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:marketAccess.InsertionParameters.userid)
+  return _impl_.userid_.Release();
+}
+inline void InsertionParameters::set_allocated_userid(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.userid_.IsDefault()) {
+          _impl_.userid_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.InsertionParameters.userid)
 }
 
 // double price = 3;
@@ -3404,26 +3512,54 @@ inline void UpdateParameters::_internal_set_info(::uint64_t value) {
   _impl_.info_ = value;
 }
 
-// uint32 userid = 2;
+// string userid = 2;
 inline void UpdateParameters::clear_userid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = 0u;
+  _impl_.userid_.ClearToEmpty();
 }
-inline ::uint32_t UpdateParameters::userid() const {
+inline const std::string& UpdateParameters::userid() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateParameters.userid)
   return _internal_userid();
 }
-inline void UpdateParameters::set_userid(::uint32_t value) {
-  _internal_set_userid(value);
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void UpdateParameters::set_userid(Arg_&& arg,
+                                                     Args_... args) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.Set(static_cast<Arg_&&>(arg), args..., GetArena());
   // @@protoc_insertion_point(field_set:marketAccess.UpdateParameters.userid)
 }
-inline ::uint32_t UpdateParameters::_internal_userid() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  return _impl_.userid_;
+inline std::string* UpdateParameters::mutable_userid() ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  std::string* _s = _internal_mutable_userid();
+  // @@protoc_insertion_point(field_mutable:marketAccess.UpdateParameters.userid)
+  return _s;
 }
-inline void UpdateParameters::_internal_set_userid(::uint32_t value) {
+inline const std::string& UpdateParameters::_internal_userid() const {
+  ::google::protobuf::internal::TSanRead(&_impl_);
+  return _impl_.userid_.Get();
+}
+inline void UpdateParameters::_internal_set_userid(const std::string& value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.userid_ = value;
+  _impl_.userid_.Set(value, GetArena());
+}
+inline std::string* UpdateParameters::_internal_mutable_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  return _impl_.userid_.Mutable( GetArena());
+}
+inline std::string* UpdateParameters::release_userid() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  // @@protoc_insertion_point(field_release:marketAccess.UpdateParameters.userid)
+  return _impl_.userid_.Release();
+}
+inline void UpdateParameters::set_allocated_userid(std::string* value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _impl_.userid_.SetAllocated(value, GetArena());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.userid_.IsDefault()) {
+          _impl_.userid_.Set("", GetArena());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:marketAccess.UpdateParameters.userid)
 }
 
 // uint64 boid = 3;

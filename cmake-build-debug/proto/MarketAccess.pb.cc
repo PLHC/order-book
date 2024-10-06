@@ -27,12 +27,14 @@ namespace marketAccess {
 
 inline constexpr UpdateParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : info_{::uint64_t{0u}},
+      : userid_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        info_{::uint64_t{0u}},
         boid_{::uint64_t{0u}},
         price_{0},
-        userid_{0u},
-        buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         volume_{0},
+        buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         botype_{static_cast< ::marketAccess::orderType >(0)},
         version_{0u},
         _cached_size_{0} {}
@@ -134,11 +136,13 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr InsertionParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : info_{::uint64_t{0u}},
+      : userid_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        info_{::uint64_t{0u}},
         price_{0},
-        userid_{0u},
-        buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         volume_{0},
+        buyorsell_{static_cast< ::marketAccess::orderDirection >(0)},
         botype_{static_cast< ::marketAccess::orderType >(0)},
         _cached_size_{0} {}
 
@@ -203,6 +207,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 inline constexpr DisplayParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : info_{::uint64_t{0u}},
+        nboforderstodisplay_{0u},
         _cached_size_{0} {}
 
 template <typename>
@@ -227,9 +232,11 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 
 inline constexpr DeletionParameters::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
-      : info_{::uint64_t{0u}},
+      : userid_(
+            &::google::protobuf::internal::fixed_address_empty_string,
+            ::_pbi::ConstantInitialized()),
+        info_{::uint64_t{0u}},
         boid_{::uint64_t{0u}},
-        userid_{0u},
         version_{0u},
         _cached_size_{0} {}
 
@@ -306,6 +313,7 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::marketAccess::DisplayParameters, _impl_.info_),
+        PROTOBUF_FIELD_OFFSET(::marketAccess::DisplayParameters, _impl_.nboforderstodisplay_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::OrderBookContent, _impl_._has_bits_),
         PROTOBUF_FIELD_OFFSET(::marketAccess::OrderBookContent, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -443,13 +451,13 @@ const ::uint32_t
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::marketAccess::DisplayParameters)},
-        {9, 22, -1, sizeof(::marketAccess::OrderBookContent)},
-        {27, -1, -1, sizeof(::marketAccess::DeletionParameters)},
-        {39, 55, -1, sizeof(::marketAccess::DeletionConfirmation)},
-        {63, -1, -1, sizeof(::marketAccess::InsertionParameters)},
-        {77, 93, -1, sizeof(::marketAccess::InsertionConfirmation)},
-        {101, -1, -1, sizeof(::marketAccess::UpdateParameters)},
-        {117, 133, -1, sizeof(::marketAccess::UpdateConfirmation)},
+        {10, 23, -1, sizeof(::marketAccess::OrderBookContent)},
+        {28, -1, -1, sizeof(::marketAccess::DeletionParameters)},
+        {40, 56, -1, sizeof(::marketAccess::DeletionConfirmation)},
+        {64, -1, -1, sizeof(::marketAccess::InsertionParameters)},
+        {78, 94, -1, sizeof(::marketAccess::InsertionConfirmation)},
+        {102, -1, -1, sizeof(::marketAccess::UpdateParameters)},
+        {118, 134, -1, sizeof(::marketAccess::UpdateConfirmation)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::marketAccess::_DisplayParameters_default_instance_._instance,
@@ -464,54 +472,55 @@ static const ::_pb::Message* const file_default_instances[] = {
 const char descriptor_table_protodef_proto_2fMarketAccess_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
     "\n\030proto/MarketAccess.proto\022\014marketAccess"
-    "\"!\n\021DisplayParameters\022\014\n\004info\030\001 \001(\004\"\236\001\n\020"
-    "OrderBookContent\022\014\n\004info\030\001 \001(\t\022\022\n\nvalida"
-    "tion\030\002 \001(\010\022\026\n\torderbook\030\003 \001(\tH\000\210\001\001\022\024\n\007pr"
-    "oduct\030\004 \001(\tH\001\210\001\001\022\024\n\007comment\030\005 \001(\tH\002\210\001\001B\014"
-    "\n\n_orderbookB\n\n\010_productB\n\n\010_comment\"Q\n\022"
-    "DeletionParameters\022\014\n\004info\030\001 \001(\004\022\016\n\006user"
-    "id\030\002 \001(\r\022\014\n\004boid\030\003 \001(\004\022\017\n\007version\030\004 \001(\r\""
-    "\347\001\n\024DeletionConfirmation\022\014\n\004info\030\001 \001(\t\022\022"
-    "\n\nvalidation\030\002 \001(\010\022\017\n\007product\030\003 \001(\t\022\021\n\004b"
-    "oid\030\004 \001(\004H\000\210\001\001\022\024\n\007comment\030\005 \001(\tH\001\210\001\001\022\024\n\007"
-    "version\030\006 \001(\rH\002\210\001\001\022\022\n\005price\030\007 \001(\001H\003\210\001\001\022\023"
-    "\n\006volume\030\010 \001(\001H\004\210\001\001B\007\n\005_boidB\n\n\010_comment"
-    "B\n\n\010_versionB\010\n\006_priceB\t\n\007_volume\"\254\001\n\023In"
-    "sertionParameters\022\014\n\004info\030\001 \001(\004\022\016\n\006useri"
-    "d\030\002 \001(\r\022\r\n\005price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\001\022/"
-    "\n\tbuyOrSell\030\005 \001(\0162\034.marketAccess.orderDi"
-    "rection\022\'\n\006boType\030\006 \001(\0162\027.marketAccess.o"
-    "rderType\"\252\001\n\025InsertionConfirmation\022\014\n\004in"
-    "fo\030\001 \001(\t\022\022\n\nvalidation\030\002 \001(\010\022\014\n\004boid\030\003 \001"
-    "(\004\022\017\n\007version\030\004 \001(\r\022\r\n\005price\030\005 \001(\001\022\016\n\006vo"
-    "lume\030\006 \001(\001\022\017\n\007product\030\007 \001(\t\022\024\n\007comment\030\010"
-    " \001(\tH\000\210\001\001B\n\n\010_comment\"\310\001\n\020UpdateParamete"
-    "rs\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001(\r\022\014\n\004boid"
-    "\030\003 \001(\004\022\r\n\005price\030\004 \001(\001\022\016\n\006volume\030\005 \001(\001\022/\n"
-    "\tbuyOrSell\030\006 \001(\0162\034.marketAccess.orderDir"
-    "ection\022\'\n\006boType\030\007 \001(\0162\027.marketAccess.or"
-    "derType\022\017\n\007version\030\010 \001(\r\"\247\001\n\022UpdateConfi"
-    "rmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030\002 \001("
-    "\010\022\014\n\004boid\030\003 \001(\004\022\017\n\007version\030\004 \001(\r\022\r\n\005pric"
-    "e\030\005 \001(\001\022\016\n\006volume\030\006 \001(\001\022\017\n\007product\030\007 \001(\t"
-    "\022\024\n\007comment\030\010 \001(\tH\000\210\001\001B\n\n\010_comment*5\n\tor"
-    "derType\022\020\n\014FILL_OR_KILL\020\000\022\026\n\022GOOD_TIL_CA"
-    "NCELLED\020\001*#\n\016orderDirection\022\007\n\003BUY\020\000\022\010\n\004"
-    "SELL\020\0012\324\002\n\rCommunication\022L\n\007Display\022\037.ma"
-    "rketAccess.DisplayParameters\032\036.marketAcc"
-    "ess.OrderBookContent\"\000\022P\n\006Delete\022 .marke"
-    "tAccess.DeletionParameters\032\".marketAcces"
-    "s.DeletionConfirmation\"\000\022U\n\tInsertion\022!."
-    "marketAccess.InsertionParameters\032#.marke"
-    "tAccess.InsertionConfirmation\"\000\022L\n\006Updat"
-    "e\022\036.marketAccess.UpdateParameters\032 .mark"
-    "etAccess.UpdateConfirmation\"\000b\006proto3"
+    "\">\n\021DisplayParameters\022\014\n\004info\030\001 \001(\004\022\033\n\023n"
+    "boforderstodisplay\030\002 \001(\r\"\236\001\n\020OrderBookCo"
+    "ntent\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidation\030\002 \001(\010\022"
+    "\026\n\torderbook\030\003 \001(\tH\000\210\001\001\022\024\n\007product\030\004 \001(\t"
+    "H\001\210\001\001\022\024\n\007comment\030\005 \001(\tH\002\210\001\001B\014\n\n_orderboo"
+    "kB\n\n\010_productB\n\n\010_comment\"Q\n\022DeletionPar"
+    "ameters\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001(\t\022\014\n"
+    "\004boid\030\003 \001(\004\022\017\n\007version\030\004 \001(\r\"\347\001\n\024Deletio"
+    "nConfirmation\022\014\n\004info\030\001 \001(\t\022\022\n\nvalidatio"
+    "n\030\002 \001(\010\022\017\n\007product\030\003 \001(\t\022\021\n\004boid\030\004 \001(\004H\000"
+    "\210\001\001\022\024\n\007comment\030\005 \001(\tH\001\210\001\001\022\024\n\007version\030\006 \001"
+    "(\rH\002\210\001\001\022\022\n\005price\030\007 \001(\001H\003\210\001\001\022\023\n\006volume\030\010 "
+    "\001(\001H\004\210\001\001B\007\n\005_boidB\n\n\010_commentB\n\n\010_versio"
+    "nB\010\n\006_priceB\t\n\007_volume\"\254\001\n\023InsertionPara"
+    "meters\022\014\n\004info\030\001 \001(\004\022\016\n\006userid\030\002 \001(\t\022\r\n\005"
+    "price\030\003 \001(\001\022\016\n\006volume\030\004 \001(\001\022/\n\tbuyOrSell"
+    "\030\005 \001(\0162\034.marketAccess.orderDirection\022\'\n\006"
+    "boType\030\006 \001(\0162\027.marketAccess.orderType\"\252\001"
+    "\n\025InsertionConfirmation\022\014\n\004info\030\001 \001(\t\022\022\n"
+    "\nvalidation\030\002 \001(\010\022\014\n\004boid\030\003 \001(\004\022\017\n\007versi"
+    "on\030\004 \001(\r\022\r\n\005price\030\005 \001(\001\022\016\n\006volume\030\006 \001(\001\022"
+    "\017\n\007product\030\007 \001(\t\022\024\n\007comment\030\010 \001(\tH\000\210\001\001B\n"
+    "\n\010_comment\"\310\001\n\020UpdateParameters\022\014\n\004info\030"
+    "\001 \001(\004\022\016\n\006userid\030\002 \001(\t\022\014\n\004boid\030\003 \001(\004\022\r\n\005p"
+    "rice\030\004 \001(\001\022\016\n\006volume\030\005 \001(\001\022/\n\tbuyOrSell\030"
+    "\006 \001(\0162\034.marketAccess.orderDirection\022\'\n\006b"
+    "oType\030\007 \001(\0162\027.marketAccess.orderType\022\017\n\007"
+    "version\030\010 \001(\r\"\247\001\n\022UpdateConfirmation\022\014\n\004"
+    "info\030\001 \001(\t\022\022\n\nvalidation\030\002 \001(\010\022\014\n\004boid\030\003"
+    " \001(\004\022\017\n\007version\030\004 \001(\r\022\r\n\005price\030\005 \001(\001\022\016\n\006"
+    "volume\030\006 \001(\001\022\017\n\007product\030\007 \001(\t\022\024\n\007comment"
+    "\030\010 \001(\tH\000\210\001\001B\n\n\010_comment*5\n\torderType\022\020\n\014"
+    "FILL_OR_KILL\020\000\022\026\n\022GOOD_TIL_CANCELLED\020\001*#"
+    "\n\016orderDirection\022\007\n\003BUY\020\000\022\010\n\004SELL\020\0012\324\002\n\r"
+    "Communication\022L\n\007Display\022\037.marketAccess."
+    "DisplayParameters\032\036.marketAccess.OrderBo"
+    "okContent\"\000\022P\n\006Delete\022 .marketAccess.Del"
+    "etionParameters\032\".marketAccess.DeletionC"
+    "onfirmation\"\000\022U\n\tInsertion\022!.marketAcces"
+    "s.InsertionParameters\032#.marketAccess.Ins"
+    "ertionConfirmation\"\000\022L\n\006Update\022\036.marketA"
+    "ccess.UpdateParameters\032 .marketAccess.Up"
+    "dateConfirmation\"\000b\006proto3"
 };
 static ::absl::once_flag descriptor_table_proto_2fMarketAccess_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_proto_2fMarketAccess_2eproto = {
     false,
     false,
-    1717,
+    1746,
     descriptor_table_protodef_proto_2fMarketAccess_2eproto,
     "proto/MarketAccess.proto",
     &descriptor_table_proto_2fMarketAccess_2eproto_once,
@@ -570,7 +579,12 @@ inline PROTOBUF_NDEBUG_INLINE DisplayParameters::Impl_::Impl_(
 
 inline void DisplayParameters::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
-  _impl_.info_ = {};
+  ::memset(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, info_),
+           0,
+           offsetof(Impl_, nboforderstodisplay_) -
+               offsetof(Impl_, info_) +
+               sizeof(Impl_::nboforderstodisplay_));
 }
 DisplayParameters::~DisplayParameters() {
   // @@protoc_insertion_point(destructor:marketAccess.DisplayParameters)
@@ -611,15 +625,15 @@ const ::google::protobuf::MessageLite::ClassData* DisplayParameters::GetClassDat
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DisplayParameters::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> DisplayParameters::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
+    2,  // num_field_entries
     0,  // num_aux_entries
     offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
@@ -629,6 +643,9 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DisplayParameters::_table_ = {
     ::_pbi::TcParser::GetTable<::marketAccess::DisplayParameters>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
+    // uint32 nboforderstodisplay = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(DisplayParameters, _impl_.nboforderstodisplay_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.nboforderstodisplay_)}},
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DisplayParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.info_)}},
@@ -638,6 +655,9 @@ const ::_pbi::TcParseTable<0, 1, 0, 0, 2> DisplayParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
+    // uint32 nboforderstodisplay = 2;
+    {PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.nboforderstodisplay_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
   }},
   // no aux_entries
   {{
@@ -651,7 +671,9 @@ PROTOBUF_NOINLINE void DisplayParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  _impl_.info_ = ::uint64_t{0u};
+  ::memset(&_impl_.info_, 0, static_cast<::size_t>(
+      reinterpret_cast<char*>(&_impl_.nboforderstodisplay_) -
+      reinterpret_cast<char*>(&_impl_.info_)) + sizeof(_impl_.nboforderstodisplay_));
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -677,6 +699,13 @@ PROTOBUF_NOINLINE void DisplayParameters::Clear() {
                 1, this_._internal_info(), target);
           }
 
+          // uint32 nboforderstodisplay = 2;
+          if (this_._internal_nboforderstodisplay() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
+                2, this_._internal_nboforderstodisplay(), target);
+          }
+
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
             target =
                 ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
@@ -700,11 +729,17 @@ PROTOBUF_NOINLINE void DisplayParameters::Clear() {
           // Prevent compiler warnings about cached_has_bits being unused
           (void)cached_has_bits;
 
+          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
             // uint64 info = 1;
             if (this_._internal_info() != 0) {
               total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
                   this_._internal_info());
+            }
+            // uint32 nboforderstodisplay = 2;
+            if (this_._internal_nboforderstodisplay() != 0) {
+              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
+                  this_._internal_nboforderstodisplay());
             }
           }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
@@ -722,6 +757,9 @@ void DisplayParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, const
   if (from._internal_info() != 0) {
     _this->_impl_.info_ = from._impl_.info_;
   }
+  if (from._internal_nboforderstodisplay() != 0) {
+    _this->_impl_.nboforderstodisplay_ = from._impl_.nboforderstodisplay_;
+  }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -736,7 +774,12 @@ void DisplayParameters::CopyFrom(const DisplayParameters& from) {
 void DisplayParameters::InternalSwap(DisplayParameters* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-        swap(_impl_.info_, other->_impl_.info_);
+  ::google::protobuf::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.nboforderstodisplay_)
+      + sizeof(DisplayParameters::_impl_.nboforderstodisplay_)
+      - PROTOBUF_FIELD_OFFSET(DisplayParameters, _impl_.info_)>(
+          reinterpret_cast<char*>(&_impl_.info_),
+          reinterpret_cast<char*>(&other->_impl_.info_));
 }
 
 ::google::protobuf::Metadata DisplayParameters::GetMetadata() const {
@@ -1118,15 +1161,40 @@ DeletionParameters::DeletionParameters(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:marketAccess.DeletionParameters)
 }
+inline PROTOBUF_NDEBUG_INLINE DeletionParameters::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::marketAccess::DeletionParameters& from_msg)
+      : userid_(arena, from.userid_),
+        _cached_size_{0} {}
+
 DeletionParameters::DeletionParameters(
-    ::google::protobuf::Arena* arena, const DeletionParameters& from)
-    : DeletionParameters(arena) {
-  MergeFrom(from);
+    ::google::protobuf::Arena* arena,
+    const DeletionParameters& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  DeletionParameters* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, info_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, info_),
+           offsetof(Impl_, version_) -
+               offsetof(Impl_, info_) +
+               sizeof(Impl_::version_));
+
+  // @@protoc_insertion_point(copy_constructor:marketAccess.DeletionParameters)
 }
 inline PROTOBUF_NDEBUG_INLINE DeletionParameters::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
+      : userid_(arena),
+        _cached_size_{0} {}
 
 inline void DeletionParameters::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
@@ -1144,6 +1212,7 @@ DeletionParameters::~DeletionParameters() {
 }
 inline void DeletionParameters::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.userid_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -1176,7 +1245,7 @@ const ::google::protobuf::MessageLite::ClassData* DeletionParameters::GetClassDa
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<2, 4, 0, 0, 2> DeletionParameters::_table_ = {
+const ::_pbi::TcParseTable<2, 4, 0, 46, 2> DeletionParameters::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1200,9 +1269,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_)}},
-    // uint32 userid = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(DeletionParameters, _impl_.userid_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_)}},
+    // string userid = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_)}},
     // uint64 boid = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(DeletionParameters, _impl_.boid_), 63>(),
      {24, 63, 0, PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.boid_)}},
@@ -1212,9 +1281,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 0, 2> DeletionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // uint32 userid = 2;
+    // string userid = 2;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
@@ -1224,6 +1293,9 @@ const ::_pbi::TcParseTable<2, 4, 0, 0, 2> DeletionParameters::_table_ = {
   }},
   // no aux_entries
   {{
+    "\37\0\6\0\0\0\0\0"
+    "marketAccess.DeletionParameters"
+    "userid"
   }},
 };
 
@@ -1234,6 +1306,7 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.userid_.ClearToEmpty();
   ::memset(&_impl_.info_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.version_) -
       reinterpret_cast<char*>(&_impl_.info_)) + sizeof(_impl_.version_));
@@ -1262,11 +1335,12 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
                 1, this_._internal_info(), target);
           }
 
-          // uint32 userid = 2;
-          if (this_._internal_userid() != 0) {
-            target = stream->EnsureSpace(target);
-            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-                2, this_._internal_userid(), target);
+          // string userid = 2;
+          if (!this_._internal_userid().empty()) {
+            const std::string& _s = this_._internal_userid();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.DeletionParameters.userid");
+            target = stream->WriteStringMaybeAliased(2, _s, target);
           }
 
           // uint64 boid = 3;
@@ -1308,6 +1382,11 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
+            // string userid = 2;
+            if (!this_._internal_userid().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_userid());
+            }
             // uint64 info = 1;
             if (this_._internal_info() != 0) {
               total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
@@ -1317,11 +1396,6 @@ PROTOBUF_NOINLINE void DeletionParameters::Clear() {
             if (this_._internal_boid() != 0) {
               total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
                   this_._internal_boid());
-            }
-            // uint32 userid = 2;
-            if (this_._internal_userid() != 0) {
-              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-                  this_._internal_userid());
             }
             // uint32 version = 4;
             if (this_._internal_version() != 0) {
@@ -1341,14 +1415,14 @@ void DeletionParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, cons
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_userid().empty()) {
+    _this->_internal_set_userid(from._internal_userid());
+  }
   if (from._internal_info() != 0) {
     _this->_impl_.info_ = from._impl_.info_;
   }
   if (from._internal_boid() != 0) {
     _this->_impl_.boid_ = from._impl_.boid_;
-  }
-  if (from._internal_userid() != 0) {
-    _this->_impl_.userid_ = from._impl_.userid_;
   }
   if (from._internal_version() != 0) {
     _this->_impl_.version_ = from._impl_.version_;
@@ -1366,7 +1440,10 @@ void DeletionParameters::CopyFrom(const DeletionParameters& from) {
 
 void DeletionParameters::InternalSwap(DeletionParameters* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.userid_, &other->_impl_.userid_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DeletionParameters, _impl_.version_)
       + sizeof(DeletionParameters::_impl_.version_)
@@ -1825,15 +1902,40 @@ InsertionParameters::InsertionParameters(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:marketAccess.InsertionParameters)
 }
+inline PROTOBUF_NDEBUG_INLINE InsertionParameters::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::marketAccess::InsertionParameters& from_msg)
+      : userid_(arena, from.userid_),
+        _cached_size_{0} {}
+
 InsertionParameters::InsertionParameters(
-    ::google::protobuf::Arena* arena, const InsertionParameters& from)
-    : InsertionParameters(arena) {
-  MergeFrom(from);
+    ::google::protobuf::Arena* arena,
+    const InsertionParameters& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  InsertionParameters* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, info_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, info_),
+           offsetof(Impl_, botype_) -
+               offsetof(Impl_, info_) +
+               sizeof(Impl_::botype_));
+
+  // @@protoc_insertion_point(copy_constructor:marketAccess.InsertionParameters)
 }
 inline PROTOBUF_NDEBUG_INLINE InsertionParameters::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
+      : userid_(arena),
+        _cached_size_{0} {}
 
 inline void InsertionParameters::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
@@ -1851,6 +1953,7 @@ InsertionParameters::~InsertionParameters() {
 }
 inline void InsertionParameters::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.userid_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -1883,7 +1986,7 @@ const ::google::protobuf::MessageLite::ClassData* InsertionParameters::GetClassD
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
+const ::_pbi::TcParseTable<3, 6, 0, 47, 2> InsertionParameters::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1905,9 +2008,9 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(InsertionParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_)}},
-    // uint32 userid = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(InsertionParameters, _impl_.userid_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_)}},
+    // string userid = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_)}},
     // double price = 3;
     {::_pbi::TcParser::FastF64S1,
      {25, 63, 0, PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.price_)}},
@@ -1927,9 +2030,9 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // uint32 userid = 2;
+    // string userid = 2;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // double price = 3;
     {PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.price_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kDouble)},
@@ -1945,6 +2048,9 @@ const ::_pbi::TcParseTable<3, 6, 0, 0, 2> InsertionParameters::_table_ = {
   }},
   // no aux_entries
   {{
+    "\40\0\6\0\0\0\0\0"
+    "marketAccess.InsertionParameters"
+    "userid"
   }},
 };
 
@@ -1955,6 +2061,7 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.userid_.ClearToEmpty();
   ::memset(&_impl_.info_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.botype_) -
       reinterpret_cast<char*>(&_impl_.info_)) + sizeof(_impl_.botype_));
@@ -1983,11 +2090,12 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
                 1, this_._internal_info(), target);
           }
 
-          // uint32 userid = 2;
-          if (this_._internal_userid() != 0) {
-            target = stream->EnsureSpace(target);
-            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-                2, this_._internal_userid(), target);
+          // string userid = 2;
+          if (!this_._internal_userid().empty()) {
+            const std::string& _s = this_._internal_userid();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.InsertionParameters.userid");
+            target = stream->WriteStringMaybeAliased(2, _s, target);
           }
 
           // double price = 3;
@@ -2043,6 +2151,11 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
+            // string userid = 2;
+            if (!this_._internal_userid().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_userid());
+            }
             // uint64 info = 1;
             if (this_._internal_info() != 0) {
               total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
@@ -2052,19 +2165,14 @@ PROTOBUF_NOINLINE void InsertionParameters::Clear() {
             if (::absl::bit_cast<::uint64_t>(this_._internal_price()) != 0) {
               total_size += 9;
             }
-            // uint32 userid = 2;
-            if (this_._internal_userid() != 0) {
-              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-                  this_._internal_userid());
+            // double volume = 4;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_volume()) != 0) {
+              total_size += 9;
             }
             // .marketAccess.orderDirection buyOrSell = 5;
             if (this_._internal_buyorsell() != 0) {
               total_size += 1 +
                             ::_pbi::WireFormatLite::EnumSize(this_._internal_buyorsell());
-            }
-            // double volume = 4;
-            if (::absl::bit_cast<::uint64_t>(this_._internal_volume()) != 0) {
-              total_size += 9;
             }
             // .marketAccess.orderType boType = 6;
             if (this_._internal_botype() != 0) {
@@ -2084,20 +2192,20 @@ void InsertionParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, con
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_userid().empty()) {
+    _this->_internal_set_userid(from._internal_userid());
+  }
   if (from._internal_info() != 0) {
     _this->_impl_.info_ = from._impl_.info_;
   }
   if (::absl::bit_cast<::uint64_t>(from._internal_price()) != 0) {
     _this->_impl_.price_ = from._impl_.price_;
   }
-  if (from._internal_userid() != 0) {
-    _this->_impl_.userid_ = from._impl_.userid_;
+  if (::absl::bit_cast<::uint64_t>(from._internal_volume()) != 0) {
+    _this->_impl_.volume_ = from._impl_.volume_;
   }
   if (from._internal_buyorsell() != 0) {
     _this->_impl_.buyorsell_ = from._impl_.buyorsell_;
-  }
-  if (::absl::bit_cast<::uint64_t>(from._internal_volume()) != 0) {
-    _this->_impl_.volume_ = from._impl_.volume_;
   }
   if (from._internal_botype() != 0) {
     _this->_impl_.botype_ = from._impl_.botype_;
@@ -2115,7 +2223,10 @@ void InsertionParameters::CopyFrom(const InsertionParameters& from) {
 
 void InsertionParameters::InternalSwap(InsertionParameters* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.userid_, &other->_impl_.userid_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(InsertionParameters, _impl_.botype_)
       + sizeof(InsertionParameters::_impl_.botype_)
@@ -2565,15 +2676,40 @@ UpdateParameters::UpdateParameters(::google::protobuf::Arena* arena)
   SharedCtor(arena);
   // @@protoc_insertion_point(arena_constructor:marketAccess.UpdateParameters)
 }
+inline PROTOBUF_NDEBUG_INLINE UpdateParameters::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::marketAccess::UpdateParameters& from_msg)
+      : userid_(arena, from.userid_),
+        _cached_size_{0} {}
+
 UpdateParameters::UpdateParameters(
-    ::google::protobuf::Arena* arena, const UpdateParameters& from)
-    : UpdateParameters(arena) {
-  MergeFrom(from);
+    ::google::protobuf::Arena* arena,
+    const UpdateParameters& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  UpdateParameters* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  ::memcpy(reinterpret_cast<char *>(&_impl_) +
+               offsetof(Impl_, info_),
+           reinterpret_cast<const char *>(&from._impl_) +
+               offsetof(Impl_, info_),
+           offsetof(Impl_, version_) -
+               offsetof(Impl_, info_) +
+               sizeof(Impl_::version_));
+
+  // @@protoc_insertion_point(copy_constructor:marketAccess.UpdateParameters)
 }
 inline PROTOBUF_NDEBUG_INLINE UpdateParameters::Impl_::Impl_(
     ::google::protobuf::internal::InternalVisibility visibility,
     ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
+      : userid_(arena),
+        _cached_size_{0} {}
 
 inline void UpdateParameters::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
@@ -2591,6 +2727,7 @@ UpdateParameters::~UpdateParameters() {
 }
 inline void UpdateParameters::SharedDtor() {
   ABSL_DCHECK(GetArena() == nullptr);
+  _impl_.userid_.Destroy();
   _impl_.~Impl_();
 }
 
@@ -2623,7 +2760,7 @@ const ::google::protobuf::MessageLite::ClassData* UpdateParameters::GetClassData
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
+const ::_pbi::TcParseTable<3, 8, 0, 52, 2> UpdateParameters::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -2647,9 +2784,9 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
     // uint64 info = 1;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.info_), 63>(),
      {8, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_)}},
-    // uint32 userid = 2;
-    {::_pbi::TcParser::SingularVarintNoZag1<::uint32_t, offsetof(UpdateParameters, _impl_.userid_), 63>(),
-     {16, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_)}},
+    // string userid = 2;
+    {::_pbi::TcParser::FastUS1,
+     {18, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_)}},
     // uint64 boid = 3;
     {::_pbi::TcParser::SingularVarintNoZag1<::uint64_t, offsetof(UpdateParameters, _impl_.boid_), 63>(),
      {24, 63, 0, PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.boid_)}},
@@ -2671,9 +2808,9 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
     // uint64 info = 1;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.info_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
-    // uint32 userid = 2;
+    // string userid = 2;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.userid_), 0, 0,
-    (0 | ::_fl::kFcSingular | ::_fl::kUInt32)},
+    (0 | ::_fl::kFcSingular | ::_fl::kUtf8String | ::_fl::kRepAString)},
     // uint64 boid = 3;
     {PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.boid_), 0, 0,
     (0 | ::_fl::kFcSingular | ::_fl::kUInt64)},
@@ -2695,6 +2832,9 @@ const ::_pbi::TcParseTable<3, 8, 0, 0, 2> UpdateParameters::_table_ = {
   }},
   // no aux_entries
   {{
+    "\35\0\6\0\0\0\0\0\0\0\0\0\0\0\0\0"
+    "marketAccess.UpdateParameters"
+    "userid"
   }},
 };
 
@@ -2705,6 +2845,7 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  _impl_.userid_.ClearToEmpty();
   ::memset(&_impl_.info_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.version_) -
       reinterpret_cast<char*>(&_impl_.info_)) + sizeof(_impl_.version_));
@@ -2733,11 +2874,12 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
                 1, this_._internal_info(), target);
           }
 
-          // uint32 userid = 2;
-          if (this_._internal_userid() != 0) {
-            target = stream->EnsureSpace(target);
-            target = ::_pbi::WireFormatLite::WriteUInt32ToArray(
-                2, this_._internal_userid(), target);
+          // string userid = 2;
+          if (!this_._internal_userid().empty()) {
+            const std::string& _s = this_._internal_userid();
+            ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
+                _s.data(), static_cast<int>(_s.length()), ::google::protobuf::internal::WireFormatLite::SERIALIZE, "marketAccess.UpdateParameters.userid");
+            target = stream->WriteStringMaybeAliased(2, _s, target);
           }
 
           // uint64 boid = 3;
@@ -2807,6 +2949,11 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
+            // string userid = 2;
+            if (!this_._internal_userid().empty()) {
+              total_size += 1 + ::google::protobuf::internal::WireFormatLite::StringSize(
+                                              this_._internal_userid());
+            }
             // uint64 info = 1;
             if (this_._internal_info() != 0) {
               total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
@@ -2821,19 +2968,14 @@ PROTOBUF_NOINLINE void UpdateParameters::Clear() {
             if (::absl::bit_cast<::uint64_t>(this_._internal_price()) != 0) {
               total_size += 9;
             }
-            // uint32 userid = 2;
-            if (this_._internal_userid() != 0) {
-              total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(
-                  this_._internal_userid());
+            // double volume = 5;
+            if (::absl::bit_cast<::uint64_t>(this_._internal_volume()) != 0) {
+              total_size += 9;
             }
             // .marketAccess.orderDirection buyOrSell = 6;
             if (this_._internal_buyorsell() != 0) {
               total_size += 1 +
                             ::_pbi::WireFormatLite::EnumSize(this_._internal_buyorsell());
-            }
-            // double volume = 5;
-            if (::absl::bit_cast<::uint64_t>(this_._internal_volume()) != 0) {
-              total_size += 9;
             }
             // .marketAccess.orderType boType = 7;
             if (this_._internal_botype() != 0) {
@@ -2858,6 +3000,9 @@ void UpdateParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, const 
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (!from._internal_userid().empty()) {
+    _this->_internal_set_userid(from._internal_userid());
+  }
   if (from._internal_info() != 0) {
     _this->_impl_.info_ = from._impl_.info_;
   }
@@ -2867,14 +3012,11 @@ void UpdateParameters::MergeImpl(::google::protobuf::MessageLite& to_msg, const 
   if (::absl::bit_cast<::uint64_t>(from._internal_price()) != 0) {
     _this->_impl_.price_ = from._impl_.price_;
   }
-  if (from._internal_userid() != 0) {
-    _this->_impl_.userid_ = from._impl_.userid_;
+  if (::absl::bit_cast<::uint64_t>(from._internal_volume()) != 0) {
+    _this->_impl_.volume_ = from._impl_.volume_;
   }
   if (from._internal_buyorsell() != 0) {
     _this->_impl_.buyorsell_ = from._impl_.buyorsell_;
-  }
-  if (::absl::bit_cast<::uint64_t>(from._internal_volume()) != 0) {
-    _this->_impl_.volume_ = from._impl_.volume_;
   }
   if (from._internal_botype() != 0) {
     _this->_impl_.botype_ = from._impl_.botype_;
@@ -2895,7 +3037,10 @@ void UpdateParameters::CopyFrom(const UpdateParameters& from) {
 
 void UpdateParameters::InternalSwap(UpdateParameters* PROTOBUF_RESTRICT other) {
   using std::swap;
+  auto* arena = GetArena();
+  ABSL_DCHECK_EQ(arena, other->GetArena());
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.userid_, &other->_impl_.userid_, arena);
   ::google::protobuf::internal::memswap<
       PROTOBUF_FIELD_OFFSET(UpdateParameters, _impl_.version_)
       + sizeof(UpdateParameters::_impl_.version_)

@@ -8,7 +8,7 @@ OrderClient::OrderClient(std::string userID,
                          orderDirection buyOrSell,
                          orderType boType,
                          std::string internalID)
-        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
+        : OrderBase(std::move(userID), boID, price, volume, std::move(productID), buyOrSell, boType),
           internalID_(std::move(internalID)){}
 
 OrderClient::OrderClient(std::string userID,
@@ -18,5 +18,5 @@ OrderClient::OrderClient(std::string userID,
                          std::string productID,
                          orderDirection buyOrSell,
                          orderType boType)
-        : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
+        : OrderBase(std::move(userID), boID, price, volume, std::move(productID), buyOrSell, boType),
           internalID_(){}
