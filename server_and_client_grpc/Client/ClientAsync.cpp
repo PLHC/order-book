@@ -8,16 +8,15 @@ using grpc::Status;
 ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
         : stub_(marketAccess::Communication::NewStub(channel)),
           clientInternalId_(0),
-          generatorLock_(),
-          conditionVariableGeneratorLock_(),
-          is_shutting_down_(false) {
+          internalIdLock_() {
+    is_shutting_down_.store(false);
     // Start a separate thread to process the CompletionQueue
     cq_thread_ = std::thread([this]() { this->AsyncCompleteRpc(); });
 }
 
 ClientAsync::~ClientAsync() {
     std::this_thread::sleep_for(std::chrono::seconds(1)); // waits for last answers from server
-    is_shutting_down_ = true;
+    is_shutting_down_.store(true);
     cq_.Shutdown();
     if (cq_thread_.joinable()) {
         cq_thread_.join();
@@ -25,13 +24,14 @@ ClientAsync::~ClientAsync() {
 }
 
 u_int64_t ClientAsync::nextInternalID() {
-    std::unique_lock<std::mutex> genLock (generatorLock_);
-    conditionVariableGeneratorLock_.wait(genLock, [](){ return true; });
+    std::unique_lock<std::mutex> genLock (internalIdLock_);
 
+    if(clientInternalId_==std::numeric_limits<uint64_t>::max()){
+        throw std::overflow_error("Client internal ID overflow");
+    }
     auto newID = ++clientInternalId_;
 
     genLock.unlock();
-    conditionVariableGeneratorLock_.notify_all();
 
     return newID;
 }
@@ -39,24 +39,26 @@ u_int64_t ClientAsync::nextInternalID() {
 void ClientAsync::AsyncCompleteRpc() {
     void* tag;
     bool ok;
-    while (!is_shutting_down_) {
+    while (!is_shutting_down_.load()) {
         // Block until the next result is available in the completion queue
         while (cq_.Next(&tag, &ok)) {
             auto* rpcData = static_cast<RequestDataBase*>(tag);
             if (ok) {
                 rpcData->process();
             } else {
-                std::cerr << "RPC error!" << std::endl;
+                throw std::logic_error("RPC error");
             }
             delete rpcData;
         }
     }
 }
 
-void ClientAsync::generateDisplayRequestAsync(std::string&& message, std::string&& orderBookName) {
+void ClientAsync::generateDisplayRequestAsync(std::string&& orderBookName,
+                                              uint32_t nbOfOrdersToDisplay) {
     // create request
     marketAccess::DisplayParameters request;
     request.set_info(0); // Dispatch requests are tagged with internalID 0
+    request.set_nboforderstodisplay(nbOfOrdersToDisplay);
 
     // Create a new context
     auto context = new grpc::ClientContext();
@@ -73,7 +75,7 @@ void ClientAsync::generateDisplayRequestAsync(std::string&& message, std::string
 }
 
 void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
-                                                uint32_t userID,
+                                                std::string userID,
                                                 double price,
                                                 double volume,
                                                 orderDirection buyOrSell,
@@ -103,7 +105,7 @@ void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
 }
 
 void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
-                                             uint32_t userID,
+                                             std::string userID,
                                              uint64_t updatedBO,
                                              double price,
                                              double volume,
@@ -137,7 +139,7 @@ void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
 }
 
 void ClientAsync::generateDeleteRequestAsync(std::string&& orderBookName,
-                                             uint32_t userID,
+                                             std::string userID,
                                              uint64_t deletedID) {
     // record internal ID to track results
     auto internalID = nextInternalID();

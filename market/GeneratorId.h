@@ -7,7 +7,6 @@
 class GeneratorId{
     uint64_t lastID_;
     std::mutex mtx_;
-    std::condition_variable cv_;
 
 public:
     explicit GeneratorId(uint64_t lastUsedValue);

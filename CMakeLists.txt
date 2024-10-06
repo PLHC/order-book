@@ -60,7 +60,7 @@ target_link_libraries(trading_platform
 
 # Add executable for random client
 add_executable(random_order_generator_client
-        randomOrderGeneratorClient.cpp
+        random_order_generator_client.cpp
         ${SERVICE_FILES}
         ${MARKET_FILES}
         ${CRQUEUE_FILES}

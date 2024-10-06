@@ -1,5 +1,4 @@
 #include "OrderBook.h"
-#include <vector>
 
 OrderBook::OrderBook(std::string productID, GeneratorId * genID):
         productId_(std::move(productID)),
@@ -24,7 +23,6 @@ OrderBook::~OrderBook() {
 
     setterStopFlagToTrue();
     requestQueue_.prevLock_.unlock();
-    requestQueue_.dummyHead_->prevConditionVariable_.notify_all();
 
     if(processingThread_.joinable()){
         processingThread_.join();
@@ -90,7 +88,7 @@ bool OrderBook::insertion(Order* &newOrder){
         prevBO->updateNextBO(newOrder);
     }
     idToPointerMap_[newOrder->getterBoID()] = newOrder;
-    //record order in memory
+    //record order in database
     if(execution != NO_EXECUTION) performExecution(newOrder);
     return true;
 }
@@ -132,7 +130,7 @@ void OrderBook::performExecution(Order* & executingOrder) {
 
 bool OrderBook::update(Order* updatedOrder, Order* &newOrder){
     if(!updatedOrder->checkIfItHasAnOlderVersionThan(newOrder)){
-        std::cout<<"older version detected, no update done"<<std::endl;
+//        std::cout<<"older version detected, no update done"<<std::endl;
         return false;
     }
     if(updatedOrder->checkIfOnlyVolumeUpdatedAndDown(newOrder)){
@@ -160,33 +158,49 @@ bool OrderBook::update(Order* updatedOrder, Order* &newOrder){
     return true;
 }
 
-std::string OrderBook::displayOrderBook() {
+std::string OrderBook::displayOrderBook(uint32_t nbOfOrdersToDisplay) {
     auto bidNode = bids_.getterTail();
     auto offerNode = offers_.getterTail();
 
     std::cout << std::fixed << std::setprecision(2);
     std::ostringstream oss;
-//    system("clear");
-    oss<<std::left<<std::setw(32)<<"Bids"<<"|"<<std::setw(30)<<"Offers"<<std::endl;
-    oss<<std::left<<std::setw(10)<<"ID"<<"|"<<std::setw(10)<<"Vol"<<"|"<<std::setw(10)<<"Price";
-    oss<<"|"<<std::setw(10)<<"Price"<<"|"<<std::setw(10)<<"Vol"<<"|"<<std::setw(10)<<"ID"<<std::endl;
+    oss<<std::left<<std::setw(43)<<"Bids"<<"|"
+        <<std::setw(40)<<"Offers"<<std::endl;
+    oss<<std::left<<std::setw(10)<<"ID"<<"|"
+        <<std::setw(10)<<"User"<<"|"
+        <<std::setw(10)<<"Vol"<<"|"
+        <<std::setw(10)<<"Price";
+    oss<<"|"<<std::setw(10)<<"Price"<<"|"
+        <<std::setw(10)<<"Vol"<<"|"
+        <<std::setw(10)<<"User"<<"|"
+        <<std::setw(10)<<"ID"<<std::endl;
 
-    while(bidNode || offerNode){
+    while((bidNode || offerNode) && nbOfOrdersToDisplay--){
         if(bidNode){
-            oss<<std::left<<std::setw(10)<<bidNode->getterBoID()<<"|"<<std::setw(10)<<bidNode->getterVolume()<<
-                "|"<<std::setw(10)<<bidNode->getterPrice()<<"|";
+            oss<<std::left<<std::setw(10)<<bidNode->getterBoID()<<"|"
+                    <<std::setw(10)<<bidNode->getterUserID()<<"|"
+                    <<std::setw(10)<<bidNode->getterVolume()<<"|"
+                    <<std::setw(10)<<bidNode->getterPrice()<<"|";
             bidNode = bidNode->getterNextBO();
         }
         else{
-            oss<<std::left<<std::setw(10)<<""<<"|"<<std::setw(10)<<""<<"|"<<std::setw(10)<<""<<"|";
+            oss<<std::left<<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<"|";
         }
         if(offerNode){
-            oss<<std::setw(10)<<offerNode->getterPrice()<<"|"<<std::setw(10)<<offerNode->getterVolume()<<"|"
+            oss<<std::setw(10)<<offerNode->getterPrice()<<"|"
+                    <<std::setw(10)<<offerNode->getterVolume()<<"|"
+                    <<std::setw(10)<<offerNode->getterUserID()<<"|"
                     <<std::setw(10)<<offerNode->getterBoID()<<std::endl;
             offerNode = offerNode->getterNextBO();
         }
         else{
-            oss<<std::setw(10)<<""<<"|"<<std::setw(10)<<""<<"|"<<std::setw(10)<<""<<std::endl;
+            oss<<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<"|"
+                <<std::setw(10)<<""<<std::endl;
         }
     }
     oss<<std::endl;
@@ -194,7 +208,7 @@ std::string OrderBook::displayOrderBook() {
 }
 
 void OrderBook::processRequests(){
-    while(!stopFlag_){
+    while(!stopFlag_.load()){
         requestQueue_.runNextRequest();
     }
 }

@@ -11,16 +11,13 @@ CustomerRequestQueue::CustomerRequestQueue():
 }
 
 RequestNode* CustomerRequestQueue::insertNode() {
-    // check if it should react to stopFlag_
-
-    //Preparing new node before insertion
+    // preparing new node before insertion
     auto newNodePtr = std::make_shared<RequestNode>();
     newNodePtr->prev_ = dummyTail_;
 
-    //prevMutex of dummyTail is not used like for other nodes,
-    //it is used as the only right to insert a node in the queue
+    // prevMutex of dummyTail is not used like for other nodes,
+    // it is used as the only right to insert a node in the queue
     std::unique_lock<std::mutex> insertionLock(dummyTail_->prevMutex_);
-    dummyTail_->prevConditionVariable_.wait(insertionLock, [](){return true;});
 
     // once allowed to process, first inserting the node by linking it
     newNodePtr->next_ = dummyTail_->next_;
@@ -30,12 +27,9 @@ RequestNode* CustomerRequestQueue::insertNode() {
     // updating dummyTail_ lock on last item in list to prevent processing to reach dummyTail
     std::unique_lock<std::mutex> newPrevLock(newNodePtr->prevMutex_);
     prevLock_ = std::move(newPrevLock);
-    // and notifying processing to move forward
-    newNodePtr->next_->prevConditionVariable_.notify_all();
 
-    //releasing lock granting insertion rights
+    // releasing lock, granting insertion rights
     insertionLock.unlock();
-    dummyTail_->prevConditionVariable_.notify_all();
 
     return newNodePtr.get();
 }
@@ -44,19 +38,15 @@ void CustomerRequestQueue::runNextRequest(){
 
     // get access to next node to process
     std::unique_lock<std::mutex> prevNodeLock(dummyHead_->prevMutex_);
-    dummyHead_->prevConditionVariable_.wait(prevNodeLock,[](){return true;});
     auto processingNode = dummyHead_->prev_;
 
     if(processingNode->status_ == CANCELLED){ // stop processing requests and acquiring new locks
         prevNodeLock.unlock();
-
         return;
     }
 
     // once access granted, update the status_ and notify the gRPC thread to process the request
     std::unique_lock<std::mutex> statusLock(processingNode->statusMutex_);
-    processingNode->statusConditionVariable_.wait(statusLock, [](){return true;});
-
     if(processingNode->status_ != CANCELLED){
         processingNode->status_ = PROCESSING_ALLOWED;
     }
@@ -68,14 +58,15 @@ void CustomerRequestQueue::runNextRequest(){
         return;
     }
 
-    // reacquire the lock once processed terminated on order book and
-    // take care of deleting the next node and defining the current one as the new dummyHead
+    // reacquire the lock once processed terminated on order book,
+    // take care of deleting the next node
+    // and defining the current one as the new dummyHead
     statusLock.lock();
     processingNode->statusConditionVariable_.wait(statusLock, [&processingNode](){
         return processingNode->status_ == PROCESSING_COMPLETED || processingNode->status_ == CANCELLED;
     });
     statusLock.unlock();
-    prevNodeLock.unlock();// should I include a notify_all?
+    prevNodeLock.unlock();
     dummyHead_ = processingNode;
     dummyHead_->next_ = nullptr; // delete previous head
 }

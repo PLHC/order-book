@@ -1,54 +1,39 @@
 #include "DisplayClient.h"
 
 DisplayClient::DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
-                             uint32_t userID,
+                             std::string userID,
                              const std::vector<std::string> & tradedProducts,
                              uint32_t nbOfLinesPerProduct)
     : ClientAsync(channel),
-      userID_(userID),
+      userID_(std::move(userID)),
       stopFlag_(false),
       nbOfLinesPerProduct_(nbOfLinesPerProduct),
       mapMtx_(){
     for(const auto & tradedProduct : tradedProducts){
         tradedProductsToOrderbookContentMap_[tradedProduct] = {};
     }
-    std::this_thread::sleep_for(std::chrono::seconds(1));
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
     process();
 }
 
-void DisplayClient::printOrderBook(const std::string &orderbookContent){
-    std::istringstream stream(orderbookContent);
-    std::string line;
-    auto lineCount = nbOfLinesPerProduct_;
-
-    while (lineCount > 0 && std::getline(stream, line)) {
-        std::cout << line << std::endl;
-        lineCount--;
-    }
-    while(lineCount--){
-        std::cout<<std::endl;
-    }
-}
-
 void DisplayClient::printAllOrderbooks() {
-    system("clear");
     std::unique_lock mapLock(mapMtx_);
+    system("clear");
     for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
         std::cout<<"Product: "<<product<<std::endl;
-        printOrderBook(orderbookContent);
-        std::cout<<std::endl;
+        std::cout<<orderbookContent;
     }
 }
 
 void DisplayClient::process() {
-    while(!stopFlag_) {
+    while(!stopFlag_.load()) {
         std::unique_lock mapLock(mapMtx_);
         for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
             auto p = product;
-            generateDisplayRequestAsync("abc", std::move(p));
+            generateDisplayRequestAsync(std::move(p), nbOfLinesPerProduct_);
         }
         mapLock.unlock();
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }
 

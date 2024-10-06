@@ -4,15 +4,10 @@ GeneratorId::GeneratorId(uint64_t lastUsedValue) : lastID_(lastUsedValue){}
 
 uint64_t GeneratorId::nextID() {
     uint64_t val;
-
-    std::unique_lock<std::mutex> generatorLock(mtx_);
-    cv_.wait(generatorLock, [](){return true;});
-
+    if(lastID_==std::numeric_limits<uint64_t>::max()){
+        throw std::overflow_error("Overflow in generated ID");
+    }
     lastID_++;
     val = lastID_;
-
-    generatorLock.unlock();
-    cv_.notify_all();
-
     return val;
 };

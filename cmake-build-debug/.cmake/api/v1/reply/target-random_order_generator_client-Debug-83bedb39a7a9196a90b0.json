@@ -1077,7 +1077,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "randomOrderGeneratorClient.cpp",
+			"path" : "random_order_generator_client.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

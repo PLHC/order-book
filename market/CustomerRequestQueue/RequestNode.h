@@ -9,7 +9,7 @@ class RequestNode {
 public:
     std::shared_ptr<RequestNode> prev_, next_;
     std::mutex prevMutex_, statusMutex_;
-    std::condition_variable prevConditionVariable_, statusConditionVariable_;
+    std::condition_variable statusConditionVariable_;
     processState status_;
 
     RequestNode();

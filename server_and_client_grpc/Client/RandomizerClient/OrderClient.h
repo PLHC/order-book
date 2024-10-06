@@ -8,24 +8,22 @@ class OrderClient : public OrderBase{
     std::string internalID_;
 
 public:
-    OrderClient(uint32_t userID,
-                         uint64_t boID,
-                         double price,
-                         double volume,
-                         std::string productID,
-                         orderDirection buyOrSell,
-                         orderType boType,
-                         std::string internalID);
+    OrderClient(std::string userID,
+                 uint64_t boID,
+                 double price,
+                 double volume,
+                 std::string productID,
+                 orderDirection buyOrSell,
+                 orderType boType,
+                 std::string internalID);
 
-    OrderClient(uint32_t userID,
-                         uint64_t boID,
-                         double price,
-                         double volume,
-                         std::string productID,
-                         orderDirection buyOrSell,
-                         orderType boType);
-
-    ~OrderClient() override = default;
+    OrderClient(std::string userID,
+                 uint64_t boID,
+                 double price,
+                 double volume,
+                 std::string productID,
+                 orderDirection buyOrSell,
+                 orderType boType);
 
     [[nodiscard]] inline std::string getterInternalID() const {return internalID_;};
 
@@ -36,7 +34,7 @@ public:
     void inline updateBoID(uint64_t newBoID) {boID_ = newBoID;};
     void inline updateBuyOrSell(orderDirection newBuyOrSell) {buyOrSell_ = newBuyOrSell;};
     void inline updateBoType(orderType newBoType) {boType_ = newBoType;};
-    void inline updateInternalID(std::string newInternalID) { internalID_ = std::move(newInternalID);};
+    void inline updateInternalID(std::string newInternalID) {internalID_ = std::move(newInternalID);};
 };
 
 

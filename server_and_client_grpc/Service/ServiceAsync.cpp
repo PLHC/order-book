@@ -1,10 +1,10 @@
 #include "ServiceAsync.h"
 
 
-RpcServiceAsync::RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market)
+RpcServiceAsync::RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market, std::atomic<bool> *stopFlag)
         : main_cq_(main_cq),
           orderBookMap_( &(market->productToOrderBookMap_) ),
-          stopFlag_(&(market->stopFlag_) ){}
+          stopFlag_(stopFlag) {}
 
 void RpcServiceAsync::handleRpcs() {
     // Start listening for all RPC types asynchronously
@@ -50,7 +50,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         (service_->*rpcMethod_)(&ctx_, &requestParameters_, &responder_, cq_, cq_, this); // Register to receive next request
 
     } else if (status_ == PROCESS) {
-        if(!*stopFlag_) { // process only if stop not engaged
+        if(!stopFlag_->load()) {
             generateNewRequestHandler();
         }
         // Inspect metadata to decide on dispatch,
@@ -59,7 +59,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         std::string orderBookName = (productIter != end(ctx_.client_metadata())) ?
                 std::string(productIter->second.data()).substr(0, productIter->second.length()) : "";
 
-        if (!*stopFlag_ && !orderBookName.empty() && (*orderBookMap_).count(orderBookName)) {
+        if (!stopFlag_->load() && !orderBookName.empty() && (*orderBookMap_).count(orderBookName)) {
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
             handleProductError();
@@ -71,7 +71,6 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         status_ = FINISH;
 
     } else if (status_ == FINISH) {
-//        GPR_ASSERT(status_ == FINISH);
         delete this;
     }
 }
@@ -85,7 +84,8 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
     requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){
         return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED || requestNodeInCRQ_->status_ == CANCELLED;});
 
-    if(requestNodeInCRQ_->status_!= CANCELLED) {// if destructor started, skip the processing and trigger FINISH process
+    // if destructor started, skip the processing and trigger FINISH process
+    if(requestNodeInCRQ_->status_!= CANCELLED) {
         handleValidRequest(orderBook);
         requestNodeInCRQ_->status_=PROCESSING_COMPLETED;
     }
@@ -105,7 +105,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 // Handle valid requests
 void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
-    responseParameters_.set_orderbook(orderBook->displayOrderBook());
+    responseParameters_.set_orderbook(orderBook->displayOrderBook(requestParameters_.nboforderstodisplay()));
     responseParameters_.set_product(orderBook->getterProductID());
     responseParameters_.set_validation(true);
 }

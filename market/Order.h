@@ -6,12 +6,13 @@
 #include <utility>
 #include <string>
 
-enum orderType { FILL_OR_KILL, GOOD_TIL_CANCELLED, ORDER_TYPES_COUNT };
+// the enum definitions need to match the order in the enums of the proto file
+enum orderType { FILL_OR_KILL, GOOD_TIL_CANCELLED };
 enum orderDirection { BUY, SELL };
 
 class OrderBase{
 protected:
-    uint32_t userID_;
+    std::string userID_;
     uint32_t boID_;
     double price_;
     double volume_;
@@ -25,7 +26,7 @@ protected:
 public:
     explicit OrderBase(orderDirection buyOrSell);
 
-    OrderBase(uint32_t userID,
+    OrderBase(std::string userID,
             uint64_t boID,
             double price,
             double volume,
@@ -33,7 +34,7 @@ public:
             orderDirection buyOrSell,
             orderType boType);
 
-    OrderBase(uint32_t userID,
+    OrderBase(std::string userID,
               uint64_t boID,
               double price,
               double volume,
@@ -47,7 +48,7 @@ public:
     OrderBase(OrderBase&& other) = delete;
     OrderBase& operator=(const OrderBase&& other) = delete;
 
-    [[nodiscard]] inline uint32_t getterUserID() const {return userID_;};
+    [[nodiscard]] inline std::string getterUserID() const {return userID_;};
     [[nodiscard]] inline uint64_t getterBoID() const {return boID_;};
     [[nodiscard]] inline double getterPrice() const {return price_;};
     [[nodiscard]] inline double getterVolume() const {return volume_;};
@@ -59,10 +60,18 @@ public:
     [[nodiscard]] inline uint32_t getterVersion() const {return version_;};
 
     inline bool checkIfItHasAnOlderVersionThan(OrderBase* other) const {return other->getterVersion() >= version_;};
-    inline uint32_t incrementAndReturnVersion() {return ++version_;};
     inline void updateVersion(const uint32_t newVersion) {version_ = newVersion;};
+    inline uint32_t incrementAndReturnVersion() {
+        if(version_==std::numeric_limits<uint32_t>::max()){
+            throw std::overflow_error("Overflow in order version");
+        }
+        return ++version_;
+    };
 
     inline void updateVolume(double newVolume) {
+        if(newVolume<0){
+            throw std::out_of_range("Volume is being updated with a negative value");
+        }
         volumeInHundredths_ = static_cast<int>(newVolume * 100);
         volume_ = volumeInHundredths_/100.0;
     };
@@ -75,7 +84,7 @@ class Order : public OrderBase{
 public:
      explicit Order(orderDirection buyOrSell);
 
-     Order(uint32_t userID,
+     Order(std::string userID,
            uint64_t boID,
            double price,
            double volume,
@@ -83,7 +92,7 @@ public:
            orderDirection buyOrSell,
            orderType boType);
 
-    Order(uint32_t userID,
+    Order(std::string userID,
           uint64_t boID,
           double price,
           double volume,
@@ -93,8 +102,6 @@ public:
           uint32_t version);
 
     explicit Order(Order* other);
-
-    ~Order() override = default ;
 
     Order(Order&& other) = delete;
     Order& operator=(const Order&& other) = delete;

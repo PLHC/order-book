@@ -9,7 +9,7 @@ class DisplayClient : public ClientAsync{
     std::unordered_map<std::string, std::string> tradedProductsToOrderbookContentMap_; // product / orderbook content
     std::mutex mapMtx_;
     uint32_t nbOfLinesPerProduct_;
-    uint32_t userID_;
+    std::string userID_;
     std::atomic<bool> stopFlag_;
 
     void handleResponse(const marketAccess::OrderBookContent* responseParams) override;
@@ -18,13 +18,12 @@ class DisplayClient : public ClientAsync{
     void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {};
 
     void printAllOrderbooks();
-    void printOrderBook(const std::string &orderbookContent);
     void process();
 
 public:
-    inline void setterStopFlagToTrue() {stopFlag_ = true;};
+    inline void setterStopFlagToTrue() {stopFlag_.store(true);};
     DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
-                  uint32_t userID,
+                  std::string userID,
                   const std::vector<std::string> & tradedProducts,
                   uint32_t nbOfLinesPerProduct);
 };

@@ -1,7 +1,7 @@
 #include "RandomizerClient.h"
 
 RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel,
-                                   const uint32_t userID,
+                                   const std::string userID,
                                    const uint32_t expectedNbOfOrders,
                                    const uint32_t spread,
                                    const std::vector<int>& priceForecasts,
@@ -20,11 +20,10 @@ RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel
 
 void RandomizerClient::insertOrdersAtConstruction(uint32_t nbOfOrders, uint32_t initialSpread){
     initialSpread = std::max(1u, initialSpread); // minimum initial spread is set to 2
-    auto tradedProductsList = extractListOfTradedProducts();
     std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
 
     while(nbOfOrders--){
-        for(const auto & tradedProduct : tradedProductsList){
+        for(const auto & tradedProduct : extractListOfTradedProducts()){
             auto fcast = priceForecastsInCents_[tradedProduct]/100.0;
             std::uniform_real_distribution<double> distributionBuyPrices(fcast - initialSpread , fcast - 1);
             std::uniform_real_distribution<double> distributionSellPrices(fcast + 1, fcast + initialSpread);
@@ -85,7 +84,6 @@ void RandomizerClient::generateInsertionRequestAsync(std::shared_ptr<OrderClient
 void RandomizerClient::generateUpdateRequestAsync(std::shared_ptr<OrderClient> & order,
                                                   const double newPrice,
                                                   const double newVolume){
-
     //Create request
     marketAccess::UpdateParameters request;
     request.set_info(std::stoi( order->getterInternalID() ) );
@@ -133,15 +131,11 @@ void RandomizerClient::generateDeleteRequestAsync(std::shared_ptr<OrderClient> &
 }
 
 void RandomizerClient::handleResponse(const marketAccess::InsertionConfirmation *responseParams) {
-    // find orderbook
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
-    if(!orderbook){
-        std::cout << "Orderbook of insertion request for order: "<<responseParams->info()<<" does not exist" << std::endl;
-        return;
-    }
+    if(!orderbook) return;
 
-    // update order  or delete order if fully traded
+    // update order, or delete order if fully traded
     if (responseParams->validation()) { // update boID and version in local Monitoring version of the order
         if(responseParams->volume()==0){
             orderbook->deleteOrder(responseParams->info());
@@ -151,10 +145,9 @@ void RandomizerClient::handleResponse(const marketAccess::InsertionConfirmation 
                                    responseParams->price(),
                                    responseParams->volume(),
                                    responseParams->version());
-        } // What happens if they fail?
-    } else {
+        }
+    } else { // insertion failed
         orderbook->deleteOrder(responseParams->info());
-        std::cout << "Insertion request for order: "<<responseParams->info()<<" failed" << std::endl;
     }
 }
 
@@ -165,18 +158,14 @@ void RandomizerClient::handleResponse(const marketAccess::UpdateConfirmation *re
 
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
-    if(!orderbook){
-        std::cout << "Orderbook of update request for order: "<<responseParams->info()<<" does not exist" << std::endl;
-        return;
-    }
+    if(!orderbook) return;
 
-    // update order (delete if volume=0 is tested in UpdateOrder
+    // update order (delete if volume=0 is tested in UpdateOrder)
     orderbook->updateOrder(responseParams->info(),
                            responseParams->boid(),
                            responseParams->price(),
                            responseParams->volume(),
                            responseParams->version());
-    // What happens if they fail?
 }
 
 void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *responseParams) {
@@ -185,10 +174,7 @@ void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *
     }
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
-    if(!orderbook){
-        std::cout << "Orderbook of delete request for order: "<<responseParams->info()<<" does not exist" << std::endl;
-        return;
-    }
+    if(!orderbook) return;
 
     orderbook->deleteOrder(responseParams->info());
 }
@@ -233,7 +219,7 @@ void RandomizerClient::updateRandomOrders(const std::string & product) {
 void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
     for(const auto & product: extractListOfTradedProducts()){
         auto counter = getterBuyAndSellNbOrders(product);
-        if(counter.first == -1) continue;
+        if(counter.first == -1) continue; // if orderbook has been deleted from client monitoring
         if(counter.first + counter.second < 1.8 * (expectedNbOfOrdersOnEachSide_)){
             // insert if less than 90% of expected nb of orders
             auto direction = (counter.first < counter.second)? BUY : SELL;
@@ -251,25 +237,35 @@ void RandomizerClient::randomlyInsertOrUpdateOrDelete() {
     }
 }
 
-std::shared_ptr<OrderClient> RandomizerClient::generateRandomOrder(const orderDirection direction,
-                                                                   std::string product) {
+std::shared_ptr<OrderClient> RandomizerClient::generateRandomOrder(const orderDirection direction, std::string product) {
     std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
-
     std::uniform_real_distribution<double> distributionPrices;
     auto fcast = priceForecastsInCents_[product]/100.0;
+    double price;
+    orderType boType;
+
     if(direction==BUY) {
         distributionPrices = std::uniform_real_distribution<double>(fcast - spread_ , fcast + 1);
     }else {
         distributionPrices = std::uniform_real_distribution<double>(fcast - 1, fcast + spread_);
     }
+    price = distributionPrices(mtGen_);
+
+    // if order is more aggressive than forecast, 20% of the time is a FILL OR KILL
+    if( (direction==BUY && price >= fcast) || (direction==SELL && price <= fcast) ){
+        std::bernoulli_distribution distributionBoType(0.2);
+        boType = distributionBoType(mtGen_)? FILL_OR_KILL : GOOD_TIL_CANCELLED;
+    } else{
+        boType = GOOD_TIL_CANCELLED;
+    }
 
     return std::make_shared<OrderClient>(userID_,
                                         0,
-                                        distributionPrices(mtGen_),
+                                        price,
                                         distributionVolumes(mtGen_),
                                         std::move(product),
                                         direction,
-                                        GOOD_TIL_CANCELLED);
+                                        boType);
 }
 
 std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::string &product) {
@@ -282,18 +278,12 @@ std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::stri
     if(!orderbook) return nullptr;
 
     std::unique_lock<std::mutex> orderbookLock(orderbook->internalIdToOrderMapMtx_);
-    orderbook->internalIdToOrderMapConditionVariable_.wait(orderbookLock, [](){ return true;});
 
     randomOrderNumber %= orderbook->getterNbBuyOrders() + orderbook->getterNbSellOrders();
-
     for(const auto & [ID, orderPtr] : orderbook->internalIdToOrderMap_){
         if(!randomOrderNumber--){
             selectedOrder = orderPtr;
         }
     }
-
-    orderbookLock.unlock();
-    orderbook->internalIdToOrderMapConditionVariable_.notify_all();
-
     return selectedOrder;
 }

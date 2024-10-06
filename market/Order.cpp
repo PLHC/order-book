@@ -12,7 +12,7 @@ OrderBase::OrderBase(orderDirection buyOrSell):
         boType_(),
         version_(1){}
 
-OrderBase::OrderBase(uint32_t userID,
+OrderBase::OrderBase(std::string userID,
              uint64_t boID,
              double price,
              double volume,
@@ -25,13 +25,16 @@ OrderBase::OrderBase(uint32_t userID,
                buyOrSell_(buyOrSell),
                boType_(boType),
                version_(1){
+    if(volume<0){
+        throw std::out_of_range("Order is being initialized with a negative volume value");
+    }
     priceInCents_ = static_cast<int>(price * 100);
     price_ = priceInCents_/100.0;
     volumeInHundredths_ = static_cast<int>(volume * 100);
     volume_ = volumeInHundredths_/100.0;
 }
 
-OrderBase::OrderBase(uint32_t userID,
+OrderBase::OrderBase(std::string userID,
                      uint64_t boID,
                      double price,
                      double volume,
@@ -45,6 +48,9 @@ OrderBase::OrderBase(uint32_t userID,
           buyOrSell_(buyOrSell),
           boType_(boType),
           version_(version){
+    if(volume<0){
+        throw std::out_of_range("Order is being initialized with a negative volume value");
+    }
     priceInCents_ = static_cast<int>(price * 100);
     price_ = priceInCents_/100.0;
     volumeInHundredths_ = static_cast<int>(volume * 100);
@@ -56,7 +62,7 @@ Order::Order(orderDirection buyOrSell)
           prevBO_(nullptr),
           nextBO_(nullptr) {}
 
-Order::Order(uint32_t userID,
+Order::Order(std::string userID,
              uint64_t boID,
              double price,
              double volume,
@@ -67,7 +73,7 @@ Order::Order(uint32_t userID,
           prevBO_(nullptr),
           nextBO_(nullptr) {}
 
-Order::Order(uint32_t userID,
+Order::Order(std::string userID,
              uint64_t boID,
              double price,
              double volume,

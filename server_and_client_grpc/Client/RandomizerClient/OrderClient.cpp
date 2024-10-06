@@ -1,6 +1,6 @@
 #include "OrderClient.h"
 
-OrderClient::OrderClient(uint32_t userID,
+OrderClient::OrderClient(std::string userID,
                          uint64_t boID,
                          double price,
                          double volume,
@@ -11,7 +11,7 @@ OrderClient::OrderClient(uint32_t userID,
         : OrderBase(userID, boID, price, volume, std::move(productID), buyOrSell, boType),
           internalID_(std::move(internalID)){}
 
-OrderClient::OrderClient(uint32_t userID,
+OrderClient::OrderClient(std::string userID,
                          uint64_t boID,
                          double price,
                          double volume,

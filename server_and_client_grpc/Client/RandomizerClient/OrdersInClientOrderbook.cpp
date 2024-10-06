@@ -3,7 +3,6 @@
 // OrdersMonitoring class
 OrdersMonitoring::OrdersMonitoring()
         : monitoringMapLock_(),
-          monitoringMapLockConditionVariable_(),
           productToOrdersMap_(),
           rd_(),
           mtGen_(rd_()){}
@@ -71,7 +70,7 @@ bool OrdersMonitoring::updateOrderInLocalMonitoring(const std::string &internalI
     return success;
 }
 
-std::pair<int64_t, int64_t> OrdersMonitoring::getterBuyAndSellNbOrders(const std::string & product) {
+std::pair<uint32_t, uint32_t>  OrdersMonitoring::getterBuyAndSellNbOrders(const std::string & product) {
     auto orderbookPtr = getterSharedPointerToOrderbook(product);
     if(!orderbookPtr) return {-1, -1};
 
@@ -88,7 +87,6 @@ std::pair<int64_t, int64_t> OrdersMonitoring::getterBuyAndSellNbOrders(const std
 
 void OrdersMonitoring::addTradedProductOrderbook(const std::string &product) {
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
-    monitoringMapLockConditionVariable_.wait(mapsLock, [](){return true;});
 
     if(productToOrdersMap_.count(product)==0) { // if non existent
         productToOrdersMap_[product] = std::make_shared<OrdersInOrderbook>();
@@ -98,38 +96,32 @@ void OrdersMonitoring::addTradedProductOrderbook(const std::string &product) {
     }
 
     mapsLock.unlock();
-    monitoringMapLockConditionVariable_.notify_all();
 }
 
 void OrdersMonitoring::removeTradedProductOrderbook(const std::string &product) {
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
-    monitoringMapLockConditionVariable_.wait(mapsLock, [](){return true;});
 
     productToOrdersMap_[product]->deactivateOrderbook();
     productToOrdersMap_.erase(product);
 
     mapsLock.unlock();
-    monitoringMapLockConditionVariable_.notify_all();
 }
 
 std::vector<std::string> OrdersMonitoring::extractListOfTradedProducts() {
     std::vector<std::string> productsList;
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
-    monitoringMapLockConditionVariable_.wait(mapsLock, [](){return true;});
 
     for(const auto & [product, orders]: productToOrdersMap_){
         productsList.push_back(product);
     }
 
     mapsLock.unlock();
-    monitoringMapLockConditionVariable_.notify_all();
     return productsList;
 }
 
 std::shared_ptr<OrdersMonitoring::OrdersInOrderbook> OrdersMonitoring::getterSharedPointerToOrderbook(
         const std::string &product) {
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
-    monitoringMapLockConditionVariable_.wait(mapsLock, [](){return true;});
 
     auto orderbookIter = productToOrdersMap_.find(product);
     if(orderbookIter==end(productToOrdersMap_)){
@@ -139,7 +131,6 @@ std::shared_ptr<OrdersMonitoring::OrdersInOrderbook> OrdersMonitoring::getterSha
     auto ptr = orderbookIter->second;
 
     mapsLock.unlock();
-    monitoringMapLockConditionVariable_.notify_all();
     return std::move(ptr);
 }
 

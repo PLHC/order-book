@@ -14,6 +14,8 @@
 #include <iomanip>
 #include <cstdlib>
 #include <thread>
+#include <vector>
+
 
 enum orderExecution { FULL_EXECUTION, PARTIAL_EXECUTION, NO_EXECUTION };
 
@@ -43,14 +45,13 @@ public:
     bool update(Order* updatedOrder,
                 Order* &newOrder);
     void deletion(Order* deletedOrder);
-    std::string displayOrderBook();
+    std::string displayOrderBook(uint32_t nbOfOrdersToDisplay);
+
     [[nodiscard]] Order* getterPointerToOrderFromID(uint64_t boID);
     [[nodiscard]] inline std::string getterProductID() {return productId_;};
+    inline void setterStopFlagToTrue() {stopFlag_.store(true);};
+
     void processRequests();
-    inline void setterStopFlagToTrue() {
-        stopFlag_.store(true);
-        std::cout<<"flag of OB "<<productId_<<" is set to True"<<std::endl;
-    };
 };
 
 

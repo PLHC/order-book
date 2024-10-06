@@ -1,11 +1,9 @@
 #include "Market.h"
-#include <iostream>
 
 
-Market::Market(GeneratorId * genID):
-        genId_(genID),
-        productToOrderBookMap_(),
-        stopFlag_(false){}
+Market::Market(uint64_t genID):
+        genId_(GeneratorId(genID)),
+        productToOrderBookMap_(){}
 
 Market::~Market(){
     std::cout<<"Market destructor begins"<<std::endl;
@@ -17,20 +15,19 @@ Market::~Market(){
 
 
 void Market::createNewOrderBook(const std::string& product_ID) {
-    auto pointerToOrderBook = new OrderBook(product_ID, genId_);
+    if(productToOrderBookMap_.count(product_ID)){ // orderbook already exist
+        return;
+    }
+    auto pointerToOrderBook = new OrderBook(product_ID, &genId_);
+    std::unique_lock<std::mutex> mapLock(orderbookMapMtx_);
     productToOrderBookMap_[product_ID] = pointerToOrderBook;
-//    productToOrderBookThreadMap_[product_ID] = std::thread(&OrderBook::processRequests, pointerToOrderBook);
-
 }
 
 void Market::deleteOrderBook(const std::string &product_ID) {
-    // acquire lock for it first
-    // check if orderbook existing or throw error
+    std::unique_lock<std::mutex> mapLock(orderbookMapMtx_);
+    if(!productToOrderBookMap_.count(product_ID)){ // orderbook does not exist
+        return;
+    }
     delete productToOrderBookMap_[product_ID];
     productToOrderBookMap_.erase(product_ID);
-
-}
-
-void Market::setterStopFlagToTrue() {
-    stopFlag_.store(true);
 }

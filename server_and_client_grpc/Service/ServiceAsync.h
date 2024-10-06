@@ -11,19 +11,18 @@
 #include <iostream>
 
 
-// RpcServiceAsync class derived from the generated AsyncService class
 class RpcServiceAsync final : public marketAccess::Communication::AsyncService {
     grpc::ServerCompletionQueue *main_cq_;
     std::unordered_map<std::string, OrderBook*> *orderBookMap_;
     std::atomic<bool> *stopFlag_;
 public:
-    // Constructor to initialize the server completion queue and mappings
-    RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market);
+    // constructor to initialize the server completion queue and mappings
+    RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market, std::atomic<bool> *stopFlag);
 
-    // Method to handle incoming RPCs
+    // method to handle incoming RPCs
     void handleRpcs();
 
-    // Base class to handle common RPC logic
+    // base class to handle common RPC logic
     class RequestHandlerBase {
 
     public:
@@ -31,7 +30,7 @@ public:
         virtual void proceed() = 0;
     };
 
-    // Templated class to handle specific request/response types
+    // templated class to handle specific request/response types
     template<typename RequestParametersType, typename ResponseParametersType>
     class RequestHandler : public RequestHandlerBase {
     public:

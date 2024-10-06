@@ -1,16 +1,18 @@
 #include <iostream>
 #include <thread>
-#include "market/Market.h"
 #include <csignal>
+
+#include "market/Market.h"
 #include "server_and_client_grpc/Service/ServiceAsync.h"
 
 std::unique_ptr<grpc::Server> server;
 Market* tradingPlatform;
 grpc::ServerCompletionQueue *mainCompletionQueue;
+std::atomic<bool> stopFlag;
 
 void signalHandler(int signal) {
     if (signal == SIGINT) {
-        tradingPlatform->setterStopFlagToTrue();
+        stopFlag.store(true);
         server->Shutdown();
         delete tradingPlatform;
         mainCompletionQueue->Shutdown();
@@ -18,8 +20,9 @@ void signalHandler(int signal) {
 }
 
 int main(int argc, char *argv[]) {
+    stopFlag.store(false);
     GeneratorId genID(0);
-    tradingPlatform = new Market(&genID);
+    tradingPlatform = new Market(0);
 
     for (int i = 1; i < argc; ++i) {
         tradingPlatform->createNewOrderBook(argv[i]);
@@ -28,7 +31,7 @@ int main(int argc, char *argv[]) {
     grpc::ServerBuilder builder;
     builder.AddListeningPort("localhost:50051", grpc::InsecureServerCredentials());
     mainCompletionQueue = builder.AddCompletionQueue().release();
-    RpcServiceAsync service(mainCompletionQueue, tradingPlatform);
+    RpcServiceAsync service(mainCompletionQueue, tradingPlatform, &stopFlag);
     builder.RegisterService(&service);
     server = std::unique_ptr<grpc::Server>(builder.BuildAndStart());
 

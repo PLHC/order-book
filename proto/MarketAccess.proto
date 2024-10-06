@@ -26,6 +26,7 @@ service Communication {
 
 message DisplayParameters{
   uint64 info = 1;
+  uint32 nboforderstodisplay = 2;
 }
 
 message OrderBookContent{
@@ -38,7 +39,7 @@ message OrderBookContent{
 
 message DeletionParameters{
   uint64 info = 1;
-  uint32 userid = 2;
+  string userid = 2;
   uint64 boid = 3;
   uint32 version = 4;
 }
@@ -57,7 +58,7 @@ message DeletionConfirmation{
 
 message InsertionParameters{
   uint64 info = 1;
-  uint32 userid = 2;
+  string userid = 2;
   double price = 3;
   double volume = 4;
   orderDirection buyOrSell = 5;
@@ -77,7 +78,7 @@ message InsertionConfirmation{
 
 message UpdateParameters{
   uint64 info = 1;
-  uint32 userid = 2;
+  string userid = 2;
   uint64 boid = 3;
   double price = 4;
   double volume = 5;

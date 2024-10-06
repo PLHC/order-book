@@ -16,13 +16,13 @@ int main(int argc, char *argv[]){
 //    3... : traded products
     std::vector<std::string> tradedProducts;
     for(int i = 3; i<argc; ++i){
-        tradedProducts.push_back(argv[i]);
+        tradedProducts.emplace_back(argv[i]);
     }
 
     std::signal(SIGINT, signalHandler);
 
     marketDisplay = new DisplayClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials() ),
-                                      std::stoi(argv[1]),
+                                      argv[1],
                                       tradedProducts,
                                       std::stoi(argv[2]) );
 
