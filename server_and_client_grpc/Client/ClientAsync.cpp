@@ -5,6 +5,28 @@ using grpc::ClientContext;
 using grpc::CompletionQueue;
 using grpc::Status;
 
+// Explicit instantiations of the constructors
+template ClientAsync::RequestData<marketAccess::UpdateConfirmation>::RequestData(
+        grpc::ClientContext* ctx,
+        marketAccess::UpdateConfirmation* responseParams,
+        grpc::Status* status,
+        ClientAsync& client
+);
+
+template ClientAsync::RequestData<marketAccess::DeletionConfirmation>::RequestData(
+        grpc::ClientContext* ctx,
+        marketAccess::DeletionConfirmation* responseParams,
+        grpc::Status* status,
+        ClientAsync& client
+);
+
+template ClientAsync::RequestData<marketAccess::InsertionConfirmation>::RequestData(
+        grpc::ClientContext* ctx,
+        marketAccess::InsertionConfirmation* responseParams,
+        grpc::Status* status,
+        ClientAsync& client
+);
+
 ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel, const uint32_t nbOfThreadsInThreadPool)
         : stub_(marketAccess::Communication::NewStub(channel)),
           clientInternalId_(0),

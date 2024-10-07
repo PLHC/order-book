@@ -16,9 +16,9 @@ cleanup() {
 trap cleanup SIGINT
 
 # Start multiple programs in parallel
-./cmake-build-release/trading_platform A B C &
-./cmake-build-release/random_order_generator_client random A 80 B 60 C 100 &
-./cmake-build-release/display_client display 15 A B C
+./cmake-build-debug/trading_platform A B C &
+./cmake-build-debug/random_order_generator_client random A 80 B 60 C 100 &
+./cmake-build-debug/display_client display 15 A B C
 
 # Wait for all programs to finish
 wait
