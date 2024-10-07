@@ -5,8 +5,9 @@ RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel
                                    const uint32_t expectedNbOfOrders,
                                    const uint32_t spread,
                                    const std::vector<int>& priceForecasts,
-                                   const std::vector<std::string>& tradedProducts)
-        : ClientAsync(channel),
+                                   const std::vector<std::string>& tradedProducts,
+                                   const uint32_t nbOfThreadsInThreadPool)
+        : ClientAsync(channel, nbOfThreadsInThreadPool),
           OrdersMonitoring(),
           userID_(userID),
           spread_(spread),

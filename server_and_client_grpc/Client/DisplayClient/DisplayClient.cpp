@@ -3,8 +3,9 @@
 DisplayClient::DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                              std::string userID,
                              const std::vector<std::string> & tradedProducts,
-                             uint32_t nbOfLinesPerProduct)
-    : ClientAsync(channel),
+                             const uint32_t nbOfLinesPerProduct,
+                             const uint32_t nbOfThreadsInThreadPool)
+    : ClientAsync(channel, nbOfThreadsInThreadPool),
       userID_(std::move(userID)),
       stopFlag_(false),
       nbOfLinesPerProduct_(nbOfLinesPerProduct),

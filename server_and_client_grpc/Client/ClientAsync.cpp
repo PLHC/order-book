@@ -5,7 +5,7 @@ using grpc::ClientContext;
 using grpc::CompletionQueue;
 using grpc::Status;
 
-ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
+ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel, const uint32_t nbOfThreadsInThreadPool)
         : stub_(marketAccess::Communication::NewStub(channel)),
           clientInternalId_(0),
           internalIdLock_(),
@@ -15,7 +15,7 @@ ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel)
     is_shutting_down_.store(false);
 
     // Create a threadpool for processing the responses asynchronously
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < nbOfThreadsInThreadPool; ++i) {
         threadPool_.emplace_back([this]() {io_context_.run();});
     }
 

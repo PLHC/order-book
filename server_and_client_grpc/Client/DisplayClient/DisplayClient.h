@@ -25,7 +25,8 @@ public:
     DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                   std::string userID,
                   const std::vector<std::string> & tradedProducts,
-                  uint32_t nbOfLinesPerProduct);
+                  const uint32_t nbOfLinesPerProduct,
+                  const uint32_t nbOfThreadsInThreadPool);
 };
 
 #endif //ORDERBOOK_DISPLAYCLIENT_H

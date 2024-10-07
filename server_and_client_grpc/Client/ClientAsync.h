@@ -33,7 +33,7 @@ protected:
     grpc::CompletionQueue cq_;
 
 public:
-    explicit ClientAsync(const std::shared_ptr<grpc::Channel>& channel);
+    ClientAsync(const std::shared_ptr<grpc::Channel>& channel, const uint32_t nbOfThreadsInThreadPool);
     ~ClientAsync();
 
     // Methods to generate async communication

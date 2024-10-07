@@ -37,13 +37,15 @@ int main(int argc, char** argv) {
                                   500,
                                   9,
                                   priceForecasts,
-                                  tradedProducts);
+                                  tradedProducts,
+                                  3); // 2 threads enough for sending 3 random requests every 1ms
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
     while(!stopFlag.load()) {
+        // followed by a sleep_for of 1ms, randomlyInsertOrUpdateOrDelete on 3 OBs was clocked between 100 and 700us
         randomClient.randomlyInsertOrUpdateOrDelete();
-        std::this_thread::sleep_for(std::chrono::milliseconds (10));
+        std::this_thread::sleep_for(std::chrono::microseconds (1000));
     }
 
 

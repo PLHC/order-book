@@ -24,6 +24,7 @@ int main(int argc, char *argv[]){
     marketDisplay = new DisplayClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials() ),
                                       argv[1],
                                       tradedProducts,
-                                      std::stoi(argv[2]) );
+                                      std::stoi(argv[2]) ,
+                                      1); // 1 thread enough to process the display requests
 
 }
