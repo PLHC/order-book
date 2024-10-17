@@ -5,7 +5,8 @@ using grpc::ClientContext;
 using grpc::CompletionQueue;
 using grpc::Status;
 
-// Explicit instantiations of the constructors
+// Explicit instantiations of the constructors,
+// in the cpp fil so  instantiation happens only once in the entire program
 template ClientAsync::RequestData<marketAccess::UpdateConfirmation>::RequestData(
         grpc::ClientContext* ctx,
         marketAccess::UpdateConfirmation* responseParams,

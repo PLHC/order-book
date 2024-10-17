@@ -427,7 +427,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics"
+					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -441,11 +441,11 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
 				},
 				{
 					"backtrace" : 67,
@@ -466,7 +466,7 @@
 					2,
 					2
 				],
-				"standard" : "17"
+				"standard" : "20; -pedantic-errors -Wall "
 			},
 			"sourceIndexes" : 
 			[
@@ -497,7 +497,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{

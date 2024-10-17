@@ -12,9 +12,10 @@
 
 
 class RpcServiceAsync final : public marketAccess::Communication::AsyncService {
-    grpc::ServerCompletionQueue *main_cq_;
-    std::unordered_map<std::string, OrderBook*> *orderBookMap_;
     std::atomic<bool> *stopFlag_;
+    grpc::ServerCompletionQueue *main_cq_;
+    std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap_;
+
 public:
     // constructor to initialize the server completion queue and mappings
     RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *market, std::atomic<bool> *stopFlag);
@@ -45,7 +46,7 @@ public:
         RequestHandler(RpcMethod rpcMethod,
                        marketAccess::Communication::AsyncService *service,
                        grpc::ServerCompletionQueue *cq,
-                       std::unordered_map<std::string, OrderBook*> *orderBookMap,
+                       std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap,
                        std::atomic<bool> *stopFlag);
 
         void proceed() override;
@@ -54,11 +55,11 @@ public:
         virtual void handleValidRequest(OrderBook* orderBook) = 0;
         virtual void generateNewRequestHandler() = 0;
         void handleProductError();
-        void insertNodeInCRQAndHandleRequest(std::string & orderBookName);
+        void insertNodeInCRQAndHandleRequest(std::string_view orderBookName);
 
         marketAccess::Communication::AsyncService *service_;
         grpc::ServerCompletionQueue *cq_;
-        std::unordered_map<std::string, OrderBook*> *orderBookMap_;
+        std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap_;
         RequestNode *requestNodeInCRQ_;
         std::atomic<bool> *stopFlag_;
 

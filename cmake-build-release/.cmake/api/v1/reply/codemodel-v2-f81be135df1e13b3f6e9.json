@@ -54,28 +54,28 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "display_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-display_client-Release-4fc66382f8a78283fd19.json",
+					"jsonFile" : "target-display_client-Release-9abac19d81a308e42ffc.json",
 					"name" : "display_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "myproto::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-myproto-Release-5b45a93855a9273e85e6.json",
+					"jsonFile" : "target-myproto-Release-a54f8a5fbbbaa1b53e6d.json",
 					"name" : "myproto",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-random_order_generator_client-Release-e00533bbb0263b460773.json",
+					"jsonFile" : "target-random_order_generator_client-Release-61dc726d2a86403ea1a6.json",
 					"name" : "random_order_generator_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "trading_platform::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-trading_platform-Release-052c8ee1058e0188fe26.json",
+					"jsonFile" : "target-trading_platform-Release-823cdd96cf5fbd99dabb.json",
 					"name" : "trading_platform",
 					"projectIndex" : 0
 				}

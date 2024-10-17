@@ -29,8 +29,7 @@ RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::
         RpcMethod rpcMethod,
         marketAccess::Communication::AsyncService *service,
         grpc::ServerCompletionQueue *cq,
-        std::unordered_map<std::string,
-        OrderBook*> *orderBookMap,
+        std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap,
         std::atomic<bool> *stopFlag)
         : service_(service),
           cq_(cq),
@@ -53,13 +52,13 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         if(!stopFlag_->load()) {
             generateNewRequestHandler();
         }
+
         // Inspect metadata to decide on dispatch,
         // corrupted separations of metadata requires resizing based on size
         auto productIter = ctx_.client_metadata().find("product_id");
-        std::string orderBookName = (productIter != end(ctx_.client_metadata())) ?
-                std::string(productIter->second.data()).substr(0, productIter->second.length()) : "";
+        std::string_view orderBookName {productIter->second.data(), productIter->second.length()};
 
-        if (!stopFlag_->load() && !orderBookName.empty() && (*orderBookMap_).count(orderBookName)) {
+        if (!stopFlag_->load() && !orderBookName.empty() && (*orderBookMap_).contains(orderBookName)) {
             insertNodeInCRQAndHandleRequest(orderBookName);
         } else {
             handleProductError();
@@ -68,6 +67,7 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         if(!orderBookName.empty()) { // problem with empty request when shutting down server
             responder_.Finish(responseParameters_, grpc::Status::OK, this);
         }
+
         status_ = FINISH;
 
     } else if (status_ == FINISH) {
@@ -77,8 +77,8 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 
 template<typename RequestParametersType, typename ResponseParametersType>
 void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::
-                        insertNodeInCRQAndHandleRequest(std::string &orderBookName) {
-    auto orderBook = (*orderBookMap_)[orderBookName];
+                        insertNodeInCRQAndHandleRequest(const std::string_view orderBookName) {
+    auto orderBook = (*orderBookMap_)[{orderBookName.data(), orderBookName.length()}];
     requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
     std::unique_lock<std::mutex> statusLock(requestNodeInCRQ_->statusMutex_);
     requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){

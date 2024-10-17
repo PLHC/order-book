@@ -52,22 +52,18 @@ build cmake_object_order_depends_target_myproto: phony || proto/MarketAccess.grp
 build CMakeFiles/myproto.dir/proto/MarketAccess.pb.cc.o: CXX_COMPILER__myproto_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto/MarketAccess.pb.cc || cmake_object_order_depends_target_myproto
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/myproto.dir/proto/MarketAccess.pb.cc.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/myproto.dir
   OBJECT_FILE_DIR = CMakeFiles/myproto.dir/proto
-  TARGET_COMPILE_PDB = CMakeFiles/myproto.dir/myproto.pdb
-  TARGET_PDB = libmyproto.pdb
 
 build CMakeFiles/myproto.dir/proto/MarketAccess.grpc.pb.cc.o: CXX_COMPILER__myproto_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto/MarketAccess.grpc.pb.cc || cmake_object_order_depends_target_myproto
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/myproto.dir/proto/MarketAccess.grpc.pb.cc.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/myproto.dir
   OBJECT_FILE_DIR = CMakeFiles/myproto.dir/proto
-  TARGET_COMPILE_PDB = CMakeFiles/myproto.dir/myproto.pdb
-  TARGET_PDB = libmyproto.pdb
 
 
 # =============================================================================
@@ -83,9 +79,8 @@ build libmyproto.a: CXX_STATIC_LIBRARY_LINKER__myproto_Release CMakeFiles/myprot
   OBJECT_DIR = CMakeFiles/myproto.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/myproto.dir/myproto.pdb
   TARGET_FILE = libmyproto.a
-  TARGET_PDB = libmyproto.pdb
+  TARGET_PDB = myproto.a.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target trading_platform
@@ -99,92 +94,74 @@ build cmake_object_order_depends_target_trading_platform: phony || cmake_object_
 build CMakeFiles/trading_platform.dir/main.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/main.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/main.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/GeneratorId.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/GeneratorId.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/GeneratorId.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/Market.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Market.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/Market.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/Order.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Order.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/Order.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/OrderBook.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderBook.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/OrderBook.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/OrderLinkedList.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderLinkedList.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/OrderLinkedList.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/CustomerRequestQueue.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/market/CustomerRequestQueue/RequestNode.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/RequestNode.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/market/CustomerRequestQueue/RequestNode.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 build CMakeFiles/trading_platform.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o: CXX_COMPILER__trading_platform_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Service/ServiceAsync.cpp || cmake_object_order_depends_target_trading_platform
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/trading_platform.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   OBJECT_FILE_DIR = CMakeFiles/trading_platform.dir/server_and_client_grpc/Service
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
-  TARGET_PDB = trading_platform.pdb
 
 
 # =============================================================================
@@ -200,9 +177,8 @@ build trading_platform: CXX_EXECUTABLE_LINKER__trading_platform_Release CMakeFil
   OBJECT_DIR = CMakeFiles/trading_platform.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/trading_platform.dir/
   TARGET_FILE = trading_platform
-  TARGET_PDB = trading_platform.pdb
+  TARGET_PDB = trading_platform.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target random_order_generator_client
@@ -216,132 +192,106 @@ build cmake_object_order_depends_target_random_order_generator_client: phony || 
 build CMakeFiles/random_order_generator_client.dir/random_order_generator_client.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/random_order_generator_client.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/random_order_generator_client.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Service/ServiceAsync.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Service
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/GeneratorId.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/GeneratorId.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/GeneratorId.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/Market.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Market.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/Market.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/Order.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Order.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/Order.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/OrderBook.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderBook.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/OrderBook.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/OrderLinkedList.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderLinkedList.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/OrderLinkedList.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/CustomerRequestQueue.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue/RequestNode.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/RequestNode.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue/RequestNode.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/ClientAsync.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/ClientAsync.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/ClientAsync.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/OrderClient.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 build CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp.o: CXX_COMPILER__random_order_generator_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp || cmake_object_order_depends_target_random_order_generator_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   OBJECT_FILE_DIR = CMakeFiles/random_order_generator_client.dir/server_and_client_grpc/Client/RandomizerClient
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
-  TARGET_PDB = random_order_generator_client.pdb
 
 
 # =============================================================================
@@ -357,9 +307,8 @@ build random_order_generator_client: CXX_EXECUTABLE_LINKER__random_order_generat
   OBJECT_DIR = CMakeFiles/random_order_generator_client.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/random_order_generator_client.dir/
   TARGET_FILE = random_order_generator_client
-  TARGET_PDB = random_order_generator_client.pdb
+  TARGET_PDB = random_order_generator_client.dbg
 
 # =============================================================================
 # Object build statements for EXECUTABLE target display_client
@@ -373,112 +322,90 @@ build cmake_object_order_depends_target_display_client: phony || cmake_object_or
 build CMakeFiles/display_client.dir/display_client.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/display_client.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/display_client.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Service/ServiceAsync.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/server_and_client_grpc/Service/ServiceAsync.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/server_and_client_grpc/Service
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/GeneratorId.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/GeneratorId.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/GeneratorId.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/Market.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Market.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/Market.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/Order.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/Order.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/Order.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/OrderBook.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderBook.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/OrderBook.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/OrderLinkedList.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/OrderLinkedList.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/OrderLinkedList.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/CustomerRequestQueue.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/CustomerRequestQueue/CustomerRequestQueue.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/market/CustomerRequestQueue/RequestNode.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/market/CustomerRequestQueue/RequestNode.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/market/CustomerRequestQueue/RequestNode.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/market/CustomerRequestQueue
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/server_and_client_grpc/Client/ClientAsync.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/ClientAsync.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/server_and_client_grpc/Client/ClientAsync.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/server_and_client_grpc/Client
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 build CMakeFiles/display_client.dir/server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp.o: CXX_COMPILER__display_client_unscanned_Release /Users/paul/CLionProjects/OrderBook/order-book/server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp || cmake_object_order_depends_target_display_client
   DEFINES = -DPROTOBUF_USE_DLLS
   DEP_FILE = CMakeFiles/display_client.dir/server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp.o.d
-  FLAGS = -O3 -DNDEBUG -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
+  FLAGS = -O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics
   INCLUDES = -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release -I/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto -isystem /opt/homebrew/opt/openssl@3/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/display_client.dir
   OBJECT_FILE_DIR = CMakeFiles/display_client.dir/server_and_client_grpc/Client/DisplayClient
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
-  TARGET_PDB = display_client.pdb
 
 
 # =============================================================================
@@ -494,9 +421,8 @@ build display_client: CXX_EXECUTABLE_LINKER__display_client_Release CMakeFiles/d
   OBJECT_DIR = CMakeFiles/display_client.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = CMakeFiles/display_client.dir/
   TARGET_FILE = display_client
-  TARGET_PDB = display_client.pdb
+  TARGET_PDB = display_client.dbg
 
 
 #############################################
@@ -573,14 +499,14 @@ build all: phony libmyproto.a trading_platform random_order_generator_client dis
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseArguments.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindZLIB.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Determine-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /Users/paul/CLionProjects/OrderBook/order-book/CMakeLists.txt /opt/homebrew/lib/cmake/absl/abslConfig.cmake /opt/homebrew/lib/cmake/absl/abslConfigVersion.cmake /opt/homebrew/lib/cmake/absl/abslTargets-release.cmake /opt/homebrew/lib/cmake/absl/abslTargets.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config-version.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets-release.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfig.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfigVersion.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets.cmake /opt/homebrew/lib/cmake/grpc/modules/Findc-ares.cmake /opt/homebrew/lib/cmake/grpc/modules/Findre2.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config-version.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-generate.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-options.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets-release.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets.cmake /opt/homebrew/lib/cmake/re2/re2Config.cmake /opt/homebrew/lib/cmake/re2/re2ConfigVersion.cmake /opt/homebrew/lib/cmake/re2/re2Targets-release.cmake /opt/homebrew/lib/cmake/re2/re2Targets.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-config.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets-release.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfig.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.28.6/CMakeCCompiler.cmake CMakeFiles/3.28.6/CMakeCXXCompiler.cmake CMakeFiles/3.28.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseArguments.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindZLIB.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /Users/paul/CLionProjects/OrderBook/order-book/CMakeLists.txt /opt/homebrew/lib/cmake/absl/abslConfig.cmake /opt/homebrew/lib/cmake/absl/abslConfigVersion.cmake /opt/homebrew/lib/cmake/absl/abslTargets-release.cmake /opt/homebrew/lib/cmake/absl/abslTargets.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config-version.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets-release.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfig.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfigVersion.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets.cmake /opt/homebrew/lib/cmake/grpc/modules/Findc-ares.cmake /opt/homebrew/lib/cmake/grpc/modules/Findre2.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config-version.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-generate.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-options.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets-release.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets.cmake /opt/homebrew/lib/cmake/re2/re2Config.cmake /opt/homebrew/lib/cmake/re2/re2ConfigVersion.cmake /opt/homebrew/lib/cmake/re2/re2Targets-release.cmake /opt/homebrew/lib/cmake/re2/re2Targets.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-config.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets-release.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfig.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.28.6/CMakeCCompiler.cmake CMakeFiles/3.28.6/CMakeCXXCompiler.cmake CMakeFiles/3.28.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCCompilerABI.c /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXCompiler.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXCompilerABI.cpp /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCompilerIdDetection.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompileFeatures.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompilerABI.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineCompilerId.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeDetermineSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindBinUtils.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseArguments.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseImplicitIncludeInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseImplicitLinkInfo.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseLibraryArchitecture.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystem.cmake.in /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCXXCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeTestCompilerCommon.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ADSP-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ARMCC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/ARMClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Borland-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Comeau-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Cray-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CrayClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GHS-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/HP-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IAR-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Intel-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/LCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/MSVC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/NVHPC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/OrangeC-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/PGI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/PathScale-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SCO-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/TI-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Tasking-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Watcom-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XL-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/zOS-C-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindZLIB.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/FeatureTesting.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Determine-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /Users/paul/CLionProjects/OrderBook/order-book/CMakeLists.txt /opt/homebrew/lib/cmake/absl/abslConfig.cmake /opt/homebrew/lib/cmake/absl/abslConfigVersion.cmake /opt/homebrew/lib/cmake/absl/abslTargets-release.cmake /opt/homebrew/lib/cmake/absl/abslTargets.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config-version.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets-release.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfig.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfigVersion.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets.cmake /opt/homebrew/lib/cmake/grpc/modules/Findc-ares.cmake /opt/homebrew/lib/cmake/grpc/modules/Findre2.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config-version.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-generate.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-options.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets-release.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets.cmake /opt/homebrew/lib/cmake/re2/re2Config.cmake /opt/homebrew/lib/cmake/re2/re2ConfigVersion.cmake /opt/homebrew/lib/cmake/re2/re2Targets-release.cmake /opt/homebrew/lib/cmake/re2/re2Targets.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-config.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets-release.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfig.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.28.6/CMakeCCompiler.cmake CMakeFiles/3.28.6/CMakeCXXCompiler.cmake CMakeFiles/3.28.6/CMakeSystem.cmake: phony
+build /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCXXInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeCommonLanguageInclude.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeFindDependencyMacro.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeGenericSystem.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeInitializeConfigs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeLanguageInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeParseArguments.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInformation.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CMakeSystemSpecificInitialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckCSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckIncludeFile.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/CheckLibraryExists.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Compiler/GNU.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageHandleStandardArgs.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindPackageMessage.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindThreads.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/FindZLIB.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Internal/CheckSourceCompiles.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-AppleClang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-C.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang-CXX.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Apple-Clang.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin-Initialize.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/Darwin.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/Platform/UnixPaths.cmake /Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.28/Modules/SelectLibraryConfigurations.cmake /Users/paul/CLionProjects/OrderBook/order-book/CMakeLists.txt /opt/homebrew/lib/cmake/absl/abslConfig.cmake /opt/homebrew/lib/cmake/absl/abslConfigVersion.cmake /opt/homebrew/lib/cmake/absl/abslTargets-release.cmake /opt/homebrew/lib/cmake/absl/abslTargets.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config-version.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets-release.cmake /opt/homebrew/lib/cmake/c-ares/c-ares-targets.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfig.cmake /opt/homebrew/lib/cmake/grpc/gRPCConfigVersion.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCPluginTargets.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets-release.cmake /opt/homebrew/lib/cmake/grpc/gRPCTargets.cmake /opt/homebrew/lib/cmake/grpc/modules/Findc-ares.cmake /opt/homebrew/lib/cmake/grpc/modules/Findre2.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config-version.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-config.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-generate.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-options.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets-release.cmake /opt/homebrew/lib/cmake/protobuf/protobuf-targets.cmake /opt/homebrew/lib/cmake/re2/re2Config.cmake /opt/homebrew/lib/cmake/re2/re2ConfigVersion.cmake /opt/homebrew/lib/cmake/re2/re2Targets-release.cmake /opt/homebrew/lib/cmake/re2/re2Targets.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-config.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets-release.cmake /opt/homebrew/lib/cmake/utf8_range/utf8_range-targets.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfig.cmake /opt/homebrew/opt/openssl@3/lib/cmake/OpenSSL/OpenSSLConfigVersion.cmake CMakeCache.txt CMakeFiles/3.28.6/CMakeCCompiler.cmake CMakeFiles/3.28.6/CMakeCXXCompiler.cmake CMakeFiles/3.28.6/CMakeSystem.cmake: phony
 
 
 #############################################
