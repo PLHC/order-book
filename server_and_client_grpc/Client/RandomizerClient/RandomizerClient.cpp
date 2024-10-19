@@ -8,44 +8,13 @@ RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel
                                    const std::vector<std::string>& tradedProducts,
                                    const uint32_t nbOfThreadsInThreadPool)
         : ClientAsync(channel, nbOfThreadsInThreadPool),
-          OrdersMonitoring(),
+          OrdersMonitoring(expectedNbOfOrders),
           userID_(userID),
           spread_(spread),
           expectedNbOfOrdersOnEachSide_(expectedNbOfOrders){
     for(int i = 0; i<priceForecasts.size(); ++i) {
         addTradedProductOrderbook(tradedProducts[i]);
         priceForecastsInCents_[tradedProducts[i]] = priceForecasts[i] * 100;
-    }
-    insertOrdersAtConstruction(expectedNbOfOrdersOnEachSide_, spread_);
-}
-
-void RandomizerClient::insertOrdersAtConstruction(uint32_t nbOfOrders, uint32_t initialSpread){
-    initialSpread = std::max(1u, initialSpread); // minimum initial spread is set to 2
-    std::uniform_real_distribution<double> distributionVolumes(0.10, 20);
-
-    while(nbOfOrders--){
-        for(const auto & tradedProduct : extractListOfTradedProducts()){
-            auto fcast = priceForecastsInCents_[tradedProduct]/100.0;
-            std::uniform_real_distribution<double> distributionBuyPrices(fcast - initialSpread , fcast - 1);
-            std::uniform_real_distribution<double> distributionSellPrices(fcast + 1, fcast + initialSpread);
-            auto buyOrder = std::make_shared<OrderClient>(userID_,
-                                                          0,
-                                                          distributionBuyPrices(mtGen_),
-                                                          distributionVolumes(mtGen_),
-                                                          tradedProduct,
-                                                          BUY,
-                                                          GOOD_TIL_CANCELLED);
-            generateInsertionRequestAsync(buyOrder);
-
-            auto sellOrder = std::make_shared<OrderClient>(userID_,
-                                                           0,
-                                                           distributionSellPrices(mtGen_),
-                                                           distributionVolumes(mtGen_),
-                                                           tradedProduct,
-                                                           SELL,
-                                                           GOOD_TIL_CANCELLED);
-            generateInsertionRequestAsync(sellOrder);
-        }
     }
 }
 
@@ -260,18 +229,18 @@ std::shared_ptr<OrderClient> RandomizerClient::generateRandomOrder(const orderDi
         boType = GOOD_TIL_CANCELLED;
     }
 
-    return std::make_shared<OrderClient>(userID_,
+    return std::make_shared<OrderClient>(direction,
+                                        userID_,
                                         0,
                                         price,
                                         distributionVolumes(mtGen_),
                                         std::move(product),
-                                        direction,
                                         boType);
 }
 
 std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::string &product) {
     auto distribution = std::uniform_int_distribution<uint32_t> (0, 10000);
-    auto randomOrderNumber = distribution(mtGen_);
+    auto randomOrderNumber = distribution(mtGen_) % (2*expectedNbOfOrdersOnEachSide_);
     std::shared_ptr<OrderClient> selectedOrder;
 
     auto orderbook = getterSharedPointerToOrderbook(product);
@@ -279,12 +248,13 @@ std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::stri
     if(!orderbook) return nullptr;
 
     std::unique_lock<std::mutex> orderbookLock(orderbook->internalIdToOrderMapMtx_);
+    if (orderbook->freeIndexes_.size() == 2*expectedNbOfOrdersOnEachSide_) return nullptr;
 
-    randomOrderNumber %= orderbook->getterNbBuyOrders() + orderbook->getterNbSellOrders();
-    for(const auto & [ID, orderPtr] : orderbook->internalIdToOrderMap_){
-        if(!randomOrderNumber--){
-            selectedOrder = orderPtr;
-        }
+    while(orderbook->pointersToOrders_[randomOrderNumber] == nullptr){
+        randomOrderNumber = (randomOrderNumber+1) % (2*expectedNbOfOrdersOnEachSide_);
     }
+
+    selectedOrder = orderbook->pointersToOrders_[randomOrderNumber];
+
     return selectedOrder;
 }

@@ -123,12 +123,12 @@ void RpcServiceAsync::DeleteRequestHandler::handleValidRequest(OrderBook* orderB
 
 void RpcServiceAsync::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
     auto newGeneratedId = orderBook->genId_->nextID();
-    auto newOrder = new Order(requestParameters_.userid(),
+    auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
+                              requestParameters_.userid(),
                               newGeneratedId,
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(),
-                              static_cast<orderDirection>(requestParameters_.buyorsell()),
                               static_cast<orderType>( requestParameters_.botype() ) );
 
     responseParameters_.set_validation(orderBook->insertion(newOrder));
@@ -149,12 +149,12 @@ void RpcServiceAsync::UpdateRequestHandler::handleValidRequest(OrderBook* orderB
     responseParameters_.set_product(orderBook->getterProductID());
 
     auto newGeneratedID = orderBook->genId_->nextID();
-    auto newOrder = new Order(requestParameters_.userid(),
+    auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
+                              requestParameters_.userid(),
                               newGeneratedID,
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(),
-                              static_cast<orderDirection>(requestParameters_.buyorsell()),
                               static_cast<orderType>( requestParameters_.botype() ),
                               requestParameters_.version());
 

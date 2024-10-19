@@ -12,7 +12,13 @@ public:
     std::condition_variable statusConditionVariable_;
     processState status_;
 
-    RequestNode();
+    RequestNode()
+        : prev_(nullptr)
+        , next_(nullptr)
+        , prevMutex_()
+        , statusMutex_()
+        , statusConditionVariable_()
+        , status_(CREATED){}
 };
 
 

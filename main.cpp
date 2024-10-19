@@ -8,7 +8,7 @@
 std::unique_ptr<grpc::Server> server;
 Market* tradingPlatform;
 grpc::ServerCompletionQueue *mainCompletionQueue;
-std::atomic<bool> stopFlag;
+std::atomic<bool> stopFlag = false;
 
 void signalHandler(int signal) {
     if (signal == SIGINT) {
@@ -21,8 +21,7 @@ void signalHandler(int signal) {
 
 int main(int argc, char *argv[]) {
     stopFlag.store(false);
-    GeneratorId genID(0);
-    tradingPlatform = new Market(0);
+    tradingPlatform = new Market();
 
     for (int i = 1; i < argc; ++i) {
         tradingPlatform->createNewOrderBook(argv[i]);

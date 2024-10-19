@@ -12,13 +12,17 @@ class DisplayClient : public ClientAsync{
     std::string userID_;
     std::atomic<bool> stopFlag_;
 
+
+    void printAllOrderbooks();
+    void process();
     void handleResponse(const marketAccess::OrderBookContent* responseParams) override;
+
+    // unused handleResponse override by empty functions
     void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override {};
     void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override {};
     void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {};
 
-    void printAllOrderbooks();
-    void process();
+
 
 public:
     inline void setterStopFlagToTrue() {stopFlag_.store(true);};

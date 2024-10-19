@@ -1,9 +1,8 @@
 #include "OrderLinkedList.h"
 
-OrderLinkedList::OrderLinkedList(orderDirection bidsOrOffers){
-    dummyTail_ = new Order(bidsOrOffers);
-    head_ = dummyTail_;
-}
+OrderLinkedList::OrderLinkedList(orderDirection bidsOrOffers)
+    : dummyTail_(new Order(bidsOrOffers))
+    , head_(dummyTail_){}
 
 OrderLinkedList::~OrderLinkedList(){
     std::cout<<"OrderLinkedList destructor begins"<<std::endl;

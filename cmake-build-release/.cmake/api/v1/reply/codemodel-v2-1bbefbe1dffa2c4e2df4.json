@@ -47,35 +47,35 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "build_all::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-build_all-Release-eda6fefe78a09b148b16.json",
+					"jsonFile" : "target-build_all-Release-9f5c77e8778163f32994.json",
 					"name" : "build_all",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "display_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-display_client-Release-9abac19d81a308e42ffc.json",
+					"jsonFile" : "target-display_client-Release-c5bf0604d89a9b0c2726.json",
 					"name" : "display_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "myproto::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-myproto-Release-a54f8a5fbbbaa1b53e6d.json",
+					"jsonFile" : "target-myproto-Release-38acbe76cb2290defda4.json",
 					"name" : "myproto",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-random_order_generator_client-Release-61dc726d2a86403ea1a6.json",
+					"jsonFile" : "target-random_order_generator_client-Release-aa60a682b892d247901e.json",
 					"name" : "random_order_generator_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "trading_platform::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-trading_platform-Release-823cdd96cf5fbd99dabb.json",
+					"jsonFile" : "target-trading_platform-Release-facd1b3b97163daf93c5.json",
 					"name" : "trading_platform",
 					"projectIndex" : 0
 				}

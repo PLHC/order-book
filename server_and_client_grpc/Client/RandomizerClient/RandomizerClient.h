@@ -23,8 +23,6 @@ public:
     void randomlyInsertOrUpdateOrDelete();
 
 private:
-    void insertOrdersAtConstruction(uint32_t nbOfOrders, uint32_t initialSpread); 
-
     void generateInsertionRequestAsync(std::shared_ptr<OrderClient> & order); 
     void generateUpdateRequestAsync(std::shared_ptr<OrderClient> & order, 
                                     const double newPrice,

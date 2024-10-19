@@ -30,8 +30,11 @@ get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
 protobuf_generate(TARGET myproto LANGUAGE cpp)
 protobuf_generate(TARGET myproto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}")
 
-# Automatically include all .cpp and .h files from the market directory
+# Automatically include all .cpp and .h files from the market directoryw
 file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
+
+# Automatically include all .cpp and .h files from the market directory
+file(GLOB ORDER_FILES "${CMAKE_SOURCE_DIR}/market/order/*")
 
 # Automatically include all .cpp and .h files from the market directory
 file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
@@ -52,8 +55,10 @@ file(GLOB DISPLAY_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Clien
 add_executable(trading_platform
         main.cpp
         ${MARKET_FILES}
+        ${ORDER_FILES}
         ${CRQUEUE_FILES}
         ${SERVICE_FILES}
+        ${ORDER_FILES}
 )
 
 # Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
@@ -67,6 +72,7 @@ add_executable(random_order_generator_client
         random_order_generator_client.cpp
         ${SERVICE_FILES}
         ${MARKET_FILES}
+        ${ORDER_FILES}
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${RANDOM_CLIENT_FILES}
@@ -80,6 +86,7 @@ add_executable(display_client
         display_client.cpp
         ${SERVICE_FILES}
         ${MARKET_FILES}
+        ${ORDER_FILES}
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${DISPLAY_CLIENT_FILES}

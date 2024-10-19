@@ -6,7 +6,7 @@
 #include <grpcpp/alarm.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
 #include "proto/MarketAccess.grpc.pb.h"
-#include "../../market/Order.h"
+#include "../../market/order/Order.h"
 
 #include <thread>
 #include <mutex>

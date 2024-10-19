@@ -1,12 +1,12 @@
 #include "OrderBook.h"
 
-OrderBook::OrderBook(std::string productID, GeneratorId * genID):
+OrderBook::OrderBook(std::string productID):
         productId_(std::move(productID)),
-        genId_(genID),
+        genId_(GeneratorId::getInstance()),
         bids_(BUY),
         offers_(SELL),
         idToPointerMap_(),
-        stopFlag_(false),
+        stopFlagOB_(false),
         requestQueue_(),
         processingThread_(std::thread(&OrderBook::processRequests, this)){}
 
@@ -208,7 +208,7 @@ std::string OrderBook::displayOrderBook(uint32_t nbOfOrdersToDisplay) {
 }
 
 void OrderBook::processRequests(){
-    while(!stopFlag_.load()){
+    while(!stopFlagOB_){
         requestQueue_.runNextRequest();
     }
 }

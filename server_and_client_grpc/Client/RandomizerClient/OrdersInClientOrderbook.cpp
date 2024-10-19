@@ -1,11 +1,12 @@
 #include "OrdersInClientOrderbook.h"
 
 // OrdersMonitoring class
-OrdersMonitoring::OrdersMonitoring()
-        : monitoringMapLock_(),
-          productToOrdersMap_(),
-          rd_(),
-          mtGen_(rd_()){}
+OrdersMonitoring::OrdersMonitoring(uint32_t maxNbOrders)
+        : monitoringMapLock_()
+        , productToOrdersMap_()
+        , rd_()
+        , maxNbOrders_(maxNbOrders)
+        , mtGen_(rd_()){}
 
 OrdersMonitoring::~OrdersMonitoring(){
     std::cout<<"in OrdersMonitoring destructor"<<std::endl;
@@ -89,7 +90,7 @@ void OrdersMonitoring::addTradedProductOrderbook(const std::string &product) {
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
 
     if(productToOrdersMap_.count(product)==0) { // if non existent
-        productToOrdersMap_[product] = std::make_shared<OrdersInOrderbook>();
+        productToOrdersMap_[product] = std::make_shared<OrdersInOrderbook>(maxNbOrders_);
     }
     else{ //reactivate it if already existing
         productToOrdersMap_[product]->activateOrderbook();
@@ -136,6 +137,16 @@ std::shared_ptr<OrdersMonitoring::OrdersInOrderbook> OrdersMonitoring::getterSha
 
 
 // OrdersInOrderBook class
+OrdersMonitoring::OrdersInOrderbook::OrdersInOrderbook(uint32_t maxNbOrders)
+        : nbSellOrders_(0)
+        , nbBuyOrders_(0)
+        , active_(true)
+        , internalIdToOrderMap_(){
+    pointersToOrders_.resize(2 * maxNbOrders);
+    freeIndexes_.resize(2 * maxNbOrders);
+    std::iota(begin(freeIndexes_), end(freeIndexes_), 0);
+}
+
 void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string &internalID,
                                                       const uint64_t boID,
                                                       const double price,
@@ -154,12 +165,11 @@ void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string &interna
     internalIdToOrderMapConditionVariable_.wait(orderbookLock, [](){return true;});
     auto orderIter = internalIdToOrderMap_.find(internalID);
     // check if order exists and if version is older than new one
-    if(orderIter != end(internalIdToOrderMap_) && orderIter->second->getterVersion()<version) {
-//        std::cout<<"updating "<<boID<<std::endl;
-        orderIter->second->updatePrice(price);
-        orderIter->second->updateVolume(volume);
-        orderIter->second->updateBoID(boID);
-        orderIter->second->updateVersion(version);
+    if(orderIter != end(internalIdToOrderMap_) && pointersToOrders_[orderIter->second]->getterVersion()<version) {
+        pointersToOrders_[orderIter->second]->updatePrice(price);
+        pointersToOrders_[orderIter->second]->updateVolume(volume);
+        pointersToOrders_[orderIter->second]->updateBoID(boID);
+        pointersToOrders_[orderIter->second]->updateVersion(version);
     }
 
     orderbookLock.unlock();
@@ -180,7 +190,9 @@ bool OrdersMonitoring::OrdersInOrderbook::insertOrder(std::shared_ptr<OrderClien
     }else{
         nbSellOrders_++;
     }
-    internalIdToOrderMap_[orderToInsert->getterInternalID()] = std::move(orderToInsert);
+    internalIdToOrderMap_[orderToInsert->getterInternalID()] = freeIndexes_.back();
+    pointersToOrders_[freeIndexes_.back()] = std::move(orderToInsert);
+    freeIndexes_.pop_back();
 
     orderbookLock.unlock();
     internalIdToOrderMapConditionVariable_.notify_all();
@@ -197,11 +209,14 @@ void OrdersMonitoring::OrdersInOrderbook::deleteOrder(const std::string &interna
 
     auto orderIter = internalIdToOrderMap_.find(internalID);
     if(orderIter != end(internalIdToOrderMap_)) { // check if order exists
-        if(orderIter->second->getterOrderDirection()==BUY){
+
+        if(pointersToOrders_[orderIter->second]->getterOrderDirection()==BUY){
             nbBuyOrders_--;
         }else{
             nbSellOrders_--;
         }
+        pointersToOrders_[orderIter->second] = nullptr;
+        freeIndexes_.push_back(orderIter->second);
         internalIdToOrderMap_.erase(internalID);
     }
 

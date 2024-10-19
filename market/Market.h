@@ -2,7 +2,6 @@
 #define ORDERBOOK_MARKET_H
 
 #include "OrderBook.h"
-#include "GeneratorId.h"
 #include "proto/MarketAccess.grpc.pb.h"
 #include "proto/MarketAccess.pb.h"
 
@@ -26,15 +25,15 @@ struct StringHash{
 class Market {
 private:
     std::mutex orderbookMapMtx_;
-    GeneratorId genId_;
+    GeneratorId* genId_;
 
 public:
-
     std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> productToOrderBookMap_;
 
-    explicit Market(uint64_t genID);
+    Market(): genId_(GeneratorId::getInstance()), productToOrderBookMap_(){}
     ~Market();
 
+    Market(Market& other) = delete;
     Market(Market&& other) = delete;
     Market& operator=(Market&&) = delete;
 

@@ -2,15 +2,16 @@
 #define ORDERBOOK_ORDERSINCLIENTORDERBOOK_H
 
 #include <iostream>
-
-#include "OrderClient.h"
 #include <unordered_map>
 #include <mutex>
 #include <random>
 
+#include "../../../market/order/OrderClient.h"
+
 
 class OrdersMonitoring{
     std::random_device rd_;
+    uint32_t maxNbOrders_;
 
 protected:
     class OrdersInOrderbook{
@@ -19,11 +20,14 @@ protected:
         std::atomic<bool> active_;
 
     public:
-        std::unordered_map<std::string, std::shared_ptr<OrderClient> > internalIdToOrderMap_;
+        std::unordered_map<std::string, int> internalIdToOrderMap_;
+        std::vector<std::shared_ptr<OrderClient>> pointersToOrders_;
+        std::vector<int> freeIndexes_;
+
         std::mutex internalIdToOrderMapMtx_;
         std::condition_variable internalIdToOrderMapConditionVariable_;
 
-        OrdersInOrderbook(): nbSellOrders_(0), nbBuyOrders_(0), active_(true){} 
+        explicit OrdersInOrderbook(uint32_t maxNbOrders);
 
         bool insertOrder(std::shared_ptr<OrderClient> & orderToInsert); 
         void deleteOrder(const std::string & internalID); 
@@ -33,12 +37,12 @@ protected:
                          const double volume,
                          const uint32_t version);
 
-        [[nodiscard]] inline uint32_t getterNbBuyOrders() const {return nbBuyOrders_;}; 
-        [[nodiscard]] inline uint32_t getterNbSellOrders() const {return nbSellOrders_;}; 
+        [[nodiscard]] uint32_t getterNbBuyOrders() const {return nbBuyOrders_;}; 
+        [[nodiscard]] uint32_t getterNbSellOrders() const {return nbSellOrders_;}; 
 
-        [[nodiscard]] inline bool getterActiveOrNot() const {return active_.load();}; 
-        inline void deactivateOrderbook(){active_.store(false);}; 
-        inline void activateOrderbook(){active_.store(true);}; 
+        [[nodiscard]] bool getterActiveOrNot() const {return active_.load();}; 
+        void deactivateOrderbook(){active_.store(false);}; 
+        void activateOrderbook(){active_.store(true);}; 
     };
 
     std::mt19937 mtGen_;
@@ -46,7 +50,7 @@ protected:
     std::unordered_map<std::string, std::shared_ptr<OrdersInOrderbook>> productToOrdersMap_;
 
 public:
-    OrdersMonitoring(); 
+    explicit OrdersMonitoring(uint32_t maxNbOrders);
     ~OrdersMonitoring(); 
 
     bool insertOrderInLocalMonitoring(std::shared_ptr<OrderClient> & orderToInsert); 

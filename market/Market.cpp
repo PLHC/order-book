@@ -1,10 +1,6 @@
 #include "Market.h"
 
 
-Market::Market(uint64_t genID):
-        genId_(GeneratorId(genID)),
-        productToOrderBookMap_(){}
-
 Market::~Market(){
     std::cout<<"Market destructor begins"<<std::endl;
     for(auto & [product, orderBookPointer] : productToOrderBookMap_){
@@ -18,7 +14,7 @@ void Market::createNewOrderBook(const std::string& product_ID) {
     if(productToOrderBookMap_.count(product_ID)){ // orderbook already exist
         return;
     }
-    auto pointerToOrderBook = new OrderBook(product_ID, &genId_);
+    auto pointerToOrderBook = new OrderBook(product_ID);
     std::unique_lock<std::mutex> mapLock(orderbookMapMtx_);
     productToOrderBookMap_[product_ID] = pointerToOrderBook;
 }

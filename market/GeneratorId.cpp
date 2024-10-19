@@ -1,13 +1,14 @@
 #include "GeneratorId.h"
 
-GeneratorId::GeneratorId(uint64_t lastUsedValue) : lastID_(lastUsedValue){}
+// static variables single initialization
+std::mutex GeneratorId::mtx_;
+GeneratorId* GeneratorId::instance_ = nullptr;
 
 uint64_t GeneratorId::nextID() {
-    uint64_t val;
+    std::unique_lock<std::mutex> genLock (mtx_);
     if(lastID_==std::numeric_limits<uint64_t>::max()){
         throw std::overflow_error("Overflow in generated ID");
     }
-    lastID_++;
-    val = lastID_;
+    auto val = ++lastID_;
     return val;
 };
