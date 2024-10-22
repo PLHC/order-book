@@ -5,12 +5,12 @@
 #include <grpcpp/grpcpp.h>
 #include <grpcpp/alarm.h>
 #include <grpcpp/impl/codegen/sync_stream.h>
-#include "proto/MarketAccess.grpc.pb.h"
-#include "../../market/order/Order.h"
-
 #include <thread>
 #include <mutex>
 #include <string>
+
+#include "proto/MarketAccess.grpc.pb.h"
+#include "../../market/order/Order.h"
 
 
 class ClientAsync {
@@ -84,7 +84,7 @@ protected:
         ~RequestData() override;
 
         void process() override;
-        inline void dispatchResponse(){nestingClient_.handleResponse(responseParams_);};
+        void dispatchResponse(){ nestingClient_.handleResponse(responseParams_); }
     };
 
     // Methods

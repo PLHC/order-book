@@ -147,7 +147,7 @@ OrdersMonitoring::OrdersInOrderbook::OrdersInOrderbook(uint32_t maxNbOrders)
     std::iota(begin(freeIndexes_), end(freeIndexes_), 0);
 }
 
-void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string &internalID,
+void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string & internalID,
                                                       const uint64_t boID,
                                                       const double price,
                                                       const double volume,
@@ -199,7 +199,7 @@ bool OrdersMonitoring::OrdersInOrderbook::insertOrder(std::shared_ptr<OrderClien
     return true;
 }
 
-void OrdersMonitoring::OrdersInOrderbook::deleteOrder(const std::string &internalID) {
+void OrdersMonitoring::OrdersInOrderbook::deleteOrder(const std::string & internalID) {
     if(!getterActiveOrNot()){
         return;
     }

@@ -17,12 +17,12 @@ class DisplayClient : public ClientAsync{
     void handleResponse(const marketAccess::OrderBookContent* responseParams) override;
 
     // unused handleResponse override by empty functions
-    void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override {};
-    void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override {};
-    void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {};
+    void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override {}
+    void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override {}
+    void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {}
 
 public:
-    inline void setterStopFlagToTrue() {stopFlag_.store(true);};
+    void setterStopFlagToTrue() {stopFlag_.store(true);}
     DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                   std::string userID,
                   const std::vector<std::string> & tradedProducts,

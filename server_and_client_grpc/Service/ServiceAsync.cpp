@@ -8,14 +8,18 @@ RpcServiceAsync::RpcServiceAsync(grpc::ServerCompletionQueue *main_cq, Market *m
 
 void RpcServiceAsync::handleRpcs() {
     // Start listening for all RPC types asynchronously
-    new DisplayRequestHandler(&marketAccess::Communication::AsyncService::RequestDisplay,
-                              this, main_cq_, orderBookMap_, stopFlag_);
-    new DeleteRequestHandler(&marketAccess::Communication::AsyncService::RequestDelete,
-                             this, main_cq_, orderBookMap_, stopFlag_);
-    new InsertionRequestHandler(&marketAccess::Communication::AsyncService::RequestInsertion,
-                                this, main_cq_, orderBookMap_, stopFlag_);
-    new UpdateRequestHandler(&marketAccess::Communication::AsyncService::RequestUpdate,
-                             this, main_cq_, orderBookMap_, stopFlag_);
+    (new RequestHandler<marketAccess::DisplayParameters, marketAccess::OrderBookContent>(
+            &marketAccess::Communication::AsyncService::RequestDisplay, this, main_cq_, orderBookMap_, stopFlag_)
+                )->proceed();
+    (new RpcServiceAsync::RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConfirmation>(
+            &marketAccess::Communication::AsyncService::RequestDelete, this, main_cq_, orderBookMap_, stopFlag_)
+                )->proceed();
+    (new RequestHandler<marketAccess::InsertionParameters, marketAccess::InsertionConfirmation>(
+            &marketAccess::Communication::AsyncService::RequestInsertion, this, main_cq_, orderBookMap_, stopFlag_)
+                )->proceed();
+    (new RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>(
+            &marketAccess::Communication::AsyncService::RequestUpdate, this, main_cq_, orderBookMap_, stopFlag_)
+                )->proceed();
     void *tag;
     bool ok;
     while (main_cq_->Next(&tag, &ok)) {
@@ -43,9 +47,7 @@ RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::
           status_(CREATE),
           rpcMethod_(rpcMethod),
           requestNodeInCRQ_(),
-          stopFlag_(stopFlag){
-    proceed();
-}
+          stopFlag_(stopFlag){}
 
 template<typename RequestParametersType, typename ResponseParametersType>
 void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
@@ -107,15 +109,18 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
 }
 
 // Handle valid requests
-void RpcServiceAsync::DisplayRequestHandler::handleValidRequest(OrderBook* orderBook) {
+template<>
+void RpcServiceAsync::RequestHandler<marketAccess::DisplayParameters, marketAccess::OrderBookContent>::
+        handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_orderbook(orderBook->displayOrderBook(requestParameters_.nboforderstodisplay()));
     responseParameters_.set_product(orderBook->getterProductID());
     responseParameters_.set_validation(true);
 }
 
-void RpcServiceAsync::DeleteRequestHandler::handleValidRequest(OrderBook* orderBook) {
-
+template<>
+void RpcServiceAsync::RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConfirmation>::
+        handleValidRequest(OrderBook* orderBook) {
     auto orderPtr = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
     if(orderPtr) { // in case already deleted by a trade, no need to delete
         orderBook->deletion(orderPtr);
@@ -125,7 +130,9 @@ void RpcServiceAsync::DeleteRequestHandler::handleValidRequest(OrderBook* orderB
     responseParameters_.set_product(orderBook->getterProductID());
 }
 
-void RpcServiceAsync::InsertionRequestHandler::handleValidRequest(OrderBook* orderBook) {
+template<>
+void RpcServiceAsync::RequestHandler<marketAccess::InsertionParameters, marketAccess::InsertionConfirmation>::
+        handleValidRequest(OrderBook* orderBook) {
     auto newGeneratedId = orderBook->genId_->nextID();
     auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
                               requestParameters_.userid(),
@@ -148,7 +155,9 @@ void RpcServiceAsync::InsertionRequestHandler::handleValidRequest(OrderBook* ord
     }
 }
 
-void RpcServiceAsync::UpdateRequestHandler::handleValidRequest(OrderBook* orderBook) {
+template<>
+void RpcServiceAsync::RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>::
+        handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
     responseParameters_.set_product(orderBook->getterProductID());
 
@@ -186,19 +195,10 @@ void RpcServiceAsync::UpdateRequestHandler::handleValidRequest(OrderBook* orderB
 }
 
 // Generate new request handlers
-void RpcServiceAsync::DisplayRequestHandler::generateNewRequestHandler() {
-    new DisplayRequestHandler(rpcMethod_, service_, cq_, orderBookMap_, stopFlag_);
-}
-
-void RpcServiceAsync::DeleteRequestHandler::generateNewRequestHandler() {
-    new DeleteRequestHandler(rpcMethod_, service_, cq_, orderBookMap_, stopFlag_);
-}
-
-void RpcServiceAsync::InsertionRequestHandler::generateNewRequestHandler() {
-    new InsertionRequestHandler(rpcMethod_, service_, cq_, orderBookMap_, stopFlag_);
-}
-
-void RpcServiceAsync::UpdateRequestHandler::generateNewRequestHandler() {
-    new UpdateRequestHandler(rpcMethod_, service_, cq_, orderBookMap_, stopFlag_);
+template<typename RequestParametersType, typename ResponseParametersType>
+void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersType>::generateNewRequestHandler() {
+    (new RequestHandler<RequestParametersType, ResponseParametersType>(
+            rpcMethod_, service_, cq_, orderBookMap_, stopFlag_)
+                )->proceed();
 }
 
