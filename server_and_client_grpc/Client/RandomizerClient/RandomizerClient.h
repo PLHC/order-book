@@ -11,18 +11,6 @@ class RandomizerClient : public ClientAsync, public OrdersMonitoring{
     std::string userID_;
     uint32_t expectedNbOfOrdersOnEachSide_;
 
-public:
-    RandomizerClient(const std::shared_ptr<grpc::Channel>& channel, 
-                      const std::string userID,
-                      const uint32_t expectedNbOfOrders,
-                      const uint32_t spread,
-                      const std::vector<int> &priceForecasts,
-                      const std::vector<std::string>& tradedProducts,
-                      const uint32_t nbOfThreadsInThreadPool);
-
-    void randomlyInsertOrUpdateOrDelete();
-
-private:
     void generateInsertionRequestAsync(std::shared_ptr<OrderClient> & order); 
     void generateUpdateRequestAsync(std::shared_ptr<OrderClient> & order, 
                                     const double newPrice,
@@ -38,6 +26,17 @@ private:
 
     std::shared_ptr<OrderClient> generateRandomOrder(const orderDirection direction, std::string product); 
     std::shared_ptr<OrderClient> getterRandomOrder(const std::string &product);
+
+public:
+    RandomizerClient(const std::shared_ptr<grpc::Channel>& channel,
+                     const std::string userID,
+                     const uint32_t expectedNbOfOrders,
+                     const uint32_t spread,
+                     const std::vector<int> &priceForecasts,
+                     const std::vector<std::string>& tradedProducts,
+                     const uint32_t nbOfThreadsInThreadPool);
+
+    void randomlyInsertOrUpdateOrDelete();
 };
 
 #endif //ORDERBOOK_RANDOMIZERCLIENT_H

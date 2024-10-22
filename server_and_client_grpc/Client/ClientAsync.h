@@ -66,7 +66,7 @@ protected:
     class RequestDataBase{
     public:
         virtual ~RequestDataBase() = default;
-        virtual void process() = 0;
+        virtual void process() = 0; // pure virtual
     };
 
     template<typename ResponseParametersType>

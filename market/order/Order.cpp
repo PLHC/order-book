@@ -14,21 +14,21 @@ Order::Order(orderDirection buyOrSell,
         , nextBO_(nullptr) {}
 
 Order::Order(Order* other)
-        : OrderBase(other->buyOrSell_,
-                    other->userID_,
-                    other->boID_,
-                    other->price_,
-                    other->volume_,
-                    other->productID_,
-                    other->boType_,
-                    other->version_),
+        : OrderBase(other->getterOrderDirection(),
+                    other->getterUserID(),
+                    other->getterBoID(),
+                    other->getterPrice(),
+                    other->getterVolume(),
+                    other->getterProductID(),
+                    other->getterOrderType(),
+                    other->getterVersion()),
           prevBO_(nullptr),
           nextBO_(nullptr) {}
 
-bool Order::checkIfOnlyVolumeUpdatedAndDown(Order* newOrder) const{
-    return userID_==newOrder->getterUserID() &&
-           price_==newOrder->getterPrice() &&
-           volume_>=newOrder->getterVolume() &&
-           buyOrSell_==newOrder->getterOrderDirection() &&
-           boType_==newOrder->getterOrderType();
+bool Order::checkIfOnlyVolumeUpdatedAndDownwards(Order* newOrder) const{
+    return getterUserID() == newOrder->getterUserID() &&
+           getterPrice() == newOrder->getterPrice() &&
+           getterVolume() >= newOrder->getterVolume() &&
+           getterOrderDirection() == newOrder->getterOrderDirection() &&
+           getterOrderType() == newOrder->getterOrderType();
 }

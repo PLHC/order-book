@@ -133,7 +133,7 @@ bool OrderBook::update(Order* updatedOrder, Order* &newOrder){
 //        std::cout<<"older version detected, no update done"<<std::endl;
         return false;
     }
-    if(updatedOrder->checkIfOnlyVolumeUpdatedAndDown(newOrder)){
+    if(updatedOrder->checkIfOnlyVolumeUpdatedAndDownwards(newOrder)){
         // updated order does not lose its spot in the orders with same price, as new orders are always push last
         // update database with newOrder and update updatedOrder to say replaced by newOrder
         newOrder->updateNextBO(updatedOrder->getterNextBO());

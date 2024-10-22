@@ -17,16 +17,8 @@ public:
                 orderType boType,
                 std::string internalID = "0");
 
-    [[nodiscard]] std::string getterInternalID() const { return internalID_; };
-
-    void updatePrice(double newPrice) {
-        priceInCents_ = static_cast<int>(newPrice * 100);
-        price_ = priceInCents_/100.0;
-    };
-    void updateBoID(uint64_t newBoID) { boID_ = newBoID; };
-    void updateBuyOrSell(orderDirection newBuyOrSell) { buyOrSell_ = newBuyOrSell; };
-    void updateBoType(orderType newBoType) { boType_ = newBoType; };
-    void updateInternalID(std::string newInternalID) { internalID_ = std::move(newInternalID); };
+    [[nodiscard]] const std::string& getterInternalID() const { return internalID_; };
+    void updateInternalID(std::string newInternalID) { internalID_ = std::move(newInternalID); }
 };
 
 

@@ -19,9 +19,14 @@ void RpcServiceAsync::handleRpcs() {
     void *tag;
     bool ok;
     while (main_cq_->Next(&tag, &ok)) {
-        static_cast<RequestHandlerBase *>(tag)->proceed();
+        static_cast<RequestHandlerBase*>(tag)->proceed();
     }
 }
+
+
+
+
+
 
 // Templated class to handle various request types
 template<typename RequestParametersType, typename ResponseParametersType>
@@ -52,7 +57,6 @@ void RpcServiceAsync::RequestHandler<RequestParametersType, ResponseParametersTy
         if(!stopFlag_->load()) {
             generateNewRequestHandler();
         }
-
         // Inspect metadata to decide on dispatch,
         // corrupted separations of metadata requires resizing based on size
         auto productIter = ctx_.client_metadata().find("product_id");

@@ -12,7 +12,6 @@ class DisplayClient : public ClientAsync{
     std::string userID_;
     std::atomic<bool> stopFlag_;
 
-
     void printAllOrderbooks();
     void process();
     void handleResponse(const marketAccess::OrderBookContent* responseParams) override;
@@ -22,15 +21,13 @@ class DisplayClient : public ClientAsync{
     void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override {};
     void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {};
 
-
-
 public:
     inline void setterStopFlagToTrue() {stopFlag_.store(true);};
     DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                   std::string userID,
                   const std::vector<std::string> & tradedProducts,
-                  const uint32_t nbOfLinesPerProduct,
-                  const uint32_t nbOfThreadsInThreadPool);
+                  uint32_t nbOfLinesPerProduct,
+                  uint32_t nbOfThreadsInThreadPool);
 };
 
 #endif //ORDERBOOK_DISPLAYCLIENT_H

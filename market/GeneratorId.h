@@ -6,7 +6,7 @@
 // Singleton implementation
 class GeneratorId{
     uint64_t lastID_;
-    static std::mutex mtx_;
+    static std::mutex generatorMtx_;
     static GeneratorId* instance_;
 
     explicit GeneratorId(uint64_t lastUsedValue): lastID_(lastUsedValue){}
@@ -16,7 +16,7 @@ public:
     GeneratorId& operator=(const GeneratorId&) = delete;
 
     static GeneratorId* getInstance(){
-        std::unique_lock<std::mutex> genLock(mtx_);
+        std::unique_lock<std::mutex> genLock(generatorMtx_);
         if(!instance_){
             instance_ = new GeneratorId(0);
         }
