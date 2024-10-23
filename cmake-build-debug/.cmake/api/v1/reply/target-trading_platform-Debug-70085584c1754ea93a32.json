@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "display_client"
+			"path" : "trading_platform"
 		}
 	],
 	"backtrace" : 1,
@@ -38,13 +38,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 85,
+				"line" : 55,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 94,
+				"line" : 65,
 				"parent" : 0
 			},
 			{
@@ -427,7 +427,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
+					"fragment" : "-g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -441,11 +441,11 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
 				},
 				{
 					"backtrace" : 67,
@@ -471,17 +471,16 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
+				2,
 				4,
 				6,
 				8,
-				10,
+				11,
 				13,
 				15,
 				17,
-				19,
-				23,
-				27
+				20,
+				22
 			]
 		}
 	],
@@ -492,13 +491,13 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "display_client::@6890427a1f51a3e7e1df",
+	"id" : "trading_platform::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-O3 -DNDEBUG",
+				"fragment" : "-g",
 				"role" : "flags"
 			},
 			{
@@ -1022,8 +1021,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "display_client",
-	"nameOnDisk" : "display_client",
+	"name" : "trading_platform",
+	"nameOnDisk" : "trading_platform",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1036,46 +1035,41 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
+				2,
 				4,
 				6,
 				8,
-				10,
+				11,
 				13,
 				15,
 				17,
-				19,
-				23,
-				27
-			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				2,
-				5,
-				7,
-				9,
-				11,
-				14,
-				16,
-				18,
 				20,
-				21,
-				24,
-				28
+				22
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
+				1,
+				10
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
 				3,
+				5,
+				7,
+				9,
 				12,
-				22,
-				25,
-				26
+				14,
+				16,
+				18,
+				19,
+				21,
+				23
 			]
 		}
 	],
@@ -1084,24 +1078,13 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "display_client.cpp",
+			"path" : "main.cpp",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Service/ServiceAsync.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
-			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
@@ -1112,7 +1095,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/GeneratorId.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1123,7 +1106,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/Market.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1134,7 +1117,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/OrderBook.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1145,12 +1128,12 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/OrderLinkedList.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/order",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
@@ -1161,7 +1144,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/Order.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1172,7 +1155,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/OrderBase.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1183,7 +1166,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/OrderClient.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1194,49 +1177,34 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue/RequestNode.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/.DS_Store",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/ClientAsync.cpp",
+			"path" : "server_and_client_grpc/Service/RequestHandler.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/ClientAsync.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/DisplayClient",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient",
+			"path" : "server_and_client_grpc/Service/RequestHandler.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp",
+			"path" : "server_and_client_grpc/Service/ServiceAsync.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.h",
-			"sourceGroupIndex" : 1
+			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
+			"sourceGroupIndex" : 2
 		}
 	],
 	"type" : "EXECUTABLE"
