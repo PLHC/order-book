@@ -112,8 +112,10 @@ void RequestHandler<RequestParametersType, ResponseParametersType>::handleProduc
 template<>
 void RequestHandler<marketAccess::DisplayParameters, marketAccess::OrderBookContent>::
 handleValidRequest(OrderBook* orderBook) {
-    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_info( std::move( std::to_string( requestParameters_.info() ) ) );
+    // displayOrderBook returns a rvalue because the compiler optimizes it using RVO (Return Value Optimization)
     responseParameters_.set_orderbook(orderBook->displayOrderBook(requestParameters_.nboforderstodisplay()));
+    // productID is returned as a ref and copied in set_product
     responseParameters_.set_product(orderBook->getterProductID());
     responseParameters_.set_validation(true);
 }
@@ -125,9 +127,9 @@ handleValidRequest(OrderBook* orderBook) {
     if(orderPtr) { // in case already deleted by a trade, no need to delete
         orderBook->deletion(orderPtr);
     }
-    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_info( std::move( std::to_string( requestParameters_.info() ) ) );
     responseParameters_.set_validation(true);
-    responseParameters_.set_product(orderBook->getterProductID());
+    responseParameters_.set_product(orderBook->getterProductID()); // productID is returned as a ref and copied in set_product
 }
 
 template<>
@@ -139,11 +141,11 @@ handleValidRequest(OrderBook* orderBook) {
                               newGeneratedId,
                               requestParameters_.price(),
                               requestParameters_.volume(),
-                              orderBook->getterProductID(),
+                              orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
                               static_cast<orderType>( requestParameters_.botype() ) );
 
     responseParameters_.set_validation(orderBook->insertion(newOrder));
-    responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    responseParameters_.set_info( std::move( std::to_string( requestParameters_.info() ) ) );
     responseParameters_.set_boid(newGeneratedId);
     responseParameters_.set_price(newOrder->getterPrice());
     responseParameters_.set_volume(newOrder->getterVolume());
@@ -159,15 +161,15 @@ template<>
 void RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>::
 handleValidRequest(OrderBook* orderBook) {
     responseParameters_.set_info(std::to_string(requestParameters_.info()));
+    // productID is returned as a ref and copied in set_product
     responseParameters_.set_product(orderBook->getterProductID());
 
-    auto newGeneratedID = orderBook->genId_->nextID();
     auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
-                              requestParameters_.userid(),
-                              newGeneratedID,
+                              requestParameters_.userid(), // cannot be moved because type is const string &
+                              orderBook->genId_->nextID(),
                               requestParameters_.price(),
                               requestParameters_.volume(),
-                              orderBook->getterProductID(),
+                              orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
                               static_cast<orderType>( requestParameters_.botype() ),
                               requestParameters_.version());
 

@@ -6,15 +6,15 @@
 #include <string>
 
 class DisplayClient : public ClientAsync{
-    std::unordered_map<std::string, std::string> tradedProductsToOrderbookContentMap_; // product / orderbook content
+    std::unordered_map<std::string, std::string*> tradedProductsToOrderbookContentMap_; // product / orderbook content
     std::mutex mapMtx_;
-    uint32_t nbOfLinesPerProduct_;
-    std::string userID_;
+    const uint32_t nbOfLinesPerProduct_;
+    const std::string userID_;
     std::atomic<bool> stopFlag_;
 
     void printAllOrderbooks();
     void process();
-    void handleResponse(const marketAccess::OrderBookContent* responseParams) override;
+    void handleResponse(marketAccess::OrderBookContent *responseParams) override;
 
     // unused handleResponse override by empty functions
     void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override {}
@@ -28,6 +28,8 @@ public:
                   const std::vector<std::string> & tradedProducts,
                   uint32_t nbOfLinesPerProduct,
                   uint32_t nbOfThreadsInThreadPool);
+
+    ~DisplayClient();
 };
 
 #endif //ORDERBOOK_DISPLAYCLIENT_H

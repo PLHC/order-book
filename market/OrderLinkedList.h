@@ -3,6 +3,9 @@
 
 #include "order/Order.h"
 
+// move constructor and assignment deleted by creation of user-defined destructor
+
+// copy constructor and assignment deleted as not used and as they required copying dynamically allocated Orders
 class OrderLinkedList {
 private:
     Order* dummyTail_;
@@ -12,13 +15,12 @@ public:
     explicit OrderLinkedList(orderDirection bidsOrOffers);
     ~OrderLinkedList();
 
-    OrderLinkedList(OrderLinkedList& other) = delete;
-    OrderLinkedList(OrderLinkedList&& other) = delete;
-    OrderLinkedList& operator=(const OrderLinkedList&& other) = delete;
+    OrderLinkedList(const OrderLinkedList& other) = delete;
+    OrderLinkedList& operator=(const OrderLinkedList& other) = delete;
 
-    [[nodiscard]] Order* getterTail() const {return dummyTail_->getterNextBO();};
-    [[nodiscard]] Order* getterHead() const {return head_;};
-    void updateHead(Order* newHead) {head_ = newHead;};
+    [[nodiscard]] Order* getterTail() const { return dummyTail_->getterNextBO(); };
+    [[nodiscard]] Order* getterHead() const { return head_; };
+    void updateHead(Order* newHead) { head_ = newHead; };
 };
 
 

@@ -93,7 +93,7 @@ protected:
     void AsyncCompleteRpc();
     // Methods to override to the needs of the client class
     // need to be 4 functions instead of using a template because templated functions cannot be virtual
-    virtual void handleResponse(const marketAccess::OrderBookContent* responseParams);
+    virtual void handleResponse(marketAccess::OrderBookContent *responseParams); // non const for DisplayClient
     virtual void handleResponse(const marketAccess::InsertionConfirmation* responseParams) = 0;
     virtual void handleResponse(const marketAccess::UpdateConfirmation* responseParams) = 0;
     virtual void handleResponse(const marketAccess::DeletionConfirmation* responseParams) = 0;

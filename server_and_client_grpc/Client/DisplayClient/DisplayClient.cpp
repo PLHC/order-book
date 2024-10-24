@@ -11,23 +11,32 @@ DisplayClient::DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
       nbOfLinesPerProduct_(nbOfLinesPerProduct),
       mapMtx_(){
     for(const auto & tradedProduct : tradedProducts){
-        tradedProductsToOrderbookContentMap_[tradedProduct] = {};
+        tradedProductsToOrderbookContentMap_[tradedProduct] = nullptr;
     }
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     process();
+}
+
+DisplayClient::~DisplayClient() {
+    std::unique_lock mapLock(mapMtx_);
+    for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
+        delete orderbookContent;
+    }
 }
 
 void DisplayClient::printAllOrderbooks() {
     std::unique_lock mapLock(mapMtx_);
     system("clear");
     for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
-        std::cout<<"Product: "<<product<<std::endl;
-        std::cout<<orderbookContent;
+        if(orderbookContent) {
+            std::cout << "Product: " << product << std::endl;
+            std::cout << *orderbookContent;
+        }
     }
 }
 
 void DisplayClient::process() {
-    while(!stopFlag_.load()) {
+    while( !stopFlag_.load() ) {
         std::unique_lock mapLock(mapMtx_);
         for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
             auto p = product;
@@ -38,12 +47,17 @@ void DisplayClient::process() {
     }
 }
 
-void DisplayClient::handleResponse(const marketAccess::OrderBookContent *responseParams){
-    if(!(responseParams->validation())) {
+void DisplayClient::handleResponse(marketAccess::OrderBookContent *responseParams){
+    if( !( responseParams->validation() ) ) {
         return;
     }
     std::unique_lock mapLock(mapMtx_);
-    tradedProductsToOrderbookContentMap_[responseParams->product()] = responseParams->orderbook();
+    delete tradedProductsToOrderbookContentMap_[responseParams->product()];
+    // release_orderbook assigns the string to a new pointer and returns that pointer
+    // and an empty string is built in orderbook in responseParams
+    // the new owner is the hash map
+    tradedProductsToOrderbookContentMap_[responseParams->product()] = responseParams->release_orderbook();
+
     mapLock.unlock();
 
     printAllOrderbooks();

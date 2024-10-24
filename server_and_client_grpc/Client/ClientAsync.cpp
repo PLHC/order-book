@@ -205,7 +205,7 @@ void ClientAsync::generateDeleteRequestAsync(std::string&& orderBookName,
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
-void ClientAsync::handleResponse(const marketAccess::OrderBookContent* responseParams) {
+void ClientAsync::handleResponse(marketAccess::OrderBookContent *responseParams) {
     if (responseParams->validation()) {
         std::cout << "Orderbook: " << std::endl << responseParams->orderbook();
     }else {

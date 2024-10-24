@@ -204,7 +204,7 @@ std::string OrderBook::displayOrderBook(uint32_t nbOfOrdersToDisplay) {
         }
     }
     oss<<std::endl;
-    return oss.str();
+    return std::move(oss).str(); // move the content of stream in the returned string
 }
 
 void OrderBook::processRequests(){

@@ -30,14 +30,11 @@ public:
     Market(): genId_(GeneratorId::getInstance()), productToOrderBookMap_(){}
     ~Market();
 
-    Market(Market& other) = delete;
-    Market(Market&& other) = delete;
-    Market& operator=(Market&&) = delete;
+    Market(const Market& other) = delete;
+    Market& operator=(const Market&) = delete;
 
     void createNewOrderBook(const std::string& product_ID);
     void deleteOrderBook(const std::string& product_ID);
-
-    inline OrderBook* getterOrderBookPointer(const std::string& productID) {return productToOrderBookMap_[productID];};
 };
 
 #endif //ORDERBOOK_MARKET_H

@@ -38,21 +38,20 @@ public:
     explicit OrderBook(std::string productID);
     ~OrderBook();
 
-    OrderBook(OrderBook& other) = delete;
-    OrderBook(OrderBook&& other) = delete;
-    OrderBook& operator=(const OrderBook&& other) = delete;
+    OrderBook(const OrderBook& other) = delete;
+    OrderBook& operator=(OrderBook& other) = delete;
 
+    // reference to pointer so the original pointer can be updated, instead of passing it by value
     bool insertion(Order* &newOrder);
     bool update(Order* updatedOrder, Order* &newOrder);
     void deletion(Order* deletedOrder);
     std::string displayOrderBook(uint32_t nbOfOrdersToDisplay);
 
     [[nodiscard]] Order* getterPointerToOrderFromID(uint64_t boID);
-    [[nodiscard]] std::string getterProductID() { return productId_; };
-    void setterStopFlagToTrue() { stopFlagOB_ = true;};
+    [[nodiscard]] const std::string& getterProductID() { return productId_; }
+    void setterStopFlagToTrue() { stopFlagOB_ = true; }
 
     void processRequests();
 };
-
 
 #endif //ORDERBOOK_ORDERBOOK_H

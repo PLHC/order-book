@@ -10,8 +10,10 @@ public:
 
     CustomerRequestQueue();
 
+    CustomerRequestQueue(const CustomerRequestQueue& other) = delete;
+    CustomerRequestQueue& operator=(const CustomerRequestQueue& other) = delete;
     CustomerRequestQueue(CustomerRequestQueue&& other) = delete;
-    CustomerRequestQueue& operator=(const CustomerRequestQueue&& other) = delete;
+    CustomerRequestQueue& operator=(CustomerRequestQueue&& other) = delete;
 
     RequestNode* insertNode();
     void runNextRequest();
