@@ -10,6 +10,14 @@
 enum orderType { FILL_OR_KILL, GOOD_TIL_CANCELLED };
 enum orderDirection { BUY, SELL };
 
+// destructor set virtual to enable destruction of a derived class from a base pointer
+// => move constructor and move assignment deleted, resulting in fallback to their copy respective functions
+
+// copy assignment deleted automatically because userID_ and productID_ are const
+// copy constructor set private (and copy asisgnment deleted) to prevent problem of slicing
+// C++ Move Semantics - The complete guide - p.76)
+
+
 class OrderBase{
     const std::string userID_;
     uint32_t boID_;
@@ -21,6 +29,8 @@ class OrderBase{
     orderDirection buyOrSell_;
     orderType boType_;
     uint32_t version_;
+
+    OrderBase(const OrderBase& other) = default;
 
 public:
     explicit OrderBase(orderDirection buyOrSell,
@@ -34,8 +44,8 @@ public:
 
     virtual ~OrderBase() = default ;
 
-    OrderBase(OrderBase&& other) = delete;
-    OrderBase& operator=(const OrderBase&& other) = delete;
+//    OrderBase(OrderBase&& other) = delete;
+//    OrderBase& operator=(const OrderBase&& other) = delete;
 
     [[nodiscard]] const std::string& getterUserID() const {return userID_;}
     [[nodiscard]] uint64_t getterBoID() const {return boID_;}

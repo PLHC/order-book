@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "display_client"
+			"path" : "random_order_generator_client"
 		}
 	],
 	"backtrace" : 1,
@@ -38,13 +38,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 85,
+				"line" : 71,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 94,
+				"line" : 80,
 				"parent" : 0
 			},
 			{
@@ -494,7 +494,7 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "display_client::@6890427a1f51a3e7e1df",
+	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -1024,8 +1024,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "display_client",
-	"nameOnDisk" : "display_client",
+	"name" : "random_order_generator_client",
+	"nameOnDisk" : "random_order_generator_client",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1090,7 +1090,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "display_client.cpp",
+			"path" : "random_order_generator_client.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1247,23 +1247,23 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RequestData.cpp",
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RequestData.h",
+			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp",
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.h",
+			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
 			"sourceGroupIndex" : 1
 		}
 	],

@@ -10,14 +10,11 @@
 
 
 struct StringHash{
-    using is_transparent = void; // this indicates to the STL containers the hash function can handle multiple key types.
+    using is_transparent = void; // ability to handle heterogeneous key types
     size_t operator()(const std::string & str) const {
         return std::hash<std::string>{}(str);
     }
     size_t operator()(const std::string_view str) const {
-        return std::hash<std::string_view>{}(str);
-    }
-    size_t operator()(const char* str) const {
         return std::hash<std::string_view>{}(str);
     }
 };

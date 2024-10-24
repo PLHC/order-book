@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "random_order_generator_client"
+			"path" : "display_client"
 		}
 	],
 	"backtrace" : 1,
@@ -38,13 +38,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 71,
+				"line" : 85,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 80,
+				"line" : 94,
 				"parent" : 0
 			},
 			{
@@ -427,7 +427,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
+					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -441,11 +441,11 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
 				},
 				{
 					"backtrace" : 67,
@@ -482,9 +482,7 @@
 				19,
 				21,
 				25,
-				29,
-				31,
-				33
+				29
 			]
 		}
 	],
@@ -495,13 +493,13 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
+	"id" : "display_client::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{
@@ -1025,8 +1023,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "random_order_generator_client",
-	"nameOnDisk" : "random_order_generator_client",
+	"name" : "display_client",
+	"nameOnDisk" : "display_client",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1050,9 +1048,7 @@
 				19,
 				21,
 				25,
-				29,
-				31,
-				33
+				29
 			]
 		},
 		{
@@ -1071,9 +1067,7 @@
 				22,
 				23,
 				26,
-				30,
-				32,
-				34
+				30
 			]
 		},
 		{
@@ -1093,7 +1087,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "random_order_generator_client.cpp",
+			"path" : "display_client.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -1250,34 +1244,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RequestData.cpp",
+			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RequestData.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
+			"path" : "server_and_client_grpc/Client/DisplayClient/DisplayClient.h",
 			"sourceGroupIndex" : 1
 		}
 	],

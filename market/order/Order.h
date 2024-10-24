@@ -3,6 +3,9 @@
 
 #include "OrderBase.h"
 
+// Destructor is still default and virtual from OrderBase
+// As move constructor and assignment are deleted from OrderBase, they are by default deleted in Order
+
 class Order : public OrderBase{
     Order *prevBO_;
     Order *nextBO_;
@@ -19,13 +22,10 @@ public:
 
     explicit Order(Order* other);
 
-    Order(Order&& other) = delete;
-    Order& operator=(const Order&& other) = delete;
-
     [[nodiscard]] Order* getterPrevBO() const {return prevBO_;}
     [[nodiscard]] Order* getterNextBO() const {return nextBO_;}
-    void updatePrevBO(Order* newBO) { prevBO_=newBO;}
-    void updateNextBO(Order* newBO) { nextBO_=newBO;}
+    void updatePrevBO(Order* newBO) { prevBO_=newBO; }
+    void updateNextBO(Order* newBO) { nextBO_=newBO; }
 
     [[nodiscard]] bool checkIfOnlyVolumeUpdatedAndDownwards(Order* newOrder) const;
 };
