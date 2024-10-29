@@ -21,7 +21,7 @@ enum orderExecution { FULL_EXECUTION, PARTIAL_EXECUTION, NO_EXECUTION };
 
 class OrderBook {
 private:
-    std::string productId_;
+    const std::string productId_;
     OrderLinkedList bids_;
     OrderLinkedList offers_;
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
@@ -35,7 +35,7 @@ public:
     GeneratorId* genId_;
     CustomerRequestQueue requestQueue_;
 
-    explicit OrderBook(std::string productID);
+    explicit OrderBook(std::string_view productID);
     ~OrderBook();
 
     OrderBook(const OrderBook& other) = delete;

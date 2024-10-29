@@ -110,14 +110,16 @@ void OrdersMonitoring::removeTradedProductOrderbook(const std::string &product) 
 
 std::vector<std::string> OrdersMonitoring::extractListOfTradedProducts() {
     std::vector<std::string> productsList;
+
     std::unique_lock<std::mutex> mapsLock (monitoringMapLock_);
 
+    productsList.reserve(productToOrdersMap_.size());
     for(const auto & [product, orders]: productToOrdersMap_){
         productsList.push_back(product);
     }
 
     mapsLock.unlock();
-    return productsList;
+    return productsList; // compiler should optimize the return by value
 }
 
 std::shared_ptr<OrdersMonitoring::OrdersInOrderbook> OrdersMonitoring::getterSharedPointerToOrderbook(
@@ -156,7 +158,7 @@ void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string & intern
         return;
     }
 
-    if(!volume){
+    if(volume==0){
         deleteOrder(internalID);
         return;
     }
@@ -166,9 +168,9 @@ void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string & intern
     auto orderIter = internalIdToOrderMap_.find(internalID);
     // check if order exists and if version is older than new one
     if(orderIter != end(internalIdToOrderMap_) && pointersToOrders_[orderIter->second]->getterVersion()<version) {
-        pointersToOrders_[orderIter->second]->updatePrice(price);
-        pointersToOrders_[orderIter->second]->updateVolume(volume);
-        pointersToOrders_[orderIter->second]->updateBoID(boID);
+        pointersToOrders_[orderIter->second]->updatePrice(  price);
+        pointersToOrders_[orderIter->second]->updateVolume( volume);
+        pointersToOrders_[orderIter->second]->updateBoID(   boID);
         pointersToOrders_[orderIter->second]->updateVersion(version);
     }
 

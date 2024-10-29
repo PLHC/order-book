@@ -66,7 +66,7 @@ public:
     void addTradedProductOrderbook(const std::string & product); 
     void removeTradedProductOrderbook(const std::string & product); 
 
-    [[nodiscard]] std::vector<std::string> extractListOfTradedProducts(); 
+    [[nodiscard]] std::vector<std::string> extractListOfTradedProducts();
     [[nodiscard]] std::shared_ptr<OrdersInOrderbook> getterSharedPointerToOrderbook(const std::string &product); 
     [[nodiscard]] std::pair<uint32_t, uint32_t> getterBuyAndSellNbOrders(const std::string & product);
 };

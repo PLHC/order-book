@@ -19,7 +19,7 @@ public:
                 orderType boType,
                 std::string internalID = "0");
 
-    [[nodiscard]] const std::string& getterInternalID() const { return internalID_; };
+    [[nodiscard]] const std::string& getterInternalID() const { return internalID_; }
     void updateInternalID(std::string newInternalID) { internalID_ = std::move(newInternalID); }
 };
 

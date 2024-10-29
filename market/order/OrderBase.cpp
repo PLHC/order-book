@@ -14,7 +14,8 @@ OrderBase::OrderBase(orderDirection buyOrSell,
         , productID_(std::move(productID))
         , buyOrSell_(buyOrSell)
         , boType_(boType)
-        , version_(version){
+        , version_(version)
+{
     if(volume<0){
         throw std::out_of_range("Order is being initialized with a negative volume value");
     }

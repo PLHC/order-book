@@ -5,11 +5,12 @@ DisplayClient::DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                              const std::vector<std::string> & tradedProducts,
                              const uint32_t nbOfLinesPerProduct,
                              const uint32_t nbOfThreadsInThreadPool)
-    : ClientAsync(channel, nbOfThreadsInThreadPool),
-      userID_(std::move(userID)),
-      stopFlag_(false),
-      nbOfLinesPerProduct_(nbOfLinesPerProduct),
-      mapMtx_(){
+    : ClientAsync(channel, nbOfThreadsInThreadPool)
+    , userID_(std::move(userID))
+    , stopFlag_(false)
+    , nbOfLinesPerProduct_(nbOfLinesPerProduct)
+    , mapMtx_()
+{
     for(const auto & tradedProduct : tradedProducts){
         tradedProductsToOrderbookContentMap_[tradedProduct] = nullptr;
     }
@@ -29,14 +30,14 @@ void DisplayClient::printAllOrderbooks() {
     system("clear");
     for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
         if(orderbookContent) {
-            std::cout << "Product: " << product << std::endl;
+            std::cout << "Product: " << product << "\n";
             std::cout << *orderbookContent;
         }
     }
 }
 
 void DisplayClient::process() {
-    while( !stopFlag_.load() ) {
+    while( !stopFlag_.load()) {
         std::unique_lock mapLock(mapMtx_);
         for(const auto & [product, orderbookContent]: tradedProductsToOrderbookContentMap_){
             auto p = product;
@@ -48,12 +49,12 @@ void DisplayClient::process() {
 }
 
 void DisplayClient::handleResponse(marketAccess::OrderBookContent *responseParams){
-    if( !( responseParams->validation() ) ) {
+    if( !( responseParams->validation())) {
         return;
     }
     std::unique_lock mapLock(mapMtx_);
     delete tradedProductsToOrderbookContentMap_[responseParams->product()];
-    // release_orderbook assigns the string to a new pointer and returns that pointer
+    // release_orderbook() assigns the string to a new pointer and returns that pointer
     // and an empty string is built in orderbook in responseParams
     // the new owner is the hash map
     tradedProductsToOrderbookContentMap_[responseParams->product()] = responseParams->release_orderbook();

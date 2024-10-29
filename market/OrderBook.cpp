@@ -1,14 +1,14 @@
 #include "OrderBook.h"
 
-OrderBook::OrderBook(std::string productID):
-        productId_(std::move(productID)),
-        genId_(GeneratorId::getInstance()),
-        bids_(BUY),
-        offers_(SELL),
-        idToPointerMap_(),
-        stopFlagOB_(false),
-        requestQueue_(),
-        processingThread_(std::thread(&OrderBook::processRequests, this)){}
+OrderBook::OrderBook(std::string_view productID)
+        : productId_(productID)
+        , genId_(GeneratorId::getInstance())
+        , bids_(BUY)
+        , offers_(SELL)
+        , idToPointerMap_()
+        , stopFlagOB_(false)
+        , requestQueue_()
+        , processingThread_(std::thread(&OrderBook::processRequests, this)){}
 
 OrderBook::~OrderBook() {
     std::cout<<"OB destructor begins"<<std::endl;
