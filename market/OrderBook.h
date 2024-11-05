@@ -6,6 +6,8 @@
 #include "OrderLinkedList.h"
 #include "CustomerRequestQueue/CustomerRequestQueue.h"
 #include "GeneratorId.h"
+#include "../lock_free_queue/LockFreeQueue.h"
+#include "../server_and_client_zero_mq/Message/Message.h"
 
 #include <atomic>
 #include <unordered_map>
@@ -17,7 +19,9 @@
 #include <vector>
 
 
+
 enum orderExecution { FULL_EXECUTION, PARTIAL_EXECUTION, NO_EXECUTION };
+enum communicate {COMMUNICATED, NON_COMMUNICATED};
 
 class OrderBook {
 private:
@@ -27,6 +31,7 @@ private:
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
     bool stopFlagOB_;
     std::thread processingThread_;
+    LockFreeQueue<Message*>* messageQueue_;
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* & executingOrder);
@@ -35,16 +40,16 @@ public:
     GeneratorId* genId_;
     CustomerRequestQueue requestQueue_;
 
-    explicit OrderBook(std::string_view productID);
+    OrderBook(std::string_view productID, LockFreeQueue<Message*>* messageQueuePtr);
     ~OrderBook();
 
     OrderBook(const OrderBook& other) = delete;
     OrderBook& operator=(OrderBook& other) = delete;
 
-    // reference to pointer so the original pointer can be updated, instead of passing it by value
-    bool insertion(Order* &newOrder);
+
+    bool insertion(Order* &newOrder, communicate communicated); // reference to pointer so the original pointer can be updated, instead of passing it by value
     bool update(Order* updatedOrder, Order* &newOrder);
-    void deletion(Order* deletedOrder);
+    void deletion(Order* deletedOrder, communicate communicated);
     std::string displayOrderBook(uint32_t nbOfOrdersToDisplay);
 
     [[nodiscard]] Order* getterPointerToOrderFromID(uint64_t boID);

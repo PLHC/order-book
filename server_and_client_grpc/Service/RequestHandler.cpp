@@ -124,7 +124,7 @@ void RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConf
 handleValidRequest(OrderBook* orderBook) {
     auto orderPtr = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
     if(orderPtr) { // in case already deleted by a trade, no need to delete
-        orderBook->deletion(orderPtr);
+        orderBook->deletion(orderPtr, COMMUNICATED);
     }
     responseParameters_.set_info( std::move(std::to_string( requestParameters_.info() ) ) );
     responseParameters_.set_validation(     true);
@@ -143,7 +143,7 @@ handleValidRequest(OrderBook* orderBook) {
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
                               static_cast<orderType>( requestParameters_.botype() ) );
 
-    responseParameters_.set_validation( orderBook->insertion(newOrder));
+    responseParameters_.set_validation( orderBook->insertion(newOrder, COMMUNICATED));
     responseParameters_.set_info(       std::move( std::to_string( requestParameters_.info())));
     responseParameters_.set_boid(       newGeneratedId);
     responseParameters_.set_price(      newOrder->getterPrice());

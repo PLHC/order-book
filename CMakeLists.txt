@@ -3,8 +3,17 @@ project(OrderBook)
 
 set(CMAKE_CXX_STANDARD 20 "${CMAKE_CXX_FLAGS} -pedantic-errors -Wall ")
 
+################ Zero MQ
+set(ZeroMQ_INCLUDE_DIR "/opt/homebrew/include")
+set(ZeroMQ_LIBRARY "/opt/homebrew/lib/libzmq.dylib")
+include_directories(${ZeroMQ_INCLUDE_DIR})
+
+
+################ openSSL
 find_package(OpenSSL REQUIRED HINTS /opt/homebrew/opt/openssl@3)
 include_directories(${OPENSSL_INCLUDE_DIR})
+
+################ gRPC
 find_package(protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
@@ -30,20 +39,32 @@ get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
 protobuf_generate(TARGET myproto LANGUAGE cpp)
 protobuf_generate(TARGET myproto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}")
 
+
+
+################ code
 # Automatically include all .cpp and .h files from the market directoryw
 file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
 
 # Automatically include all .cpp and .h files from the market directory
 file(GLOB ORDER_FILES "${CMAKE_SOURCE_DIR}/market/order/*")
 
-# Automatically include all .cpp and .h files from the market directory
+# Automatically include all .cpp and .h files from the CRQ directory
 file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
+
+# Zero MQ files
+file(GLOB ZERO_MQ_FILES "${CMAKE_SOURCE_DIR}/server_and_client_zero_mq/*")
+
+# Message files
+file(GLOB MESSAGE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_zero_mq/Message/*")
 
 # service definition files
 file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Service/*")
 
 # client  files
 file(GLOB CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/*")
+
+# client  files
+file(GLOB LFQ_FILES "${CMAKE_SOURCE_DIR}/lock_free_queue/*")
 
 # random client files
 file(GLOB RANDOM_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/RandomizerClient/*")
@@ -59,11 +80,12 @@ add_executable(trading_platform
         ${CRQUEUE_FILES}
         ${SERVICE_FILES}
         ${ORDER_FILES}
+        ${LFQ_FILES}
+        ${MESSAGE_FILES}
 )
 
 # Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
 target_link_libraries(trading_platform
-        PUBLIC
         myproto
 )
 
@@ -76,6 +98,8 @@ add_executable(random_order_generator_client
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${RANDOM_CLIENT_FILES}
+        ${LFQ_FILES}
+        ${MESSAGE_FILES}
 )
 target_link_libraries(random_order_generator_client
         myproto
@@ -90,10 +114,24 @@ add_executable(display_client
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${DISPLAY_CLIENT_FILES}
+        ${LFQ_FILES}
+        ${MESSAGE_FILES}
 )
 target_link_libraries(display_client
         myproto
 )
+
+# Add executable and link libraries
+#add_executable(mq_test
+#        ${ZERO_MQ_FILES}
+#        ${LFQ_FILES}
+#        ${MESSAGE_FILES}
+#)
+
+# Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
+#target_link_libraries(mq_test
+#        ${ZeroMQ_LIBRARY}
+#)
 
 add_custom_target(build_all
         DEPENDS trading_platform random_order_generator_client display_client

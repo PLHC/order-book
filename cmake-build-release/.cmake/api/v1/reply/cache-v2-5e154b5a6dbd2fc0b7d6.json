@@ -2,6 +2,18 @@
 	"entries" : 
 	[
 		{
+			"name" : "0MQ_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for 0MQ."
+				}
+			],
+			"type" : "PATH",
+			"value" : "0MQ_DIR-NOTFOUND"
+		},
+		{
 			"name" : "CMAKE_ADDR2LINE",
 			"properties" : 
 			[
@@ -1163,7 +1175,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake][v1.33.1()]"
+			"value" : "[/opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake][v1.34.2()]"
 		},
 		{
 			"name" : "OpenSSL_DIR",
@@ -1272,6 +1284,30 @@
 			],
 			"type" : "FILEPATH",
 			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/lib/libz.tbd"
+		},
+		{
+			"name" : "ZMQ_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for ZMQ."
+				}
+			],
+			"type" : "PATH",
+			"value" : "ZMQ_DIR-NOTFOUND"
+		},
+		{
+			"name" : "ZeroMQ_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for ZeroMQ."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book"
 		},
 		{
 			"name" : "absl_DIR",

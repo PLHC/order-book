@@ -16,7 +16,7 @@ void Market::createNewOrderBook(const std::string& product_ID) {
         return;
     }
     mapLock.unlock();
-    auto pointerToOrderBook = new OrderBook(product_ID);
+    auto pointerToOrderBook = new OrderBook(product_ID, &messageQueue_);
 
     mapLock.lock();
     productToOrderBookMap_[product_ID] = pointerToOrderBook;

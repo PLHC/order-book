@@ -23,11 +23,12 @@ class Market {
 private:
     std::mutex orderbookMapMtx_;
     GeneratorId* genId_;
+    LockFreeQueue<Message*> messageQueue_;
 
 public:
     std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> productToOrderBookMap_;
 
-    Market(): genId_(GeneratorId::getInstance()), productToOrderBookMap_(){}
+    Market(): genId_(GeneratorId::getInstance()), productToOrderBookMap_(), messageQueue_(){}
     ~Market();
 
     Market(const Market& other) = delete;
