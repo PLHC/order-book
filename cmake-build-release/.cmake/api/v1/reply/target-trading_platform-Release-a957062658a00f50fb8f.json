@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "random_order_generator_client"
+			"path" : "trading_platform"
 		}
 	],
 	"backtrace" : 1,
@@ -38,25 +38,25 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 93,
+				"line" : 53,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 104,
+				"line" : 65,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 25,
+				"line" : 21,
 				"parent" : 0
 			},
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 17,
+				"line" : 13,
 				"parent" : 0
 			},
 			{
@@ -108,7 +108,7 @@
 			{
 				"command" : 4,
 				"file" : 0,
-				"line" : 18,
+				"line" : 14,
 				"parent" : 0
 			},
 			{
@@ -148,42 +148,6 @@
 				"file" : 5,
 				"line" : 133,
 				"parent" : 17
-			},
-			{
-				"command" : 4,
-				"file" : 6,
-				"line" : 14,
-				"parent" : 15
-			},
-			{
-				"file" : 9,
-				"parent" : 22
-			},
-			{
-				"command" : 4,
-				"file" : 9,
-				"line" : 18,
-				"parent" : 23
-			},
-			{
-				"file" : 8,
-				"parent" : 24
-			},
-			{
-				"command" : 3,
-				"file" : 8,
-				"line" : 23,
-				"parent" : 25
-			},
-			{
-				"file" : 7,
-				"parent" : 26
-			},
-			{
-				"command" : 2,
-				"file" : 7,
-				"line" : 61,
-				"parent" : 27
 			},
 			{
 				"command" : 2,
@@ -414,15 +378,45 @@
 				"parent" : 9
 			},
 			{
-				"command" : 5,
-				"file" : 0,
-				"line" : 9,
-				"parent" : 0
+				"command" : 4,
+				"file" : 6,
+				"line" : 14,
+				"parent" : 15
+			},
+			{
+				"file" : 9,
+				"parent" : 60
+			},
+			{
+				"command" : 4,
+				"file" : 9,
+				"line" : 18,
+				"parent" : 61
+			},
+			{
+				"file" : 8,
+				"parent" : 62
+			},
+			{
+				"command" : 3,
+				"file" : 8,
+				"line" : 23,
+				"parent" : 63
+			},
+			{
+				"file" : 7,
+				"parent" : 64
+			},
+			{
+				"command" : 2,
+				"file" : 7,
+				"line" : 61,
+				"parent" : 65
 			},
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 14,
+				"line" : 12,
 				"parent" : 0
 			}
 		]
@@ -433,7 +427,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
+					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -447,21 +441,36 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
 				},
 				{
 					"backtrace" : 67,
 					"isSystem" : true,
+					"path" : "/opt/homebrew/opt/openssl@3/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
 					"path" : "/opt/homebrew/include"
 				},
 				{
-					"backtrace" : 68,
+					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "/opt/homebrew/opt/openssl@3/include"
+					"path" : "/opt/homebrew/include/mongocxx/v_noabi"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/opt/homebrew/include/bsoncxx/v_noabi/bsoncxx/third_party/mnmlstc"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/opt/homebrew/include/bsoncxx/v_noabi"
 				}
 			],
 			"language" : "CXX",
@@ -472,26 +481,22 @@
 					2,
 					2
 				],
-				"standard" : "20; -pedantic-errors -Wall "
+				"standard" : "20; -pedantic-error -Walls  "
 			},
 			"sourceIndexes" : 
 			[
 				0,
-				1,
 				3,
-				6,
-				8,
-				10,
+				5,
+				7,
+				9,
 				12,
-				15,
-				17,
-				19,
+				14,
+				16,
+				18,
 				21,
-				25,
-				29,
-				31,
-				33,
-				35
+				23,
+				25
 			]
 		}
 	],
@@ -502,13 +507,13 @@
 			"id" : "myproto::@6890427a1f51a3e7e1df"
 		}
 	],
-	"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
+	"id" : "trading_platform::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-O3 -DNDEBUG",
 				"role" : "flags"
 			},
 			{
@@ -522,6 +527,16 @@
 			{
 				"backtrace" : 2,
 				"fragment" : "libmyproto.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/opt/homebrew/lib/libmongocxx.3.10.2.dylib",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "/opt/homebrew/lib/libbsoncxx.3.10.2.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -606,7 +621,7 @@
 			},
 			{
 				"backtrace" : 18,
-				"fragment" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/lib/libz.tbd",
+				"fragment" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd",
 				"role" : "libraries"
 			},
 			{
@@ -615,57 +630,52 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 28,
-				"fragment" : "-lresolv",
-				"role" : "libraries"
-			},
-			{
 				"backtrace" : 18,
 				"fragment" : "/opt/homebrew/lib/libgpr.44.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 29,
+				"backtrace" : 22,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 29,
+				"backtrace" : 22,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_reflection.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 30,
+				"backtrace" : 23,
 				"fragment" : "/opt/homebrew/lib/libabsl_raw_hash_set.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 31,
+				"backtrace" : 24,
 				"fragment" : "/opt/homebrew/lib/libabsl_hashtablez_sampler.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 29,
+				"backtrace" : 22,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_config.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 32,
+				"backtrace" : 25,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_program_name.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 33,
+				"backtrace" : 26,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_private_handle_accessor.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 29,
+				"backtrace" : 22,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_commandlineflag.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 34,
+				"backtrace" : 27,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_commandlineflag_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -675,47 +685,47 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 35,
+				"backtrace" : 28,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_seed_sequences.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 35,
+				"backtrace" : 28,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_pool_urbg.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 36,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 37,
+				"backtrace" : 30,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_hwaes.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 38,
+				"backtrace" : 31,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_hwaes_impl.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 37,
+				"backtrace" : 30,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_randen_slow.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 37,
+				"backtrace" : 30,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_platform.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 39,
+				"backtrace" : 32,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_internal_seed_material.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 36,
+				"backtrace" : 29,
 				"fragment" : "/opt/homebrew/lib/libabsl_random_seed_gen_exception.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -730,52 +740,52 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_info.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_cord_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_functions.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 41,
+				"backtrace" : 34,
 				"fragment" : "/opt/homebrew/lib/libabsl_exponential_biased.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 42,
+				"backtrace" : 35,
 				"fragment" : "/opt/homebrew/lib/libabsl_cordz_handle.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_cord_state.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 40,
+				"backtrace" : 33,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc32c.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 43,
+				"backtrace" : 36,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 43,
+				"backtrace" : 36,
 				"fragment" : "/opt/homebrew/lib/libabsl_crc_cpu_detect.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 44,
+				"backtrace" : 37,
 				"fragment" : "/opt/homebrew/lib/libabsl_flags_marshalling.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -785,57 +795,52 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 18,
-				"fragment" : "-framework CoreFoundation",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 45,
+				"backtrace" : 38,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_check_op.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 45,
+				"backtrace" : 38,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_conditions.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 45,
+				"backtrace" : 38,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_message.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 39,
 				"fragment" : "/opt/homebrew/lib/libabsl_strerror.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 47,
+				"backtrace" : 40,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_nullguard.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_examine_stack.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_format.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 49,
+				"backtrace" : 42,
 				"fragment" : "/opt/homebrew/lib/libabsl_str_format_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_proto.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_log_sink_set.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -850,42 +855,42 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 50,
+				"backtrace" : 43,
 				"fragment" : "/opt/homebrew/lib/libabsl_bad_variant_access.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 51,
+				"backtrace" : 44,
 				"fragment" : "/opt/homebrew/lib/libabsl_city.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 51,
+				"backtrace" : 44,
 				"fragment" : "/opt/homebrew/lib/libabsl_low_level_hash.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 52,
+				"backtrace" : 45,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_globals.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_sink.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 48,
+				"backtrace" : 41,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_entry.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 53,
+				"backtrace" : 46,
 				"fragment" : "/opt/homebrew/lib/libabsl_vlog_config_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 54,
+				"backtrace" : 47,
 				"fragment" : "/opt/homebrew/lib/libabsl_bad_optional_access.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -900,42 +905,42 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 46,
+				"backtrace" : 39,
 				"fragment" : "/opt/homebrew/lib/libabsl_symbolize.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 55,
+				"backtrace" : 48,
 				"fragment" : "/opt/homebrew/lib/libabsl_debugging_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 56,
+				"backtrace" : 49,
 				"fragment" : "/opt/homebrew/lib/libabsl_demangle_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 57,
+				"backtrace" : 50,
 				"fragment" : "/opt/homebrew/lib/libabsl_demangle_rust.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 58,
+				"backtrace" : 51,
 				"fragment" : "/opt/homebrew/lib/libabsl_decode_rust_punycode.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 59,
+				"backtrace" : 52,
 				"fragment" : "/opt/homebrew/lib/libabsl_utf8_for_code_point.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 60,
+				"backtrace" : 53,
 				"fragment" : "/opt/homebrew/lib/libabsl_graphcycles_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 60,
+				"backtrace" : 53,
 				"fragment" : "/opt/homebrew/lib/libabsl_kernel_timeout_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -945,27 +950,27 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 61,
+				"backtrace" : 54,
 				"fragment" : "/opt/homebrew/lib/libabsl_civil_time.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 61,
+				"backtrace" : 54,
 				"fragment" : "/opt/homebrew/lib/libabsl_time_zone.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 62,
+				"backtrace" : 55,
 				"fragment" : "-Wl,-framework,CoreFoundation",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 60,
+				"backtrace" : 53,
 				"fragment" : "/opt/homebrew/lib/libabsl_malloc_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 63,
+				"backtrace" : 56,
 				"fragment" : "/opt/homebrew/lib/libabsl_log_internal_fnmatch.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -975,17 +980,17 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 51,
+				"backtrace" : 44,
 				"fragment" : "/opt/homebrew/lib/libabsl_int128.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 64,
+				"backtrace" : 57,
 				"fragment" : "/opt/homebrew/lib/libabsl_strings_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 64,
+				"backtrace" : 57,
 				"fragment" : "/opt/homebrew/lib/libabsl_string_view.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -995,17 +1000,17 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 65,
+				"backtrace" : 58,
 				"fragment" : "/opt/homebrew/lib/libabsl_spinlock_wait.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 66,
+				"backtrace" : 59,
 				"fragment" : "/opt/homebrew/lib/libabsl_throw_delegate.2407.0.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 65,
+				"backtrace" : 58,
 				"fragment" : "/opt/homebrew/lib/libabsl_raw_logging_internal.2407.0.0.dylib",
 				"role" : "libraries"
 			},
@@ -1028,12 +1033,22 @@
 				"backtrace" : 3,
 				"fragment" : "/opt/homebrew/opt/openssl@3/lib/libcrypto.dylib",
 				"role" : "libraries"
+			},
+			{
+				"backtrace" : 18,
+				"fragment" : "-framework CoreFoundation",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 66,
+				"fragment" : "-lresolv",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "random_order_generator_client",
-	"nameOnDisk" : "random_order_generator_client",
+	"name" : "trading_platform",
+	"nameOnDisk" : "trading_platform",
 	"paths" : 
 	{
 		"build" : ".",
@@ -1046,54 +1061,45 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
 				3,
-				6,
-				8,
-				10,
-				12,
-				15,
-				17,
-				19,
-				21,
-				25,
-				29,
-				31,
-				33,
-				35
-			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				2,
-				4,
+				5,
 				7,
 				9,
-				11,
-				13,
+				12,
+				14,
 				16,
 				18,
-				20,
-				22,
+				21,
 				23,
-				26,
-				30,
-				32,
-				34,
-				36
+				25
 			]
 		},
 		{
 			"name" : "",
 			"sourceIndexes" : 
 			[
-				5,
-				14,
+				1,
+				2,
+				11
+			]
+		},
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				4,
+				6,
+				8,
+				10,
+				13,
+				15,
+				17,
+				19,
+				20,
+				22,
 				24,
-				27,
-				28
+				26,
+				27
 			]
 		}
 	],
@@ -1102,35 +1108,18 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "random_order_generator_client.cpp",
+			"path" : "main.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Service/RequestHandler.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Service/RequestHandler.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Service/ServiceAsync.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
+			"path" : "market/.idea",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
@@ -1141,7 +1130,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/GeneratorId.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1152,7 +1141,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/Market.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1163,7 +1152,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/OrderBook.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1174,12 +1163,12 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/OrderLinkedList.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/order",
-			"sourceGroupIndex" : 2
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
@@ -1190,7 +1179,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/Order.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1201,7 +1190,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/OrderBase.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1212,7 +1201,7 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/order/OrderClient.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
@@ -1223,82 +1212,50 @@
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue/CustomerRequestQueue.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"path" : "market/CustomerRequestQueue/RequestNode.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/.DS_Store",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/ClientAsync.cpp",
+			"path" : "server_and_client_grpc/Service/RequestHandler.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/ClientAsync.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/DisplayClient",
-			"sourceGroupIndex" : 2
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient",
+			"path" : "server_and_client_grpc/Service/RequestHandler.h",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.cpp",
+			"path" : "server_and_client_grpc/Service/ServiceAsync.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/OrdersInClientOrderbook.h",
-			"sourceGroupIndex" : 1
+			"path" : "server_and_client_grpc/Service/ServiceAsync.h",
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.cpp",
+			"path" : "database/DatabaseInterface.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "lock_free_queue/LockFreeQueue.cpp",
-			"sourceGroupIndex" : 0
+			"path" : "database/DatabaseInterface.h",
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 1,
 			"path" : "lock_free_queue/LockFreeQueue.h",
-			"sourceGroupIndex" : 1
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "server_and_client_zero_mq/Message/Message.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "server_and_client_zero_mq/Message/Message.h",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		}
 	],
 	"type" : "EXECUTABLE"

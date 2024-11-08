@@ -16,7 +16,7 @@
 class ClientAsync {
     // ClientAsync internal request ID
     std::mutex internalIdLock_;
-    std::uint64_t clientInternalId_;
+    int64_t clientInternalId_;
     // Thread for processing the completion queue
     std::thread cq_thread_;
     // Flag to indicate if the client is shutting down
@@ -88,7 +88,7 @@ protected:
     };
 
     // Methods
-    [[nodiscard]] u_int64_t nextInternalID();
+    [[nodiscard]] int64_t nextInternalID();
     // Method to process the completion queue for finished RPC calls
     void AsyncCompleteRpc();
     // Methods to override to the needs of the client class

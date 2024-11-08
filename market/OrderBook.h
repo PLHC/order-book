@@ -6,8 +6,7 @@
 #include "OrderLinkedList.h"
 #include "CustomerRequestQueue/CustomerRequestQueue.h"
 #include "GeneratorId.h"
-#include "../lock_free_queue/LockFreeQueue.h"
-#include "../server_and_client_zero_mq/Message/Message.h"
+#include "../database/DatabaseInterface.h"
 
 #include <atomic>
 #include <unordered_map>
@@ -31,7 +30,7 @@ private:
     std::unordered_map<uint64_t, Order*> idToPointerMap_;
     bool stopFlagOB_;
     std::thread processingThread_;
-    LockFreeQueue<Message*>* messageQueue_;
+    DatabaseInterface* db_;
 
     orderExecution checkExecution(Order* orderToBeChecked);
     void performExecution(Order* & executingOrder);
@@ -40,7 +39,7 @@ public:
     GeneratorId* genId_;
     CustomerRequestQueue requestQueue_;
 
-    OrderBook(std::string_view productID, LockFreeQueue<Message*>* messageQueuePtr);
+    OrderBook(std::string_view productID);
     ~OrderBook();
 
     OrderBook(const OrderBook& other) = delete;

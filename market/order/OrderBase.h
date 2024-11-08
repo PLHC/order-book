@@ -14,13 +14,13 @@ enum orderDirection { BUY, SELL };
 // => move constructor and move assignment deleted, resulting in fallback to their copy respective functions
 
 // copy assignment deleted automatically because userID_ and productID_ are const
-// copy constructor set private (and copy asisgnment deleted) to prevent problem of slicing
+// copy constructor set private (and copy assignment deleted) to prevent problem of slicing
 // C++ Move Semantics - The complete guide - p.76)
 
 
 class OrderBase{
     const std::string userID_;
-    uint32_t boID_;
+    int64_t boID_;
     double price_;
     double volume_;
     int32_t priceInCents_;
@@ -28,19 +28,19 @@ class OrderBase{
     const std::string productID_;
     orderDirection buyOrSell_;
     orderType boType_;
-    uint32_t version_;
+    int32_t version_;
 
     OrderBase(const OrderBase& other) = default;
 
 public:
     explicit OrderBase(orderDirection buyOrSell,
                        std::string userID = "undefined",
-                       uint64_t boID = 0,
+                       int64_t boID = 0,
                        double price = 0,
                        double volume = 0,
                        std::string productID = "undefined",
                        orderType boType = GOOD_TIL_CANCELLED,
-                       uint32_t version = 1);
+                       int32_t version = 1);
 
     virtual ~OrderBase() = default ;
 
@@ -48,7 +48,7 @@ public:
 //    OrderBase& operator=(const OrderBase&& other) = delete;
 
     [[nodiscard]] const std::string& getterUserID() const {return userID_;}
-    [[nodiscard]] uint64_t getterBoID() const {return boID_;}
+    [[nodiscard]] int64_t getterBoID() const {return boID_;}
     [[nodiscard]] double getterPrice() const {return price_;}
     [[nodiscard]] double getterVolume() const {return volume_;}
     [[nodiscard]] int32_t getterPriceInCents() const {return priceInCents_;}
@@ -56,17 +56,17 @@ public:
     [[nodiscard]] orderDirection getterOrderDirection() const {return buyOrSell_;}
     [[nodiscard]] orderType getterOrderType() const {return boType_;}
     [[nodiscard]] const std::string& getterProductID() const {return productID_;}
-    [[nodiscard]] uint32_t getterVersion() const {return version_;}
+    [[nodiscard]] int32_t getterVersion() const {return version_;}
 
     [[nodiscard]] bool checkIfItHasAnOlderVersionThan(OrderBase* other) const {return other->getterVersion() >= version_;}
 
     void updatePrice(double newPrice);
-    void updateBoID(const uint64_t newBoID) { boID_ = newBoID; }
+    void updateBoID(const int64_t newBoID) { boID_ = newBoID; }
     void updateBuyOrSell(const orderDirection newBuyOrSell) { buyOrSell_ = newBuyOrSell; }
     void updateBoType(const orderType newBoType) { boType_ = newBoType; };
-    void updateVolume(double newVolume);
-    void updateVersion(const uint32_t newVersion) {version_ = newVersion;}
-    uint32_t incrementAndReturnVersion();
+    void updateVolume(const double newVolume);
+    void updateVersion(const int32_t newVersion) {version_ = newVersion;}
+    int32_t incrementAndReturnVersion();
 };
 
 #endif //ORDERBOOK_ORDERBASE_H

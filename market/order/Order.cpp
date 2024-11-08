@@ -3,12 +3,12 @@
 
 Order::Order(orderDirection buyOrSell,
              std::string userID,
-             uint64_t boID,
+             int64_t boID,
              double price,
              double volume,
              std::string productID,
              orderType boType,
-             uint32_t version)
+             int32_t version)
         : OrderBase(buyOrSell, std::move(userID), boID, price, volume, std::move(productID), boType, version)
         , prevBO_(nullptr)
         , nextBO_(nullptr) {}

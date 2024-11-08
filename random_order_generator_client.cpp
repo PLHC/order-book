@@ -31,23 +31,25 @@ int main(int argc, char** argv) {
         priceForecasts.push_back(std::stoi(argv[i+1]));
     }
 
+    constexpr uint32_t nbOfOrdersOnEachSIde {500};
+    constexpr uint32_t spread {9};
+    constexpr uint32_t nbOfThreadsInThreadPool {3}; // 2 threads enough for sending 3 random requests every 1ms
+
     RandomizerClient randomClient(grpc::CreateChannel("localhost:50051",
                                                       grpc::InsecureChannelCredentials() ),
                                   argv[1],
-                                  500,
-                                  9,
+                                  nbOfOrdersOnEachSIde,
+                                  spread,
                                   priceForecasts,
                                   tradedProducts,
-                                  3); // 2 threads enough for sending 3 random requests every 1ms
+                                  nbOfThreadsInThreadPool); // 2 threads enough for sending 3 random requests every 1ms
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     while(!stopFlag.load()) {
         // followed by a sleep_for of 1ms, randomlyInsertOrUpdateOrDelete on 3 OBs was clocked between 100 and 700us
         randomClient.randomlyInsertOrUpdateOrDelete();
-        std::this_thread::sleep_for(std::chrono::microseconds (1000));
+        std::this_thread::sleep_for(std::chrono::microseconds (100));
     }
-
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
     std::cout<<" client is done "<<std::endl;

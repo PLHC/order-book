@@ -25,7 +25,7 @@ void RandomizerClient::generateInsertionRequestAsync(std::shared_ptr<OrderClient
 
     //Create request
     marketAccess::InsertionParameters request;
-    request.set_info(std::stoi( order->getterInternalID() ) );
+    request.set_info(std::stoll( order->getterInternalID() ) );
     request.set_userid(order->getterUserID());
     request.set_price(order->getterPrice());
     request.set_volume(order->getterVolume());

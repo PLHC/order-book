@@ -3,12 +3,12 @@
 
 OrderBase::OrderBase(orderDirection buyOrSell,
                      std::string userID,
-                     uint64_t boID,
+                     int64_t boID,
                      double price,
                      double volume,
                      std::string productID,
                      orderType boType,
-                     uint32_t version)
+                     int32_t version)
         : userID_(std::move(userID))
         , boID_(boID)
         , productID_(std::move(productID))
@@ -25,8 +25,8 @@ OrderBase::OrderBase(orderDirection buyOrSell,
     volume_ = volumeInHundredths_/100.0;
 }
 
-uint32_t OrderBase::incrementAndReturnVersion() {
-    if(version_==std::numeric_limits<uint32_t>::max()){
+int32_t OrderBase::incrementAndReturnVersion() {
+    if(version_==std::numeric_limits<int32_t>::max()){
         throw std::overflow_error("Overflow in order version");
     }
     return ++version_;

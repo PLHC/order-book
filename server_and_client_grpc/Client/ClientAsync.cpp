@@ -62,10 +62,10 @@ ClientAsync::~ClientAsync() {
     }
 }
 
-u_int64_t ClientAsync::nextInternalID() {
+int64_t ClientAsync::nextInternalID() {
     std::unique_lock<std::mutex> genLock (internalIdLock_);
 
-    if(clientInternalId_==std::numeric_limits<uint64_t>::max()){
+    if(clientInternalId_==std::numeric_limits<int64_t>::max()){
         throw std::overflow_error("Client internal ID overflow");
     }
     auto newID = ++clientInternalId_;

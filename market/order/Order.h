@@ -13,12 +13,12 @@ class Order : public OrderBase{
 public:
     explicit Order(orderDirection buyOrSell,
                   std::string userID = "undefined",
-                  uint64_t boID = 0,
+                  int64_t boID = 0,
                   double price = 0,
                   double volume = 0,
                   std::string productID = "undefined",
                   orderType boType = GOOD_TIL_CANCELLED,
-                  uint32_t version = 1);
+                  int32_t version = 1);
 
     explicit Order(Order* other);
 

@@ -6,7 +6,7 @@
 			[
 				{
 					"build" : ".",
-					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
 					"minimumCMakeVersion" : 
 					{
 						"string" : "3.28"
@@ -23,7 +23,7 @@
 					]
 				}
 			],
-			"name" : "Release",
+			"name" : "Debug",
 			"projects" : 
 			[
 				{
@@ -47,35 +47,35 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "build_all::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-build_all-Release-c72447b1d4a53fe1defa.json",
+					"jsonFile" : "target-build_all-Debug-71d895f9eeba7a0916d0.json",
 					"name" : "build_all",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "display_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-display_client-Release-1e2a532f576f2765a191.json",
+					"jsonFile" : "target-display_client-Debug-c2b58c76b8bdd2e24cdb.json",
 					"name" : "display_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "myproto::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-myproto-Release-3fdfc8fd59d093033c9d.json",
+					"jsonFile" : "target-myproto-Debug-69110eeda150de7fe4d0.json",
 					"name" : "myproto",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "random_order_generator_client::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-random_order_generator_client-Release-1169939073d0ee6a3cf8.json",
+					"jsonFile" : "target-random_order_generator_client-Debug-1c95e987ca3667b4cfc1.json",
 					"name" : "random_order_generator_client",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "trading_platform::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-trading_platform-Release-de74c43761e2c8fdbc9c.json",
+					"jsonFile" : "target-trading_platform-Debug-8b904859a255fd0f186e.json",
 					"name" : "trading_platform",
 					"projectIndex" : 0
 				}
@@ -85,7 +85,7 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release",
+		"build" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug",
 		"source" : "/Users/paul/CLionProjects/OrderBook/order-book"
 	},
 	"version" : 

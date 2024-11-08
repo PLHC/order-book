@@ -1,9 +1,6 @@
 #include "OrderBook.h"
 
-template LockFreeQueue<Message*>::LockFreeQueue();
-template void LockFreeQueue<Message*>::push(Message* const &data);
-
-OrderBook::OrderBook(std::string_view productID, LockFreeQueue<Message*>* messageQueuePtr)
+OrderBook::OrderBook(std::string_view productID)
         : productId_(productID)
         , genId_(GeneratorId::getInstance())
         , bids_(BUY)
@@ -11,8 +8,8 @@ OrderBook::OrderBook(std::string_view productID, LockFreeQueue<Message*>* messag
         , idToPointerMap_()
         , stopFlagOB_(false)
         , requestQueue_()
-        , messageQueue_ (messageQueuePtr)
-        , processingThread_(std::thread(&OrderBook::processRequests, this)){}
+        , db_( DatabaseInterface::getterDatabase() )
+        , processingThread_( std::thread( &OrderBook::processRequests, this)){}
 
 OrderBook::~OrderBook() {
     std::cout<<"OB destructor begins"<<std::endl;
@@ -31,6 +28,8 @@ OrderBook::~OrderBook() {
     if(processingThread_.joinable()){
         processingThread_.join();
     }
+
+    delete db_;
     std::cout<<"OB destructor ends"<<std::endl;
 }
 
@@ -61,10 +60,9 @@ void OrderBook::deletion(Order* deletedOrder, communicate communicated) {
 
     idToPointerMap_.erase(deletedOrder->getterBoID());
     if(communicated == COMMUNICATED){
-        messageQueue_->push(new DeletionMessage(deletedOrder->getterBoID()));
+        db_->pushNewDbInputOnQueue(DELETION, *deletedOrder);
     }
     delete deletedOrder;
-    // update database about deleted order
 }
 
 bool OrderBook::insertion(Order* &newOrder, communicate communicated){
@@ -97,13 +95,8 @@ bool OrderBook::insertion(Order* &newOrder, communicate communicated){
     }
     idToPointerMap_[newOrder->getterBoID()] = newOrder;
     if(communicated == COMMUNICATED) {
-        messageQueue_->push(new InsertionMessage(newOrder->getterBoID(),
-                                                 newOrder->getterVolume(),
-                                                 newOrder->getterPrice(),
-                                                 newOrder->getterVersion()
-        ));
+        db_->pushNewDbInputOnQueue(INSERTION, *newOrder);
     }
-    //record order in database
     if(execution != NO_EXECUTION) performExecution(newOrder);
     return true;
 }
@@ -114,50 +107,39 @@ void OrderBook::performExecution(Order* & executingOrder) {
     Order* nextOrder;
     auto volumeInHundredths = executingOrder->getterVolumeInHundredth();
     auto priceInCents = executingOrder->getterPriceInCents();
+    int32_t executedPriceInCents = 0;
+    uint32_t executedVolumeInHundredth = 0;
 
     while(orderToBeUpdated && volumeInHundredths > 0 && (executingOrder->getterOrderDirection() == BUY ?
                 orderToBeUpdated->getterPriceInCents() <= priceInCents :
                 orderToBeUpdated->getterPriceInCents() >= priceInCents)){
         nextOrder = orderToBeUpdated->getterNextBO();
         if(volumeInHundredths >= orderToBeUpdated->getterVolumeInHundredth()) {
-            volumeInHundredths -= orderToBeUpdated->getterVolumeInHundredth();
-            //orderToBeUpdated: record changes in memory
+            executedVolumeInHundredth = orderToBeUpdated->getterVolumeInHundredth();
+            volumeInHundredths -= executedVolumeInHundredth;
+            executedPriceInCents = orderToBeUpdated->getterPriceInCents();
+
             orderToBeUpdated->incrementAndReturnVersion();
-            messageQueue_->push(new ExecutionMessage(orderToBeUpdated->getterBoID(),
-                                                    orderToBeUpdated->getterVolume(),
-                                                    0,
-                                                    orderToBeUpdated->getterPrice(),
-                                                    orderToBeUpdated->getterVersion()
-                                                    ));
             orderToBeUpdated->updateVolume(0);
+            db_->pushNewDbInputOnQueue(EXECUTION, *orderToBeUpdated, executedVolumeInHundredth, executedPriceInCents);
+
             deletion(orderToBeUpdated, NON_COMMUNICATED);
         }
         else{
-            auto volumeOrderToBeUpdatedBeforeExecution = orderToBeUpdated->getterVolume();
             orderToBeUpdated->updateVolume(
                     (orderToBeUpdated->getterVolumeInHundredth() - volumeInHundredths)/100.0);
+            executedVolumeInHundredth = volumeInHundredths;
             volumeInHundredths=0;
-            //record in database changes done on orderToBeUpdated
+
             orderToBeUpdated->incrementAndReturnVersion();
-            messageQueue_->push(new ExecutionMessage(orderToBeUpdated->getterBoID(),
-                                                     volumeOrderToBeUpdatedBeforeExecution,
-                                                     orderToBeUpdated->getterVolume(),
-                                                     orderToBeUpdated->getterPrice(),
-                                                     orderToBeUpdated->getterVersion()
-                                                    ));
-
-
+            executedPriceInCents = orderToBeUpdated->getterPriceInCents();
+            db_->pushNewDbInputOnQueue(EXECUTION, *orderToBeUpdated, executedVolumeInHundredth, executedPriceInCents);
         }
         orderToBeUpdated = nextOrder;
     }
-    executingOrder->incrementAndReturnVersion();
-    messageQueue_->push(new ExecutionMessage(executingOrder->getterBoID(),
-                                             executingOrder->getterVolume() - volumeInHundredths/100.0,
-                                             volumeInHundredths/100.0,
-                                             executingOrder->getterPrice(),
-                                             executingOrder->getterVersion()
-                                            ));
     executingOrder->updateVolume(volumeInHundredths/100.0);
+    executingOrder->incrementAndReturnVersion();
+    db_->pushNewDbInputOnQueue(EXECUTION, *executingOrder, executedVolumeInHundredth, executedPriceInCents);
     if(volumeInHundredths==0){
         // order needs to be removed from the orderbook but is required to answer gRPC request, so a copy is made
         // update database for executing order
@@ -172,37 +154,25 @@ bool OrderBook::update(Order* updatedOrder, Order* &newOrder){
 //        std::cout<<"older version detected, no update done"<<std::endl;
         return false;
     }
+    newOrder->incrementAndReturnVersion();
     if(updatedOrder->checkIfOnlyVolumeUpdatedAndDownwards(newOrder)){
         // updated order does not lose its spot in the orders with same price, as new orders are always push last
-        // update database with newOrder and update updatedOrder to say replaced by newOrder
         newOrder->updateNextBO(updatedOrder->getterNextBO());
         newOrder->updatePrevBO(updatedOrder->getterPrevBO());
         if(newOrder->getterNextBO()!=nullptr) {
             newOrder->getterNextBO()->updatePrevBO(newOrder);
         }
         newOrder->getterPrevBO()->updateNextBO(newOrder);
-        newOrder->incrementAndReturnVersion();
         idToPointerMap_[newOrder->getterBoID()] = newOrder;
-        idToPointerMap_.erase(updatedOrder->getterBoID());
         if(updatedOrder==bids_.getterHead() ) {
             bids_.updateHead(newOrder);
         } else if (updatedOrder==offers_.getterHead() ){
             offers_.updateHead(newOrder);
         }
-        messageQueue_->push( new UpdateMessage(updatedOrder->getterBoID(),
-                                               newOrder->getterBoID(),
-                                               newOrder->getterVolume(),
-                                               newOrder->getterPrice(),
-                                               newOrder->getterVersion()
-                                               ) );
+        db_->pushNewDbInputOnQueue(UPDATE, *newOrder);
         delete updatedOrder;
     }else { // update database: newOrder is replacing updatedOrder
-        messageQueue_->push( new UpdateMessage(updatedOrder->getterBoID(),
-                                               newOrder->getterBoID(),
-                                               newOrder->getterVolume(),
-                                               newOrder->getterPrice(),
-                                               newOrder->getterVersion()
-        ) );
+        db_->pushNewDbInputOnQueue(UPDATE, *newOrder);
         deletion(updatedOrder, NON_COMMUNICATED);
         insertion(newOrder, NON_COMMUNICATED);
     }

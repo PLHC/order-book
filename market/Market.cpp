@@ -6,6 +6,7 @@ Market::~Market(){
     for(auto & [product, orderBookPointer] : productToOrderBookMap_){
         delete orderBookPointer;
     }
+    delete genId_;
     std::cout<<"Market destructor ends"<<std::endl;
 }
 
@@ -16,7 +17,7 @@ void Market::createNewOrderBook(const std::string& product_ID) {
         return;
     }
     mapLock.unlock();
-    auto pointerToOrderBook = new OrderBook(product_ID, &messageQueue_);
+    auto pointerToOrderBook = new OrderBook(product_ID);
 
     mapLock.lock();
     productToOrderBookMap_[product_ID] = pointerToOrderBook;
