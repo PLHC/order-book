@@ -6,6 +6,7 @@ Market::~Market(){
     for(auto & [product, orderBookPointer] : productToOrderBookMap_){
         delete orderBookPointer;
     }
+    delete genId_;
     std::cout<<"Market destructor ends"<<std::endl;
 }
 

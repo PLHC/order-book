@@ -31,31 +31,31 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 15,
+				"line" : 20,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 16,
+				"line" : 21,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 24,
+				"line" : 30,
 				"parent" : 0
 			},
 			{
 				"command" : 3,
 				"file" : 0,
-				"line" : 7,
+				"line" : 12,
 				"parent" : 0
 			},
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 30,
+				"line" : 36,
 				"parent" : 0
 			},
 			{
@@ -67,7 +67,7 @@
 			{
 				"command" : 5,
 				"file" : 0,
-				"line" : 31,
+				"line" : 37,
 				"parent" : 0
 			},
 			{
@@ -84,7 +84,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk -fcolor-diagnostics"
+					"fragment" : "-g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -98,11 +98,11 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
 				},
 				{
 					"backtrace" : 3,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
 				},
 				{
 					"backtrace" : 4,
@@ -123,7 +123,7 @@
 					2,
 					2
 				],
-				"standard" : "20; -pedantic-errors -Wall "
+				"standard" : "20; -pedantic-error -Walls  "
 			},
 			"sourceIndexes" : 
 			[
@@ -184,39 +184,39 @@
 		{
 			"backtrace" : 6,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.pb.h",
+			"path" : "cmake-build-debug/proto/MarketAccess.pb.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 6,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.pb.cc",
+			"path" : "cmake-build-debug/proto/MarketAccess.pb.cc",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 8,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.grpc.pb.h",
+			"path" : "cmake-build-debug/proto/MarketAccess.grpc.pb.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 8,
 			"compileGroupIndex" : 0,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.grpc.pb.cc",
+			"path" : "cmake-build-debug/proto/MarketAccess.grpc.pb.cc",
 			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.pb.h.rule",
+			"path" : "cmake-build-debug/proto/MarketAccess.pb.h.rule",
 			"sourceGroupIndex" : 3
 		},
 		{
 			"backtrace" : 0,
 			"isGenerated" : true,
-			"path" : "cmake-build-release/proto/MarketAccess.grpc.pb.h.rule",
+			"path" : "cmake-build-debug/proto/MarketAccess.grpc.pb.h.rule",
 			"sourceGroupIndex" : 3
 		}
 	],

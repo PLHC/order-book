@@ -88,7 +88,8 @@ insertNodeInCRQAndHandleRequest(std::string_view orderBookName) {
     requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
     std::unique_lock<std::mutex> statusLock(requestNodeInCRQ_->statusMutex_);
     requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){
-        return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED || requestNodeInCRQ_->status_ == CANCELLED;});
+        return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED || requestNodeInCRQ_->status_ == CANCELLED;
+        });
 
     // if destructor started, skip the processing and trigger FINISH process
     if(requestNodeInCRQ_->status_!= CANCELLED) {
@@ -124,7 +125,7 @@ void RequestHandler<marketAccess::DeletionParameters, marketAccess::DeletionConf
 handleValidRequest(OrderBook* orderBook) {
     auto orderPtr = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
     if(orderPtr) { // in case already deleted by a trade, no need to delete
-        orderBook->deletion(orderPtr);
+        orderBook->deletion(orderPtr, COMMUNICATED);
     }
     responseParameters_.set_info( std::move(std::to_string( requestParameters_.info() ) ) );
     responseParameters_.set_validation(     true);
@@ -143,7 +144,7 @@ handleValidRequest(OrderBook* orderBook) {
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
                               static_cast<orderType>( requestParameters_.botype() ) );
 
-    responseParameters_.set_validation( orderBook->insertion(newOrder));
+    responseParameters_.set_validation( orderBook->insertion(newOrder, COMMUNICATED));
     responseParameters_.set_info(       std::move( std::to_string( requestParameters_.info())));
     responseParameters_.set_boid(       newGeneratedId);
     responseParameters_.set_price(      newOrder->getterPrice());
@@ -164,7 +165,7 @@ handleValidRequest(OrderBook* orderBook) {
 
     auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
                               requestParameters_.userid(), // cannot be moved because type is const string &
-                              orderBook->genId_->nextID(),
+                              requestParameters_.boid(), // removed : generating a new ID on updates
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition

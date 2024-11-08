@@ -44,10 +44,10 @@ bool OrdersMonitoring::deleteOrderInLocalMonitoring(const std::string & internal
 }
 
 bool OrdersMonitoring::updateOrderInLocalMonitoring(const std::string &internalID,
-                                                    const uint64_t boID,
+                                                    const int64_t boID,
                                                     const double price,
                                                     const double volume,
-                                                    const uint32_t version,
+                                                    const int32_t version,
                                                     const std::string & product) {
     auto orderbookPtr = getterSharedPointerToOrderbook(product);
     if(!orderbookPtr) {
@@ -150,10 +150,10 @@ OrdersMonitoring::OrdersInOrderbook::OrdersInOrderbook(uint32_t maxNbOrders)
 }
 
 void OrdersMonitoring::OrdersInOrderbook::updateOrder(const std::string & internalID,
-                                                      const uint64_t boID,
+                                                      const int64_t boID,
                                                       const double price,
                                                       const double volume,
-                                                      const uint32_t version) {
+                                                      const int32_t version) {
     if(!getterActiveOrNot()){
         return;
     }

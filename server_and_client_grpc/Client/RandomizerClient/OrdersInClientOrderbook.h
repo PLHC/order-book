@@ -32,10 +32,10 @@ protected:
         bool insertOrder(std::shared_ptr<OrderClient> & orderToInsert); 
         void deleteOrder(const std::string & internalID); 
         void updateOrder(const std::string & internalID,
-                         const uint64_t boID,
+                         const int64_t boID,
                          const double price,
                          const double volume,
-                         const uint32_t version);
+                         const int32_t version);
 
         [[nodiscard]] uint32_t getterNbBuyOrders() const { return nbBuyOrders_; }
         [[nodiscard]] uint32_t getterNbSellOrders() const { return nbSellOrders_; }
@@ -57,10 +57,10 @@ public:
     bool deleteOrderInLocalMonitoring(const std::string & internalID, 
                                       const std::string & product);
     bool updateOrderInLocalMonitoring(const std::string &internalID, 
-                                      const uint64_t boID,
+                                      const int64_t boID,
                                       const double price,
                                       const double volume,
-                                      const uint32_t version,
+                                      const int32_t version,
                                       const std::string & product);
 
     void addTradedProductOrderbook(const std::string & product); 

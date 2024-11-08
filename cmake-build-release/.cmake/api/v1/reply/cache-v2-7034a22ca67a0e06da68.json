@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "Debug"
+			"value" : "Release"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -783,7 +783,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk"
+			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -1130,6 +1130,18 @@
 			"value" : "FALSE"
 		},
 		{
+			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_SASL2",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Details about finding SASL2"
+				}
+			],
+			"type" : "INTERNAL",
+			"value" : "[2.1.26][/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include][/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libsasl2.tbd][v2.1.26(2.0)]"
+		},
+		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
 			"properties" : 
 			[
@@ -1151,7 +1163,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include][c ][v1.2.12()]"
+			"value" : "[/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd][/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include][c ][v1.2.12()]"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_c-ares",
@@ -1163,7 +1175,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake][v1.33.1()]"
+			"value" : "[/opt/homebrew/lib/cmake/c-ares/c-ares-config.cmake][v1.34.2()]"
 		},
 		{
 			"name" : "OpenSSL_DIR",
@@ -1187,7 +1199,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
+			"value" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
 		},
 		{
 			"name" : "OrderBook_IS_TOP_LEVEL",
@@ -1226,6 +1238,30 @@
 			"value" : "/opt/homebrew/lib/cmake/protobuf"
 		},
 		{
+			"name" : "SASL2_INCLUDE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Header include-directory for Cyrus libsasl2"
+				}
+			],
+			"type" : "PATH",
+			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include"
+		},
+		{
+			"name" : "SASL2_LIBRARY",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Library file for Cyrus libsasl2"
+				}
+			],
+			"type" : "FILEPATH",
+			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libsasl2.tbd"
+		},
+		{
 			"name" : "ZLIB_INCLUDE_DIR",
 			"properties" : 
 			[
@@ -1239,7 +1275,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/include"
+			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/include"
 		},
 		{
 			"name" : "ZLIB_LIBRARY_DEBUG",
@@ -1271,7 +1307,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.0.sdk/usr/lib/libz.tbd"
+			"value" : "/Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk/usr/lib/libz.tbd"
 		},
 		{
 			"name" : "absl_DIR",
@@ -1284,6 +1320,30 @@
 			],
 			"type" : "PATH",
 			"value" : "/opt/homebrew/lib/cmake/absl"
+		},
+		{
+			"name" : "bson-1.0_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for bson-1.0."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/lib/cmake/bson-1.0"
+		},
+		{
+			"name" : "bsoncxx_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for bsoncxx."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/lib/cmake/bsoncxx-3.10.2"
 		},
 		{
 			"name" : "c-ares_DIR",
@@ -1308,6 +1368,30 @@
 			],
 			"type" : "PATH",
 			"value" : "/opt/homebrew/lib/cmake/grpc"
+		},
+		{
+			"name" : "mongoc-1.0_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for mongoc-1.0."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/lib/cmake/mongoc-1.0"
+		},
+		{
+			"name" : "mongocxx_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for mongocxx."
+				}
+			],
+			"type" : "PATH",
+			"value" : "/opt/homebrew/lib/cmake/mongocxx-3.10.2"
 		},
 		{
 			"name" : "protobuf_DIR",

@@ -2,7 +2,7 @@
 
 OrderClient::OrderClient(orderDirection buyOrSell,
                          std::string userID,
-                         uint64_t boID,
+                         int64_t boID,
                          double price,
                          double volume,
                          std::string productID,

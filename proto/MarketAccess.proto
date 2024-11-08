@@ -40,24 +40,24 @@ message OrderBookContent{
 message DeletionParameters{
   uint64 info = 1;
   string userid = 2;
-  uint64 boid = 3;
-  uint32 version = 4;
+  int64 boid = 3;
+  int32 version = 4;
 }
 
 message DeletionConfirmation{
   string info = 1;
   bool validation = 2;
   string product = 3;
-  optional uint64 boid = 4;
+  optional int64 boid = 4;
   optional string comment = 5;
-  optional uint32 version = 6;
+  optional int32 version = 6;
   optional double price = 7;
   optional double volume = 8;
 
 }
 
 message InsertionParameters{
-  uint64 info = 1;
+  int64 info = 1;
   string userid = 2;
   double price = 3;
   double volume = 4;
@@ -68,8 +68,8 @@ message InsertionParameters{
 message InsertionConfirmation{
   string info = 1;
   bool validation = 2;
-  uint64 boid = 3;
-  uint32 version = 4;
+  int64 boid = 3;
+  int32 version = 4;
   double price = 5;
   double volume = 6;
   string product = 7;
@@ -79,19 +79,19 @@ message InsertionConfirmation{
 message UpdateParameters{
   uint64 info = 1;
   string userid = 2;
-  uint64 boid = 3;
+  int64 boid = 3;
   double price = 4;
   double volume = 5;
   orderDirection buyOrSell = 6;
   orderType boType = 7;
-  uint32 version = 8;
+  int32 version = 8;
 }
 
 message UpdateConfirmation{
   string info = 1;
   bool validation = 2;
-  uint64 boid = 3;
-  uint32 version = 4;
+  int64 boid = 3;
+  int32 version = 4;
   double price = 5;
   double volume = 6;
   string product = 7;

@@ -1,8 +1,13 @@
 cmake_minimum_required(VERSION 3.28)
 project(OrderBook)
 
-set(CMAKE_CXX_STANDARD 20 "${CMAKE_CXX_FLAGS} -pedantic-errors -Wall ")
+set(CMAKE_CXX_STANDARD 20 "${CMAKE_CXX_FLAGS} -pedantic-error -Walls  ")
 
+# MongoDB C++ driver
+find_package(mongocxx REQUIRED HINTS /opt/homebrew/opt/mongo-cxx-driver/include)
+find_package(bsoncxx REQUIRED HINTS /opt/homebrew/opt/mongo-cxx-driver/include)
+
+# gRPC required packages
 find_package(OpenSSL REQUIRED HINTS /opt/homebrew/opt/openssl@3)
 include_directories(${OPENSSL_INCLUDE_DIR})
 find_package(protobuf CONFIG REQUIRED)
@@ -20,6 +25,7 @@ target_link_libraries(myproto
         gRPC::grpc++
         OpenSSL::SSL
         OpenSSL::Crypto
+
 )
 target_include_directories(myproto PUBLIC
         ${CMAKE_CURRENT_BINARY_DIR}
@@ -30,26 +36,18 @@ get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
 protobuf_generate(TARGET myproto LANGUAGE cpp)
 protobuf_generate(TARGET myproto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .grpc.pb.cc PLUGIN "protoc-gen-grpc=${grpc_cpp_plugin_location}")
 
-# Automatically include all .cpp and .h files from the market directoryw
+# Market files
 file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
-
-# Automatically include all .cpp and .h files from the market directory
 file(GLOB ORDER_FILES "${CMAKE_SOURCE_DIR}/market/order/*")
-
-# Automatically include all .cpp and .h files from the market directory
 file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
+file(GLOB DATABASE "${CMAKE_SOURCE_DIR}/database/*")
 
-# service definition files
+# server and clients
 file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Service/*")
-
-# client  files
 file(GLOB CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/*")
-
-# random client files
 file(GLOB RANDOM_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/RandomizerClient/*")
-
-# display client files
 file(GLOB DISPLAY_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/DisplayClient/*")
+file(GLOB LFQ_FILES "${CMAKE_SOURCE_DIR}/lock_free_queue/*")
 
 # Add executable and link libraries
 add_executable(trading_platform
@@ -59,12 +57,16 @@ add_executable(trading_platform
         ${CRQUEUE_FILES}
         ${SERVICE_FILES}
         ${ORDER_FILES}
+        ${DATABASE}
+        ${LFQ_FILES}
 )
 
 # Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
 target_link_libraries(trading_platform
         PUBLIC
         myproto
+        mongo::mongocxx_shared
+        mongo::bsoncxx_shared
 )
 
 # Add executable for random client
@@ -76,9 +78,13 @@ add_executable(random_order_generator_client
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${RANDOM_CLIENT_FILES}
+        ${DATABASE}
+        ${LFQ_FILES}
 )
 target_link_libraries(random_order_generator_client
         myproto
+        mongo::mongocxx_shared
+        mongo::bsoncxx_shared
 )
 
 # Add executable for display client
@@ -90,9 +96,13 @@ add_executable(display_client
         ${CRQUEUE_FILES}
         ${CLIENT_FILES}
         ${DISPLAY_CLIENT_FILES}
+        ${DATABASE}
+        ${LFQ_FILES}
 )
 target_link_libraries(display_client
         myproto
+        mongo::mongocxx_shared
+        mongo::bsoncxx_shared
 )
 
 add_custom_target(build_all
