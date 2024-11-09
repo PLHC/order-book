@@ -10,11 +10,11 @@ template<typename T>
 class LockFreeQueue {
     class Node {
     public:
-        Node* next_;
-        T data_;
+        Node* next_{nullptr};
+        T data_{};
 
-        Node() : data_(), next_(nullptr) {}
-        explicit Node(const T &data) : data_(data), next_(nullptr) {}
+        Node() = default;
+        explicit Node(const T &data) : data_{data}, next_{nullptr} {}
     };
 
     std::atomic<int32_t> size_;

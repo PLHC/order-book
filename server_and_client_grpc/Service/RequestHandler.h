@@ -45,15 +45,15 @@ protected:
     marketAccess::Communication::AsyncService *service_;
     grpc::ServerCompletionQueue *cq_;
     std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap_;
-    RequestNode *requestNodeInCRQ_;
+    RequestNode *requestNodeInCRQ_{};
     std::atomic<bool> *stopFlag_;
 
     enum RequestStatus { CREATE, PROCESS, FINISH };
-    RequestStatus status_;
+    RequestStatus status_{ CREATE };
     RpcMethod rpcMethod_;
-    grpc::ServerContext ctx_;
-    RequestParametersType requestParameters_;
-    ResponseParametersType responseParameters_;
+    grpc::ServerContext ctx_{};
+    RequestParametersType requestParameters_{};
+    ResponseParametersType responseParameters_{};
     grpc::ServerAsyncResponseWriter<ResponseParametersType> responder_;
 };
 

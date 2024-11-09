@@ -5,17 +5,17 @@
 #include "OrdersInClientOrderbook.h"
 
 
-class RandomizerClient : public ClientAsync, public OrdersMonitoring{
+class RandomizerClient : private ClientAsync, private OrdersMonitoring{
     std::unordered_map<std::string, int> priceForecastsInCents_;
     uint32_t spread_;
     std::string userID_;
     uint32_t expectedNbOfOrdersOnEachSide_;
 
-    void generateInsertionRequestAsync(std::shared_ptr<OrderClient> & order); 
-    void generateUpdateRequestAsync(std::shared_ptr<OrderClient> & order, 
+    void generateInsertionRequestAsync(std::shared_ptr<OrderClient> & order);
+    void generateDeleteRequestAsync(std::shared_ptr<OrderClient> & order);
+    void generateUpdateRequestAsync(std::shared_ptr<OrderClient> & order,
                                     const double newPrice,
                                     const double newVolume);
-    void generateDeleteRequestAsync(std::shared_ptr<OrderClient> & order); 
 
     void handleResponse(const marketAccess::InsertionConfirmation* responseParams) override; 
     void handleResponse(const marketAccess::UpdateConfirmation* responseParams) override; 
@@ -29,7 +29,7 @@ class RandomizerClient : public ClientAsync, public OrdersMonitoring{
 
 public:
     RandomizerClient(const std::shared_ptr<grpc::Channel>& channel,
-                     const std::string userID,
+                     std::string userID,
                      const uint32_t expectedNbOfOrders,
                      const uint32_t spread,
                      const std::vector<int> &priceForecasts,

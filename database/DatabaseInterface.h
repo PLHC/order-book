@@ -19,19 +19,20 @@ enum actions {UPDATE, EXECUTION, DELETION, INSERTION};
 class DatabaseInterface {
     static std::mutex dbMtx_;
     static DatabaseInterface* dbPtr_;
-    const mongocxx::instance instance_;
-    const mongocxx::client client_;
-    const mongocxx::database db_;
-    mongocxx::collection collection_;
-    LockFreeQueue<bsoncxx::builder::basic::document*> lfq_;
-    std::atomic<bool> stopFlag_;
-    std::thread processingThread_;
-    const int64_t lastRecordedIdWhenRestartingDatabase_;
-    mongocxx::bulk_write bulk_;
-    int32_t bulkSize_;
+    const mongocxx::instance instance_{};
+    const mongocxx::client client_{ mongocxx::uri{"mongodb://127.0.0.1:27017"} };
+    const mongocxx::database db_{ client_["orderbookProjectDatabase"] };
+    mongocxx::collection collection_{ db_["orders"] };
 
+    LockFreeQueue<bsoncxx::builder::basic::document*> lfq_{};
+    std::atomic<bool> stopFlag_{ false };
+    std::thread processingThread_{ std::thread( &DatabaseInterface::process, this)};
 
-    DatabaseInterface();
+    const int64_t lastRecordedIdWhenRestartingDatabase_{ extractLastID() };
+    mongocxx::bulk_write bulk_{ collection_.create_bulk_write() };
+    int32_t bulkSize_{0};
+
+    DatabaseInterface() = default;
     void process();
     int64_t extractLastID();
 

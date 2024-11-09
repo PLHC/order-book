@@ -3,7 +3,7 @@
 #include <csignal>
 
 #include "market/Market.h"
-#include "server_and_client_grpc/Service/ServiceAsync.h"
+#include "server_and_client_grpc/Service/RpcServiceAsync.h"
 
 std::unique_ptr<grpc::Server> server;
 Market* tradingPlatform;

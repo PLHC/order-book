@@ -330,14 +330,14 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_info(::uint64_t value);
 
   public:
-  // uint64 boid = 3;
+  // int64 boid = 3;
   void clear_boid() ;
-  ::uint64_t boid() const;
-  void set_boid(::uint64_t value);
+  ::int64_t boid() const;
+  void set_boid(::int64_t value);
 
   private:
-  ::uint64_t _internal_boid() const;
-  void _internal_set_boid(::uint64_t value);
+  ::int64_t _internal_boid() const;
+  void _internal_set_boid(::int64_t value);
 
   public:
   // double price = 4;
@@ -380,14 +380,14 @@ class UpdateParameters final : public ::google::protobuf::Message
   void _internal_set_botype(::marketAccess::orderType value);
 
   public:
-  // uint32 version = 8;
+  // int32 version = 8;
   void clear_version() ;
-  ::uint32_t version() const;
-  void set_version(::uint32_t value);
+  ::int32_t version() const;
+  void set_version(::int32_t value);
 
   private:
-  ::uint32_t _internal_version() const;
-  void _internal_set_version(::uint32_t value);
+  ::int32_t _internal_version() const;
+  void _internal_set_version(::int32_t value);
 
   public:
   // @@protoc_insertion_point(class_scope:marketAccess.UpdateParameters)
@@ -418,12 +418,12 @@ class UpdateParameters final : public ::google::protobuf::Message
                           const UpdateParameters& from_msg);
     ::google::protobuf::internal::ArenaStringPtr userid_;
     ::uint64_t info_;
-    ::uint64_t boid_;
+    ::int64_t boid_;
     double price_;
     double volume_;
     int buyorsell_;
     int botype_;
-    ::uint32_t version_;
+    ::int32_t version_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -631,14 +631,14 @@ class UpdateConfirmation final : public ::google::protobuf::Message
   std::string* _internal_mutable_comment();
 
   public:
-  // uint64 boid = 3;
+  // int64 boid = 3;
   void clear_boid() ;
-  ::uint64_t boid() const;
-  void set_boid(::uint64_t value);
+  ::int64_t boid() const;
+  void set_boid(::int64_t value);
 
   private:
-  ::uint64_t _internal_boid() const;
-  void _internal_set_boid(::uint64_t value);
+  ::int64_t _internal_boid() const;
+  void _internal_set_boid(::int64_t value);
 
   public:
   // bool validation = 2;
@@ -651,14 +651,14 @@ class UpdateConfirmation final : public ::google::protobuf::Message
   void _internal_set_validation(bool value);
 
   public:
-  // uint32 version = 4;
+  // int32 version = 4;
   void clear_version() ;
-  ::uint32_t version() const;
-  void set_version(::uint32_t value);
+  ::int32_t version() const;
+  void set_version(::int32_t value);
 
   private:
-  ::uint32_t _internal_version() const;
-  void _internal_set_version(::uint32_t value);
+  ::int32_t _internal_version() const;
+  void _internal_set_version(::int32_t value);
 
   public:
   // double price = 5;
@@ -712,9 +712,9 @@ class UpdateConfirmation final : public ::google::protobuf::Message
     ::google::protobuf::internal::ArenaStringPtr info_;
     ::google::protobuf::internal::ArenaStringPtr product_;
     ::google::protobuf::internal::ArenaStringPtr comment_;
-    ::uint64_t boid_;
+    ::int64_t boid_;
     bool validation_;
-    ::uint32_t version_;
+    ::int32_t version_;
     double price_;
     double volume_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -1152,14 +1152,14 @@ class InsertionParameters final : public ::google::protobuf::Message
   std::string* _internal_mutable_userid();
 
   public:
-  // uint64 info = 1;
+  // int64 info = 1;
   void clear_info() ;
-  ::uint64_t info() const;
-  void set_info(::uint64_t value);
+  ::int64_t info() const;
+  void set_info(::int64_t value);
 
   private:
-  ::uint64_t _internal_info() const;
-  void _internal_set_info(::uint64_t value);
+  ::int64_t _internal_info() const;
+  void _internal_set_info(::int64_t value);
 
   public:
   // double price = 3;
@@ -1229,7 +1229,7 @@ class InsertionParameters final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const InsertionParameters& from_msg);
     ::google::protobuf::internal::ArenaStringPtr userid_;
-    ::uint64_t info_;
+    ::int64_t info_;
     double price_;
     double volume_;
     int buyorsell_;
@@ -1441,14 +1441,14 @@ class InsertionConfirmation final : public ::google::protobuf::Message
   std::string* _internal_mutable_comment();
 
   public:
-  // uint64 boid = 3;
+  // int64 boid = 3;
   void clear_boid() ;
-  ::uint64_t boid() const;
-  void set_boid(::uint64_t value);
+  ::int64_t boid() const;
+  void set_boid(::int64_t value);
 
   private:
-  ::uint64_t _internal_boid() const;
-  void _internal_set_boid(::uint64_t value);
+  ::int64_t _internal_boid() const;
+  void _internal_set_boid(::int64_t value);
 
   public:
   // bool validation = 2;
@@ -1461,14 +1461,14 @@ class InsertionConfirmation final : public ::google::protobuf::Message
   void _internal_set_validation(bool value);
 
   public:
-  // uint32 version = 4;
+  // int32 version = 4;
   void clear_version() ;
-  ::uint32_t version() const;
-  void set_version(::uint32_t value);
+  ::int32_t version() const;
+  void set_version(::int32_t value);
 
   private:
-  ::uint32_t _internal_version() const;
-  void _internal_set_version(::uint32_t value);
+  ::int32_t _internal_version() const;
+  void _internal_set_version(::int32_t value);
 
   public:
   // double price = 5;
@@ -1522,9 +1522,9 @@ class InsertionConfirmation final : public ::google::protobuf::Message
     ::google::protobuf::internal::ArenaStringPtr info_;
     ::google::protobuf::internal::ArenaStringPtr product_;
     ::google::protobuf::internal::ArenaStringPtr comment_;
-    ::uint64_t boid_;
+    ::int64_t boid_;
     bool validation_;
-    ::uint32_t version_;
+    ::int32_t version_;
     double price_;
     double volume_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -1906,24 +1906,24 @@ class DeletionParameters final : public ::google::protobuf::Message
   void _internal_set_info(::uint64_t value);
 
   public:
-  // uint64 boid = 3;
+  // int64 boid = 3;
   void clear_boid() ;
-  ::uint64_t boid() const;
-  void set_boid(::uint64_t value);
+  ::int64_t boid() const;
+  void set_boid(::int64_t value);
 
   private:
-  ::uint64_t _internal_boid() const;
-  void _internal_set_boid(::uint64_t value);
+  ::int64_t _internal_boid() const;
+  void _internal_set_boid(::int64_t value);
 
   public:
-  // uint32 version = 4;
+  // int32 version = 4;
   void clear_version() ;
-  ::uint32_t version() const;
-  void set_version(::uint32_t value);
+  ::int32_t version() const;
+  void set_version(::int32_t value);
 
   private:
-  ::uint32_t _internal_version() const;
-  void _internal_set_version(::uint32_t value);
+  ::int32_t _internal_version() const;
+  void _internal_set_version(::int32_t value);
 
   public:
   // @@protoc_insertion_point(class_scope:marketAccess.DeletionParameters)
@@ -1954,8 +1954,8 @@ class DeletionParameters final : public ::google::protobuf::Message
                           const DeletionParameters& from_msg);
     ::google::protobuf::internal::ArenaStringPtr userid_;
     ::uint64_t info_;
-    ::uint64_t boid_;
-    ::uint32_t version_;
+    ::int64_t boid_;
+    ::int32_t version_;
     mutable ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -2163,15 +2163,15 @@ class DeletionConfirmation final : public ::google::protobuf::Message
   std::string* _internal_mutable_comment();
 
   public:
-  // optional uint64 boid = 4;
+  // optional int64 boid = 4;
   bool has_boid() const;
   void clear_boid() ;
-  ::uint64_t boid() const;
-  void set_boid(::uint64_t value);
+  ::int64_t boid() const;
+  void set_boid(::int64_t value);
 
   private:
-  ::uint64_t _internal_boid() const;
-  void _internal_set_boid(::uint64_t value);
+  ::int64_t _internal_boid() const;
+  void _internal_set_boid(::int64_t value);
 
   public:
   // bool validation = 2;
@@ -2184,15 +2184,15 @@ class DeletionConfirmation final : public ::google::protobuf::Message
   void _internal_set_validation(bool value);
 
   public:
-  // optional uint32 version = 6;
+  // optional int32 version = 6;
   bool has_version() const;
   void clear_version() ;
-  ::uint32_t version() const;
-  void set_version(::uint32_t value);
+  ::int32_t version() const;
+  void set_version(::int32_t value);
 
   private:
-  ::uint32_t _internal_version() const;
-  void _internal_set_version(::uint32_t value);
+  ::int32_t _internal_version() const;
+  void _internal_set_version(::int32_t value);
 
   public:
   // optional double price = 7;
@@ -2248,9 +2248,9 @@ class DeletionConfirmation final : public ::google::protobuf::Message
     ::google::protobuf::internal::ArenaStringPtr info_;
     ::google::protobuf::internal::ArenaStringPtr product_;
     ::google::protobuf::internal::ArenaStringPtr comment_;
-    ::uint64_t boid_;
+    ::int64_t boid_;
     bool validation_;
-    ::uint32_t version_;
+    ::int32_t version_;
     double price_;
     double volume_;
     PROTOBUF_TSAN_DECLARE_MEMBER
@@ -2684,46 +2684,46 @@ inline void DeletionParameters::set_allocated_userid(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:marketAccess.DeletionParameters.userid)
 }
 
-// uint64 boid = 3;
+// int64 boid = 3;
 inline void DeletionParameters::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.boid_ = ::int64_t{0};
 }
-inline ::uint64_t DeletionParameters::boid() const {
+inline ::int64_t DeletionParameters::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionParameters.boid)
   return _internal_boid();
 }
-inline void DeletionParameters::set_boid(::uint64_t value) {
+inline void DeletionParameters::set_boid(::int64_t value) {
   _internal_set_boid(value);
   // @@protoc_insertion_point(field_set:marketAccess.DeletionParameters.boid)
 }
-inline ::uint64_t DeletionParameters::_internal_boid() const {
+inline ::int64_t DeletionParameters::_internal_boid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.boid_;
 }
-inline void DeletionParameters::_internal_set_boid(::uint64_t value) {
+inline void DeletionParameters::_internal_set_boid(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = value;
 }
 
-// uint32 version = 4;
+// int32 version = 4;
 inline void DeletionParameters::clear_version() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.version_ = 0u;
+  _impl_.version_ = 0;
 }
-inline ::uint32_t DeletionParameters::version() const {
+inline ::int32_t DeletionParameters::version() const {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionParameters.version)
   return _internal_version();
 }
-inline void DeletionParameters::set_version(::uint32_t value) {
+inline void DeletionParameters::set_version(::int32_t value) {
   _internal_set_version(value);
   // @@protoc_insertion_point(field_set:marketAccess.DeletionParameters.version)
 }
-inline ::uint32_t DeletionParameters::_internal_version() const {
+inline ::int32_t DeletionParameters::_internal_version() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.version_;
 }
-inline void DeletionParameters::_internal_set_version(::uint32_t value) {
+inline void DeletionParameters::_internal_set_version(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.version_ = value;
 }
@@ -2854,30 +2854,30 @@ inline void DeletionConfirmation::set_allocated_product(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:marketAccess.DeletionConfirmation.product)
 }
 
-// optional uint64 boid = 4;
+// optional int64 boid = 4;
 inline bool DeletionConfirmation::has_boid() const {
   bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
   return value;
 }
 inline void DeletionConfirmation::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.boid_ = ::int64_t{0};
   _impl_._has_bits_[0] &= ~0x00000002u;
 }
-inline ::uint64_t DeletionConfirmation::boid() const {
+inline ::int64_t DeletionConfirmation::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionConfirmation.boid)
   return _internal_boid();
 }
-inline void DeletionConfirmation::set_boid(::uint64_t value) {
+inline void DeletionConfirmation::set_boid(::int64_t value) {
   _internal_set_boid(value);
   _impl_._has_bits_[0] |= 0x00000002u;
   // @@protoc_insertion_point(field_set:marketAccess.DeletionConfirmation.boid)
 }
-inline ::uint64_t DeletionConfirmation::_internal_boid() const {
+inline ::int64_t DeletionConfirmation::_internal_boid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.boid_;
 }
-inline void DeletionConfirmation::_internal_set_boid(::uint64_t value) {
+inline void DeletionConfirmation::_internal_set_boid(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = value;
 }
@@ -2953,30 +2953,30 @@ inline void DeletionConfirmation::set_allocated_comment(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:marketAccess.DeletionConfirmation.comment)
 }
 
-// optional uint32 version = 6;
+// optional int32 version = 6;
 inline bool DeletionConfirmation::has_version() const {
   bool value = (_impl_._has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline void DeletionConfirmation::clear_version() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.version_ = 0u;
+  _impl_.version_ = 0;
   _impl_._has_bits_[0] &= ~0x00000004u;
 }
-inline ::uint32_t DeletionConfirmation::version() const {
+inline ::int32_t DeletionConfirmation::version() const {
   // @@protoc_insertion_point(field_get:marketAccess.DeletionConfirmation.version)
   return _internal_version();
 }
-inline void DeletionConfirmation::set_version(::uint32_t value) {
+inline void DeletionConfirmation::set_version(::int32_t value) {
   _internal_set_version(value);
   _impl_._has_bits_[0] |= 0x00000004u;
   // @@protoc_insertion_point(field_set:marketAccess.DeletionConfirmation.version)
 }
-inline ::uint32_t DeletionConfirmation::_internal_version() const {
+inline ::int32_t DeletionConfirmation::_internal_version() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.version_;
 }
-inline void DeletionConfirmation::_internal_set_version(::uint32_t value) {
+inline void DeletionConfirmation::_internal_set_version(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.version_ = value;
 }
@@ -3041,24 +3041,24 @@ inline void DeletionConfirmation::_internal_set_volume(double value) {
 
 // InsertionParameters
 
-// uint64 info = 1;
+// int64 info = 1;
 inline void InsertionParameters::clear_info() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.info_ = ::uint64_t{0u};
+  _impl_.info_ = ::int64_t{0};
 }
-inline ::uint64_t InsertionParameters::info() const {
+inline ::int64_t InsertionParameters::info() const {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionParameters.info)
   return _internal_info();
 }
-inline void InsertionParameters::set_info(::uint64_t value) {
+inline void InsertionParameters::set_info(::int64_t value) {
   _internal_set_info(value);
   // @@protoc_insertion_point(field_set:marketAccess.InsertionParameters.info)
 }
-inline ::uint64_t InsertionParameters::_internal_info() const {
+inline ::int64_t InsertionParameters::_internal_info() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.info_;
 }
-inline void InsertionParameters::_internal_set_info(::uint64_t value) {
+inline void InsertionParameters::_internal_set_info(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.info_ = value;
 }
@@ -3277,46 +3277,46 @@ inline void InsertionConfirmation::_internal_set_validation(bool value) {
   _impl_.validation_ = value;
 }
 
-// uint64 boid = 3;
+// int64 boid = 3;
 inline void InsertionConfirmation::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.boid_ = ::int64_t{0};
 }
-inline ::uint64_t InsertionConfirmation::boid() const {
+inline ::int64_t InsertionConfirmation::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionConfirmation.boid)
   return _internal_boid();
 }
-inline void InsertionConfirmation::set_boid(::uint64_t value) {
+inline void InsertionConfirmation::set_boid(::int64_t value) {
   _internal_set_boid(value);
   // @@protoc_insertion_point(field_set:marketAccess.InsertionConfirmation.boid)
 }
-inline ::uint64_t InsertionConfirmation::_internal_boid() const {
+inline ::int64_t InsertionConfirmation::_internal_boid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.boid_;
 }
-inline void InsertionConfirmation::_internal_set_boid(::uint64_t value) {
+inline void InsertionConfirmation::_internal_set_boid(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = value;
 }
 
-// uint32 version = 4;
+// int32 version = 4;
 inline void InsertionConfirmation::clear_version() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.version_ = 0u;
+  _impl_.version_ = 0;
 }
-inline ::uint32_t InsertionConfirmation::version() const {
+inline ::int32_t InsertionConfirmation::version() const {
   // @@protoc_insertion_point(field_get:marketAccess.InsertionConfirmation.version)
   return _internal_version();
 }
-inline void InsertionConfirmation::set_version(::uint32_t value) {
+inline void InsertionConfirmation::set_version(::int32_t value) {
   _internal_set_version(value);
   // @@protoc_insertion_point(field_set:marketAccess.InsertionConfirmation.version)
 }
-inline ::uint32_t InsertionConfirmation::_internal_version() const {
+inline ::int32_t InsertionConfirmation::_internal_version() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.version_;
 }
-inline void InsertionConfirmation::_internal_set_version(::uint32_t value) {
+inline void InsertionConfirmation::_internal_set_version(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.version_ = value;
 }
@@ -3562,24 +3562,24 @@ inline void UpdateParameters::set_allocated_userid(std::string* value) {
   // @@protoc_insertion_point(field_set_allocated:marketAccess.UpdateParameters.userid)
 }
 
-// uint64 boid = 3;
+// int64 boid = 3;
 inline void UpdateParameters::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.boid_ = ::int64_t{0};
 }
-inline ::uint64_t UpdateParameters::boid() const {
+inline ::int64_t UpdateParameters::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateParameters.boid)
   return _internal_boid();
 }
-inline void UpdateParameters::set_boid(::uint64_t value) {
+inline void UpdateParameters::set_boid(::int64_t value) {
   _internal_set_boid(value);
   // @@protoc_insertion_point(field_set:marketAccess.UpdateParameters.boid)
 }
-inline ::uint64_t UpdateParameters::_internal_boid() const {
+inline ::int64_t UpdateParameters::_internal_boid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.boid_;
 }
-inline void UpdateParameters::_internal_set_boid(::uint64_t value) {
+inline void UpdateParameters::_internal_set_boid(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = value;
 }
@@ -3672,24 +3672,24 @@ inline void UpdateParameters::_internal_set_botype(::marketAccess::orderType val
   _impl_.botype_ = value;
 }
 
-// uint32 version = 8;
+// int32 version = 8;
 inline void UpdateParameters::clear_version() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.version_ = 0u;
+  _impl_.version_ = 0;
 }
-inline ::uint32_t UpdateParameters::version() const {
+inline ::int32_t UpdateParameters::version() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateParameters.version)
   return _internal_version();
 }
-inline void UpdateParameters::set_version(::uint32_t value) {
+inline void UpdateParameters::set_version(::int32_t value) {
   _internal_set_version(value);
   // @@protoc_insertion_point(field_set:marketAccess.UpdateParameters.version)
 }
-inline ::uint32_t UpdateParameters::_internal_version() const {
+inline ::int32_t UpdateParameters::_internal_version() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.version_;
 }
-inline void UpdateParameters::_internal_set_version(::uint32_t value) {
+inline void UpdateParameters::_internal_set_version(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.version_ = value;
 }
@@ -3770,46 +3770,46 @@ inline void UpdateConfirmation::_internal_set_validation(bool value) {
   _impl_.validation_ = value;
 }
 
-// uint64 boid = 3;
+// int64 boid = 3;
 inline void UpdateConfirmation::clear_boid() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.boid_ = ::uint64_t{0u};
+  _impl_.boid_ = ::int64_t{0};
 }
-inline ::uint64_t UpdateConfirmation::boid() const {
+inline ::int64_t UpdateConfirmation::boid() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateConfirmation.boid)
   return _internal_boid();
 }
-inline void UpdateConfirmation::set_boid(::uint64_t value) {
+inline void UpdateConfirmation::set_boid(::int64_t value) {
   _internal_set_boid(value);
   // @@protoc_insertion_point(field_set:marketAccess.UpdateConfirmation.boid)
 }
-inline ::uint64_t UpdateConfirmation::_internal_boid() const {
+inline ::int64_t UpdateConfirmation::_internal_boid() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.boid_;
 }
-inline void UpdateConfirmation::_internal_set_boid(::uint64_t value) {
+inline void UpdateConfirmation::_internal_set_boid(::int64_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.boid_ = value;
 }
 
-// uint32 version = 4;
+// int32 version = 4;
 inline void UpdateConfirmation::clear_version() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
-  _impl_.version_ = 0u;
+  _impl_.version_ = 0;
 }
-inline ::uint32_t UpdateConfirmation::version() const {
+inline ::int32_t UpdateConfirmation::version() const {
   // @@protoc_insertion_point(field_get:marketAccess.UpdateConfirmation.version)
   return _internal_version();
 }
-inline void UpdateConfirmation::set_version(::uint32_t value) {
+inline void UpdateConfirmation::set_version(::int32_t value) {
   _internal_set_version(value);
   // @@protoc_insertion_point(field_set:marketAccess.UpdateConfirmation.version)
 }
-inline ::uint32_t UpdateConfirmation::_internal_version() const {
+inline ::int32_t UpdateConfirmation::_internal_version() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.version_;
 }
-inline void UpdateConfirmation::_internal_set_version(::uint32_t value) {
+inline void UpdateConfirmation::_internal_set_version(::int32_t value) {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.version_ = value;
 }

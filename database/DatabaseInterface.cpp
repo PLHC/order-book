@@ -6,18 +6,6 @@
 std::mutex DatabaseInterface::dbMtx_ {};
 DatabaseInterface* DatabaseInterface::dbPtr_ { nullptr };
 
-DatabaseInterface::DatabaseInterface()
-        : instance_{}
-        , client_{mongocxx::uri{"mongodb://127.0.0.1:27017"}}
-        , db_{ client_["orderbookProjectDatabase"] }
-        , collection_ { db_["orders"] }
-        , lfq_{}
-        , stopFlag_{ false }
-        , processingThread_( std::thread( &DatabaseInterface::process, this))
-        , lastRecordedIdWhenRestartingDatabase_{ extractLastID() }
-        , bulk_ { collection_.create_bulk_write() }
-        , bulkSize_ {0} {}
-
 DatabaseInterface::~DatabaseInterface(){
     std::cout<<"in DBInterface destructor\n";
     stopFlag_.store(true);
@@ -34,18 +22,12 @@ void DatabaseInterface::process(){
     while(!stopFlag_.load() || lfq_.getterSize()){
         auto docPtr = lfq_.pop();
         if(docPtr.has_value()) {
-            bulk_.append(std::move(mongocxx::model::insert_one { ( docPtr.value())->view() }));
+            bulk_.append( std::move(mongocxx::model::insert_one { ( docPtr.value())->view() }));
             bulkSize_++;
             delete docPtr.value();
-
         }
         if(bulkSize_>500) { // insertion in DB for 500 orders between 3500 and 7500 microseconds
-//            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
             bulk_.execute();
-//            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-//            std::cout << "emptying vector in DB = "
-//                        << std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count()
-//                        << "[µs]\n";
             bulk_ = collection_.create_bulk_write();
             bulkSize_ = 0;
         }

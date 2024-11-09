@@ -9,12 +9,10 @@
 class GeneratorId{
     static std::mutex generatorMtx_;
     static GeneratorId* instance_;
-    DatabaseInterface* db_;
-    int64_t lastID_;
+    DatabaseInterface* db_{ DatabaseInterface::getterDatabase() };
+    int64_t lastID_{ db_->getterLastRecordedIdWhenRestartingDatabase() };
 
-    GeneratorId()
-            : db_{ DatabaseInterface::getterDatabase() }
-            , lastID_{ db_->getterLastRecordedIdWhenRestartingDatabase() }{}
+    GeneratorId() = default;
 
 public:
     GeneratorId (const GeneratorId&) = delete;

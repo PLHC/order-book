@@ -10,22 +10,22 @@
 
 
 class OrdersMonitoring{
-    std::random_device rd_;
+    std::random_device rd_{};
     uint32_t maxNbOrders_;
 
 protected:
     class OrdersInOrderbook{
-        uint32_t nbBuyOrders_;
-        uint32_t nbSellOrders_;
-        std::atomic<bool> active_;
+        uint32_t nbBuyOrders_{0};
+        uint32_t nbSellOrders_{0};
+        std::atomic<bool> active_{true};
 
     public:
         std::unordered_map<std::string, int> internalIdToOrderMap_;
         std::vector<std::shared_ptr<OrderClient>> pointersToOrders_;
         std::vector<int> freeIndexes_;
 
-        std::mutex internalIdToOrderMapMtx_;
-        std::condition_variable internalIdToOrderMapConditionVariable_;
+        std::mutex internalIdToOrderMapMtx_{};
+        std::condition_variable internalIdToOrderMapConditionVariable_{};
 
         explicit OrdersInOrderbook(uint32_t maxNbOrders);
 
@@ -45,12 +45,12 @@ protected:
         void activateOrderbook(){ active_.store(true); }
     };
 
-    std::mt19937 mtGen_;
-    std::mutex monitoringMapLock_;
-    std::unordered_map<std::string, std::shared_ptr<OrdersInOrderbook>> productToOrdersMap_;
+    std::mt19937 mtGen_{ rd_() };
+    std::mutex monitoringMapLock_{};
+    std::unordered_map<std::string, std::shared_ptr<OrdersInOrderbook>> productToOrdersMap_{};
 
 public:
-    explicit OrdersMonitoring(uint32_t maxNbOrders);
+    explicit OrdersMonitoring(uint32_t maxNbOrders): maxNbOrders_{ maxNbOrders }{}
     ~OrdersMonitoring(); 
 
     bool insertOrderInLocalMonitoring(std::shared_ptr<OrderClient> & orderToInsert); 

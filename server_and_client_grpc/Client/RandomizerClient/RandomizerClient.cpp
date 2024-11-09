@@ -1,17 +1,17 @@
 #include "RandomizerClient.h"
 
 RandomizerClient::RandomizerClient(const std::shared_ptr<grpc::Channel>& channel,
-                                   const std::string userID,
+                                   std::string userID,
                                    const uint32_t expectedNbOfOrders,
                                    const uint32_t spread,
                                    const std::vector<int>& priceForecasts,
                                    const std::vector<std::string>& tradedProducts,
                                    const uint32_t nbOfThreadsInThreadPool)
-        : ClientAsync(channel, nbOfThreadsInThreadPool),
-          OrdersMonitoring(expectedNbOfOrders),
-          userID_(userID),
-          spread_(spread),
-          expectedNbOfOrdersOnEachSide_(expectedNbOfOrders){
+        : ClientAsync{ channel, nbOfThreadsInThreadPool }
+        , OrdersMonitoring{ expectedNbOfOrders }
+        , userID_{ std::move(userID) }
+        , spread_{ spread }
+        , expectedNbOfOrdersOnEachSide_{ expectedNbOfOrders }{
     for(int i = 0; i<priceForecasts.size(); ++i) {
         addTradedProductOrderbook(tradedProducts[i]);
         priceForecastsInCents_[tradedProducts[i]] = priceForecasts[i] * 100;
@@ -243,7 +243,7 @@ std::shared_ptr<OrderClient> RandomizerClient::getterRandomOrder(const std::stri
     auto randomOrderNumber = distribution(mtGen_) % (2*expectedNbOfOrdersOnEachSide_);
     std::shared_ptr<OrderClient> selectedOrder;
 
-    auto orderbook = getterSharedPointerToOrderbook(product);
+    auto orderbook = getterSharedPointerToOrderbook( product );
 
     if(!orderbook) return nullptr;
 

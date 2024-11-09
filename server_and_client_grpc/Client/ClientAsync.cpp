@@ -29,29 +29,23 @@ template ClientAsync::RequestData<marketAccess::InsertionConfirmation>::RequestD
 );
 
 ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel, const uint32_t nbOfThreadsInThreadPool)
-        : stub_(marketAccess::Communication::NewStub(channel)),
-          clientInternalId_(0),
-          internalIdLock_(),
-          io_context_(),
-          work_guard_(io_context_.get_executor()),
-          threadPool_(){
-    is_shutting_down_.store(false);
-
+        : stub_{ marketAccess::Communication::NewStub(channel) }
+{
     // Create a threadpool for processing the responses asynchronously
     for (int i = 0; i < nbOfThreadsInThreadPool; ++i) {
         threadPool_.emplace_back([this]() {io_context_.run();});
     }
 
-    // Start a separate thread to process the CompletionQueue
-    cq_thread_ = std::thread([this]() { this->AsyncCompleteRpc(); });
+    // creating the completion queue thread before the threadpool generates bugs at start-up
+    cq_thread_ = std::thread(&ClientAsync::AsyncCompleteRpc, this);
 }
 
 ClientAsync::~ClientAsync() {
-    std::this_thread::sleep_for(std::chrono::seconds(1)); // waits for last answers from server
+    std::this_thread::sleep_for( std::chrono::seconds(1) ); // waits for last answers from server
     is_shutting_down_.store(true);
     io_context_.stop();
     cq_.Shutdown();
-    if (cq_thread_.joinable()) {
+    if( cq_thread_.joinable() ) {
         cq_thread_.join();
     }
 
@@ -65,7 +59,7 @@ ClientAsync::~ClientAsync() {
 int64_t ClientAsync::nextInternalID() {
     std::unique_lock<std::mutex> genLock (internalIdLock_);
 
-    if(clientInternalId_==std::numeric_limits<int64_t>::max()){
+    if( clientInternalId_==std::numeric_limits<int64_t>::max() ){
         throw std::overflow_error("Client internal ID overflow");
     }
     auto newID = ++clientInternalId_;
@@ -78,9 +72,9 @@ int64_t ClientAsync::nextInternalID() {
 void ClientAsync::AsyncCompleteRpc() {
     void* tag;
     bool ok;
-    while (!is_shutting_down_.load()) {
+    while( !is_shutting_down_.load() ) {
         // Block until the next result is available in the completion queue
-        while (cq_.Next(&tag, &ok)) {
+        while( cq_.Next(&tag, &ok) ) {
             auto* rpcData = static_cast<RequestDataBase*>(tag);
             if (ok) {
                 io_context_.post([rpcData]() {
@@ -94,7 +88,7 @@ void ClientAsync::AsyncCompleteRpc() {
     }
 }
 
-void ClientAsync::generateDisplayRequestAsync(std::string&& orderBookName,
+void ClientAsync::generateDisplayRequestAsync(const std::string& orderBookName,
                                               uint32_t nbOfOrdersToDisplay) {
     // create request
     marketAccess::DisplayParameters request;
@@ -115,7 +109,7 @@ void ClientAsync::generateDisplayRequestAsync(std::string&& orderBookName,
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
-void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
+void ClientAsync::generateInsertionRequestAsync(const std::string& orderBookName,
                                                 std::string userID,
                                                 double price,
                                                 double volume,
@@ -125,7 +119,7 @@ void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
     //Create request
     marketAccess::InsertionParameters request;
     request.set_info(nextInternalID() );
-    request.set_userid(userID);
+    request.set_userid(std::move(userID));
     request.set_price(price);
     request.set_volume(volume);
     request.set_buyorsell(static_cast<marketAccess::orderDirection>(buyOrSell));
@@ -145,9 +139,9 @@ void ClientAsync::generateInsertionRequestAsync(std::string&& orderBookName,
     rpc->Finish(response, status, (void*)new RequestData{context, response, status, *this});
 }
 
-void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
+void ClientAsync::generateUpdateRequestAsync(const std::string& orderBookName,
                                              std::string userID,
-                                             uint64_t updatedBO,
+                                             int64_t updatedBO,
                                              double price,
                                              double volume,
                                              orderDirection buyOrSell,
@@ -158,7 +152,7 @@ void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
     //Create request
     marketAccess::UpdateParameters request;
     request.set_info(internalID);
-    request.set_userid(userID);
+    request.set_userid(std::move(userID));
     request.set_boid(updatedBO);
     request.set_price(price);
     request.set_volume(volume);
@@ -179,16 +173,16 @@ void ClientAsync::generateUpdateRequestAsync(std::string&& orderBookName,
     rpc->Finish(response, status, (void*)new RequestData{context,  response, status, *this});
 }
 
-void ClientAsync::generateDeleteRequestAsync(std::string&& orderBookName,
+void ClientAsync::generateDeleteRequestAsync(const std::string& orderBookName,
                                              std::string userID,
-                                             uint64_t deletedID) {
+                                             int64_t deletedID) {
     // record internal ID to track results
     auto internalID = nextInternalID();
 
     //Create request
     marketAccess::DeletionParameters request;
     request.set_info(internalID);
-    request.set_userid(userID);
+    request.set_userid(std::move(userID));
     request.set_boid(deletedID);
 
     // Create a new context_
@@ -206,7 +200,7 @@ void ClientAsync::generateDeleteRequestAsync(std::string&& orderBookName,
 }
 
 void ClientAsync::handleResponse(marketAccess::OrderBookContent *responseParams) {
-    if (responseParams->validation()) {
+    if( responseParams->validation() ) {
         std::cout << "Orderbook: " << std::endl << responseParams->orderbook();
     }else {
         std::cout << "Display request failed" << std::endl;
@@ -220,10 +214,10 @@ ClientAsync::RequestData<ResponseParametersType>::RequestData(
         ResponseParametersType* responseParams,
         grpc::Status* status,
         ClientAsync& client)
-        : context_(ctx),
-          responseParams_(responseParams),
-          status_(status),
-          nestingClient_(client){}
+        : context_(ctx)
+        , responseParams_(responseParams)
+        , status_(status)
+        , nestingClient_(client){}
 
 template<typename ResponseParametersType>
 ClientAsync::RequestData<ResponseParametersType>::~RequestData(){

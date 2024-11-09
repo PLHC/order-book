@@ -7,18 +7,12 @@ enum processState {CREATED, PROCESSING_ALLOWED, PROCESSING_COMPLETED, CANCELLED}
 
 class RequestNode {
 public:
-    std::shared_ptr<RequestNode> prev_, next_;
-    std::mutex prevMutex_, statusMutex_;
-    std::condition_variable statusConditionVariable_;
-    processState status_;
-
-    RequestNode()
-        : prev_(nullptr)
-        , next_(nullptr)
-        , prevMutex_()
-        , statusMutex_()
-        , statusConditionVariable_()
-        , status_(CREATED){}
+    std::shared_ptr<RequestNode> prev_{nullptr};
+    std::shared_ptr<RequestNode> next_{nullptr};
+    std::mutex prevMutex_{};
+    std::mutex statusMutex_{};
+    std::condition_variable statusConditionVariable_{};
+    processState status_{CREATED};
 };
 
 

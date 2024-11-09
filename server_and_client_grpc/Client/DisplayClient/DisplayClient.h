@@ -5,12 +5,12 @@
 #include <vector>
 #include <string>
 
-class DisplayClient : public ClientAsync{
-    std::unordered_map<std::string, std::string*> tradedProductsToOrderbookContentMap_; // product / orderbook content
-    std::mutex mapMtx_;
+class DisplayClient : private ClientAsync{
+    std::unordered_map<std::string, std::string*> tradedProductsToOrderbookContentMap_{}; // product / orderbook content
+    std::mutex mapMtx_{};
+    std::atomic<bool> stopFlag_{ false };
     const uint32_t nbOfLinesPerProduct_;
     const std::string userID_;
-    std::atomic<bool> stopFlag_;
 
     void printAllOrderbooks();
     void process();
@@ -22,7 +22,7 @@ class DisplayClient : public ClientAsync{
     void handleResponse(const marketAccess::DeletionConfirmation* responseParams) override {}
 
 public:
-    void setterStopFlagToTrue() {stopFlag_.store(true);}
+    void setterStopFlagToTrue() { stopFlag_.store(true); }
     DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
                   std::string userID,
                   const std::vector<std::string> & tradedProducts,

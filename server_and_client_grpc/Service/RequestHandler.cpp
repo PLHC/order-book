@@ -40,14 +40,12 @@ RequestHandler<RequestParametersType, ResponseParametersType>::RequestHandler(
         grpc::ServerCompletionQueue *cq,
         std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> *orderBookMap,
         std::atomic<bool> *stopFlag)
-        : service_(service)
-        , cq_(cq)
-        , orderBookMap_(orderBookMap)
-        , responder_(&ctx_)
-        , status_(CREATE)
-        , rpcMethod_(rpcMethod)
-        , requestNodeInCRQ_()
-        , stopFlag_(stopFlag){}
+        : service_{ service }
+        , cq_{ cq }
+        , orderBookMap_{ orderBookMap }
+        , responder_{ &ctx_ }
+        , rpcMethod_{ rpcMethod }
+        , stopFlag_{ stopFlag }{}
 
 template<typename RequestParametersType, typename ResponseParametersType>
 void RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
@@ -86,10 +84,10 @@ void RequestHandler<RequestParametersType, ResponseParametersType>::
 insertNodeInCRQAndHandleRequest(std::string_view orderBookName) {
     auto orderBook = (*orderBookMap_).find(orderBookName)->second; // operator [] to accept stringview when key is string only available from c++26 onwards
     requestNodeInCRQ_ = orderBook->requestQueue_.insertNode();
-    std::unique_lock<std::mutex> statusLock(requestNodeInCRQ_->statusMutex_);
-    requestNodeInCRQ_->statusConditionVariable_.wait(statusLock, [this](){
+    std::unique_lock<std::mutex> statusLock{ requestNodeInCRQ_->statusMutex_ };
+    requestNodeInCRQ_->statusConditionVariable_.wait( statusLock, [this]() {
         return requestNodeInCRQ_->status_ == PROCESSING_ALLOWED || requestNodeInCRQ_->status_ == CANCELLED;
-        });
+        } );
 
     // if destructor started, skip the processing and trigger FINISH process
     if(requestNodeInCRQ_->status_!= CANCELLED) {
@@ -127,9 +125,9 @@ handleValidRequest(OrderBook* orderBook) {
     if(orderPtr) { // in case already deleted by a trade, no need to delete
         orderBook->deletion(orderPtr, COMMUNICATED);
     }
-    responseParameters_.set_info( std::move(std::to_string( requestParameters_.info() ) ) );
-    responseParameters_.set_validation(     true);
-    responseParameters_.set_product(        orderBook->getterProductID()); // productID is returned as a ref and copied in set_product
+    responseParameters_.set_info( std::move( std::to_string( requestParameters_.info() ) ) );
+    responseParameters_.set_validation(      true);
+    responseParameters_.set_product(         orderBook->getterProductID()); // productID is returned as a ref and copied in set_product
 }
 
 template<>
@@ -142,7 +140,8 @@ handleValidRequest(OrderBook* orderBook) {
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
-                              static_cast<orderType>( requestParameters_.botype() ) );
+                              static_cast<orderType>( requestParameters_.botype() )
+                              );
 
     responseParameters_.set_validation( orderBook->insertion(newOrder, COMMUNICATED));
     responseParameters_.set_info(       std::move( std::to_string( requestParameters_.info())));
@@ -160,37 +159,38 @@ handleValidRequest(OrderBook* orderBook) {
 template<>
 void RequestHandler<marketAccess::UpdateParameters, marketAccess::UpdateConfirmation>::
 handleValidRequest(OrderBook* orderBook) {
-    responseParameters_.set_info(   std::move( std::to_string( requestParameters_.info())));
-    responseParameters_.set_product(orderBook->getterProductID()); // productID is returned as a ref and copied in set_product
+    responseParameters_.set_info( std::move( std::to_string( requestParameters_.info() )));
+    responseParameters_.set_product( orderBook->getterProductID() ); // productID is returned as a ref and copied in set_product
 
-    auto newOrder = new Order(static_cast<orderDirection>(requestParameters_.buyorsell()),
+    auto newOrder = new Order(static_cast<orderDirection>( requestParameters_.buyorsell() ),
                               requestParameters_.userid(), // cannot be moved because type is const string &
                               requestParameters_.boid(), // removed : generating a new ID on updates
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
                               static_cast<orderType>( requestParameters_.botype() ),
-                              requestParameters_.version());
+                              requestParameters_.version()
+                              );
 
-    auto updatedOrder = orderBook->getterPointerToOrderFromID(requestParameters_.boid());
-    responseParameters_.set_validation(updatedOrder && orderBook->update(updatedOrder, newOrder));
+    auto updatedOrder = orderBook->getterPointerToOrderFromID( requestParameters_.boid() );
+    responseParameters_.set_validation( updatedOrder && orderBook->update( updatedOrder, newOrder ) );
 
-    if(responseParameters_.validation()) {
-        responseParameters_.set_boid(   newOrder->getterBoID());
-        responseParameters_.set_version(newOrder->getterVersion());
-        responseParameters_.set_volume( newOrder->getterVolume());
-        responseParameters_.set_price(  newOrder->getterPrice());
-    }else if(updatedOrder){ // case: update has older version than current one
-        responseParameters_.set_boid(   updatedOrder->getterBoID());
-        responseParameters_.set_version(updatedOrder->getterVersion());
-        responseParameters_.set_volume( updatedOrder->getterVolume());
-        responseParameters_.set_price(  updatedOrder->getterPrice());
+    if( responseParameters_.validation() ) {
+        responseParameters_.set_boid(       newOrder->getterBoID());
+        responseParameters_.set_version(    newOrder->getterVersion());
+        responseParameters_.set_volume(     newOrder->getterVolume());
+        responseParameters_.set_price(      newOrder->getterPrice());
+    }else if( updatedOrder ){ // case: update has older version than current one
+        responseParameters_.set_boid(       updatedOrder->getterBoID());
+        responseParameters_.set_version(    updatedOrder->getterVersion());
+        responseParameters_.set_volume(     updatedOrder->getterVolume());
+        responseParameters_.set_price(      updatedOrder->getterPrice());
         delete newOrder;
     }else{ // case: updated Order has been deleted already by a trade
-        responseParameters_.set_boid(   newOrder->getterBoID());
-        responseParameters_.set_version(newOrder->getterVersion());
-        responseParameters_.set_volume( 0);
-        responseParameters_.set_price(  newOrder->getterPrice());
+        responseParameters_.set_boid(       newOrder->getterBoID());
+        responseParameters_.set_version(    newOrder->getterVersion());
+        responseParameters_.set_volume(     0);
+        responseParameters_.set_price(      newOrder->getterPrice());
         delete newOrder;
     }
 }

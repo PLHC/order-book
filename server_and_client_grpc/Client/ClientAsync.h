@@ -15,16 +15,16 @@
 
 class ClientAsync {
     // ClientAsync internal request ID
-    std::mutex internalIdLock_;
-    int64_t clientInternalId_;
-    // Thread for processing the completion queue
-    std::thread cq_thread_;
+    std::mutex internalIdLock_{};
+    int64_t clientInternalId_{0};
     // Flag to indicate if the client is shutting down
-    std::atomic<bool> is_shutting_down_;
-
-    boost::asio::io_context io_context_;
-    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard_;
-    std::vector<std::thread> threadPool_;
+    std::atomic<bool> is_shutting_down_{ false };
+    // boost threadpool
+    boost::asio::io_context io_context_{};
+    boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard_{ io_context_.get_executor() };
+    std::vector<std::thread> threadPool_{};
+    // Thread processing the completion queue
+    std::thread cq_thread_;
 
 protected:
     // Stub for the Communication
@@ -37,27 +37,27 @@ public:
     ~ClientAsync();
 
     // Methods to generate async communication
-    void generateDisplayRequestAsync(std::string&& orderBookName,
+    void generateDisplayRequestAsync(const std::string& orderBookName,
                                      uint32_t nbOfOrdersToDisplay);
 
-    void generateInsertionRequestAsync(std::string&& orderBookName,
+    void generateInsertionRequestAsync(const std::string& orderBookName,
                                        std::string userID,
                                        double price,
                                        double volume,
                                        orderDirection buyOrSell,
                                        orderType boType);
 
-    void generateUpdateRequestAsync(std::string&& orderBookName,
+    void generateUpdateRequestAsync(const std::string& orderBookName,
                                     std::string userID,
-                                    uint64_t updatedBO,
+                                    int64_t updatedBO,
                                     double price,
                                     double volume,
                                     orderDirection buyOrSell,
                                     orderType boType);
 
-    void generateDeleteRequestAsync(std::string&& orderBookName,
+    void generateDeleteRequestAsync(const std::string& orderBookName,
                                     std::string userID,
-                                    uint64_t deletedID);
+                                    int64_t deletedID);
 
 
 protected:

@@ -3,18 +3,28 @@
 
 #include "order/Order.h"
 
-// move constructor and assignment deleted by creation of user-defined destructor
 
-// copy constructor and assignment deleted as not used and as they required copying dynamically allocated Orders
 class OrderLinkedList {
 private:
     Order* dummyTail_;
-    Order* head_;
+    Order* head_{ dummyTail_ };
 
 public:
-    explicit OrderLinkedList(orderDirection bidsOrOffers);
-    ~OrderLinkedList();
+    explicit OrderLinkedList(orderDirection bidsOrOffers): dummyTail_(new Order(bidsOrOffers)) {}
 
+    ~OrderLinkedList(){
+        std::cout<<"OrderLinkedList destructor begins"<<std::endl;
+        auto next_to_be_deleted = dummyTail_;
+        while(next_to_be_deleted){
+            dummyTail_ = next_to_be_deleted->getterNextBO();
+            delete next_to_be_deleted;
+            next_to_be_deleted = dummyTail_;
+        }
+        std::cout<<"OrderLinkedList destructor ends"<<std::endl;
+    }
+    // move constructor and assignment operator deleted by creation of user-defined destructor
+    // copy constructor and assignment operator deleted because not used and
+    // because they required copying dynamically allocated Orders
     OrderLinkedList(const OrderLinkedList& other) = delete;
     OrderLinkedList& operator=(const OrderLinkedList& other) = delete;
 

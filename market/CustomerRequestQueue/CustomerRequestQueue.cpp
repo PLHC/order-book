@@ -2,9 +2,9 @@
 #include <iostream>
 
 CustomerRequestQueue::CustomerRequestQueue()
-    : dummyTail_(std::make_shared<RequestNode>())
-    , dummyHead_(std::make_shared<RequestNode>())
-    , prevLock_(dummyHead_->prevMutex_)
+    : dummyTail_{ std::make_shared<RequestNode>() }
+    , dummyHead_{ std::make_shared<RequestNode>() }
+    , prevLock_{ dummyHead_->prevMutex_ }
 {
     dummyTail_->next_ = dummyHead_;
     dummyHead_->prev_ = dummyTail_;

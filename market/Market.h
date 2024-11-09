@@ -21,13 +21,13 @@ struct StringHash{
 
 class Market {
 private:
-    std::mutex orderbookMapMtx_;
-    GeneratorId* genId_;
+    std::mutex orderbookMapMtx_{};
+    GeneratorId* genId_{ GeneratorId::getInstance() };
 
 public:
-    std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> productToOrderBookMap_;
+    std::unordered_map<std::string, OrderBook*, StringHash, std::equal_to<>> productToOrderBookMap_{};
 
-    Market(): genId_(GeneratorId::getInstance()), productToOrderBookMap_(){}
+    Market() = default;
     ~Market();
 
     Market(const Market& other) = delete;
