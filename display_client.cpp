@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 
     std::signal(SIGINT, signalHandler);
 
-    constexpr uint32_t nbOfThreadsInThreadPool {1}; // 1 thread enough to process the display requests
+    constexpr uint32_t nbOfThreadsInThreadPool {1}; // 1 thread is enough to process the display requests
 
     marketDisplay = new DisplayClient(grpc::CreateChannel("localhost:50051", grpc::InsecureChannelCredentials() ),
                                       argv[1],

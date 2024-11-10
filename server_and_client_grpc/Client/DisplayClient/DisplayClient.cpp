@@ -12,7 +12,7 @@ DisplayClient::DisplayClient(const std::shared_ptr<grpc::Channel> &channel,
     for( const auto & tradedProduct : tradedProducts ){
         tradedProductsToOrderbookContentMap_[tradedProduct] = nullptr;
     }
-    std::this_thread::sleep_for( std::chrono::milliseconds(500) );
+    std::this_thread::sleep_for( std::chrono::milliseconds(1000) );
     process();
 }
 
@@ -46,14 +46,14 @@ void DisplayClient::process() {
 }
 
 void DisplayClient::handleResponse(marketAccess::OrderBookContent *responseParams){
-    if( !( responseParams->validation())) {
+    if( !( responseParams->validation() ) ) {
         return;
     }
     std::unique_lock mapLock{ mapMtx_ };
     delete tradedProductsToOrderbookContentMap_[responseParams->product()];
-    // release_orderbook() assigns the string to a new pointer and returns that pointer
-    // and an empty string is built in orderbook in responseParams
-    // the new owner is the hash map
+    // release_orderbook() assigns the string to a new pointer and returns that pointer.
+    // An empty string is built in orderbook in responseParams.
+    // The new owner is the hash map.
     tradedProductsToOrderbookContentMap_[responseParams->product()] = responseParams->release_orderbook();
 
     mapLock.unlock();

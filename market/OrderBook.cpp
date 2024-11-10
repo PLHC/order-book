@@ -17,8 +17,6 @@ OrderBook::~OrderBook() {
     if(processingThread_.joinable()){
         processingThread_.join();
     }
-
-    delete db_;
     std::cout<<"OB destructor ends"<<std::endl;
 }
 

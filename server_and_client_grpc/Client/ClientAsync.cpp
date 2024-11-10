@@ -36,7 +36,7 @@ ClientAsync::ClientAsync(const std::shared_ptr<Channel>& channel, const uint32_t
         threadPool_.emplace_back([this]() {io_context_.run();});
     }
 
-    // creating the completion queue thread before the threadpool generates bugs at start-up
+    // creating the completion queue thread before the threadpool would generate bugs at start-up
     cq_thread_ = std::thread(&ClientAsync::AsyncCompleteRpc, this);
 }
 
@@ -78,9 +78,10 @@ void ClientAsync::AsyncCompleteRpc() {
             auto* rpcData = static_cast<RequestDataBase*>(tag);
             if (ok) {
                 io_context_.post([rpcData]() {
-                    rpcData->process();
-                    delete rpcData;
-                });
+                                                rpcData->process();
+                                                delete rpcData;
+                                            }
+                                );
             } else {
                 throw std::logic_error("RPC error");
             }

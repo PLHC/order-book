@@ -54,7 +54,6 @@ std::optional<T> LockFreeQueue<T>::pop(){
     return data;
 }
 
-
 template<typename T>
 void LockFreeQueue<T>::push(const T &data) {
     auto insertedNode { new Node(data) };

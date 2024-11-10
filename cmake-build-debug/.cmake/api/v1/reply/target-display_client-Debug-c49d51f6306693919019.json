@@ -38,13 +38,13 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 91,
+				"line" : 92,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 102,
+				"line" : 103,
 				"parent" : 0
 			},
 			{
@@ -427,7 +427,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-O3 -DNDEBUG -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics"
+					"fragment" : "-g -std=gnu++20 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX15.1.sdk -fcolor-diagnostics"
 				}
 			],
 			"defines" : 
@@ -441,11 +441,11 @@
 			[
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-release/proto"
+					"path" : "/Users/paul/CLionProjects/OrderBook/order-book/cmake-build-debug/proto"
 				},
 				{
 					"backtrace" : 67,
@@ -513,7 +513,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-O3 -DNDEBUG",
+				"fragment" : "-g",
 				"role" : "flags"
 			},
 			{

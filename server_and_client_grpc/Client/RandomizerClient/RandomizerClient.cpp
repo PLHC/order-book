@@ -129,7 +129,6 @@ void RandomizerClient::handleResponse(const marketAccess::UpdateConfirmation *re
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
     if(!orderbook) return;
-
     // update order (delete if volume=0 is tested in UpdateOrder)
     orderbook->updateOrder(responseParams->info(),
                            responseParams->boid(),
@@ -145,7 +144,6 @@ void RandomizerClient::handleResponse(const marketAccess::DeletionConfirmation *
     auto orderbook = getterSharedPointerToOrderbook(responseParams->product());
 
     if(!orderbook) return;
-
     orderbook->deleteOrder(responseParams->info());
 }
 

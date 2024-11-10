@@ -25,11 +25,11 @@ target_link_libraries(myproto
         gRPC::grpc++
         OpenSSL::SSL
         OpenSSL::Crypto
-
 )
 target_include_directories(myproto PUBLIC
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/proto)
+        ${CMAKE_CURRENT_BINARY_DIR}/proto
+)
 
 # Compile protobuf and grpc files in myproto target to cpp
 get_target_property(grpc_cpp_plugin_location gRPC::grpc_cpp_plugin LOCATION)
@@ -40,13 +40,15 @@ protobuf_generate(TARGET myproto LANGUAGE grpc GENERATE_EXTENSIONS .grpc.pb.h .g
 file(GLOB MARKET_FILES "${CMAKE_SOURCE_DIR}/market/*")
 file(GLOB ORDER_FILES "${CMAKE_SOURCE_DIR}/market/order/*")
 file(GLOB CRQUEUE_FILES "${CMAKE_SOURCE_DIR}/market/CustomerRequestQueue/*")
-file(GLOB DATABASE "${CMAKE_SOURCE_DIR}/database/*")
 
 # server and clients
 file(GLOB SERVICE_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Service/*")
 file(GLOB CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/*")
 file(GLOB RANDOM_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/RandomizerClient/*")
 file(GLOB DISPLAY_CLIENT_FILES "${CMAKE_SOURCE_DIR}/server_and_client_grpc/Client/DisplayClient/*")
+
+# database interface
+file(GLOB DATABASE "${CMAKE_SOURCE_DIR}/database/*")
 file(GLOB LFQ_FILES "${CMAKE_SOURCE_DIR}/lock_free_queue/*")
 
 # Add executable and link libraries
@@ -61,9 +63,8 @@ add_executable(trading_platform
         ${LFQ_FILES}
 )
 
-# Link executable with myproto, PRIVATE because OrderBook is not linked afterwards
-target_link_libraries(trading_platform
-        PUBLIC
+# Link executable, PRIVATE because trading_platform is not linked afterwards
+target_link_libraries(trading_platform PRIVATE
         myproto
         mongo::mongocxx_shared
         mongo::bsoncxx_shared
@@ -81,7 +82,7 @@ add_executable(random_order_generator_client
         ${DATABASE}
         ${LFQ_FILES}
 )
-target_link_libraries(random_order_generator_client
+target_link_libraries(random_order_generator_client PRIVATE
         myproto
         mongo::mongocxx_shared
         mongo::bsoncxx_shared
@@ -99,12 +100,14 @@ add_executable(display_client
         ${DATABASE}
         ${LFQ_FILES}
 )
-target_link_libraries(display_client
+target_link_libraries(display_client PRIVATE
         myproto
         mongo::mongocxx_shared
         mongo::bsoncxx_shared
 )
 
-add_custom_target(build_all
-        DEPENDS trading_platform random_order_generator_client display_client
+add_custom_target(build_all DEPENDS
+        trading_platform
+        random_order_generator_client
+        display_client
 )

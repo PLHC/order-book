@@ -1,5 +1,6 @@
 #include <iostream>
 #include <csignal>
+#include <chrono>
 
 #include "server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h"
 
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
 
     constexpr uint32_t nbOfOrdersOnEachSIde {500};
     constexpr uint32_t spread {9};
-    constexpr uint32_t nbOfThreadsInThreadPool {3}; // 2 threads enough for sending 3 random requests every 1ms
+    constexpr uint32_t nbOfThreadsInThreadPool {2}; // 2 threads enough for sending 3 random requests every 200us
 
     RandomizerClient randomClient(grpc::CreateChannel("localhost:50051",
                                                       grpc::InsecureChannelCredentials() ),
@@ -44,11 +45,13 @@ int main(int argc, char** argv) {
                                   tradedProducts,
                                   nbOfThreadsInThreadPool); // 2 threads enough for sending 3 random requests every 1ms
 
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000)); // wait before starting
+
     while(!stopFlag.load()) {
-        // followed by a sleep_for of 1ms, randomlyInsertOrUpdateOrDelete on 3 OBs was clocked between 100 and 700us
+        // Release: randomlyInsertOrUpdateOrDelete on 3 OBs was clocked between 15 and 250us and mostly below 100us
         randomClient.randomlyInsertOrUpdateOrDelete();
-        std::this_thread::sleep_for(std::chrono::microseconds (100));
+        std::this_thread::sleep_for(std::chrono::microseconds (100)); // adding 100us, makes the loop lasting on average 200us
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(1));
