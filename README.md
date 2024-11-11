@@ -38,7 +38,7 @@ consists of two [OrderLinkedList](market/OrderLinkedList.h) objects, which are l
 [Order](market/order/Order.h) objects. The system can be seen as a reverse pyramid in which the higher-level modules do
 not depend on lower-level modules, thus it follows the **Dependency Inversion Principle** (**SOLID** principles).
 
-pyramid graph
+![Pyramid structure](images/Market_OOP_pyramid_structure_small.png)
 
 Moreover, the concerns are clearly separated between the classes, e.g., Market dispatches the trader
 request to the Orderbook, which handles its execution.
@@ -65,8 +65,9 @@ purpose, [GeneratorID](market/GeneratorId.h) implementation follows the **Single
 
 To separate the market provider from the traders, communication is built using the gRPC framework. It encapsulates methods
 to communicate between processes. The service and the message structures are defined in
-the [proto file](proto/MarketAccess.proto). The service offers four kinds of possible requests: insertion, deletion,
-update, and display. The traders use the first three to interact with their orders in the market, the latter one
+the [proto file](proto/MarketAccess.proto)and offer four kinds of requests: insertion, deletion,
+update, and display.
+The traders use the first three to interact with their orders in the market, whereas the latter one
 returns the orderbook content as a string.
 
 ## Multi-threading on the Server side
@@ -131,7 +132,7 @@ A [Randomizer Client](server_and_client_grpc/Client/RandomizerClient/RandomizerC
 activity of the multiple traders on the market. It creates and maintains around 1000 orders in each orderbook by sending
 one update/deletion/insertion request per orderbook every 200µs, resulting in 15,000 requests per second.
 A [Display Client](server_and_client_grpc/Client/DisplayClient/DisplayClient.h) process is used to display the state of
-the market, requesting a view update of the different orderbooks 20 times a second. Finally, database insertions cost
+the market in the terminal, requesting a view update of the different orderbooks 20 times a second. Finally, database insertions cost
 per client request has been measured between 7 and 15µs.
 
 ## Optimization
@@ -153,7 +154,7 @@ Testing multiple sizes of bulks, this number has been divided by 20 by creating 
 
 **Using ordered map instead of linked lists:** the time complexity to insert an order in the orderbook is O(number of 
 orders in Orderbook). By using a Map and a Linked List for each price in the Map, the performance would be improved as 
-finding a price woudl then be logarithmic. Nevertheless the worst case being with all the orders at the same price, the 
+finding a price would become logarithmic. Nevertheless, the worst case being with all the orders at the same price, the 
 time complexity is still O(number of orders in Orderbook).
  
 
