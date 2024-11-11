@@ -85,7 +85,7 @@ For this purpose each RequestNode includes a status variable and a pair of mutex
 to build the mechanisms of communication between the request thread and the unique queue thread running the 
 _runNextRequest_ function.
 
-![Customer Request Queue](images/Customer Request Queue.png "Customer Request Queue")
+![Customer Request Queue](images/Customer_Request_Queue.png "Customer Request Queue")
 
 ## Multi-threading on the Client side
 
