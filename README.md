@@ -38,7 +38,7 @@ consists of two [OrderLinkedList](market/OrderLinkedList.h) objects, which are l
 [Order](market/order/Order.h) objects. The system can be seen as a reverse pyramid in which the higher-level modules do
 not depend on lower-level modules, thus it follows the **Dependency Inversion Principle** (**SOLID** principles).
 
-![Pyramid structure](images/Market_OOP_pyramid_structure_small.png)
+![Pyramid structure](images/Market_OOP_pyramid_structure.png)
 
 Moreover, the concerns are clearly separated between the classes, e.g., Market dispatches the trader
 request to the Orderbook, which handles its execution.
