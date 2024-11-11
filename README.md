@@ -1,5 +1,3 @@
-![Display](images/main_screenshot_with_one_product.png)
-
 <!-- TOC -->
 * [Introduction](#introduction)
 * [Market](#market)
@@ -80,12 +78,14 @@ run in a separate thread. This allows asynchronous handling of requests on the s
 sections, to respect synchronous ordering of
 requests from a single orderbook point of view, each RequestHandler thread registers to the orderbook by pushing
 a [RequestNode](market/CustomerRequestQueue/RequestNode.h)
-in the orderbook's [Customer Request Queue](market/CustomerRequestQueue/CustomerRequestQueue.h). The thread then waits
+in the orderbook's [Customer Request Queue](market/CustomerRequestQueue/CustomerRequestQueue.h)(see picture below). The thread then waits
 for its turn to process by waiting for a signal from the _runNextRequest_ function in the Customer Request
 Queue that allows idle requests to execute by order of arrival.
 For this purpose each RequestNode includes a status variable and a pair of mutex and condition variable
 to build the mechanisms of communication between the request thread and the unique queue thread running the 
 _runNextRequest_ function.
+
+![Customer Request Queue](images/Customer Request Queue.png "Customer Request Queue")
 
 ## Multi-threading on the Client side
 
@@ -132,8 +132,10 @@ A [Randomizer Client](server_and_client_grpc/Client/RandomizerClient/RandomizerC
 activity of the multiple traders on the market. It creates and maintains around 1000 orders in each orderbook by sending
 one update/deletion/insertion request per orderbook every 200µs, resulting in 15,000 requests per second.
 A [Display Client](server_and_client_grpc/Client/DisplayClient/DisplayClient.h) process is used to display the state of
-the market in the terminal, requesting a view update of the different orderbooks 20 times a second. Finally, database insertions cost
+the market in the terminal (see picture below), requesting a view update of the different orderbooks 20 times a second. Finally, database insertions cost
 per client request has been measured between 7 and 15µs.
+
+![Display](images/main_screenshot_with_one_product.png "Reverse pyramid market structure")
 
 ## Optimization
 
