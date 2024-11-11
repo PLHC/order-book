@@ -1,6 +1,8 @@
-# order-book
+# Orderbook Project
 
-![Display](images/main_screenshot.png)
+<div style="text-align: center;">
+  <img src="images/main_screenshot_with_one_product.png" alt="Centered Image">
+</div>
 
 This project implements and simulates a trading platform service enabling traders to send and interact with orders. 
 The purpose of this project is to demonstrate the knowledge I acquired in the field of computer science and more particularly
