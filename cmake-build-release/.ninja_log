@@ -63,3 +63,10 @@
 1180	2422	1731309223066496265	trading_platform	9fa5f9b19b811a3
 30	2895	1731309221916587792	CMakeFiles/random_order_generator_client.dir/random_order_generator_client.cpp.o	df951083df3c5d10
 2895	2953	1731309224781002701	random_order_generator_client	cc9646584ad29194
+27	1488	1731314398492204662	CMakeFiles/trading_platform.dir/database/DatabaseInterface.cpp.o	c93b6065b0ddf7b4
+28	1490	1731314398493676915	CMakeFiles/random_order_generator_client.dir/database/DatabaseInterface.cpp.o	4a74f5406cae7dd2
+29	1492	1731314398494191526	CMakeFiles/display_client.dir/database/DatabaseInterface.cpp.o	19ecde0e3093bcff
+1489	1648	1731314399953995750	trading_platform	9fa5f9b19b811a3
+1492	1648	1731314399956986670	display_client	e4e3e3c947221a56
+28	3493	1731314398493092180	CMakeFiles/random_order_generator_client.dir/random_order_generator_client.cpp.o	df951083df3c5d10
+3493	3554	1731314401958132735	random_order_generator_client	cc9646584ad29194

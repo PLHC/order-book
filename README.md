@@ -1,4 +1,7 @@
 # order-book
+
+![Display](images/main_screenshot.png)
+
 This project implements and simulates a trading platform service enabling traders to send and interact with orders. 
 The purpose of this project is to demonstrate the knowledge I acquired in the field of computer science and more particularly
 about C++, concurrency, and multi-threading.
