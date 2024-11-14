@@ -78,7 +78,7 @@ run in a separate thread. This allows asynchronous handling of requests on the s
 sections, to respect synchronous ordering of
 requests from a single orderbook point of view, each RequestHandler thread registers to the orderbook by pushing
 a [RequestNode](market/CustomerRequestQueue/RequestNode.h)
-in the orderbook's [Customer Request Queue](market/CustomerRequestQueue/CustomerRequestQueue.h)(see picture below). The thread then waits
+in the orderbook's [Customer Request Queue](market/CustomerRequestQueue/CustomerRequestQueue.h) (see picture below). The thread then waits
 for its turn to process by waiting for a signal from the _runNextRequest_ function in the Customer Request
 Queue that allows idle requests to execute by order of arrival.
 For this purpose each RequestNode includes a status variable and a pair of mutex and condition variable
@@ -90,7 +90,7 @@ _runNextRequest_ function.
 ## Multi-threading on the Client side
 
 As the Client received answers for its requests, it needs to update its view on orders. This is implemented by the specialized 
- _handleResponse_ functions in the pure virtual [ClientAsync](server_and_client_grpc/Client/ClientAsync.h) class and 
+ _handleResponse_ functions in the abstract [ClientAsync](server_and_client_grpc/Client/ClientAsync.h) class and 
 override in the derived classes [Randomizer Client](server_and_client_grpc/Client/RandomizerClient/RandomizerClient.h) 
 and [Display Client](server_and_client_grpc/Client/DisplayClient/DisplayClient.h) to fill the different needs.
 ClientAsync includes a _Boost_ threadpool to process the responses asynchronously.
@@ -148,11 +148,15 @@ Testing multiple sizes of bulks, this number has been divided by 20 by creating 
 
 # Further development
 
-**Communicating deals to concerned clients:** currently RandomizerClient updates its view on trades by getting its new request rejected when they versioned older than the current state of the order. The market should notify the concerned traders of a deal.
+**Communicating deals to concerned clients:** currently RandomizerClient updates its view on trades by getting its new 
+request rejected when they versioned older than the current state of the order. The market should notify the concerned 
+traders of a deal.
 
-**Streaming tick data:** similarly, all the action happening on the market should be streamed to enable client to build bots.
+**Streaming tick data:** similarly, all the action happening on the market should be streamed to enable clients to build 
+bots.
 
-**Implementing market makers bots from the tick data:** in the current simulation only one client is connected, more should be added and with more advanced behaviors.
+**Implementing market makers bots from the tick data:** in the current simulation only one client is connected, more 
+should be added and with automated behaviors, e.g., Market makers.
 
 **Using ordered map instead of linked lists:** the time complexity to insert an order in the orderbook is O(number of 
 orders in Orderbook). By using a Map and a Linked List for each price in the Map, the performance would be improved as 
