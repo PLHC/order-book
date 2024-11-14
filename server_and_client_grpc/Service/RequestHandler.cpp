@@ -58,7 +58,7 @@ void RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
             generateNewRequestHandler();
         }
         // Inspect metadata to decide on dispatch,
-        // corrupted separations of metadata requires resizing based on size when using string_view
+        // corrupted separation of metadata requires resizing based on size when using string_view
         static const auto productID = grpc::string_ref("product_id"); // because string_ref does not have a constexpr constructor
         auto productIter = ctx_.client_metadata().find(productID);
         std::string_view orderBookName {productIter->second.data(), productIter->second.length()};
@@ -68,7 +68,7 @@ void RequestHandler<RequestParametersType, ResponseParametersType>::proceed() {
             handleProductError();
         }
 
-        if(!orderBookName.empty()) { // problem with empty requests waiting for new requests, when shutting down server
+        if(!orderBookName.empty()) { // problem with empty requests waiting for new requests, when shutting down the server
             responder_.Finish(responseParameters_, grpc::Status::OK, this);
         }
 
@@ -164,7 +164,7 @@ handleValidRequest(OrderBook* orderBook) {
 
     auto newOrder = new Order(static_cast<orderDirection>( requestParameters_.buyorsell() ),
                               requestParameters_.userid(), // cannot be moved because type is const string &
-                              requestParameters_.boid(), // removed : generating a new ID on updates
+                              requestParameters_.boid(), // removed: generating a new ID on updates
                               requestParameters_.price(),
                               requestParameters_.volume(),
                               orderBook->getterProductID(), // productID is returned as a ref and copied in Order definition
