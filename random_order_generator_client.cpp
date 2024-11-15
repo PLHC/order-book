@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     while(!stopFlag.load()) {
         // Release: randomlyInsertOrUpdateOrDelete on 3 OBs was clocked between 15 and 250µs and mostly below 100µs
         randomClient.randomlyInsertOrUpdateOrDelete();
-        std::this_thread::sleep_for(std::chrono::microseconds (100)); // adding 100µs, makes the loop lasting on average 200µs
+        std::this_thread::sleep_for(std::chrono::microseconds (100)); // adding 100µs makes the loop lasting on average 200µs
     }
 
     std::this_thread::sleep_for(std::chrono::seconds(1));

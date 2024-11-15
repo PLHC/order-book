@@ -18,7 +18,7 @@
   * [Communicating deals to concerned clients](#communicating-deals-to-concerned-clients)
   * [Streaming tick data (L3 Market data)](#streaming-tick-data-l3-market-data)
   * [Implementing market maker bots](#implementing-market-maker-bots)
-  * [Improving time complexity with Ordered Maps instead of Linked Lists](#improving-time-complexity-with-ordered-maps-instead-of-linked-lists)
+  * [Improving time complexity with ordered maps instead of linked lists](#improving-time-complexity-with-ordered-maps-instead-of-linked-lists)
 <!-- TOC -->
 
 # Introduction
@@ -165,7 +165,7 @@ Currently, only one client is connected to the market in the simulation.
 Future developments should involve adding more clients with automated behaviors, 
 such as market-making bots that continuously quote buy and sell prices.
 
-## Improving time complexity with Ordered Maps instead of Linked Lists
+## Improving time complexity with ordered maps instead of linked lists
 The time complexity for inserting an order in the orderbook is currently O(n), 
 where n is the number of orders in the orderbook. 
 By using a map and a linked list for each price in the map, 

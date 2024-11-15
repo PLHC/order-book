@@ -57,5 +57,4 @@ protected:
     grpc::ServerAsyncResponseWriter<ResponseParametersType> responder_;
 };
 
-
 #endif //ORDERBOOK_REQUESTHANDLER_H
