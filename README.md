@@ -112,7 +112,7 @@ NoSQL, as I had already implemented an SQL-based solution in my
 ## Indexes
 Two indexes are used in the database design:
 - **Order ID Index**: Sorted by Order ID, this index allows the system to extract the maximum ID during the 
-- initialization of the [GeneratorID](market/GeneratorId.h).
+initialization of the [GeneratorID](market/GeneratorId.h).
 - **Trades Date Index**: Sorted by trade date, this index facilitates reconciliation tasks.
 
 ## Interface using a lock-free queue
