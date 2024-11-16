@@ -1,5 +1,5 @@
 <!-- TOC -->
-* [Introduction](#introduction)
+* [Introduction and YouTube demo](#introduction-and-youtube-demo)
 * [Market](#market)
   * [OOP Structure](#oop-structure)
   * [Asynchronous operation](#asynchronous-operation)
@@ -21,7 +21,7 @@
   * [Improving time complexity with ordered maps instead of linked lists](#improving-time-complexity-with-ordered-maps-instead-of-linked-lists)
 <!-- TOC -->
 
-# Introduction
+# Introduction and YouTube demo
 This project simulates a trading platform service that enables traders to submit and interact with orders. The goal of 
 the project is to showcase my knowledge in computer science, with a particular focus on C++, concurrency, and 
 multi-threading. The development of this project spanned several months, during which I was concurrently studying these 
@@ -30,6 +30,8 @@ For example, the market structure, developed early on, uses raw pointers along w
 and relies on locking mechanisms for concurrency.
 In contrast, the more recent features employ smart pointers and incorporate a 
 [templated lock-free queue](lock_free_queue/LockFreeQueue.h) for more efficient, lock-free operations.
+
+[YouTube demo](https://youtu.be/rzgnJT7j5U4)
 
 # Market
 ## OOP Structure
