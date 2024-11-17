@@ -144,7 +144,7 @@ Finally, database insertion time per client request has been measured between 7 
 
 ## Optimization
 To optimize performance, move semantics were applied extensively, particularly for string members within order data. 
-This increased the simulation’s processing capability from under 10,000 requests per second to approximately 30,000 
+This increased the simulation’s processing capability from under 10,000 requests per second to approximately 15,000 
 requests per second.
 
 The database insertion time for individual requests was initially measured at 200–300µs.
