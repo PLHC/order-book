@@ -41,9 +41,7 @@ objects.
 Each orderbook contains two [OrderLinkedList](market/OrderLinkedList.h) objects,
 which are linked lists of [Order](market/order/Order.h) objects. 
 
-This system forms a reverse pyramid, where
-higher-level modules do not depend on lower-level modules, thus adhering to the **Dependency Inversion Principle** 
-within the **SOLID** principles.
+This system forms a reverse pyramid, where higher-level modules do not depend on lower-level modules.
 
 ![Pyramid structure](images/Market_OOP_pyramid_structure.png)
 
